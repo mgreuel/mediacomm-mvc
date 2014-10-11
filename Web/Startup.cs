@@ -1,14 +1,17 @@
-﻿using Microsoft.Owin;
+﻿using MediaCommMvc.Web;
+
+using Microsoft.Owin;
+
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Web.Startup))]
-namespace Web
+[assembly: OwinStartup(typeof(Startup))]
+namespace MediaCommMvc.Web
 {
     public partial class Startup
     {
         public void Configuration(IAppBuilder app)
         {
-            ConfigureAuth(app);
+            this.ConfigureAuth(app);
         }
     }
 }
