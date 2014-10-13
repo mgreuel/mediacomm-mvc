@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 
+using PagedList;
+
 namespace MediaCommMvc.Web.ViewModels.Forum
 {
     public class ForumViewModel
     {
-        public IEnumerable<TopicOverviewViewModel> Topics { get; set; }
+        public IPagedList<TopicOverviewViewModel> Topics { get; set; }
     }
 }

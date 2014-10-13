@@ -7,12 +7,15 @@ using System.Web.Mvc;
 using MediaCommMvc.Web.Models.Forum;
 using MediaCommMvc.Web.ViewModels.Forum;
 
+using PagedList;
+
 namespace MediaCommMvc.Web.Controllers
 {
     public partial class ForumController : Controller
     {
-        // GET: Forums
-        public virtual ActionResult Index()
+        private const int TopicsPerPage = 15;
+
+        public virtual ActionResult Index(int page)
         {
             List<TopicOverviewViewModel> topics = new List<TopicOverviewViewModel>();
 
@@ -32,7 +35,7 @@ namespace MediaCommMvc.Web.Controllers
                         });
             }
 
-            ForumViewModel viewModel = new ForumViewModel { Topics = topics };
+            ForumViewModel viewModel = new ForumViewModel { Topics = topics.ToPagedList(page, TopicsPerPage) };
             return this.View(viewModel);
         }
 

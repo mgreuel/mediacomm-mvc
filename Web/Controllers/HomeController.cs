@@ -8,19 +8,5 @@ namespace MediaCommMvc.Web.Controllers
         {
             return this.View();
         }
-
-        public virtual ActionResult About()
-        {
-            this.ViewBag.Message = "Your application description page.";
-
-            return this.View();
-        }
-
-        public virtual ActionResult Contact()
-        {
-            this.ViewBag.Message = "Your contact page.";
-
-            return this.View();
-        }
     }
 }

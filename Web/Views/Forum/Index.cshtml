@@ -1,7 +1,39 @@
 ﻿@using MediaCommMvc.Web.ViewModels.Forum
+@using PagedList.Mvc
 @model ForumViewModel
 
-@Html.ActionLink(Resources.Forums.CreateTopic, MVC.Forum.CreateTopic(), new { id = "new-topic-button", @class = "btn btn-inverse" })
+
+
+@{
+    PagedListRenderOptions pagerRenderOptions = new PagedListRenderOptions
+                                                    {
+                                                        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+                                                        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+                                                        Display = PagedListDisplayMode.IfNeeded,
+                                                        DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+                                                        DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+                                                        LinkToFirstPageFormat = Resources.General.First,
+                                                        LinkToPreviousPageFormat = Resources.General.Previous,
+                                                        LinkToNextPageFormat = Resources.General.Next,
+                                                        LinkToLastPageFormat = Resources.General.Last,
+                                                        MaximumPageNumbersToDisplay = 10,
+                                                        UlElementClasses = new List<string> { "pagination", "pagination-sm" },
+                                                        DisplayEllipsesWhenNotShowingAllPageNumbers = true
+                                                    };
+}
+
+<div class="clearfix">
+
+    @Html.ActionLink(Resources.Forums.CreateTopic, MVC.Forum.CreateTopic(), new { id = "new-topic-button", @class = "btn btn-primary" })
+
+    <div class="pull-right">
+        @Html.PagedListPager(this.Model.Topics, pageNumber => this.Url.Action(MVC.Forum.Index().AddRouteValue("page", pageNumber)), pagerRenderOptions)
+    </div>
+
+</div>
+
+
+
 
 <div id="forum-topics-container">
     <table id="forum-topics" class="table table-striped">
@@ -18,7 +50,7 @@
             @foreach (TopicOverviewViewModel topic in Model.Topics)
             {
                 <tr>
-                    <td>
+                    <td class="topic-icon">
                         <i class="@Icons.TopicIconClass(topic)"></i>
                     </td>
                     <td class="topic-title">
