@@ -12,7 +12,7 @@ using Microsoft.Owin.Security;
 namespace MediaCommMvc.Web.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public partial class ManageController : Controller
     {
         private ApplicationUserManager userManager;
 
@@ -39,7 +39,7 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         // GET: /Manage/Index
-        public async Task<ActionResult> Index(ManageMessageId? message)
+        public virtual async Task<ActionResult> Index(ManageMessageId? message)
         {
             this.ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess
@@ -67,7 +67,7 @@ namespace MediaCommMvc.Web.Controllers
             return this.View(model);
         }
 
-        public ActionResult RemoveLogin()
+        public virtual ActionResult RemoveLogin()
         {
             var linkedAccounts = this.UserManager.GetLogins(this.User.Identity.GetUserId());
             this.ViewBag.ShowRemoveButton = this.HasPassword() || linkedAccounts.Count > 1;
@@ -76,7 +76,7 @@ namespace MediaCommMvc.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
+        public virtual async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
         {
             ManageMessageId? message;
             var result = await this.UserManager.RemoveLoginAsync(this.User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
@@ -98,14 +98,14 @@ namespace MediaCommMvc.Web.Controllers
             return this.RedirectToAction("ManageLogins", new { Message = message });
         }
 
-        public ActionResult AddPhoneNumber()
+        public virtual ActionResult AddPhoneNumber()
         {
             return this.View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
+        public virtual async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -128,7 +128,7 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> EnableTwoFactorAuthentication()
+        public virtual async Task<ActionResult> EnableTwoFactorAuthentication()
         {
             await this.UserManager.SetTwoFactorEnabledAsync(this.User.Identity.GetUserId(), true);
             var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
@@ -141,7 +141,7 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> DisableTwoFactorAuthentication()
+        public virtual async Task<ActionResult> DisableTwoFactorAuthentication()
         {
             await this.UserManager.SetTwoFactorEnabledAsync(this.User.Identity.GetUserId(), false);
             var user = await this.UserManager.FindByIdAsync(this.User.Identity.GetUserId());
@@ -153,7 +153,7 @@ namespace MediaCommMvc.Web.Controllers
             return this.RedirectToAction("Index", "Manage");
         }
 
-        public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
+        public virtual async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
             var code = await this.UserManager.GenerateChangePhoneNumberTokenAsync(this.User.Identity.GetUserId(), phoneNumber);
 
@@ -163,7 +163,7 @@ namespace MediaCommMvc.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
+        public virtual async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -187,7 +187,7 @@ namespace MediaCommMvc.Web.Controllers
             return this.View(model);
         }
 
-        public async Task<ActionResult> RemovePhoneNumber()
+        public virtual async Task<ActionResult> RemovePhoneNumber()
         {
             var result = await this.UserManager.SetPhoneNumberAsync(this.User.Identity.GetUserId(), null);
             if (!result.Succeeded)
@@ -204,14 +204,14 @@ namespace MediaCommMvc.Web.Controllers
             return this.RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
 
-        public ActionResult ChangePassword()
+        public virtual ActionResult ChangePassword()
         {
             return this.View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        public virtual async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -234,14 +234,14 @@ namespace MediaCommMvc.Web.Controllers
             return this.View(model);
         }
 
-        public ActionResult SetPassword()
+        public virtual ActionResult SetPassword()
         {
             return this.View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
+        public virtual async Task<ActionResult> SetPassword(SetPasswordViewModel model)
         {
             if (this.ModelState.IsValid)
             {
@@ -264,7 +264,7 @@ namespace MediaCommMvc.Web.Controllers
             return this.View(model);
         }
 
-        public async Task<ActionResult> ManageLogins(ManageMessageId? message)
+        public virtual async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             this.ViewBag.StatusMessage =
                 message == ManageMessageId.RemoveLoginSuccess
@@ -294,13 +294,13 @@ namespace MediaCommMvc.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LinkLogin(string provider)
+        public virtual ActionResult LinkLogin(string provider)
         {
             // Request a redirect to the external login provider to link a login for the current user
             return new AccountController.ChallengeResult(provider, this.Url.Action("LinkLoginCallback", "Manage"), this.User.Identity.GetUserId());
         }
 
-        public async Task<ActionResult> LinkLoginCallback()
+        public virtual async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await this.AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, this.User.Identity.GetUserId());
             if (loginInfo == null)

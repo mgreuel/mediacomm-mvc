@@ -12,7 +12,7 @@ using Microsoft.Owin.Security;
 namespace MediaCommMvc.Web.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public partial class AccountController : Controller
     {
         private ApplicationSignInManager signInManager;
 
@@ -55,7 +55,7 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public virtual ActionResult Login(string returnUrl)
         {
             this.ViewBag.ReturnUrl = returnUrl;
             return this.View();
@@ -64,7 +64,7 @@ namespace MediaCommMvc.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public virtual async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (!this.ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
+        public virtual async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
             // Require that the user has already logged in via username/password or external login
             if (!await this.SignInManager.HasBeenVerifiedAsync())
@@ -109,7 +109,7 @@ namespace MediaCommMvc.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
+        public virtual async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -137,7 +137,7 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult Register()
+        public virtual ActionResult Register()
         {
             return this.View();
         }
@@ -145,7 +145,7 @@ namespace MediaCommMvc.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public virtual async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (this.ModelState.IsValid)
             {
@@ -171,7 +171,7 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> ConfirmEmail(string userId, string code)
+        public virtual async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
             if (userId == null || code == null)
             {
@@ -183,7 +183,7 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult ForgotPassword()
+        public virtual ActionResult ForgotPassword()
         {
             return this.View();
         }
@@ -191,7 +191,7 @@ namespace MediaCommMvc.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public virtual async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (this.ModelState.IsValid)
             {
@@ -215,13 +215,13 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult ForgotPasswordConfirmation()
+        public virtual ActionResult ForgotPasswordConfirmation()
         {
             return this.View();
         }
 
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        public virtual ActionResult ResetPassword(string code)
         {
             return code == null ? this.View("Error") : this.View();
         }
@@ -229,7 +229,7 @@ namespace MediaCommMvc.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public virtual async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -254,7 +254,7 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult ResetPasswordConfirmation()
+        public virtual ActionResult ResetPasswordConfirmation()
         {
             return this.View();
         }
@@ -262,14 +262,14 @@ namespace MediaCommMvc.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
+        public virtual ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, this.Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
+        public virtual async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
             var userId = await this.SignInManager.GetVerifiedUserIdAsync();
             if (userId == null)
@@ -285,7 +285,7 @@ namespace MediaCommMvc.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendCode(SendCodeViewModel model)
+        public virtual async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -302,7 +302,7 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
+        public virtual async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
             var loginInfo = await this.AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
@@ -332,7 +332,7 @@ namespace MediaCommMvc.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
+        public virtual async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (this.User.Identity.IsAuthenticated)
             {
@@ -369,14 +369,14 @@ namespace MediaCommMvc.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        public virtual ActionResult LogOff()
         {
             this.AuthenticationManager.SignOut();
             return this.RedirectToAction("Index", "Home");
         }
 
         [AllowAnonymous]
-        public ActionResult ExternalLoginFailure()
+        public virtual ActionResult ExternalLoginFailure()
         {
             return this.View();
         }
