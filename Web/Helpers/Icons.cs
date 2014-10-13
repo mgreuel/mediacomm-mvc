@@ -9,15 +9,15 @@ namespace MediaCommMvc.Web.Helpers
         {
             if (!topic.ReadByCurrentUser)
             {
-                return "icon-eye-open";
+                return "glyphicon glyphicon-eye-open";
             }
 
             if (topic.DisplayPriority == TopicDisplayPriority.Sticky)
             {
-                return "icon-exclamation-sign";
+                return "glyphicon glyphicon-exclamation-sign";
             }
 
-            return "icon-eye-close";
+            return "glyphicon glyphicon-eye-close";
         }
     }
 }

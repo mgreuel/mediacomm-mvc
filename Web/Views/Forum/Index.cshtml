@@ -6,62 +6,47 @@
 <div id="forum-topics-container">
     <table id="forum-topics" class="table table-striped">
         <thead>
-            <tr class="navbar">
+            <tr>
                 <th></th>
                 <th>@Resources.Forums.Topic</th>
-                <th>
-                    @Resources.Forums.Author
-                </th>
-                <th class="topic-post-count">
-                    @Resources.Forums.Posts
-                </th>
-                <th>
-                    @Resources.Forums.LastPost
-                </th>
+                <th>@Resources.Forums.Author</th>
+                <th class="topic-post-count">@Resources.Forums.Posts</th>
+                <th>@Resources.Forums.LastPost</th>
             </tr>
         </thead>
         <tbody>
             @foreach (TopicOverviewViewModel topic in Model.Topics)
             {
                 <tr>
-                    <td class="icon">
+                    <td>
                         <i class="@Icons.TopicIconClass(topic)"></i>
-
                     </td>
                     <td class="topic-title">
                         <div>
-                            @Html.ActionLink(@topic.Title, MVC.Forum.Topic().AddRouteValues(new { id = topic.Id, name = UrlEncoder.ToFriendlyUrl(topic.Title) }))
-                        </div>
-                        @if (topic.ExcludedUsernames != null && topic.ExcludedUsernames.Any())
-                {
-                    <div class="topic-additional-info">
-                        @Resources.Forums.InvisibleFor @string.Join(", ", topic.ExcludedUsernames)
-                    </div>
-                }
+                            @Html.ActionLink(@topic.Title, MVC.Forum.Topic().AddRouteValues(new
+                       {
+                           id = topic.Id,
+                           name = UrlEncoder.ToFriendlyUrl(topic.Title)
+                       }))
+                        </div>@if
+                    (topic.ExcludedUsernames != null && topic.ExcludedUsernames.Any())
+                        {
+                            <div class="topic-additional-info">@Resources.Forums.InvisibleFor @string.Join(", ", topic.ExcludedUsernames)</div>}
                     </td>
                     <td class="topic-author">
                         @topic.CreatedBy
                     </td>
-                    <td class="topic-post-count">
-                        @topic.PostCount
-                    </td>
+                    <td class="topic-post-count">@topic.PostCount</td>
                     <td class="topic-last-post">
-                        <div>
-                            @topic.LastPostTime
-                        </div>
-                        <div>
-                            @topic.LastPostAuthor
-                        </div>
+                        <div>@topic.LastPostTime</div>
+                        <div>@topic.LastPostAuthor</div>
                     </td>
-                </tr>
-            }
+                </tr>}
         </tbody>
     </table>
 </div>
 <div class="pull-right forum-legend">
-    
-    <span>@Resources.Forums.NewPosts</span><i class="icon-eye-open"></i>
-    |
-    <span>@Resources.Forums.NoNewPosts</span><i class="icon-eye-close"></i> 
+    <span>@Resources.Forums.NewPosts</span><i class="glyphicon glyphicon-eye-open"></i>
+    | <span>@Resources.Forums.NoNewPosts</span>
+    <i class="glyphicon glyphicon-eye-close"></i>
 </div>
-
