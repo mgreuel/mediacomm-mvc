@@ -75,6 +75,12 @@ namespace MediaCommMvc.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPost);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Topic()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Topic);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ForumController Actions { get { return MVC.Forum; } }
@@ -132,6 +138,15 @@ namespace MediaCommMvc.Web.Controllers
         public class ActionParamsClass_EditPost
         {
             public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_Topic s_params_Topic = new ActionParamsClass_Topic();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Topic TopicParams { get { return s_params_Topic; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Topic
+        {
+            public readonly string id = "id";
+            public readonly string page = "page";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -204,13 +219,15 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void TopicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+        partial void TopicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id, int page);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Topic()
+        public override System.Web.Mvc.ActionResult Topic(int id, int page)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Topic);
-            TopicOverride(callInfo);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
+            TopicOverride(callInfo, id, page);
             return callInfo;
         }
 

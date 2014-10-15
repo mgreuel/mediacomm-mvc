@@ -13,6 +13,8 @@ namespace MediaCommMvc.Web.Controllers
 {
     public partial class ForumController : Controller
     {
+        private const int PostsPerPage = 25;
+
         private const int TopicsPerPage = 15;
 
         public virtual ActionResult Index(int page)
@@ -31,7 +33,7 @@ namespace MediaCommMvc.Web.Controllers
                             LastPostTime = string.Format("{0:g}", DateTime.UtcNow.AddDays(-1)),
                             PostCount = i.ToString(),
                             ReadByCurrentUser = i % 2 == 0,
-                            Title = "Post No " + i
+                            Title = "Topic No " + i
                         });
             }
 
@@ -55,9 +57,30 @@ namespace MediaCommMvc.Web.Controllers
             return new EmptyResult();
         }
 
-        public virtual ActionResult Topic()
+        public virtual ActionResult Topic(int id, int page)
         {
-            return this.View();
+            var viewModel = new TopicDetailsViewModel();
+
+            viewModel.Title = id + " " + page;
+            
+            List<PostViewModel> posts = new List<PostViewModel>();
+
+            for (int i = 0; i < 50; i++)
+            {
+                posts.Add(
+                    new PostViewModel
+                    {
+                        AuthorName = "author " + i,
+                        Created = string.Format("{0:g}", DateTime.UtcNow.AddHours(-1)),
+                        IsEditable = true,
+                        Text = "Post No " + i,
+                        Id = i
+                    });
+            }
+
+            viewModel.Posts = posts.ToPagedList(page, PostsPerPage);
+
+            return this.View(viewModel);
         }
     }
 }
