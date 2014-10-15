@@ -63,6 +63,18 @@ namespace MediaCommMvc.Web.Controllers
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
         }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult DeletePost()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeletePost);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditPost()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPost);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ForumController Actions { get { return MVC.Forum; } }
@@ -81,6 +93,8 @@ namespace MediaCommMvc.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string CreateTopic = "CreateTopic";
+            public readonly string DeletePost = "DeletePost";
+            public readonly string EditPost = "EditPost";
             public readonly string Topic = "Topic";
         }
 
@@ -89,6 +103,8 @@ namespace MediaCommMvc.Web.Controllers
         {
             public const string Index = "Index";
             public const string CreateTopic = "CreateTopic";
+            public const string DeletePost = "DeletePost";
+            public const string EditPost = "EditPost";
             public const string Topic = "Topic";
         }
 
@@ -100,6 +116,22 @@ namespace MediaCommMvc.Web.Controllers
         public class ActionParamsClass_Index
         {
             public readonly string page = "page";
+        }
+        static readonly ActionParamsClass_DeletePost s_params_DeletePost = new ActionParamsClass_DeletePost();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_DeletePost DeletePostParams { get { return s_params_DeletePost; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_DeletePost
+        {
+            public readonly string id = "id";
+        }
+        static readonly ActionParamsClass_EditPost s_params_EditPost = new ActionParamsClass_EditPost();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditPost EditPostParams { get { return s_params_EditPost; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditPost
+        {
+            public readonly string id = "id";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -144,6 +176,30 @@ namespace MediaCommMvc.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateTopic);
             CreateTopicOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void DeletePostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult DeletePost(int id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeletePost);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            DeletePostOverride(callInfo, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void EditPostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult EditPost(int id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPost);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            EditPostOverride(callInfo, id);
             return callInfo;
         }
 

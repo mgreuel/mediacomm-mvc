@@ -44,6 +44,17 @@ namespace MediaCommMvc.Web.Controllers
             return this.View();
         }
 
+        [HttpPost]
+        public virtual ActionResult DeletePost(int id)
+        {
+            return new EmptyResult();
+        }
+
+        public virtual ActionResult EditPost(int id)
+        {
+            return new EmptyResult();
+        }
+
         public virtual ActionResult Topic()
         {
             return this.View();

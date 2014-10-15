@@ -9,7 +9,9 @@ namespace MediaCommMvc.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("fourm", "forum/{page}",  MVC.Forum.Index().AddRouteValue("page", 1));
+            routes.MapRoute("forum", "forum/{page}",  MVC.Forum.Index().AddRouteValue("page", 1));
+
+            routes.MapRoute("topic", "forum/topic/{id}/{name}/{page}", MVC.Forum.Topic().AddRouteValue("page", 1));
 
             routes.MapRoute(
                 name: "Default", 
