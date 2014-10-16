@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using Antlr.Runtime;
+
 using MediaCommMvc.Web.Models.Forum;
 using MediaCommMvc.Web.ViewModels.Forum;
 
@@ -21,7 +23,7 @@ namespace MediaCommMvc.Web.Controllers
         {
             List<TopicOverviewViewModel> topics = new List<TopicOverviewViewModel>();
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 500; i++)
             {
                 topics.Add(
                     new TopicOverviewViewModel
@@ -61,12 +63,27 @@ namespace MediaCommMvc.Web.Controllers
         {
             var viewModel = new TopicDetailsViewModel();
 
-            viewModel.Title = id + " " + page;
-            
+            viewModel.Title = " Das ist nur ein Dummy titel " + id + " " + page;
+
             List<PostViewModel> posts = new List<PostViewModel>();
 
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < 500; i++)
             {
+                if (i % 5 == 0)
+                {
+                    posts.Add(
+    new PostViewModel
+    {
+        AuthorName = "author " + i,
+        Created = string.Format("{0:g}", DateTime.UtcNow.AddHours(-1)),
+        IsEditable = true,
+        Text = @"Bei Bedarf würden wir einen Transport (Bus o.ä.) von der Camera Obscura zum Unperfekthaus organisieren. Mit Bus & Bahn zur Camera Obscura zu fahren bzw. das Auto dort stehen zu lassen, hätte den Vorteil, dass man sich die Parkgebühren in Essen spart. Wir würden also gerne wissen, wer zur Camera Obscura kommt und eine Mitfahrgelegenheit bräuchte. Es wäre natürlich auch gut zu wissen, wer selber fährt und noch Plätze frei hat. Bitte gebt uns bis zum 17.6. Bescheid.",
+        Id = i,
+        ShowApprovalButton = true,
+        Approvals = new List<string> { "abc says: Absolut!", "justANotherName says: Absolut!", "a really long username says: Absolut!" }
+    });
+                }
+
                 posts.Add(
                     new PostViewModel
                     {
@@ -74,7 +91,9 @@ namespace MediaCommMvc.Web.Controllers
                         Created = string.Format("{0:g}", DateTime.UtcNow.AddHours(-1)),
                         IsEditable = true,
                         Text = "Post No " + i,
-                        Id = i
+                        Id = i,
+                        ShowApprovalButton = true,
+                        Approvals = new List<string> { "abc says: Absolut!", "justANotherName says: Absolut!", "a really long username says: Absolut!" }
                     });
             }
 

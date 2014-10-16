@@ -142,7 +142,7 @@
     <value>Bei der Bearbeitung ist ein Fehler aufgetreten.</value>
   </data>
   <data name="First" xml:space="preserve">
-    <value>Erste/r</value>
+    <value>Erste</value>
   </data>
   <data name="GoToPage" xml:space="preserve">
     <value>Gehe zur Seite</value>
@@ -179,9 +179,6 @@
   </data>
   <data name="ValidationSummary" xml:space="preserve">
     <value>Bitte behebe die folgenden Fehler:</value>
-  </data>
-  <data name="WebSite" xml:space="preserve">
-    <value>&lt;a href="http://www.greuel.name/hochzeit"&gt;www.greuel.name/hochzeit&lt;/a&gt;</value>
   </data>
   <data name="Welcome" xml:space="preserve">
     <value>Willkommen</value>

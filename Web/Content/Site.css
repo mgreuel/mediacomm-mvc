@@ -33,9 +33,9 @@ textarea {
     border: 1px solid #e3e3e3;
 }
 
-.forum-legend i {
-    margin: 2px;
-}
+    .forum-legend i {
+        margin: 2px;
+    }
 
 #new-topic-button {
     margin: 16px 0 0 0;
@@ -84,7 +84,48 @@ textarea {
     padding-left: 8px;
 }
 
-#forum-topics .topic-last-post div {
-    line-height: 17px;
+    #forum-topics .topic-last-post div {
+        line-height: 17px;
+    }
+/* End Forum Overview */
+
+/* Start TOpic Detail View */
+
+#topic-posts {
+    border-radius: 6px;
 }
- /* End Forum Overview */
+
+#topic-title {
+    margin-top: 24px;
+}
+
+.post-header {
+    margin-bottom: 6px;
+}
+
+.post-actions {
+    margin-top: 2px;
+}
+
+    .post-actions > div {
+        margin-top: 4px;
+    }
+        .post-actions > div.pull-right {
+            margin-left: 4px;
+        }
+
+        .post-actions > div.pull-left {
+            margin-right: 4px;
+        }
+
+    .post-actions .label {
+        font-weight: normal;
+        font-size: 13px;
+    }
+
+#topic-posts td {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+/* End Topic Detail View*/
