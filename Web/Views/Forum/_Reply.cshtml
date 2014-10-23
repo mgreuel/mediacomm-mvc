@@ -1,0 +1,16 @@
+﻿@model MediaCommMvc.Web.ViewModels.Forum.ReplyViewModel
+
+<div id="reply">
+    @using (Html.BeginForm("reply", "forum"))
+    {
+        @Html.HiddenFor(m => m.Text)
+
+        @Html.HiddenFor(m => m.TopicId)
+
+        <div contenteditable id="reply-input" class="well well-sm">
+
+        </div>
+        
+        <button type="submit" class="btn btn-primary">@Resources.Forums.Reply</button>
+    }
+</div>
