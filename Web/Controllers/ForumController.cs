@@ -58,12 +58,33 @@ namespace MediaCommMvc.Web.Controllers
         {
             return new EmptyResult();
         }
+        
+        
+        [HttpPost]
+        public virtual ActionResult Reply(ReplyViewModel viewModel)
+        {
+            //Post post = new Post();
+            //post.Text = HtmlSanitizer.Sanitize(viewModel.Text);
+            //post.Topic = this.forumRepository.GetTopicById(viewModel.TopicId);
+            //post.Author = this.userRepository.GetUserByName(this.User.Identity.Name);
+            //post.Created = DateTime.UtcNow;
+
+            //this.forumRepository.AddPost(post);
+
+            //this.notificationSender.SendForumsNotification(post);
+
+            //this.GetPostUrl(viewModel.TopicId, post)
+
+            return new EmptyResult();
+        }
+
 
         public virtual ActionResult Topic(int id, int page)
         {
             var viewModel = new TopicDetailsViewModel();
 
             viewModel.Title = " Das ist nur ein Dummy titel " + id + " " + page;
+            viewModel.Id = id;
 
             List<PostViewModel> posts = new List<PostViewModel>();
 

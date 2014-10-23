@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-using PagedList;
+﻿using PagedList;
 
 namespace MediaCommMvc.Web.ViewModels.Forum
 {
@@ -9,5 +7,7 @@ namespace MediaCommMvc.Web.ViewModels.Forum
         public IPagedList<PostViewModel> Posts { get; set; }
 
         public string Title { get; set; }
+
+        public int Id { get; set; }
     }
 }

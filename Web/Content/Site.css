@@ -1,6 +1,6 @@
 ﻿body {
     padding-top: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -126,6 +126,12 @@ textarea {
 #topic-posts td {
     padding-top: 4px;
     padding-bottom: 4px;
+}
+
+#reply-input {
+    height: 300px;
+    width: 100%;
+    max-width: 1200px;
 }
 
 /* End Topic Detail View*/

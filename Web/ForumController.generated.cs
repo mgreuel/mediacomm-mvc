@@ -77,6 +77,12 @@ namespace MediaCommMvc.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Reply()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Reply);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Topic()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Topic);
@@ -101,6 +107,7 @@ namespace MediaCommMvc.Web.Controllers
             public readonly string CreateTopic = "CreateTopic";
             public readonly string DeletePost = "DeletePost";
             public readonly string EditPost = "EditPost";
+            public readonly string Reply = "Reply";
             public readonly string Topic = "Topic";
         }
 
@@ -111,6 +118,7 @@ namespace MediaCommMvc.Web.Controllers
             public const string CreateTopic = "CreateTopic";
             public const string DeletePost = "DeletePost";
             public const string EditPost = "EditPost";
+            public const string Reply = "Reply";
             public const string Topic = "Topic";
         }
 
@@ -139,6 +147,14 @@ namespace MediaCommMvc.Web.Controllers
         {
             public readonly string id = "id";
         }
+        static readonly ActionParamsClass_Reply s_params_Reply = new ActionParamsClass_Reply();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Reply ReplyParams { get { return s_params_Reply; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Reply
+        {
+            public readonly string viewModel = "viewModel";
+        }
         static readonly ActionParamsClass_Topic s_params_Topic = new ActionParamsClass_Topic();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Topic TopicParams { get { return s_params_Topic; } }
@@ -158,9 +174,11 @@ namespace MediaCommMvc.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string _Reply = "_Reply";
                 public readonly string Index = "Index";
                 public readonly string Topic = "Topic";
             }
+            public readonly string _Reply = "~/Views/Forum/_Reply.cshtml";
             public readonly string Index = "~/Views/Forum/Index.cshtml";
             public readonly string Topic = "~/Views/Forum/Topic.cshtml";
         }
@@ -215,6 +233,18 @@ namespace MediaCommMvc.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPost);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             EditPostOverride(callInfo, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ReplyOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.Forum.ReplyViewModel viewModel);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Reply(MediaCommMvc.Web.ViewModels.Forum.ReplyViewModel viewModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Reply);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
+            ReplyOverride(callInfo, viewModel);
             return callInfo;
         }
 

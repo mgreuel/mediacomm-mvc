@@ -211,6 +211,7 @@
     <Compile Include="ViewModels\ApplicationDbContext.cs" />
     <Compile Include="ViewModels\Forum\ForumViewModel.cs" />
     <Compile Include="ViewModels\Forum\PostViewModel.cs" />
+    <Compile Include="ViewModels\Forum\ReplyViewModel.cs" />
     <Compile Include="ViewModels\Forum\TopicOverviewViewModel.cs" />
     <Compile Include="ViewModels\Forum\TopicDetailsViewModel.cs" />
     <Compile Include="ViewModels\IdentityModels.cs" />
@@ -226,6 +227,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\PagedList.css" />
+    <Content Include="Content\bootstrap3-wysihtml5.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -236,6 +238,8 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap3-wysihtml5.all.min.js" />
+    <Content Include="Scripts\bootstrap3-wysihtml5.de-DE.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -297,6 +301,7 @@
       <LastGenOutput>T4MVC.cs</LastGenOutput>
     </None>
     <Content Include="Views\Forum\Topic.cshtml" />
+    <Content Include="Views\Forum\_Reply.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

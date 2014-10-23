@@ -22,9 +22,15 @@ namespace MediaCommMvc.Web
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.cerulean.css",
-                      "~/Content/site.css"));
+            bundles.Add(
+                new ScriptBundle("~/bundles/js").Include(
+                    "~/Scripts/bootstrap3-wysihtml5.all.min.js"));
+
+            bundles.Add(
+                new StyleBundle("~/Content/css").Include(
+                    "~/Content/bootstrap3-wysihtml5.min.css",
+                    "~/Content/bootstrap.cerulean.css",
+                    "~/Content/site.css"));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862
