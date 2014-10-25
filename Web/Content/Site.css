@@ -23,6 +23,42 @@ textarea {
     max-width: 280px;
 }
 
+.full-width {
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* Start validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+
+select.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+/* End validation helpers */
 
 /* Start Forum Overview */
 
@@ -89,7 +125,7 @@ textarea {
     }
 /* End Forum Overview */
 
-/* Start TOpic Detail View */
+/* Start Topic Detail View */
 
 #topic-posts {
     border-radius: 6px;
@@ -110,6 +146,7 @@ textarea {
     .post-actions > div {
         margin-top: 4px;
     }
+
         .post-actions > div.pull-right {
             margin-left: 4px;
         }
@@ -128,10 +165,12 @@ textarea {
     padding-bottom: 4px;
 }
 
-#reply-input {
-    height: 300px;
-    width: 100%;
-    max-width: 1200px;
-}
-
 /* End Topic Detail View*/
+
+/* Start Create Topic */
+
+.editor {
+    min-height: 100px;
+    max-height: 250px;
+    overflow: auto;
+}

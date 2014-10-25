@@ -1,12 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-using MediaCommMvc.Web.Models.Forum;
+using Core.Models.Forum;
 
-namespace MediaCommMvc.Web.ViewModels.Forum
+namespace Core
 {
     public class TopicOverviewViewModel
     {
@@ -14,9 +11,9 @@ namespace MediaCommMvc.Web.ViewModels.Forum
 
         public string CreatedBy { get; set; }
 
-        public string PostCount { get; set; }
+        public int PostCount { get; set; }
 
-        public string LastPostTime { get; set; }
+        public DateTime LastPostTime { get; set; }
 
         public string LastPostAuthor { get; set; }
 

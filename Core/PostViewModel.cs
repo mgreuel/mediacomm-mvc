@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 
-namespace MediaCommMvc.Web.ViewModels.Forum
+namespace Core
 {
     public class PostViewModel
     {
         public string AuthorName { get; set; }
 
-        public string Created { get; set; }
+        public DateTime Created { get; set; }
 
         public int Id { get; set; }
 

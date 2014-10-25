@@ -7,9 +7,10 @@
 
         @Html.HiddenFor(m => m.TopicId)
 
-        <div contenteditable id="reply-input" class="well well-sm">
+        <div contenteditable id="reply-input" class="editor well well-sm">
 
         </div>
+        @Html.ValidationMessageFor(m => m.Text)
         
         <button type="submit" class="btn btn-primary">@Resources.Forums.Reply</button>
     }

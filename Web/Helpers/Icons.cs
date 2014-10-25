@@ -1,4 +1,6 @@
-﻿using MediaCommMvc.Web.Models.Forum;
+﻿using Core;
+using Core.Models.Forum;
+
 using MediaCommMvc.Web.ViewModels.Forum;
 
 namespace MediaCommMvc.Web.Helpers
