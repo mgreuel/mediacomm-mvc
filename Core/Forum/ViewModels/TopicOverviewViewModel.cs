@@ -1,9 +1,8 @@
-using System;
 using System.Collections.Generic;
 
-using Core.Models.Forum;
+using Core.Forum.Models;
 
-namespace Core
+namespace Core.Forum.ViewModels
 {
     public class TopicOverviewViewModel
     {
@@ -13,7 +12,7 @@ namespace Core
 
         public int PostCount { get; set; }
 
-        public DateTime LastPostTime { get; set; }
+        public string LastPostTime { get; set; }
 
         public string LastPostAuthor { get; set; }
 

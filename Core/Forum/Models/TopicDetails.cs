@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace Core
+namespace Core.Forum.Models
 {
     public class TopicDetails
     {
-        public List<PostViewModel> Posts { get; set; }
+        public List<Post> Posts { get; set; }
 
         public string Title { get; set; }
 

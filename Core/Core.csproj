@@ -37,15 +37,18 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddReplyCommand.cs" />
-    <Compile Include="CreateTopicCommand.cs" />
-    <Compile Include="ForumOverview.cs" />
-    <Compile Include="ForumStorageService.cs" />
-    <Compile Include="Models\Forum\TopicDisplayPriority.cs" />
-    <Compile Include="PostViewModel.cs" />
+    <Compile Include="Forum\Commands\AddReplyCommand.cs" />
+    <Compile Include="Forum\Commands\CreateTopicCommand.cs" />
+    <Compile Include="Forum\Models\ForumOverview.cs" />
+    <Compile Include="Forum\ForumStorageService.cs" />
+    <Compile Include="Forum\ViewModels\TopicDetailsViewModel.cs" />
+    <Compile Include="Forum\Models\TopicDisplayPriority.cs" />
+    <Compile Include="Forum\Models\Post.cs" />
+    <Compile Include="Forum\ViewModels\PostViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TopicDetails.cs" />
-    <Compile Include="TopicOverviewViewModel.cs" />
+    <Compile Include="Forum\Models\TopicDetails.cs" />
+    <Compile Include="Forum\Models\TopicOverview.cs" />
+    <Compile Include="Forum\ViewModels\TopicOverviewViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

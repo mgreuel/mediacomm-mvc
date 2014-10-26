@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core
+namespace Core.Forum.Commands
 {
     public class CreateTopicCommand
     {

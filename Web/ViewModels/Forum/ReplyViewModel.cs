@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 using Core;
+using Core.Forum.Commands;
 
 using Resources;
 

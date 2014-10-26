@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 
 using Core;
+using Core.Forum;
+using Core.Forum.Models;
+using Core.Forum.ViewModels;
 
 using MediaCommMvc.Web.ViewModels;
 using MediaCommMvc.Web.ViewModels.Forum;
@@ -38,7 +41,7 @@ namespace MediaCommMvc.Web.Controllers
             //            });
             //}
 
-            ForumOverview forumOverview = this.forumStorageService.GetForumOverview(page, TopicsPerPage);
+            ForumOverview forumOverview = this.forumStorageService.GetForumOverview(page, TopicsPerPage, "currentUser");
 
             StaticPagedList<TopicOverviewViewModel> topics = new StaticPagedList<TopicOverviewViewModel>(
                 forumOverview.TopicsForCurrentPage, 
@@ -145,8 +148,8 @@ namespace MediaCommMvc.Web.Controllers
 
             // viewModel.Posts = posts.ToPagedList(page, PostsPerPage);
 
-            TopicDetails topicDetails = this.forumStorageService.GetTopicDetailsViewModel(id);
-            var viewModel = new TopicDetailsViewModel(topicDetails, page);
+            var topicDetails = this.forumStorageService.GetTopicDetailsViewModel(id);
+            var viewModel = new PagedTopicDetailsViewModel(topicDetails, page);
 
             return this.View(viewModel);
         }

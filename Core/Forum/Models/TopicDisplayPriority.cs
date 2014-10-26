@@ -1,4 +1,4 @@
-﻿namespace Core.Models.Forum
+﻿namespace Core.Forum.Models
 {
     public enum TopicDisplayPriority
     {

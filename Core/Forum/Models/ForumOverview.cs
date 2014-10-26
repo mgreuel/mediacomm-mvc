@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Core
+using Core.Forum.ViewModels;
+
+namespace Core.Forum.Models
 {
     public class ForumOverview
     {

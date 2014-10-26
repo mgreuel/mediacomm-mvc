@@ -1,4 +1,5 @@
 using Core;
+using Core.Forum;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MediaCommMvc.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(MediaCommMvc.Web.App_Start.NinjectWebCommon), "Stop")]

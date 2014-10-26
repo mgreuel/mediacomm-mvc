@@ -1,4 +1,5 @@
 ﻿using Core;
+using Core.Forum.ViewModels;
 
 using PagedList;
 

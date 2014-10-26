@@ -1,5 +1,6 @@
 ﻿using Core;
-using Core.Models.Forum;
+using Core.Forum.Models;
+using Core.Forum.ViewModels;
 
 using MediaCommMvc.Web.ViewModels.Forum;
 
