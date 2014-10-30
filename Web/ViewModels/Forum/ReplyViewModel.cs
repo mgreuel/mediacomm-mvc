@@ -19,7 +19,7 @@ namespace MediaCommMvc.Web.ViewModels.Forum
 
         public AddReplyCommand ToAddReplyCommand(string userName)
         {
-            return new AddReplyCommand { AuthorName = userName, Created = DateTime.Now, Text = this.Text, TopicId = this.TopicId };
+            return new AddReplyCommand { AuthorName = userName, Created = DateTime.UtcNow, Text = this.Text, TopicId = this.TopicId };
         }
     }
 }

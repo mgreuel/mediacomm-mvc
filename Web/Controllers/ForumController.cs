@@ -16,7 +16,7 @@ namespace MediaCommMvc.Web.Controllers
 {
     public partial class ForumController : Controller
     {
-        
+        private const int PostsPerPage = 15;
 
         private const int TopicsPerPage = 15;
 
@@ -148,8 +148,8 @@ namespace MediaCommMvc.Web.Controllers
 
             // viewModel.Posts = posts.ToPagedList(page, PostsPerPage);
 
-            var topicDetails = this.forumStorageService.GetTopicDetailsViewModel(id);
-            var viewModel = new PagedTopicDetailsViewModel(topicDetails, page);
+            TopicDetailsViewModel topicDetails = this.forumStorageService.GetTopicDetailsViewModel(id, page, PostsPerPage, "currentUser");
+            var viewModel = new PagedTopicDetailsViewModel(topicDetails);
 
             return this.View(viewModel);
         }

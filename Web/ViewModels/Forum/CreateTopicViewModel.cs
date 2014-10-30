@@ -28,7 +28,7 @@ namespace MediaCommMvc.Web.ViewModels.Forum
 
         public CreateTopicCommand ToCommand(string userName)
         {
-            return new CreateTopicCommand { AuthorName = userName, Text = this.Text, TimeStamp = DateTime.Now, Title = this.Subject };
+            return new CreateTopicCommand { AuthorName = userName, Text = this.Text, TimeStamp = DateTime.UtcNow, Title = this.Subject };
         }
     }
 }

@@ -1,7 +1,3 @@
-using System.Linq;
-
-using Core;
-using Core.Forum;
 using Core.Forum.ViewModels;
 
 using PagedList;
@@ -12,13 +8,10 @@ namespace MediaCommMvc.Web.ViewModels
     {
         private readonly TopicDetailsViewModel topicDetails;
 
-        private const int PostsPerPage = 25;
-
-
-        public PagedTopicDetailsViewModel(TopicDetailsViewModel topicDetails, int page)
+        public PagedTopicDetailsViewModel(TopicDetailsViewModel topicDetails)
         {
             this.topicDetails = topicDetails;
-            this.PagedPosts = new PagedList<PostViewModel>(topicDetails.Posts, page, PostsPerPage);
+            this.PagedPosts = new StaticPagedList<PostViewModel>(topicDetails.PostsForCurrentPage, topicDetails.PageNumber, topicDetails.PostsPerPage, topicDetails.TotalNumberOfPosts);
         }
 
         public IPagedList<PostViewModel> PagedPosts { get; set; }

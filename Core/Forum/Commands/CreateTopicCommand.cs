@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+
+using Core.Forum.Models;
 
 namespace Core.Forum.Commands
 {
@@ -11,5 +14,38 @@ namespace Core.Forum.Commands
         public string Text { get; set; }
 
         public string Title { get; set; }
+
+        public TopicOverview ToTopicOverview(int id)
+        {
+            return new TopicOverview
+                {
+                    CreatedBy = this.AuthorName,
+                    Id = id,
+                    LastPostAuthor = this.AuthorName,
+                    LastPostTime = this.TimeStamp,
+                    PostCount = 1,
+                    Title = this.Title
+                };
+        }
+
+        public TopicDetails ToTopicDetails(int id)
+        {
+            return new TopicDetails
+                       {
+                           Id = id,
+                           Title = this.Title,
+                           Posts =
+                               new List<Post>
+                                   {
+                                       new Post
+                                           {
+                                               AuthorName = this.AuthorName,
+                                               Created = this.TimeStamp,
+                                               Id = 1,
+                                               Text = this.Text
+                                           }
+                                   }
+                       };
+        }
     }
 }

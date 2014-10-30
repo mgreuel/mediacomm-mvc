@@ -12,10 +12,9 @@ namespace Core.Forum
         // todo refactor to more fine granular locking
         private readonly object lockObject = new object();
 
-        private Dictionary<int, TopicOverview> topicOverviews = new Dictionary<int, TopicOverview>();
-
         private Dictionary<int, TopicDetails> topicDetails = new Dictionary<int, TopicDetails>();
-        
+
+        private Dictionary<int, TopicOverview> topicOverviews = new Dictionary<int, TopicOverview>();
 
         public int AddTopic(CreateTopicCommand createTopicCommand)
         {
@@ -25,37 +24,9 @@ namespace Core.Forum
             {
                 id = this.topicDetails.DefaultIfEmpty().Max(t => t.Key) + 1;
 
-                // todo: introduce post model
-                this.topicDetails.Add(
-                    id,
-                    new TopicDetails
-                        {
-                            Id = id,
-                            Title = createTopicCommand.Title,
-                            Posts =
-                                new List<Post>
-                                    {
-                                        new Post
-                                            {
-                                                AuthorName = createTopicCommand.AuthorName, 
-                                                Created = createTopicCommand.TimeStamp, 
-                                                Id = 1, 
-                                                Text = createTopicCommand.Text
-                                            }
-                                    }
-                        });
+                this.topicDetails.Add(id, createTopicCommand.ToTopicDetails(id));
 
-                this.topicOverviews.Add(
-                    id,
-                    new TopicOverview
-                        {
-                            CreatedBy = createTopicCommand.AuthorName,
-                            Id = id,
-                            LastPostAuthor = createTopicCommand.AuthorName,
-                            LastPostTime = createTopicCommand.TimeStamp,
-                            PostCount = 1,
-                            Title = createTopicCommand.Title
-                        });
+                this.topicOverviews.Add(id, createTopicCommand.ToTopicOverview(id));
             }
 
             return id;
@@ -71,8 +42,8 @@ namespace Core.Forum
                                                           this.topicOverviews.Select(pair => pair.Value).OrderByDescending(topic => topic.LastPostTime)
                                                           .Skip((page - 1) * topicsPerPage)
                                                           .Take(topicsPerPage)
-                                                          .Select(topic => this.MapTopicOverViewToViewModel(topic, currentUser))
-                                                          .ToList(),
+                                                          .Select(topic => new TopicOverviewViewModel(topic, currentUser))
+                                                          .ToList(), 
                                                       TotalNumberOfTopics = this.topicOverviews.Count
                                                   };
 
@@ -80,28 +51,11 @@ namespace Core.Forum
             }
         }
 
-        private TopicOverviewViewModel MapTopicOverViewToViewModel(TopicOverview topic, string currentUser)
+        public TopicDetailsViewModel GetTopicDetailsViewModel(int id, int page, int postsPerPage, string currentUser)
         {
-            return new TopicOverviewViewModel
-                       {
-                           CreatedBy = topic.CreatedBy,
-                           DisplayPriority = topic.DisplayPriority,
-                           ExcludedUsernames = topic.ExcludedUserNames,
-                           Id = topic.Id,
-                           LastPostAuthor = topic.LastPostAuthor,
-                           LastPostTime = string.Format("{0:g}", topic.LastPostTime),
-                           PostCount = topic.PostCount,
-                           Title = topic.Title,
-                           // todo ReadByCurrentUser = topic.
-                       };
-        }
-
-        public TopicDetailsViewModel GetTopicDetailsViewModel(int id)
-        {
-            // Todo: Copy to make thread safe
             lock (this.lockObject)
             {
-                return new TopicDetailsViewModel(this.topicDetails[id]);
+                return new TopicDetailsViewModel(this.topicDetails[id], page, postsPerPage, currentUser);
             }
         }
 
@@ -109,11 +63,11 @@ namespace Core.Forum
         {
             lock (this.lockObject)
             {
-                TopicDetails topicDetails = this.topicDetails[addReplyCommand.TopicId];
+                TopicDetails topicDetail = this.topicDetails[addReplyCommand.TopicId];
 
-                // create post model
-                int id = topicDetails.Posts.Max(model => model.Id) + 1;
-                topicDetails.Posts.Add(new Post { AuthorName = addReplyCommand.AuthorName, Created = addReplyCommand.Created, Id = id, Text = addReplyCommand.Text});
+                int id = topicDetail.Posts.Max(model => model.Id) + 1;
+                topicDetail.Posts.Add(
+                    new Post { AuthorName = addReplyCommand.AuthorName, Created = addReplyCommand.Created, Id = id, Text = addReplyCommand.Text });
 
                 TopicOverview topicOverview = this.topicOverviews[addReplyCommand.TopicId];
                 topicOverview.PostCount = topicOverview.PostCount + 1;

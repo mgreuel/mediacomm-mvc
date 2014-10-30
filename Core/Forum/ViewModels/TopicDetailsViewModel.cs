@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,21 +8,44 @@ namespace Core.Forum.ViewModels
 {
     public class TopicDetailsViewModel
     {
-
-        public TopicDetailsViewModel(TopicDetails topicDetails)
+        public TopicDetailsViewModel(TopicDetails topicDetails, int pageNumber, int postsPerPage, string currentUser)
         {
             this.Title = topicDetails.Title;
             this.Id = topicDetails.Id;
             // todo: permissions
             /*AuthorName.Equals(this.User.Identity.Name, StringComparison.OrdinalIgnoreCase) ||
                          HttpContext.Current.User.IsInRole("Administrators")*/
-            this.Posts = topicDetails.Posts.Select(post => new PostViewModel {Approvals = post.Approvals, AuthorName = post.AuthorName, Created = post.Created, Id = post.Id, Text = post.Text}).ToList();
+
+            this.PostsPerPage = postsPerPage;
+            this.PageNumber = pageNumber;
+            this.TotalNumberOfPosts = topicDetails.Posts.Count;
+            int pageCount = this.TotalNumberOfPosts > 0
+                            ? (int)Math.Ceiling(this.TotalNumberOfPosts / (double)postsPerPage)
+                            : 0;
+
+            this.IsLastPage = pageNumber >= pageCount;
+            
+            this.PostsForCurrentPage =
+                topicDetails.Posts
+                    .OrderBy(post => post.Created)
+                    .Skip((pageNumber - 1) * postsPerPage)
+                    .Take(postsPerPage)
+                    .Select(post => new PostViewModel(post))
+                    .ToList();
         }
 
-        public string Title { get; set; }
+        public int TotalNumberOfPosts { get; private set; }
 
-        public int Id { get; set; }
+        public int PostsPerPage { get; private set; }
 
-        public List<PostViewModel> Posts { get; set; }
+        public int PageNumber { get; private set; }
+
+        public bool IsLastPage { get; private set; }
+
+        public string Title { get; private set; }
+
+        public int Id { get; private set; }
+
+        public IEnumerable<PostViewModel> PostsForCurrentPage { get; private set; }
     }
 }

@@ -1,10 +1,21 @@
 using System;
 using System.Collections.Generic;
 
+using Core.Forum.Models;
+
 namespace Core.Forum.ViewModels
 {
     public class PostViewModel
     {
+        public PostViewModel(Post post)
+        {
+            this.Approvals = post.Approvals;
+            this.AuthorName = post.AuthorName;
+            this.Created = post.Created;
+            this.Id = post.Id;
+            this.Text = post.Text;
+        }
+
         public string AuthorName { get; set; }
 
         public DateTime Created { get; set; }
