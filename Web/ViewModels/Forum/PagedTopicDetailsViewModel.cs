@@ -2,7 +2,7 @@ using Core.Forum.ViewModels;
 
 using PagedList;
 
-namespace MediaCommMvc.Web.ViewModels
+namespace MediaCommMvc.Web.ViewModels.Forum
 {
     public class PagedTopicDetailsViewModel
     {
