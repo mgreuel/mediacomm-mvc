@@ -50,6 +50,8 @@ namespace MediaCommMvc.Web.Infrastructure.Database
             /* some foreign keys are missing to intentially misssing navigation properties
              possible solution: http://blog.oneunicorn.com/2012/03/26/code-first-data-annotations-on-non-public-properties/ */
 
+            modelBuilder.Conventions.Add(new DateTime2Convention()); 
+
             base.OnModelCreating(modelBuilder);
         }
     }
