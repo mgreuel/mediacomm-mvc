@@ -13,6 +13,8 @@ namespace Core.Forum.Models
 
         public string Text { get; set; }
 
+        public int TopicId { get; set; }
+
         public IEnumerable<string> Approvals { get; set; }
     }
 }

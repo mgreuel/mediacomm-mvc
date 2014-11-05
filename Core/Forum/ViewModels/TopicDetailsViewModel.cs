@@ -11,7 +11,7 @@ namespace Core.Forum.ViewModels
         public TopicDetailsViewModel(TopicDetails topicDetails, int pageNumber, int postsPerPage, string currentUser)
         {
             this.Title = topicDetails.Title;
-            this.Id = topicDetails.Id;
+            this.Id = topicDetails.TopicId;
             // todo: permissions
             /*AuthorName.Equals(this.User.Identity.Name, StringComparison.OrdinalIgnoreCase) ||
                          HttpContext.Current.User.IsInRole("Administrators")*/

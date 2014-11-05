@@ -24,7 +24,7 @@ namespace Core.Forum
             {
                 id = this.topicDetails.DefaultIfEmpty().Max(t => t.Key) + 1;
 
-                this.topicDetails.Add(id, createTopicCommand.ToTopicDetails(id));
+                this.topicDetails.Add(id, createTopicCommand.ToTopicDetails());
 
                 this.topicOverviews.Add(id, createTopicCommand.ToTopicOverview(id));
             }

@@ -13,7 +13,7 @@ namespace Core.Forum.Models
 
         public string CreatedBy { get; set; }
 
-        public int Id { get; set; }
+        public int TopicId { get; set; }
 
         public string LastPostAuthor { get; set; }
 

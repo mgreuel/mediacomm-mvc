@@ -1,6 +1,8 @@
 using Core;
 using Core.Forum;
 
+using MediaCommMvc.Web.Infrastructure;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MediaCommMvc.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(MediaCommMvc.Web.App_Start.NinjectWebCommon), "Stop")]
 
@@ -64,7 +66,7 @@ namespace MediaCommMvc.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<ForumStorageService>().ToSelf().InSingletonScope();
+            kernel.Bind<EfForumStorageService>().ToSelf().InSingletonScope();
         }        
     }
 }

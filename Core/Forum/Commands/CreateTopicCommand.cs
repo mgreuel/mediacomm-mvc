@@ -20,7 +20,7 @@ namespace Core.Forum.Commands
             return new TopicOverview
                 {
                     CreatedBy = this.AuthorName,
-                    Id = id,
+                    TopicId = id,
                     LastPostAuthor = this.AuthorName,
                     LastPostTime = this.TimeStamp,
                     PostCount = 1,
@@ -28,11 +28,10 @@ namespace Core.Forum.Commands
                 };
         }
 
-        public TopicDetails ToTopicDetails(int id)
+        public TopicDetails ToTopicDetails()
         {
             return new TopicDetails
                        {
-                           Id = id,
                            Title = this.Title,
                            Posts =
                                new List<Post>

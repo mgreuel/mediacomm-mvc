@@ -8,6 +8,6 @@ namespace Core.Forum.Models
 
         public string Title { get; set; }
 
-        public int Id { get; set; }
+        public int TopicId { get; set; }
     }
 }

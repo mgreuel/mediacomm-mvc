@@ -5,6 +5,7 @@ using Core.Forum;
 using Core.Forum.Models;
 using Core.Forum.ViewModels;
 
+using MediaCommMvc.Web.Infrastructure;
 using MediaCommMvc.Web.Infrastructure.Database;
 using MediaCommMvc.Web.ViewModels;
 using MediaCommMvc.Web.ViewModels.Forum;
@@ -22,16 +23,16 @@ namespace MediaCommMvc.Web.Controllers
 
         private const int TopicsPerPage = 15;
 
-        private readonly ForumStorageService forumStorageService;
+        private readonly EfForumStorageService efForumStorageService;
 
-        public ForumController(ForumStorageService forumStorageService)
+        public ForumController(EfForumStorageService efForumStorageService)
         {
-            this.forumStorageService = forumStorageService;
+            this.efForumStorageService = efForumStorageService;
         }
 
         public virtual ActionResult Index(int page)
         {
-            ForumOverview forumOverview = this.forumStorageService.GetForumOverview(page, TopicsPerPage, this.User.Identity.GetUserName());
+            ForumOverview forumOverview = this.efForumStorageService.GetForumOverview(page, TopicsPerPage, this.User.Identity.GetUserName());
 
             StaticPagedList<TopicOverviewViewModel> topics = new StaticPagedList<TopicOverviewViewModel>(
                 forumOverview.TopicsForCurrentPage, 
@@ -55,13 +56,7 @@ namespace MediaCommMvc.Web.Controllers
                 return this.View(viewModel);
             }
 
-                        var context = new ApplicationDbContext();
-
-            context.TopicDetails.Add(viewModel.ToCommand(this.User.Identity.Name).ToTopicDetails(1));
-            context.SaveChanges();
-            var x = context.TopicDetails.Count();
-
-            int addTopic = this.forumStorageService.AddTopic(viewModel.ToCommand(this.User.Identity.GetUserName()));
+            int addTopic = this.efForumStorageService.AddTopic(viewModel.ToCommand(this.User.Identity.GetUserName()));
 
             return this.RedirectToAction(MVC.Forum.Index());
         }
@@ -85,7 +80,7 @@ namespace MediaCommMvc.Web.Controllers
                 return this.View(viewModel);
             }
 
-            this.forumStorageService.AddReply(viewModel.ToAddReplyCommand(this.User.Identity.GetUserName()));
+            this.efForumStorageService.AddReply(viewModel.ToAddReplyCommand(this.User.Identity.GetUserName()));
 
             // Post post = new Post();
             // post.Text = HtmlSanitizer.Sanitize(viewModel.Text);
@@ -142,7 +137,7 @@ namespace MediaCommMvc.Web.Controllers
             // }
 
             // viewModel.Posts = posts.ToPagedList(page, PostsPerPage);
-            TopicDetailsViewModel topicDetails = this.forumStorageService.GetTopicDetailsViewModel(id, page, PostsPerPage, this.User.Identity.GetUserName());
+            TopicDetailsViewModel topicDetails = this.efForumStorageService.GetTopicDetailsViewModel(id, page, PostsPerPage, this.User.Identity.GetUserName());
             var viewModel = new PagedTopicDetailsViewModel(topicDetails);
 
             return this.View(viewModel);

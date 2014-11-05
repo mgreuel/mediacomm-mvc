@@ -15,7 +15,7 @@ namespace Core.Forum.ViewModels
             topicOverview.ExcludedUserNames.CopyTo(tempExcludedUsers);
             this.ExcludedUsernames = tempExcludedUsers;
 
-            this.Id = topicOverview.Id;
+            this.Id = topicOverview.TopicId;
             this.LastPostAuthor = topicOverview.LastPostAuthor;
             this.LastPostTime = string.Format("{0:g}", topicOverview.LastPostTime);
             this.PostCount = topicOverview.PostCount;
