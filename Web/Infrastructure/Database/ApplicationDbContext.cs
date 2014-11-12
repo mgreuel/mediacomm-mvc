@@ -47,7 +47,7 @@ namespace MediaCommMvc.Web.Infrastructure.Database
             modelBuilder.Entity<Post>().HasKey(post => post.Id);
             modelBuilder.Entity<Post>().Property(post => post.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            /* some foreign keys are missing to intentially misssing navigation properties
+            /* some foreign keys are missing due to intentially missing navigation properties
              possible solution: http://blog.oneunicorn.com/2012/03/26/code-first-data-annotations-on-non-public-properties/ */
 
             modelBuilder.Conventions.Add(new DateTime2Convention()); 

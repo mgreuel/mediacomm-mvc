@@ -1,11 +1,13 @@
 ﻿using System.Data.Entity;
 using System.Linq;
+using System.Security.Principal;
 
 using Core.Forum.Commands;
 using Core.Forum.Models;
 using Core.Forum.ViewModels;
 
 using MediaCommMvc.Web.Infrastructure.Database;
+using MediaCommMvc.Web.ViewModels.Forum;
 
 namespace MediaCommMvc.Web.Infrastructure
 {
@@ -53,7 +55,7 @@ namespace MediaCommMvc.Web.Infrastructure
             return forumOverview;
         }
 
-        public TopicDetailsViewModel GetTopicDetailsViewModel(int id, int page, int postsPerPage, string currentUser)
+        public TopicDetailsViewModel GetTopicDetailsViewModel(int id, int page, int postsPerPage, IPrincipal currentUser)
         {
             TopicDetails topicDetails = this.databaseContext.TopicDetails
                 .Include(topic => topic.Posts)
@@ -85,6 +87,12 @@ namespace MediaCommMvc.Web.Infrastructure
 
             this.databaseContext.Posts.Add(post);
             this.databaseContext.SaveChanges();
+        }
+
+        public EditPostViewModel GetEditPostViewModel(int id)
+        {
+            Post post = this.databaseContext.Posts.Single(p => p.Id == id);
+            return new EditPostViewModel(post);
         }
     }
 }

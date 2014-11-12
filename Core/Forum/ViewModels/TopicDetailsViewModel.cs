@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 
 using Core.Forum.Models;
 
@@ -8,14 +9,10 @@ namespace Core.Forum.ViewModels
 {
     public class TopicDetailsViewModel
     {
-        public TopicDetailsViewModel(TopicDetails topicDetails, int pageNumber, int postsPerPage, string currentUser)
+        public TopicDetailsViewModel(TopicDetails topicDetails, int pageNumber, int postsPerPage, IPrincipal currentUser)
         {
             this.Title = topicDetails.Title;
             this.Id = topicDetails.TopicId;
-            // todo: permissions
-            /*AuthorName.Equals(this.User.Identity.Name, StringComparison.OrdinalIgnoreCase) ||
-                         HttpContext.Current.User.IsInRole("Administrators")*/
-
             this.PostsPerPage = postsPerPage;
             this.PageNumber = pageNumber;
             this.TotalNumberOfPosts = topicDetails.Posts.Count;
@@ -30,7 +27,7 @@ namespace Core.Forum.ViewModels
                     .OrderBy(post => post.Created)
                     .Skip((pageNumber - 1) * postsPerPage)
                     .Take(postsPerPage)
-                    .Select(post => new PostViewModel(post))
+                    .Select(post => new PostViewModel(post, currentUser))
                     .ToList();
         }
 

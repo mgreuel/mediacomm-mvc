@@ -225,7 +225,8 @@
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\AccountViewModels.cs" />
-    <Compile Include="ViewModels\Forum\CreateTopicViewModel.cs" />
+    <Compile Include="ViewModels\Forum\EditPostViewModel.cs" />
+    <Compile Include="ViewModels\Forum\EditTopicWebViewModel.cs" />
     <Compile Include="ViewModels\Forum\ForumViewModel.cs" />
     <Compile Include="ViewModels\Forum\PagedTopicDetailsViewModel.cs" />
     <Compile Include="ViewModels\Forum\ReplyViewModel.cs" />
@@ -317,7 +318,8 @@
     </None>
     <Content Include="Views\Forum\Topic.cshtml" />
     <Content Include="Views\Forum\_Reply.cshtml" />
-    <Content Include="Views\Forum\CreateTopic.cshtml" />
+    <Content Include="Views\Forum\EditTopic.cshtml" />
+    <Content Include="Views\Forum\EditPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

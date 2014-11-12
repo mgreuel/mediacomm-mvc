@@ -40,7 +40,7 @@
     <Compile Include="Forum\Commands\AddReplyCommand.cs" />
     <Compile Include="Forum\Commands\CreateTopicCommand.cs" />
     <Compile Include="Forum\Models\ForumOverview.cs" />
-    <Compile Include="Forum\ForumStorageService.cs" />
+    <Compile Include="Forum\ViewModels\Roles.cs" />
     <Compile Include="Forum\ViewModels\TopicDetailsViewModel.cs" />
     <Compile Include="Forum\Models\TopicDisplayPriority.cs" />
     <Compile Include="Forum\Models\Post.cs" />

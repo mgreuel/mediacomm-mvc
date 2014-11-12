@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-using Core;
 using Core.Forum.Commands;
 
 using Resources;
 
 namespace MediaCommMvc.Web.ViewModels.Forum
 {
-    public class CreateTopicViewModel
+    public class EditTopicWebViewModel
     {
+        public int Id { get; set; }
+
         public IEnumerable<string> AllUserNames { get; set; }
 
         [Display(ResourceType = typeof(Forums), Name = "Hide")]
@@ -26,7 +27,7 @@ namespace MediaCommMvc.Web.ViewModels.Forum
         [AllowHtml]
         public string Text { get; set; }
 
-        public CreateTopicCommand ToCommand(string userName)
+        public CreateTopicCommand ToCreateTopicCommand(string userName)
         {
             return new CreateTopicCommand { AuthorName = userName, Text = this.Text, TimeStamp = DateTime.UtcNow, Title = this.Subject };
         }

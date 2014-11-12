@@ -45,18 +45,18 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult CreateTopic()
         {
-            return this.View(new CreateTopicViewModel());
+            return this.View(MVC.Forum.Views.EditTopic, new EditTopicWebViewModel());
         }
 
         [HttpPost]
-        public virtual ActionResult CreateTopic(CreateTopicViewModel viewModel)
+        public virtual ActionResult CreateTopic(EditTopicWebViewModel viewModel)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(viewModel);
+                return this.View(MVC.Forum.Views.EditTopic, viewModel);
             }
 
-            int addTopic = this.efForumStorageService.AddTopic(viewModel.ToCommand(this.User.Identity.GetUserName()));
+            int addTopic = this.efForumStorageService.AddTopic(viewModel.ToCreateTopicCommand(this.User.Identity.GetUserName()));
 
             return this.RedirectToAction(MVC.Forum.Index());
         }
@@ -69,8 +69,11 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult EditPost(int id)
         {
-            return new EmptyResult();
+            // todo: Add edit topic (decision on the client)
+            EditPostViewModel viewModel = this.efForumStorageService.GetEditPostViewModel(id);
+            return this.View(viewModel);
         }
+
 
         [HttpPost]
         public virtual ActionResult Reply(ReplyViewModel viewModel)
@@ -137,7 +140,7 @@ namespace MediaCommMvc.Web.Controllers
             // }
 
             // viewModel.Posts = posts.ToPagedList(page, PostsPerPage);
-            TopicDetailsViewModel topicDetails = this.efForumStorageService.GetTopicDetailsViewModel(id, page, PostsPerPage, this.User.Identity.GetUserName());
+            TopicDetailsViewModel topicDetails = this.efForumStorageService.GetTopicDetailsViewModel(id, page, PostsPerPage, this.User);
             var viewModel = new PagedTopicDetailsViewModel(topicDetails);
 
             return this.View(viewModel);
