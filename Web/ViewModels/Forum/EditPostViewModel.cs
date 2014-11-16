@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
+using Core.Forum.Commands;
 using Core.Forum.Models;
 
 namespace MediaCommMvc.Web.ViewModels.Forum
@@ -16,5 +17,10 @@ namespace MediaCommMvc.Web.ViewModels.Forum
 
         [Required]
         public string Text { get; set; }
+
+        public UpdatePostCommand ToSavePostCommand()
+        {
+           return new UpdatePostCommand { PostId = this.PostId, Text = this.Text };
+        }
     }
 }

@@ -1,13 +1,9 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-using Core.Forum;
 using Core.Forum.Models;
 using Core.Forum.ViewModels;
 
 using MediaCommMvc.Web.Infrastructure;
-using MediaCommMvc.Web.Infrastructure.Database;
-using MediaCommMvc.Web.ViewModels;
 using MediaCommMvc.Web.ViewModels.Forum;
 
 using Microsoft.AspNet.Identity;
@@ -56,9 +52,9 @@ namespace MediaCommMvc.Web.Controllers
                 return this.View(MVC.Forum.Views.EditTopic, viewModel);
             }
 
-            int addTopic = this.efForumStorageService.AddTopic(viewModel.ToCreateTopicCommand(this.User.Identity.GetUserName()));
+            int topicId = this.efForumStorageService.AddTopic(viewModel.ToCreateTopicCommand(this.User.Identity.GetUserName()));
 
-            return this.RedirectToAction(MVC.Forum.Index());
+            return this.RedirectToAction(MVC.Forum.Topic().AddRouteValue("id", topicId));
         }
 
         [HttpPost]
@@ -74,6 +70,21 @@ namespace MediaCommMvc.Web.Controllers
             return this.View(viewModel);
         }
 
+        [HttpPost]
+        public virtual ActionResult EditPost(EditPostViewModel viewModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(viewModel);
+            }
+
+            this.efForumStorageService.UpdatePost(viewModel.ToSavePostCommand());
+            TopicPageRoutedata topicPage = this.efForumStorageService.GetTopicPageRouteDataForPost(viewModel.PostId);
+
+            return
+                this.RedirectToAction(
+                        MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = topicPage.TopicTitle, page = topicPage.PageNumber }));
+        }
 
         [HttpPost]
         public virtual ActionResult Reply(ReplyViewModel viewModel)

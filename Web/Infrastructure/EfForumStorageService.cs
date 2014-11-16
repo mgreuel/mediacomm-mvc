@@ -94,5 +94,20 @@ namespace MediaCommMvc.Web.Infrastructure
             Post post = this.databaseContext.Posts.Single(p => p.Id == id);
             return new EditPostViewModel(post);
         }
+
+        public void UpdatePost(UpdatePostCommand updatePostCommand)
+        {
+            Post post = this.databaseContext.Posts.Single(p => p.Id == updatePostCommand.PostId);
+            post.Text = updatePostCommand.Text;
+            this.databaseContext.SaveChanges();
+        }
+
+        public TopicPageRoutedata GetTopicPageRouteDataForPost(int postId)
+        {
+            // Todo add TopicDetails navigation peroperty
+            Post post = this.databaseContext.Posts.Single(p => p.Id == postId);
+
+            return new TopicPageRoutedata
+        }
     }
 }

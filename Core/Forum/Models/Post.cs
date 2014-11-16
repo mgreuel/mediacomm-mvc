@@ -20,6 +20,8 @@ namespace Core.Forum.Models
 
         public int TopicId { get; set; }
 
+        public TopicDetails Topic { get; set; }
+
         public IEnumerable<string> Approvals
         {
             get

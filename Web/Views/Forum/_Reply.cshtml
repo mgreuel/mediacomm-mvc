@@ -1,16 +1,16 @@
-﻿@model MediaCommMvc.Web.ViewModels.Forum.EditPostViewModel
+﻿@model MediaCommMvc.Web.ViewModels.Forum.ReplyViewModel
 <div id="reply">
     @using (Html.BeginForm("reply", "forum"))
     {
         @Html.HiddenFor(m => m.Text)
 
-        @Html.HiddenFor(m => m.PostId)
+        @Html.HiddenFor(m => m.TopicId)
 
-        <div contenteditable id="edit-post-input" class="editor well well-sm">
+        <div contenteditable id="reply-input" class="editor well well-sm">
 
         </div>
         @Html.ValidationMessageFor(m => m.Text)
         
-        <button type="submit" class="btn btn-primary">@Resources.General.Save</button>
+        <button type="submit" class="btn btn-primary">@Resources.Forums.Reply</button>
     }
 </div>
