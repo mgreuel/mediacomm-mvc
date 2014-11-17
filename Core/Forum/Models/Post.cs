@@ -20,7 +20,7 @@ namespace Core.Forum.Models
 
         public int TopicId { get; set; }
 
-        public TopicDetails Topic { get; set; }
+        public Topic Topic { get; set; }
 
         public IEnumerable<string> Approvals
         {
@@ -30,8 +30,10 @@ namespace Core.Forum.Models
             }
         }
 
-        // Todo make private/protected
+        // Todo make private/protected // http://blog.oneunicorn.com/2012/03/26/code-first-data-annotations-on-non-public-properties/ */
         public string ApprovalStorage { get; set; }
+
+        public int IndexInTopic { get; set; }
 
         public void AddApproval(string username)
         {

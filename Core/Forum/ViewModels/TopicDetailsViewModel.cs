@@ -9,7 +9,7 @@ namespace Core.Forum.ViewModels
 {
     public class TopicDetailsViewModel
     {
-        public TopicDetailsViewModel(TopicDetails topicDetails, int pageNumber, int postsPerPage, IPrincipal currentUser)
+        public TopicDetailsViewModel(Topic topicDetails, int pageNumber, int postsPerPage, IPrincipal currentUser)
         {
             this.Title = topicDetails.Title;
             this.Id = topicDetails.TopicId;

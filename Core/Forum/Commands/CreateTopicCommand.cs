@@ -15,24 +15,15 @@ namespace Core.Forum.Commands
 
         public string Title { get; set; }
 
-        public TopicOverview ToTopicOverview(int id)
+        public Topic ToTopic()
         {
-            return new TopicOverview
+            return new Topic
                 {
                     CreatedBy = this.AuthorName,
-                    TopicId = id,
                     LastPostAuthor = this.AuthorName,
                     LastPostTime = this.TimeStamp,
                     PostCount = 1,
-                    Title = this.Title
-                };
-        }
-
-        public TopicDetails ToTopicDetails()
-        {
-            return new TopicDetails
-                       {
-                           Title = this.Title,
+                    Title = this.Title,
                            Posts =
                                new List<Post>
                                    {
@@ -44,7 +35,7 @@ namespace Core.Forum.Commands
                                                Text = this.Text
                                            }
                                    }
-                       };
+                };
         }
     }
 }

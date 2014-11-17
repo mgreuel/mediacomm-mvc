@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Core.Forum.Models
 {
-    public class TopicOverview
+    public class Topic
     {
-        public TopicOverview()
+        public Topic()
         {
             this.ExcludedUserNames = new List<string>();
             this.LastAccessTimes = new Dictionary<string, DateTime>();
@@ -29,6 +29,8 @@ namespace Core.Forum.Models
 
         public Dictionary<string, DateTime> LastAccessTimes { get; set; }
 
+
+        public List<Post> Posts { get; set; }
         public bool AllPostsReadByUser(string username)
         {
             return this.LastAccessTimeForUser(username) > this.LastPostTime;

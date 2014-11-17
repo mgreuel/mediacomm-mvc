@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 using Core.Forum.Commands;
 using Core.Forum.Models;
@@ -7,6 +8,10 @@ namespace MediaCommMvc.Web.ViewModels.Forum
 {
     public class EditPostViewModel
     {
+        public EditPostViewModel()
+        {
+        }
+
         public EditPostViewModel(Post post)
         {
             this.Text = post.Text;
@@ -16,6 +21,7 @@ namespace MediaCommMvc.Web.ViewModels.Forum
         public int PostId { get; set; }
 
         [Required]
+        [AllowHtml]
         public string Text { get; set; }
 
         public UpdatePostCommand ToSavePostCommand()

@@ -62,12 +62,6 @@ namespace MediaCommMvc.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult DeletePost()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeletePost);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult EditPost()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPost);
@@ -102,7 +96,6 @@ namespace MediaCommMvc.Web.Controllers
         {
             public readonly string Index = "Index";
             public readonly string CreateTopic = "CreateTopic";
-            public readonly string DeletePost = "DeletePost";
             public readonly string EditPost = "EditPost";
             public readonly string Reply = "Reply";
             public readonly string Topic = "Topic";
@@ -113,7 +106,6 @@ namespace MediaCommMvc.Web.Controllers
         {
             public const string Index = "Index";
             public const string CreateTopic = "CreateTopic";
-            public const string DeletePost = "DeletePost";
             public const string EditPost = "EditPost";
             public const string Reply = "Reply";
             public const string Topic = "Topic";
@@ -136,14 +128,6 @@ namespace MediaCommMvc.Web.Controllers
         {
             public readonly string viewModel = "viewModel";
         }
-        static readonly ActionParamsClass_DeletePost s_params_DeletePost = new ActionParamsClass_DeletePost();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_DeletePost DeletePostParams { get { return s_params_DeletePost; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_DeletePost
-        {
-            public readonly string id = "id";
-        }
         static readonly ActionParamsClass_EditPost s_params_EditPost = new ActionParamsClass_EditPost();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_EditPost EditPostParams { get { return s_params_EditPost; } }
@@ -151,6 +135,7 @@ namespace MediaCommMvc.Web.Controllers
         public class ActionParamsClass_EditPost
         {
             public readonly string id = "id";
+            public readonly string viewModel = "viewModel";
         }
         static readonly ActionParamsClass_Reply s_params_Reply = new ActionParamsClass_Reply();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -180,11 +165,13 @@ namespace MediaCommMvc.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _Reply = "_Reply";
+                public readonly string EditPost = "EditPost";
                 public readonly string EditTopic = "EditTopic";
                 public readonly string Index = "Index";
                 public readonly string Topic = "Topic";
             }
             public readonly string _Reply = "~/Views/Forum/_Reply.cshtml";
+            public readonly string EditPost = "~/Views/Forum/EditPost.cshtml";
             public readonly string EditTopic = "~/Views/Forum/EditTopic.cshtml";
             public readonly string Index = "~/Views/Forum/Index.cshtml";
             public readonly string Topic = "~/Views/Forum/Topic.cshtml";
@@ -232,18 +219,6 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void DeletePostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
-
-        [NonAction]
-        public override System.Web.Mvc.ActionResult DeletePost(int id)
-        {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.DeletePost);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
-            DeletePostOverride(callInfo, id);
-            return callInfo;
-        }
-
-        [NonAction]
         partial void EditPostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
 
         [NonAction]
@@ -252,6 +227,18 @@ namespace MediaCommMvc.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPost);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             EditPostOverride(callInfo, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void EditPostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.Forum.EditPostViewModel viewModel);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult EditPost(MediaCommMvc.Web.ViewModels.Forum.EditPostViewModel viewModel)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPost);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
+            EditPostOverride(callInfo, viewModel);
             return callInfo;
         }
 

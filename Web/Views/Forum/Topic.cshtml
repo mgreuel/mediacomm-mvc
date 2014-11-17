@@ -63,12 +63,6 @@
                                     <div class="pull-right">
                                         @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditPost().AddRouteValue("id", post.Id), new { @class = "btn btn-xs btn-warning" })
                                     </div>
-                                    <div class="pull-right">
-                                        @using (Html.BeginForm(MVC.Forum.DeletePost().AddRouteValue("id", post.Id)))
-                                        {
-                                            <button type="submit" class="btn btn-xs btn-danger">@Resources.Forums.Delete</button>
-                                        }
-                                    </div>
 
                                     if (post.ShowApprovalButton)
                                     {

@@ -19,9 +19,7 @@ namespace MediaCommMvc.Web.Infrastructure.Database
             this.Configuration.ProxyCreationEnabled = false;
         }
 
-        public DbSet<TopicDetails> TopicDetails { get; set; }
-
-        public DbSet<TopicOverview> TopicOverviews { get; set; }
+        public DbSet<Topic> Topics { get; set; }
 
         public DbSet<Post> Posts { get; set; }
 
@@ -32,24 +30,22 @@ namespace MediaCommMvc.Web.Infrastructure.Database
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TopicOverview>().HasKey(overview => overview.TopicId);
-            modelBuilder.Entity<TopicOverview>()
+            modelBuilder.Entity<Topic>().HasKey(overview => overview.TopicId);
+            modelBuilder.Entity<Topic>().Property(details => details.TopicId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
+
+            modelBuilder.Entity<Topic>()
                 .Property(overview => overview.DisplayPriority)
                 .HasColumnAnnotation("index", new IndexAnnotation(new IndexAttribute("IX_TopicOrder", 1)));
-            modelBuilder.Entity<TopicOverview>()
+            modelBuilder.Entity<Topic>()
                 .Property(overview => overview.LastPostTime)
                 .HasColumnAnnotation("index", new IndexAnnotation(new IndexAttribute("IX_TopicOrder", 2)));
 
-            modelBuilder.Entity<TopicDetails>().HasKey(details => details.TopicId);
-            modelBuilder.Entity<TopicDetails>().Property(details => details.TopicId).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
-            modelBuilder.Entity<TopicDetails>().HasMany(details => details.Posts);
+            modelBuilder.Entity<Topic>().HasMany(details => details.Posts).WithRequired(post => post.Topic).HasForeignKey(post => post.TopicId);
 
             modelBuilder.Entity<Post>().HasKey(post => post.Id);
             modelBuilder.Entity<Post>().Property(post => post.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-            /* some foreign keys are missing due to intentially missing navigation properties
-             possible solution: http://blog.oneunicorn.com/2012/03/26/code-first-data-annotations-on-non-public-properties/ */
-
+            
             modelBuilder.Conventions.Add(new DateTime2Convention()); 
 
             base.OnModelCreating(modelBuilder);

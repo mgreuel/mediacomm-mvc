@@ -6,21 +6,21 @@ namespace Core.Forum.ViewModels
 {
     public class TopicOverviewViewModel
     {
-        public TopicOverviewViewModel(TopicOverview topicOverview, string currentUser)
+        public TopicOverviewViewModel(Topic topic, string currentUser)
         {
-            this.CreatedBy = topicOverview.CreatedBy;
-            this.DisplayPriority = topicOverview.DisplayPriority;
+            this.CreatedBy = topic.CreatedBy;
+            this.DisplayPriority = topic.DisplayPriority;
 
-            string[] tempExcludedUsers = new string[topicOverview.ExcludedUserNames.Count];
-            topicOverview.ExcludedUserNames.CopyTo(tempExcludedUsers);
+            string[] tempExcludedUsers = new string[topic.ExcludedUserNames.Count];
+            topic.ExcludedUserNames.CopyTo(tempExcludedUsers);
             this.ExcludedUsernames = tempExcludedUsers;
 
-            this.Id = topicOverview.TopicId;
-            this.LastPostAuthor = topicOverview.LastPostAuthor;
-            this.LastPostTime = string.Format("{0:g}", topicOverview.LastPostTime);
-            this.PostCount = topicOverview.PostCount;
-            this.Title = topicOverview.Title;
-            this.ReadByCurrentUser = topicOverview.AllPostsReadByUser(currentUser);
+            this.Id = topic.TopicId;
+            this.LastPostAuthor = topic.LastPostAuthor;
+            this.LastPostTime = string.Format("{0:g}", topic.LastPostTime);
+            this.PostCount = topic.PostCount;
+            this.Title = topic.Title;
+            this.ReadByCurrentUser = topic.AllPostsReadByUser(currentUser);
         }
 
         public IEnumerable<string> ExcludedUsernames { get; set; }

@@ -57,11 +57,6 @@ namespace MediaCommMvc.Web.Controllers
             return this.RedirectToAction(MVC.Forum.Topic().AddRouteValue("id", topicId));
         }
 
-        [HttpPost]
-        public virtual ActionResult DeletePost(int id)
-        {
-            return new EmptyResult();
-        }
 
         public virtual ActionResult EditPost(int id)
         {
@@ -79,7 +74,7 @@ namespace MediaCommMvc.Web.Controllers
             }
 
             this.efForumStorageService.UpdatePost(viewModel.ToSavePostCommand());
-            TopicPageRoutedata topicPage = this.efForumStorageService.GetTopicPageRouteDataForPost(viewModel.PostId);
+            TopicPageRoutedata topicPage = this.efForumStorageService.GetTopicPageRouteDataForPost(viewModel.PostId, PostsPerPage);
 
             return
                 this.RedirectToAction(

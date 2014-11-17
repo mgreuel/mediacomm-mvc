@@ -25,16 +25,11 @@ namespace MediaCommMvc.Web.Infrastructure
 
         public int AddTopic(CreateTopicCommand createTopicCommand)
         {
-            TopicDetails topicDetails = createTopicCommand.ToTopicDetails();
-            this.databaseContext.TopicDetails.Add(topicDetails);
-
-            // this populates the TopicId
+            Topic topic = createTopicCommand.ToTopic();
+            this.databaseContext.Topics.Add(topic);
             this.databaseContext.SaveChanges();
 
-            this.databaseContext.TopicOverviews.Add(createTopicCommand.ToTopicOverview(topicDetails.TopicId));
-            this.databaseContext.SaveChanges();
-
-            return topicDetails.TopicId;
+            return topic.TopicId;
         }
 
         public ForumOverview GetForumOverview(int page, int topicsPerPage, string currentUser)
@@ -42,14 +37,14 @@ namespace MediaCommMvc.Web.Infrastructure
             ForumOverview forumOverview = new ForumOverview
                                               {
                                                   TopicsForCurrentPage =
-                                                      this.databaseContext.TopicOverviews
+                                                      this.databaseContext.Topics
                                                       .OrderByDescending(topic => topic.LastPostTime)
                                                       .Skip((page - 1) * topicsPerPage)
                                                       .Take(topicsPerPage)
                                                       .ToList()
                                                       .Select(topic => new TopicOverviewViewModel(topic, currentUser))
                                                       .ToList(), 
-                                                  TotalNumberOfTopics = this.databaseContext.TopicOverviews.Count()
+                                                  TotalNumberOfTopics = this.databaseContext.Topics.Count()
                                               };
 
             return forumOverview;
@@ -57,11 +52,11 @@ namespace MediaCommMvc.Web.Infrastructure
 
         public TopicDetailsViewModel GetTopicDetailsViewModel(int id, int page, int postsPerPage, IPrincipal currentUser)
         {
-            TopicDetails topicDetails = this.databaseContext.TopicDetails
-                .Include(topic => topic.Posts)
+            Topic topic = this.databaseContext.Topics
+                .Include(t => t.Posts)
                 .Single(details => details.TopicId == id);
 
-            return new TopicDetailsViewModel(topicDetails, page, postsPerPage, currentUser);
+            return new TopicDetailsViewModel(topic, page, postsPerPage, currentUser);
         }
 
         public void AddReply(AddReplyCommand addReplyCommand)
@@ -76,10 +71,13 @@ namespace MediaCommMvc.Web.Infrastructure
 
             using (var transaction = this.databaseContext.Database.BeginTransaction())
             {
-                TopicOverview topicOverview = this.databaseContext.TopicOverviews.Single(overview => overview.TopicId == addReplyCommand.TopicId);
-                topicOverview.PostCount = topicOverview.PostCount + 1;
-                topicOverview.LastPostAuthor = addReplyCommand.AuthorName;
-                topicOverview.LastPostTime = addReplyCommand.Created;
+                Topic topic = this.databaseContext.Topics.Single(overview => overview.TopicId == addReplyCommand.TopicId);
+
+                post.IndexInTopic = topic.PostCount;
+
+                topic.PostCount = topic.PostCount + 1;
+                topic.LastPostAuthor = addReplyCommand.AuthorName;
+                topic.LastPostTime = addReplyCommand.Created;
 
                 this.databaseContext.SaveChanges();
                 transaction.Commit();
@@ -102,12 +100,10 @@ namespace MediaCommMvc.Web.Infrastructure
             this.databaseContext.SaveChanges();
         }
 
-        public TopicPageRoutedata GetTopicPageRouteDataForPost(int postId)
+        public TopicPageRoutedata GetTopicPageRouteDataForPost(int postId, int postsPerTopic)
         {
-            // Todo add TopicDetails navigation peroperty
-            Post post = this.databaseContext.Posts.Single(p => p.Id == postId);
-
-            return new TopicPageRoutedata
+            Post post = this.databaseContext.Posts.Include(p => p.Topic).Single(p => p.Id == postId);
+            return new TopicPageRoutedata(post, postsPerTopic);
         }
     }
 }
