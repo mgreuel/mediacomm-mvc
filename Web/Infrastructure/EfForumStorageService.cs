@@ -105,5 +105,10 @@ namespace MediaCommMvc.Web.Infrastructure
             Post post = this.databaseContext.Posts.Include(p => p.Topic).Single(p => p.Id == postId);
             return new TopicPageRoutedata(post, postsPerTopic);
         }
+
+        public TopicPageRoutedata GetRouteDataForLastTopicpage(int topicId, int postsPerPage)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
