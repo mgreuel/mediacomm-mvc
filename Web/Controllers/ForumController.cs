@@ -26,6 +26,14 @@ namespace MediaCommMvc.Web.Controllers
             this.efForumStorageService = efForumStorageService;
         }
 
+        [HttpPost]
+        public virtual ActionResult AddApproval(int postId)
+        {
+            this.efForumStorageService.AddApproval(postId, this.User.Identity.GetUserName());
+
+            return new EmptyResult();
+        }
+
         public virtual ActionResult Index(int page)
         {
             ForumOverview forumOverview = this.efForumStorageService.GetForumOverview(page, TopicsPerPage, this.User.Identity.GetUserName());
@@ -45,13 +53,13 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [HttpPost]
-        public virtual ActionResult CreateTopic(EditTopicWebViewModel viewModel)
+        public virtual ActionResult EditTopic(EditTopicWebViewModel viewModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(MVC.Forum.Views.EditTopic, viewModel);
             }
-
+            // todo determine whter create otr update
             int topicId = this.efForumStorageService.AddTopic(viewModel.ToCreateTopicCommand(this.User.Identity.GetUserName()));
 
             return this.RedirectToAction(MVC.Forum.Topic().AddRouteValue("id", topicId));
@@ -60,8 +68,13 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult EditPost(int id)
         {
-            // todo: Add edit topic (decision on the client)
             EditPostViewModel viewModel = this.efForumStorageService.GetEditPostViewModel(id);
+            return this.View(viewModel);
+        }
+
+        public virtual ActionResult EditTopic(int id)
+        {
+            EditTopicWebViewModel viewModel = this.efForumStorageService.GetEditTopicViewModel(id);
             return this.View(viewModel);
         }
 

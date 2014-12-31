@@ -15,9 +15,6 @@ namespace MediaCommMvc.Web.Infrastructure
     {
         private readonly ApplicationDbContext databaseContext;
 
-        // todo refactor to more fine granular locking
-        private readonly object lockObject = new object();
-
         public EfForumStorageService(ApplicationDbContext databaseContext)
         {
             this.databaseContext = databaseContext;
@@ -69,7 +66,7 @@ namespace MediaCommMvc.Web.Infrastructure
                                 Text = addReplyCommand.Text
                             };
 
-            using (var transaction = this.databaseContext.Database.BeginTransaction())
+            using (DbContextTransaction transaction = this.databaseContext.Database.BeginTransaction())
             {
                 Topic topic = this.databaseContext.Topics.Single(overview => overview.TopicId == addReplyCommand.TopicId);
 
@@ -103,12 +100,26 @@ namespace MediaCommMvc.Web.Infrastructure
         public TopicPageRoutedata GetTopicPageRouteDataForPost(int postId, int postsPerTopic)
         {
             Post post = this.databaseContext.Posts.Include(p => p.Topic).Single(p => p.Id == postId);
-            return new TopicPageRoutedata(post, postsPerTopic);
+            return TopicPageRoutedata.FromPost(post, postsPerTopic);
         }
 
         public TopicPageRoutedata GetRouteDataForLastTopicpage(int topicId, int postsPerPage)
         {
-            throw new System.NotImplementedException();
+            Topic topic = this.databaseContext.Topics.Single(t => t.TopicId == topicId);
+            return TopicPageRoutedata.LastPageOfTopic(topic, postsPerPage);
+        }
+
+        public void AddApproval(int postId, string userName)
+        {
+            Post post = this.databaseContext.Posts.Single(p => p.Id == postId);
+            post.AddApproval(userName);
+            this.databaseContext.SaveChanges();
+        }
+
+        public EditTopicWebViewModel GetEditTopicViewModel(int id)
+        {
+            Topic topic = this.databaseContext.Topics.Single(t => t.TopicId == id);
+            return new EditTopicWebViewModel { Subject = topic.Title, Text = topic.Posts.First().Text };
         }
     }
 }

@@ -25,6 +25,8 @@ using T4MVC;
 [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
 public static partial class MVC
 {
+    static readonly DummyT4MvcClass s_DummyT4Mvc = new DummyT4MvcClass();
+    public static DummyT4MvcClass DummyT4Mvc { get { return s_DummyT4Mvc; } }
     public static MediaCommMvc.Web.Controllers.AccountController Account = new MediaCommMvc.Web.Controllers.T4MVC_AccountController();
     public static MediaCommMvc.Web.Controllers.ForumController Forum = new MediaCommMvc.Web.Controllers.T4MVC_ForumController();
     public static MediaCommMvc.Web.Controllers.HomeController Home = new MediaCommMvc.Web.Controllers.T4MVC_HomeController();
@@ -34,6 +36,11 @@ public static partial class MVC
 
 namespace T4MVC
 {
+    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+    public class DummyT4MvcClass
+    {
+        public readonly string Name = "DummyT4Mvc";
+    }
 }
 
 namespace T4MVC

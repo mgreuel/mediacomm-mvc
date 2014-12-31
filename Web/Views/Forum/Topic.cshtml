@@ -1,6 +1,7 @@
 ﻿@using Core
 @using Core.Forum.ViewModels
 @using MediaCommMvc.Web.ViewModels.Forum
+@using Microsoft.AspNet.Identity
 @using PagedList
 @using PagedList.Mvc
 @model PagedTopicDetailsViewModel
@@ -36,6 +37,8 @@
 <div class="panel panel-default">
     <table id="topic-posts" class="table table-striped table-bordered">
         <tbody>
+            @{ bool firstPost = true; }
+
             @foreach (PostViewModel post in Model.PagedPosts)
             {
                 <tr>
@@ -53,23 +56,37 @@
                                 @Html.Raw(@post.Text)
                             </div>
                             <div class="post-actions clearfix">
+                                
+                                <div class="approvals">
+                                    @foreach (string approval in post.Approvals)
+                                    {
+                                        <div class='pull-left label label-info'>@approval @Resources.Approval.ApprovalText</div>
+                                    }
+                                </div>
+
                                 @if (post.IsEditable)
                                 {
-                                    foreach (string approval in post.Approvals)
+                                    if (firstPost)
                                     {
-                                        <div class='pull-left label label-info'>@approval</div>
-                                    }
-
-                                    <div class="pull-right">
-                                        @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditPost().AddRouteValue("id", post.Id), new { @class = "btn btn-xs btn-warning" })
-                                    </div>
-
-                                    if (post.ShowApprovalButton)
-                                    {
+                                        firstPost = false;
+                                        
                                         <div class="pull-right">
-                                            <a class="btn btn-primary btn-xs" data-url="test">@Resources.Approval.IApprove</a>
+                                            @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditTopic().AddRouteValue("id", Model.TopicDetails.Id), new { @class = "btn btn-xs btn-warning" })
                                         </div>
                                     }
+                                    else
+                                    {
+                                        <div class="pull-right">
+                                            @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditPost().AddRouteValue("id", post.Id), new { @class = "btn btn-xs btn-warning" })
+                                        </div>
+                                    }
+                                }
+                                
+                                @if (post.ShowApprovalButton)
+                                {
+                                    <div class="approval-button-container pull-right">
+                                        <a class="approval-button btn btn-primary btn-xs" data-id="@post.Id" data-url="@Url.Action(MVC.Forum.AddApproval())">@Resources.Approval.IApprove</a>
+                                    </div>
                                 }
                             </div>
                         </div>
@@ -79,6 +96,11 @@
         </tbody>
     </table>
 </div>
+<div class="clearfix">
+    <div class="pull-right">
+        @Html.PagedListPager(this.Model.PagedPosts, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("page", pageNumber)), pagerRenderOptions)
+    </div>
+</div>
 
 @if (Model.PagedPosts.IsLastPage)
 {
@@ -87,7 +109,6 @@
     //sections are not supported in partials, so the js must be included here
     @section scripts
     {
-
         @Scripts.Render("~/bundles/jqueryval")
 
         <script>
@@ -109,6 +130,19 @@
                         "blockquote": true, //Blockquote
                         "size": "sm" //default: none, other options are xs, sm, lg
                     }
+                });
+
+                $(".approval-button").click(function() {
+                    var $postLink = $(this);
+                    var url = $postLink.data("url");
+                    var postId = $postLink.data("id");
+
+                    $.post(url, { postId: postId })
+                        .done(function (data) {
+
+                        $postLink.parents(".post").find(".approval-button-container").hide();
+                        $postLink.parents(".post").find(".approvals").append("<div class='pull-left label label-info'>@User.Identity.GetUserName() @Resources.Approval.ApprovalText</div>");
+                    });
                 });
             });
         </script>

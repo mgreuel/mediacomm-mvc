@@ -56,6 +56,12 @@ namespace MediaCommMvc.Web.Controllers
 
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AddApproval()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddApproval);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Index()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
@@ -65,6 +71,12 @@ namespace MediaCommMvc.Web.Controllers
         public virtual System.Web.Mvc.ActionResult EditPost()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPost);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditTopic()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditTopic);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -94,9 +106,11 @@ namespace MediaCommMvc.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
+            public readonly string AddApproval = "AddApproval";
             public readonly string Index = "Index";
             public readonly string CreateTopic = "CreateTopic";
             public readonly string EditPost = "EditPost";
+            public readonly string EditTopic = "EditTopic";
             public readonly string Reply = "Reply";
             public readonly string Topic = "Topic";
         }
@@ -104,14 +118,24 @@ namespace MediaCommMvc.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
+            public const string AddApproval = "AddApproval";
             public const string Index = "Index";
             public const string CreateTopic = "CreateTopic";
             public const string EditPost = "EditPost";
+            public const string EditTopic = "EditTopic";
             public const string Reply = "Reply";
             public const string Topic = "Topic";
         }
 
 
+        static readonly ActionParamsClass_AddApproval s_params_AddApproval = new ActionParamsClass_AddApproval();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AddApproval AddApprovalParams { get { return s_params_AddApproval; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AddApproval
+        {
+            public readonly string postId = "postId";
+        }
         static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Index IndexParams { get { return s_params_Index; } }
@@ -136,6 +160,14 @@ namespace MediaCommMvc.Web.Controllers
         {
             public readonly string id = "id";
             public readonly string viewModel = "viewModel";
+        }
+        static readonly ActionParamsClass_EditTopic s_params_EditTopic = new ActionParamsClass_EditTopic();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_EditTopic EditTopicParams { get { return s_params_EditTopic; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_EditTopic
+        {
+            public readonly string id = "id";
         }
         static readonly ActionParamsClass_Reply s_params_Reply = new ActionParamsClass_Reply();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -184,6 +216,18 @@ namespace MediaCommMvc.Web.Controllers
         public T4MVC_ForumController() : base(Dummy.Instance) { }
 
         [NonAction]
+        partial void AddApprovalOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int postId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AddApproval(int postId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddApproval);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "postId", postId);
+            AddApprovalOverride(callInfo, postId);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int page);
 
         [NonAction]
@@ -227,6 +271,18 @@ namespace MediaCommMvc.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPost);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
             EditPostOverride(callInfo, id);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void EditTopicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int id);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult EditTopic(int id)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditTopic);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "id", id);
+            EditTopicOverride(callInfo, id);
             return callInfo;
         }
 

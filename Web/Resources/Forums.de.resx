@@ -246,4 +246,7 @@
   <data name="Hide" xml:space="preserve">
     <value>Vor Thea &amp; Markus verstecken</value>
   </data>
+  <data name="SaveTopic" xml:space="preserve">
+    <value>Thema speichern</value>
+  </data>
 </root>

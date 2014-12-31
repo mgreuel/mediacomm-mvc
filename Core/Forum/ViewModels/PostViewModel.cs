@@ -31,7 +31,7 @@ namespace Core.Forum.ViewModels
         {
             get
             {
-                return this.currentUser.Identity.Name.Equals(this.AuthorName, StringComparison.OrdinalIgnoreCase) || this.currentUser.IsInRole(Roles.Administrators);
+                return this.currentUser.Identity.Name.Equals(this.AuthorName, StringComparison.OrdinalIgnoreCase) || this.currentUser.IsInRole(UserRoles.Administrator);
             }
         }
 

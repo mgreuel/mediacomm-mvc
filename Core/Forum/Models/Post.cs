@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Forum.Models
 {
@@ -26,7 +27,7 @@ namespace Core.Forum.Models
         {
             get
             {
-                return this.ApprovalStorage.Split(',');
+                return this.ApprovalStorage.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             }
         }
 
@@ -39,7 +40,7 @@ namespace Core.Forum.Models
         {
             List<string> approvals = new List<string>(this.Approvals);
             approvals.Add(username);
-            this.ApprovalStorage = string.Join("'", approvals);
+            this.ApprovalStorage = string.Join(",", approvals.Distinct());
         }
     }
 }

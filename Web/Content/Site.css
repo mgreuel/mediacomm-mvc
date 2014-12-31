@@ -89,7 +89,7 @@ input[type="checkbox"].input-validation-error {
 #forum-topics-container {
     border: 1px solid #e3e3e3;
     border-radius: 6px;
-    margin: 0 0 10px 0;
+    margin-top: 20px;
 }
 
 #forum-topics .topic-icon {
@@ -165,9 +165,17 @@ input[type="checkbox"].input-validation-error {
     padding-bottom: 4px;
 }
 
+.approvals > div {
+    margin-right: 4px;
+}
+
 /* End Topic Detail View*/
 
 /* Start Create Topic */
+
+.edit-topic {
+    margin-top: 10px;
+}
 
 .editor {
     min-height: 100px;

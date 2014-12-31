@@ -208,6 +208,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\DummyT4Mvc\DummyT4MvcAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -228,10 +229,14 @@
     <Compile Include="Infrastructure\Database\ApplicationDbInitializer.cs" />
     <Compile Include="Infrastructure\Database\DateTime2Convention.cs" />
     <Compile Include="Infrastructure\EfForumStorageService.cs" />
-    <Compile Include="Infrastructure\UserRoles.cs" />
     <Compile Include="ManageController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411190728513_InitialCreate.cs" />
+    <Compile Include="Migrations\201411190728513_InitialCreate.Designer.cs">
+      <DependentUpon>201411190728513_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -348,6 +353,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\201411190728513_InitialCreate.resx">
+      <DependentUpon>201411190728513_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Admin.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Admin.Designer.cs</LastGenOutput>

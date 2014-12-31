@@ -1,6 +1,6 @@
 ﻿@model MediaCommMvc.Web.ViewModels.Forum.EditTopicWebViewModel
 
-@using (Html.BeginForm(MVC.Forum.CreateTopic(), FormMethod.Post, new { role = "form" }))
+@using (Html.BeginForm(MVC.Forum.EditTopic(), FormMethod.Post, new { role = "form", @class="edit-topic" }))
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Subject)
@@ -19,7 +19,7 @@
 
     </div>
 
-    <button type="submit" class="btn btn-primary">@Resources.Forums.CreateTopic</button>
+    <button type="submit" class="btn btn-primary">@Resources.Forums.SaveTopic</button>
 }
 
 @section scripts

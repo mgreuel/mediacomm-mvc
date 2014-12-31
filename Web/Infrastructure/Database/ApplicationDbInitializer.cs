@@ -1,6 +1,8 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 
+using Core;
+
 using MediaCommMvc.Web.ViewModels;
 
 using Microsoft.AspNet.Identity;
@@ -41,6 +43,24 @@ namespace MediaCommMvc.Web.Infrastructure.Database
                 var store = new UserStore<ApplicationUser>(context);
                 var manager = new UserManager<ApplicationUser>(store);
                 var user = new ApplicationUser { UserName = "User", Email = "user@local.loc" };
+
+                manager.Create(user, "ChangeIt!");
+            }
+
+            if (!context.Users.Any(u => u.UserName == "User1"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "User1", Email = "user1@local.loc" };
+
+                manager.Create(user, "ChangeIt!");
+            }
+
+            if (!context.Users.Any(u => u.UserName == "User2"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "User2", Email = "user2@local.loc" };
 
                 manager.Create(user, "ChangeIt!");
             }
