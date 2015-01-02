@@ -1,13 +1,19 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Principal;
 
+using Core;
 using Core.Forum.Commands;
 using Core.Forum.Models;
 using Core.Forum.ViewModels;
 
 using MediaCommMvc.Web.Infrastructure.Database;
 using MediaCommMvc.Web.ViewModels.Forum;
+
+using Microsoft.AspNet.Identity;
 
 namespace MediaCommMvc.Web.Infrastructure
 {
@@ -47,11 +53,14 @@ namespace MediaCommMvc.Web.Infrastructure
             return forumOverview;
         }
 
-        public TopicDetailsViewModel GetTopicDetailsViewModel(int id, int page, int postsPerPage, IPrincipal currentUser)
+        public TopicDetailsViewModel GetTopicDetailsViewModelAndMarkTopicAsRead(int id, int page, int postsPerPage, IPrincipal currentUser)
         {
             Topic topic = this.databaseContext.Topics
                 .Include(t => t.Posts)
                 .Single(details => details.TopicId == id);
+
+            topic.LastAccessTimes[currentUser.Identity.GetUserName()] = DateTime.UtcNow;
+            this.databaseContext.SaveChanges();
 
             return new TopicDetailsViewModel(topic, page, postsPerPage, currentUser);
         }
@@ -120,6 +129,21 @@ namespace MediaCommMvc.Web.Infrastructure
         {
             Topic topic = this.databaseContext.Topics.Single(t => t.TopicId == id);
             return new EditTopicWebViewModel { Subject = topic.Title, Text = topic.Posts.First().Text };
+        }
+
+        public void UpdateTopic(UpdateTopicCommand toUpdateTopicCommand)
+        {
+            Topic topic = this.databaseContext.Topics.Single(t => t.TopicId == toUpdateTopicCommand.Id);
+            topic.Title = toUpdateTopicCommand.Title;
+            topic.Posts.First().Text = toUpdateTopicCommand.Text;
+            // todo: exlcudedusers
+            //topic.ExcludedUserNames = toUpdateTopicCommand.ExcludedUsers;
+            this.databaseContext.SaveChanges();
+        }
+
+        public IList<string> GetAllUsers()
+        {
+            return this.databaseContext.Users.Select(u => u.UserName).ToList();
         }
     }
 }

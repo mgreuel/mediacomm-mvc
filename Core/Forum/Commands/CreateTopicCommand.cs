@@ -23,6 +23,7 @@ namespace Core.Forum.Commands
                     LastPostAuthor = this.AuthorName,
                     LastPostTime = this.TimeStamp,
                     PostCount = 1,
+                    LastAccessTimes = new Dictionary<string, DateTime> { { this.AuthorName, this.TimeStamp.AddMilliseconds(1) } },
                     Title = this.Title,
                            Posts =
                                new List<Post>

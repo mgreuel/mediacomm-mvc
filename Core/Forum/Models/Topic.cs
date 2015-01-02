@@ -29,8 +29,8 @@ namespace Core.Forum.Models
 
         public Dictionary<string, DateTime> LastAccessTimes { get; set; }
 
-
         public List<Post> Posts { get; set; }
+
         public bool AllPostsReadByUser(string username)
         {
             return this.LastAccessTimeForUser(username) > this.LastPostTime;

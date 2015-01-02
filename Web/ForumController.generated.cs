@@ -68,15 +68,15 @@ namespace MediaCommMvc.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public virtual System.Web.Mvc.ActionResult EditPost()
-        {
-            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPost);
-        }
-        [NonAction]
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult EditTopic()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditTopic);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult EditPost()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPost);
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -109,8 +109,8 @@ namespace MediaCommMvc.Web.Controllers
             public readonly string AddApproval = "AddApproval";
             public readonly string Index = "Index";
             public readonly string CreateTopic = "CreateTopic";
-            public readonly string EditPost = "EditPost";
             public readonly string EditTopic = "EditTopic";
+            public readonly string EditPost = "EditPost";
             public readonly string Reply = "Reply";
             public readonly string Topic = "Topic";
         }
@@ -121,8 +121,8 @@ namespace MediaCommMvc.Web.Controllers
             public const string AddApproval = "AddApproval";
             public const string Index = "Index";
             public const string CreateTopic = "CreateTopic";
-            public const string EditPost = "EditPost";
             public const string EditTopic = "EditTopic";
+            public const string EditPost = "EditPost";
             public const string Reply = "Reply";
             public const string Topic = "Topic";
         }
@@ -144,13 +144,14 @@ namespace MediaCommMvc.Web.Controllers
         {
             public readonly string page = "page";
         }
-        static readonly ActionParamsClass_CreateTopic s_params_CreateTopic = new ActionParamsClass_CreateTopic();
+        static readonly ActionParamsClass_EditTopic s_params_EditTopic = new ActionParamsClass_EditTopic();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_CreateTopic CreateTopicParams { get { return s_params_CreateTopic; } }
+        public ActionParamsClass_EditTopic EditTopicParams { get { return s_params_EditTopic; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_CreateTopic
+        public class ActionParamsClass_EditTopic
         {
             public readonly string viewModel = "viewModel";
+            public readonly string id = "id";
         }
         static readonly ActionParamsClass_EditPost s_params_EditPost = new ActionParamsClass_EditPost();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -160,14 +161,6 @@ namespace MediaCommMvc.Web.Controllers
         {
             public readonly string id = "id";
             public readonly string viewModel = "viewModel";
-        }
-        static readonly ActionParamsClass_EditTopic s_params_EditTopic = new ActionParamsClass_EditTopic();
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ActionParamsClass_EditTopic EditTopicParams { get { return s_params_EditTopic; } }
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public class ActionParamsClass_EditTopic
-        {
-            public readonly string id = "id";
         }
         static readonly ActionParamsClass_Reply s_params_Reply = new ActionParamsClass_Reply();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -251,14 +244,14 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void CreateTopicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.Forum.EditTopicWebViewModel viewModel);
+        partial void EditTopicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.Forum.EditTopicWebViewModel viewModel);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult CreateTopic(MediaCommMvc.Web.ViewModels.Forum.EditTopicWebViewModel viewModel)
+        public override System.Web.Mvc.ActionResult EditTopic(MediaCommMvc.Web.ViewModels.Forum.EditTopicWebViewModel viewModel)
         {
-            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.CreateTopic);
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditTopic);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
-            CreateTopicOverride(callInfo, viewModel);
+            EditTopicOverride(callInfo, viewModel);
             return callInfo;
         }
 

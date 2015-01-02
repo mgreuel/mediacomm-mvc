@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 using Core.Forum.Models;
 using Core.Forum.ViewModels;
@@ -39,9 +40,9 @@ namespace MediaCommMvc.Web.Controllers
             ForumOverview forumOverview = this.efForumStorageService.GetForumOverview(page, TopicsPerPage, this.User.Identity.GetUserName());
 
             StaticPagedList<TopicOverviewViewModel> topics = new StaticPagedList<TopicOverviewViewModel>(
-                forumOverview.TopicsForCurrentPage, 
-                page, 
-                TopicsPerPage, 
+                forumOverview.TopicsForCurrentPage,
+                page,
+                TopicsPerPage,
                 forumOverview.TotalNumberOfTopics);
 
             return this.View(new ForumViewModel { Topics = topics });
@@ -49,7 +50,8 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult CreateTopic()
         {
-            return this.View(MVC.Forum.Views.EditTopic, new EditTopicWebViewModel());
+            IList<string> allUsers = this.efForumStorageService.GetAllUsers();
+            return this.View(MVC.Forum.Views.EditTopic, new EditTopicWebViewModel { AllUserNames = allUsers });
         }
 
         [HttpPost]
@@ -59,10 +61,20 @@ namespace MediaCommMvc.Web.Controllers
             {
                 return this.View(MVC.Forum.Views.EditTopic, viewModel);
             }
-            // todo determine whter create otr update
-            int topicId = this.efForumStorageService.AddTopic(viewModel.ToCreateTopicCommand(this.User.Identity.GetUserName()));
 
-            return this.RedirectToAction(MVC.Forum.Topic().AddRouteValue("id", topicId));
+            int topicId;
+
+            if (viewModel.Id == 0)
+            {
+                topicId = this.efForumStorageService.AddTopic(viewModel.ToCreateTopicCommand(this.User.Identity.GetUserName()));
+            }
+            else
+            {
+                this.efForumStorageService.UpdateTopic(viewModel.ToUpdateTopicCommand());
+                topicId = viewModel.Id;
+            }
+
+            return this.RedirectToAction(MVC.Forum.Topic().AddRouteValues(new { id = topicId, name = viewModel.Subject }));
         }
 
 
@@ -113,7 +125,7 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult Topic(int id, int page)
         {
-            TopicDetailsViewModel topicDetails = this.efForumStorageService.GetTopicDetailsViewModel(id, page, PostsPerPage, this.User);
+            TopicDetailsViewModel topicDetails = this.efForumStorageService.GetTopicDetailsViewModelAndMarkTopicAsRead(id, page, PostsPerPage, this.User);
             var viewModel = new PagedTopicDetailsViewModel(topicDetails);
 
             return this.View(viewModel);

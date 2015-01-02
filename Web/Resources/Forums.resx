@@ -184,7 +184,7 @@
     <value>Sticky without new posts</value>
   </data>
   <data name="Subject" xml:space="preserve">
-    <value>Subject</value>
+    <value>Title</value>
   </data>
   <data name="Topic" xml:space="preserve">
     <value>Topic</value>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
+using Core;
 using Core.Forum.Commands;
 
 using Resources;
@@ -30,6 +31,11 @@ namespace MediaCommMvc.Web.ViewModels.Forum
         public CreateTopicCommand ToCreateTopicCommand(string userName)
         {
             return new CreateTopicCommand { AuthorName = userName, Text = this.Text, TimeStamp = DateTime.UtcNow, Title = this.Subject };
+        }
+
+        public UpdateTopicCommand ToUpdateTopicCommand()
+        {
+            return new UpdateTopicCommand { Text = this.Text, Title = this.Subject, ExcludedUsers = this.ExcludedUsers, Id = this.Id };
         }
     }
 }
