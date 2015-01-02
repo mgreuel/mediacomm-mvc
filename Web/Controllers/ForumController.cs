@@ -16,10 +16,6 @@ namespace MediaCommMvc.Web.Controllers
     [Authorize]
     public partial class ForumController : Controller
     {
-        private const int PostsPerPage = 15;
-
-        private const int TopicsPerPage = 15;
-
         private readonly EfForumStorageService efForumStorageService;
 
         public ForumController(EfForumStorageService efForumStorageService)
@@ -37,12 +33,11 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult Index(int page)
         {
-            ForumOverview forumOverview = this.efForumStorageService.GetForumOverview(page, TopicsPerPage, this.User.Identity.GetUserName());
+            ForumOverview forumOverview = this.efForumStorageService.GetForumOverview(page, ForumOptions.TopicsPerPage, this.User.Identity.GetUserName());
 
             StaticPagedList<TopicOverviewViewModel> topics = new StaticPagedList<TopicOverviewViewModel>(
                 forumOverview.TopicsForCurrentPage,
-                page,
-                TopicsPerPage,
+                page, ForumOptions.TopicsPerPage,
                 forumOverview.TotalNumberOfTopics);
 
             return this.View(new ForumViewModel { Topics = topics });
@@ -99,7 +94,7 @@ namespace MediaCommMvc.Web.Controllers
             }
 
             this.efForumStorageService.UpdatePost(viewModel.ToSavePostCommand());
-            TopicPageRoutedata topicPage = this.efForumStorageService.GetTopicPageRouteDataForPost(viewModel.PostId, PostsPerPage);
+            TopicPageRoutedata topicPage = this.efForumStorageService.GetTopicPageRouteDataForPost(viewModel.PostId, ForumOptions.PostsPerPage);
 
             return
                 this.RedirectToAction(
@@ -116,7 +111,7 @@ namespace MediaCommMvc.Web.Controllers
 
             this.efForumStorageService.AddReply(viewModel.ToAddReplyCommand(this.User.Identity.GetUserName()));
 
-            TopicPageRoutedata topicPage = this.efForumStorageService.GetRouteDataForLastTopicpage(viewModel.TopicId, PostsPerPage);
+            TopicPageRoutedata topicPage = this.efForumStorageService.GetRouteDataForLastTopicpage(viewModel.TopicId, ForumOptions.PostsPerPage);
 
             return
                 this.RedirectToAction(
@@ -125,7 +120,7 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult Topic(int id, int page)
         {
-            TopicDetailsViewModel topicDetails = this.efForumStorageService.GetTopicDetailsViewModelAndMarkTopicAsRead(id, page, PostsPerPage, this.User);
+            TopicDetailsViewModel topicDetails = this.efForumStorageService.GetTopicDetailsViewModelAndMarkTopicAsRead(id, page, ForumOptions.PostsPerPage, this.User);
             var viewModel = new PagedTopicDetailsViewModel(topicDetails);
 
             return this.View(viewModel);

@@ -21,6 +21,11 @@ namespace Core.Forum.ViewModels
             this.PostCount = topic.PostCount;
             this.Title = topic.Title;
             this.ReadByCurrentUser = topic.AllPostsReadByUser(currentUser);
+
+            if (!this.ReadByCurrentUser)
+            {
+                this.TopicTitleCssClass = "unread";
+            }
         }
 
         public IEnumerable<string> ExcludedUsernames { get; set; }
@@ -40,5 +45,7 @@ namespace Core.Forum.ViewModels
         public TopicDisplayPriority DisplayPriority { get; set; }
 
         public int Id { get; set; }
+
+        public string TopicTitleCssClass { get; set; }
     }
 }

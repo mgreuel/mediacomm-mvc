@@ -23,7 +23,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink(Resources.Navigation.Home, MVC.Home.Index())</li>
-                    <li>@Html.ActionLink(Resources.Navigation.Forums, MVC.Forum.Index())</li>
+                    <li>@Html.ActionLink(Resources.Navigation.Forums, MVC.Forum.Index().AddRouteValue("page", 1))</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

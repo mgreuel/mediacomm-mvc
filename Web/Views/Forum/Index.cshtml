@@ -1,13 +1,14 @@
-﻿@using Core
-@using Core.Forum.ViewModels
+﻿@using Core.Forum.ViewModels
+@using MediaCommMvc.Web.Infrastructure
 @using MediaCommMvc.Web.ViewModels.Forum
+@using PagedList
 @using PagedList.Mvc
 @model ForumViewModel
 
 
 
 @{
-    PagedListRenderOptions pagerRenderOptions = new PagedListRenderOptions
+    PagedListRenderOptions forumPagerRenderOptions = new PagedListRenderOptions
                                                     {
                                                         DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
                                                         DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
@@ -29,13 +30,10 @@
     @Html.ActionLink(Resources.Forums.CreateTopic, MVC.Forum.CreateTopic(), new { id = "new-topic-button", @class = "btn btn-primary" })
 
     <div class="pull-right">
-        @Html.PagedListPager(this.Model.Topics, pageNumber => this.Url.Action(MVC.Forum.Index().AddRouteValue("page", pageNumber)), pagerRenderOptions)
+        @Html.PagedListPager(this.Model.Topics, pageNumber => this.Url.Action(MVC.Forum.Index().AddRouteValue("page", pageNumber)), forumPagerRenderOptions)
     </div>
 
 </div>
-
-
-
 
 <div id="forum-topics-container">
     <table id="forum-topics" class="table table-striped">
@@ -55,17 +53,24 @@
                     <td class="topic-icon">
                         <i class="@Icons.TopicIconClass(topic)"></i>
                     </td>
-                    <td class="topic-title">
-                        <div>
+                    <td>
+                        <div class="topic-title @topic.TopicTitleCssClass">
                             @Html.ActionLink(@topic.Title, MVC.Forum.Topic().AddRouteValues(new
-                       {
-                           id = topic.Id,
-                           name = UrlEncoder.ToFriendlyUrl(topic.Title)
-                       }))
-                        </div>@if
-                    (topic.ExcludedUsernames != null && topic.ExcludedUsernames.Any())
+                                                                                                {
+                                                                                                    id = topic.Id,
+                                                                                                    name = UrlEncoder.ToFriendlyUrl(topic.Title)
+                                                                                                }))
+                        </div>
+
+                        <div class="topic-pager">
+
+                            @MiniPager.Build(topic.PostCount, ForumOptions.PostsPerPage, pageNumber => this.Url.Action(MVC.Forum.Topic().AddRouteValues(new { id = topic.Id, page = pageNumber, name = UrlEncoder.ToFriendlyUrl(topic.Title) })))
+                        </div>
+
+                        @if (topic.ExcludedUsernames != null && topic.ExcludedUsernames.Any())
                         {
-                            <div class="topic-additional-info">@Resources.Forums.InvisibleFor @string.Join(", ", topic.ExcludedUsernames)</div>}
+                            <div class="topic-additional-info">@Resources.Forums.InvisibleFor @string.Join(", ", topic.ExcludedUsernames)</div>
+                        }
                     </td>
                     <td class="topic-author">
                         @topic.CreatedBy

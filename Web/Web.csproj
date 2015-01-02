@@ -221,6 +221,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Icons.cs" />
+    <Compile Include="Helpers\MiniPager.cs" />
     <Compile Include="Helpers\UrlEncoder.cs" />
     <Compile Include="HomeController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -229,6 +230,7 @@
     <Compile Include="Infrastructure\Database\ApplicationDbInitializer.cs" />
     <Compile Include="Infrastructure\Database\DateTime2Convention.cs" />
     <Compile Include="Infrastructure\EfForumStorageService.cs" />
+    <Compile Include="Infrastructure\ForumOptions.cs" />
     <Compile Include="ManageController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>

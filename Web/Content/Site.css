@@ -107,6 +107,18 @@ input[type="checkbox"].input-validation-error {
     min-width: 150px;
 }
 
+#forum-topics .topic-title.unread {
+    font-weight: bold;
+}
+
+#forum-topics .topic-pager {
+    font-size: 90%;
+}
+
+    #forum-topics .topic-pager .btn {
+        padding: 1px 3px;
+    }
+
 #forum-topics .topic-author {
     width: 125px;
     min-width: 100px;
