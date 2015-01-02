@@ -120,6 +120,9 @@
   <data name="Add" xml:space="preserve">
     <value>Hinzufügen</value>
   </data>
+  <data name="AllSelected" xml:space="preserve">
+    <value>Alle ausgewählt</value>
+  </data>
   <data name="And" xml:space="preserve">
     <value>und</value>
   </data>
@@ -159,6 +162,9 @@
   <data name="Next" xml:space="preserve">
     <value>Nächste</value>
   </data>
+  <data name="NoneSelected" xml:space="preserve">
+    <value>Keine ausgewählt</value>
+  </data>
   <data name="Page" xml:space="preserve">
     <value>Seite</value>
   </data>
@@ -167,6 +173,12 @@
   </data>
   <data name="Save" xml:space="preserve">
     <value>Speichern</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Auswählen</value>
+  </data>
+  <data name="Selected" xml:space="preserve">
+    <value>ausgewählt</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Thea &amp; Markus</value>

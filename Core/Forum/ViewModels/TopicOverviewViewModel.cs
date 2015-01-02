@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 using Core.Forum.Models;
 
@@ -11,8 +12,8 @@ namespace Core.Forum.ViewModels
             this.CreatedBy = topic.CreatedBy;
             this.DisplayPriority = topic.DisplayPriority;
 
-            string[] tempExcludedUsers = new string[topic.ExcludedUserNames.Count];
-            topic.ExcludedUserNames.CopyTo(tempExcludedUsers);
+            string[] tempExcludedUsers = new string[topic.ExcludedUserNames.Count()];
+            topic.ExcludedUserNames.ToList().CopyTo(tempExcludedUsers);
             this.ExcludedUsernames = tempExcludedUsers;
 
             this.Id = topic.TopicId;

@@ -37,7 +37,8 @@ namespace MediaCommMvc.Web.Controllers
 
             StaticPagedList<TopicOverviewViewModel> topics = new StaticPagedList<TopicOverviewViewModel>(
                 forumOverview.TopicsForCurrentPage,
-                page, ForumOptions.TopicsPerPage,
+                page,
+                ForumOptions.TopicsPerPage,
                 forumOverview.TotalNumberOfTopics);
 
             return this.View(new ForumViewModel { Topics = topics });

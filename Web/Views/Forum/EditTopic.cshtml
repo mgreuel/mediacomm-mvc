@@ -1,6 +1,6 @@
 ﻿@model MediaCommMvc.Web.ViewModels.Forum.EditTopicWebViewModel
 
-@using (Html.BeginForm(MVC.Forum.EditTopic(), FormMethod.Post, new { role = "form", @class="edit-topic" }))
+@using (Html.BeginForm(MVC.Forum.EditTopic(), FormMethod.Post, new { role = "form", @class = "edit-topic" }))
 {
     <div class="form-group">
         @Html.LabelFor(m => m.Subject)
@@ -13,11 +13,17 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Text)
 
-        @Html.TextAreaFor(m => m.Text, new { contenteditable="true", @class="editor form-control full-width" })
+        @Html.TextAreaFor(m => m.Text, new { contenteditable = "true", @class = "editor form-control full-width" })
 
         @Html.ValidationMessageFor(m => m.Text)
 
     </div>
+
+    <div class="form-group">
+        @Html.DropDownListFor(m => m.ExcludedUserNames, new SelectList( this.Model.AllUserNames), new { multiple = "multiple" })
+
+    </div>
+
 
     <button type="submit" class="btn btn-primary">@Resources.Forums.SaveTopic</button>
 }
@@ -28,8 +34,8 @@
 
     <script>
 
-        $(function () {
-             $('#Text').wysihtml5({
+        $(function() {
+            $('#Text').wysihtml5({
                 toolbar: {
                     "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
                     "emphasis": true, //Italics, bold, etc. Default true
@@ -40,6 +46,27 @@
                     "color": false, //Button to change color of font
                     "blockquote": true, //Blockquote
                     "size": "sm" //default: none, other options are xs, sm, lg
+                }
+            });
+
+            $("#ExcludedUserNames").multiselect({
+                buttonText: function(options, select) {
+                    if (options.length === 0) {
+                        return '@Resources.General.NoneSelected' + ' <b class="caret"></b>';
+                    } else if (options.length == $('option', $(select)).length) {
+                        return '@Resources.General.AllSelected' + ' <b class="caret"></b>';
+                    } else if (options.length > 5) {
+                        return options.length + ' @Resources.General.Selected' + ' <b class="caret"></b>';
+                    } else {
+                        var selected = '';
+                        options.each(function() {
+                            var label = ($(this).attr('label') !== undefined) ? $(this).attr('label') : $(this).html();
+
+                            selected += label + ', ';
+                        });
+
+                        return selected.substr(0, selected.length - 2) + ' <b class="caret"></b>';
+                    }
                 }
             });
         });

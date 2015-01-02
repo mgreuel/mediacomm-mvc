@@ -1,4 +1,6 @@
-﻿namespace Core
+﻿using System.Collections.Generic;
+
+namespace Core
 {
     public class UpdateTopicCommand
     {
@@ -6,7 +8,7 @@
 
         public string Title { get; set; }
 
-        public string ExcludedUsers { get; set; }
+        public IEnumerable<string> ExcludedUserNames { get; set; }
 
         public int Id { get; set; }
     }

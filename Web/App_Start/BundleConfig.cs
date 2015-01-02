@@ -24,12 +24,14 @@ namespace MediaCommMvc.Web
 
             bundles.Add(
                 new ScriptBundle("~/bundles/js").Include(
-                    "~/Scripts/bootstrap3-wysihtml5.all.min.js"));
+                    "~/Scripts/bootstrap3-wysihtml5.all.min.js",
+                    "~/Scripts/bootstrap-multiselect.js"));
 
             bundles.Add(
                 new StyleBundle("~/Content/css").Include(
                     "~/Content/bootstrap3-wysihtml5.min.css",
                     "~/Content/bootstrap.cerulean.css",
+                    "~/Content/bootstrap-multiselect.css",
                     "~/Content/site.css"));
 
             // Set EnableOptimizations to false for debugging. For more information,

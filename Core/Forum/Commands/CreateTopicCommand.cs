@@ -15,28 +15,31 @@ namespace Core.Forum.Commands
 
         public string Title { get; set; }
 
+        public IEnumerable<string> ExcludedUserNames { get; set; }
+
         public Topic ToTopic()
         {
             return new Topic
-                {
-                    CreatedBy = this.AuthorName,
-                    LastPostAuthor = this.AuthorName,
-                    LastPostTime = this.TimeStamp,
-                    PostCount = 1,
-                    LastAccessTimes = new Dictionary<string, DateTime> { { this.AuthorName, this.TimeStamp.AddMilliseconds(1) } },
-                    Title = this.Title,
+                       {
+                           CreatedBy = this.AuthorName, 
+                           ExcludedUserNames = this.ExcludedUserNames, 
+                           LastPostAuthor = this.AuthorName, 
+                           LastPostTime = this.TimeStamp, 
+                           PostCount = 1, 
+                           LastAccessTimes = new Dictionary<string, DateTime> { { this.AuthorName, this.TimeStamp.AddMilliseconds(1) } }, 
+                           Title = this.Title, 
                            Posts =
                                new List<Post>
                                    {
                                        new Post
                                            {
-                                               AuthorName = this.AuthorName,
-                                               Created = this.TimeStamp,
-                                               Id = 1,
+                                               AuthorName = this.AuthorName, 
+                                               Created = this.TimeStamp, 
+                                               Id = 1, 
                                                Text = this.Text
                                            }
                                    }
-                };
+                       };
         }
     }
 }

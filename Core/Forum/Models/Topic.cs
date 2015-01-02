@@ -25,7 +25,21 @@ namespace Core.Forum.Models
 
         public TopicDisplayPriority DisplayPriority { get; set; }
 
-        public List<string> ExcludedUserNames { get; set; }
+        // Todo make private/protected // http://blog.oneunicorn.com/2012/03/26/code-first-data-annotations-on-non-public-properties/ 
+        public string ExcludedUsersStorage { get; set; }
+
+        public IEnumerable<string> ExcludedUserNames
+        {
+            get
+            {
+                return this.ExcludedUsersStorage.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            }
+
+            set
+            {
+                this.ExcludedUsersStorage = string.Join(",", value);
+            }
+        }
 
         public Dictionary<string, DateTime> LastAccessTimes { get; set; }
 

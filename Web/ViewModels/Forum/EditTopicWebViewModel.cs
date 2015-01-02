@@ -17,7 +17,7 @@ namespace MediaCommMvc.Web.ViewModels.Forum
         public IEnumerable<string> AllUserNames { get; set; }
 
         [Display(ResourceType = typeof(Forums), Name = "Hide")]
-        public string ExcludedUsers { get; set; }
+        public IEnumerable<string> ExcludedUserNames { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Forums), ErrorMessageResourceName = "SubjectRequired")]
         [Display(ResourceType = typeof(Forums), Name = "Subject")]
@@ -30,12 +30,12 @@ namespace MediaCommMvc.Web.ViewModels.Forum
 
         public CreateTopicCommand ToCreateTopicCommand(string userName)
         {
-            return new CreateTopicCommand { AuthorName = userName, Text = this.Text, TimeStamp = DateTime.UtcNow, Title = this.Subject };
+            return new CreateTopicCommand { AuthorName = userName, ExcludedUserNames = this.ExcludedUserNames, Text = this.Text, TimeStamp = DateTime.UtcNow, Title = this.Subject };
         }
 
         public UpdateTopicCommand ToUpdateTopicCommand()
         {
-            return new UpdateTopicCommand { Text = this.Text, Title = this.Subject, ExcludedUsers = this.ExcludedUsers, Id = this.Id };
+            return new UpdateTopicCommand { Text = this.Text, ExcludedUserNames = this.ExcludedUserNames, Title = this.Subject, Id = this.Id };
         }
     }
 }

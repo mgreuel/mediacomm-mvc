@@ -46,7 +46,7 @@ namespace MediaCommMvc.Web.Infrastructure
                                                       .Take(topicsPerPage)
                                                       .ToList()
                                                       .Select(topic => new TopicOverviewViewModel(topic, currentUser))
-                                                      .ToList(), 
+                                                      .ToList(),
                                                   TotalNumberOfTopics = this.databaseContext.Topics.Count()
                                               };
 
@@ -69,9 +69,9 @@ namespace MediaCommMvc.Web.Infrastructure
         {
             Post post = new Post
                             {
-                                AuthorName = addReplyCommand.AuthorName, 
-                                Created = addReplyCommand.Created, 
-                                TopicId = addReplyCommand.TopicId, 
+                                AuthorName = addReplyCommand.AuthorName,
+                                Created = addReplyCommand.Created,
+                                TopicId = addReplyCommand.TopicId,
                                 Text = addReplyCommand.Text
                             };
 
@@ -128,7 +128,8 @@ namespace MediaCommMvc.Web.Infrastructure
         public EditTopicWebViewModel GetEditTopicViewModel(int id)
         {
             Topic topic = this.databaseContext.Topics.Single(t => t.TopicId == id);
-            return new EditTopicWebViewModel { Subject = topic.Title, Text = topic.Posts.First().Text };
+            List<string> allUserNames = this.databaseContext.Users.Select(u => u.UserName).ToList();
+            return new EditTopicWebViewModel { AllUserNames = allUserNames, ExcludedUserNames = topic.ExcludedUserNames, Subject = topic.Title, Text = topic.Posts.First().Text };
         }
 
         public void UpdateTopic(UpdateTopicCommand toUpdateTopicCommand)
@@ -136,8 +137,7 @@ namespace MediaCommMvc.Web.Infrastructure
             Topic topic = this.databaseContext.Topics.Single(t => t.TopicId == toUpdateTopicCommand.Id);
             topic.Title = toUpdateTopicCommand.Title;
             topic.Posts.First().Text = toUpdateTopicCommand.Text;
-            // todo: exlcudedusers
-            //topic.ExcludedUserNames = toUpdateTopicCommand.ExcludedUsers;
+            topic.ExcludedUserNames = toUpdateTopicCommand.ExcludedUserNames;
             this.databaseContext.SaveChanges();
         }
 
