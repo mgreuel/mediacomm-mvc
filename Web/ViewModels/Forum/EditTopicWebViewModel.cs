@@ -14,9 +14,9 @@ namespace MediaCommMvc.Web.ViewModels.Forum
     {
         public int Id { get; set; }
 
-        public IEnumerable<string> AllUserNames { get; set; }
+        public IEnumerable<SelectListItem> AllUserNames { get; set; }
 
-        [Display(ResourceType = typeof(Forums), Name = "Hide")]
+        [Display(ResourceType = typeof(Forums), Name = "ExcludeUsers")]
         public IEnumerable<string> ExcludedUserNames { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Forums), ErrorMessageResourceName = "SubjectRequired")]

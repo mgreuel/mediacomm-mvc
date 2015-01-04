@@ -19,27 +19,29 @@ namespace Core.Forum.Commands
 
         public Topic ToTopic()
         {
-            return new Topic
-                       {
-                           CreatedBy = this.AuthorName, 
-                           ExcludedUserNames = this.ExcludedUserNames, 
-                           LastPostAuthor = this.AuthorName, 
-                           LastPostTime = this.TimeStamp, 
-                           PostCount = 1, 
-                           LastAccessTimes = new Dictionary<string, DateTime> { { this.AuthorName, this.TimeStamp.AddMilliseconds(1) } }, 
-                           Title = this.Title, 
-                           Posts =
-                               new List<Post>
-                                   {
-                                       new Post
-                                           {
-                                               AuthorName = this.AuthorName, 
-                                               Created = this.TimeStamp, 
-                                               Id = 1, 
-                                               Text = this.Text
-                                           }
-                                   }
-                       };
+            var topic = new Topic
+                            {
+                                CreatedBy = this.AuthorName,
+                                ExcludedUserNames = this.ExcludedUserNames,
+                                LastPostAuthor = this.AuthorName,
+                                LastPostTime = this.TimeStamp,
+                                PostCount = 1,
+                                Title = this.Title,
+                                Posts =
+                                    new List<Post>
+                                        {
+                                            new Post
+                                                {
+                                                    AuthorName = this.AuthorName,
+                                                    Created = this.TimeStamp,
+                                                    Id = 1,
+                                                    Text = this.Text
+                                                }
+                                        }
+                            };
+            topic.MarkTopicAsRead(this.AuthorName);
+
+            return topic;
         }
     }
 }

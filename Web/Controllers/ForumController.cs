@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 using Core.Forum.Models;
@@ -46,7 +47,9 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult CreateTopic()
         {
-            IList<string> allUsers = this.efForumStorageService.GetAllUsers();
+            IEnumerable<SelectListItem> allUsers = this.efForumStorageService.GetAllUserNames().Select(
+                u => new SelectListItem { Text = u, Value = u }).ToList();
+
             return this.View(MVC.Forum.Views.EditTopic, new EditTopicWebViewModel { AllUserNames = allUsers });
         }
 
@@ -55,6 +58,10 @@ namespace MediaCommMvc.Web.Controllers
         {
             if (!this.ModelState.IsValid)
             {
+                IEnumerable<SelectListItem> allUsers = this.efForumStorageService.GetAllUserNames().Select(
+                u => new SelectListItem { Text = u, Value = u }).ToList();
+
+                viewModel.AllUserNames = allUsers;
                 return this.View(MVC.Forum.Views.EditTopic, viewModel);
             }
 

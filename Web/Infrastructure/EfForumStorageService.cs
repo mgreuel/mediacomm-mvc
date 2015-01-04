@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Security.Principal;
+using System.Web.Mvc;
 
 using Core;
 using Core.Forum.Commands;
@@ -41,6 +42,7 @@ namespace MediaCommMvc.Web.Infrastructure
                                               {
                                                   TopicsForCurrentPage =
                                                       this.databaseContext.Topics
+                                                      .Where(t => !t.ExcludedUsersStorage.Contains(currentUser))
                                                       .OrderByDescending(topic => topic.LastPostTime)
                                                       .Skip((page - 1) * topicsPerPage)
                                                       .Take(topicsPerPage)
@@ -59,7 +61,7 @@ namespace MediaCommMvc.Web.Infrastructure
                 .Include(t => t.Posts)
                 .Single(details => details.TopicId == id);
 
-            topic.LastAccessTimes[currentUser.Identity.GetUserName()] = DateTime.UtcNow;
+            topic.MarkTopicAsRead(currentUser.Identity.GetUserName());
             this.databaseContext.SaveChanges();
 
             return new TopicDetailsViewModel(topic, page, postsPerPage, currentUser);
@@ -128,8 +130,23 @@ namespace MediaCommMvc.Web.Infrastructure
         public EditTopicWebViewModel GetEditTopicViewModel(int id)
         {
             Topic topic = this.databaseContext.Topics.Single(t => t.TopicId == id);
-            List<string> allUserNames = this.databaseContext.Users.Select(u => u.UserName).ToList();
-            return new EditTopicWebViewModel { AllUserNames = allUserNames, ExcludedUserNames = topic.ExcludedUserNames, Subject = topic.Title, Text = topic.Posts.First().Text };
+            IEnumerable<SelectListItem> allUserNames =
+                this.databaseContext.Users.ToList().Select(
+                    u =>
+                    new SelectListItem
+                        {
+                            Text = u.UserName,
+                            Value = u.UserName,
+                            Selected = topic.ExcludedUserNames.Contains(u.UserName, StringComparer.OrdinalIgnoreCase)
+                        });
+
+            return new EditTopicWebViewModel
+                       {
+                           AllUserNames = allUserNames,
+                           ExcludedUserNames = topic.ExcludedUserNames,
+                           Subject = topic.Title,
+                           Text = topic.Posts.First().Text
+                       };
         }
 
         public void UpdateTopic(UpdateTopicCommand toUpdateTopicCommand)
@@ -141,7 +158,7 @@ namespace MediaCommMvc.Web.Infrastructure
             this.databaseContext.SaveChanges();
         }
 
-        public IList<string> GetAllUsers()
+        public IList<string> GetAllUserNames()
         {
             return this.databaseContext.Users.Select(u => u.UserName).ToList();
         }
