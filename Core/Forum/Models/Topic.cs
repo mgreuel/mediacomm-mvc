@@ -58,24 +58,6 @@ namespace Core.Forum.Models
 
         public List<Post> Posts { get; set; }
 
-        public bool AllPostsReadByUser(string username)
-        {
-            // The millisecond is added to account for lower resolution of string storage of access times
-            return this.LastAccessTimeForUser(username).AddMilliseconds(1) >= this.LastPostTime;
-        }
-
-        private DateTime LastAccessTimeForUser(string user)
-        {
-            if (this.LastAccessTimes.ContainsKey(user))
-            {
-                return this.LastAccessTimes[user];
-            }
-            else
-            {
-                return DateTime.MinValue;
-            }
-        }
-
         private Dictionary<string, DateTime> LastAccessTimes
         {
             get
@@ -96,10 +78,16 @@ namespace Core.Forum.Models
                 IEnumerable<string> accessTimesStrings =
                     value.Select(
                         pair => pair.Key + AccessTimeValueSeparator + pair.Value.ToString(
-                            "yyyy-MM-dd HH:mm:ss.fff",
+                            "yyyy-MM-dd HH:mm:ss.fff", 
                             CultureInfo.InvariantCulture));
                 this.LastAccessTimesStorage = string.Join(AccessTimeItemSeparator, accessTimesStrings);
             }
+        }
+
+        public bool AllPostsReadByUser(string username)
+        {
+            // The millisecond is added to account for lower resolution of string storage of access times
+            return this.LastAccessTimeForUser(username).AddMilliseconds(1) >= this.LastPostTime;
         }
 
         public void MarkTopicAsRead(string username)
@@ -107,6 +95,18 @@ namespace Core.Forum.Models
             Dictionary<string, DateTime> lastAccessTimes = this.LastAccessTimes;
             lastAccessTimes[username] = DateTime.UtcNow;
             this.LastAccessTimes = lastAccessTimes;
+        }
+
+        private DateTime LastAccessTimeForUser(string user)
+        {
+            if (this.LastAccessTimes.ContainsKey(user))
+            {
+                return this.LastAccessTimes[user];
+            }
+            else
+            {
+                return DateTime.MinValue;
+            }
         }
     }
 }

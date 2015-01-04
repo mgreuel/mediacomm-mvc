@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core
+namespace Core.Forum.Commands
 {
     public class UpdateTopicCommand
     {

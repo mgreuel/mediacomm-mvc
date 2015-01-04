@@ -40,6 +40,7 @@
     <Compile Include="Forum\Commands\AddReplyCommand.cs" />
     <Compile Include="Forum\Commands\CreateTopicCommand.cs" />
     <Compile Include="Forum\Commands\UpdatePostCommand.cs" />
+    <Compile Include="Forum\Commands\UpdateTopicCommand.cs" />
     <Compile Include="Forum\Models\ForumOverview.cs" />
     <Compile Include="Forum\ViewModels\TopicDetailsViewModel.cs" />
     <Compile Include="Forum\Models\TopicDisplayPriority.cs" />
@@ -49,7 +50,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forum\Models\Topic.cs" />
     <Compile Include="Forum\ViewModels\TopicOverviewViewModel.cs" />
-    <Compile Include="UpdateTopicCommand.cs" />
     <Compile Include="UserRoles.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

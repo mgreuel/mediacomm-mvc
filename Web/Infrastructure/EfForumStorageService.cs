@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Security.Principal;
 using System.Web.Mvc;
 
-using Core;
 using Core.Forum.Commands;
 using Core.Forum.Models;
 using Core.Forum.ViewModels;
