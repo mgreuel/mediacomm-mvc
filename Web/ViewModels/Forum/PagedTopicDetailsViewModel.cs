@@ -1,5 +1,3 @@
-using Core.Forum.ViewModels;
-
 using PagedList;
 
 namespace MediaCommMvc.Web.ViewModels.Forum

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-using Core;
-using Core.Forum.Commands;
+using MediaCommMvc.Web.Models.Forum.Commands;
 
 using Resources;
 
@@ -12,6 +11,11 @@ namespace MediaCommMvc.Web.ViewModels.Forum
 {
     public class EditTopicWebViewModel
     {
+        public EditTopicWebViewModel()
+        {
+            this.Poll = new PollViewModel();
+        }
+
         public int Id { get; set; }
 
         public IEnumerable<SelectListItem> AllUserNames { get; set; }
@@ -28,9 +32,12 @@ namespace MediaCommMvc.Web.ViewModels.Forum
         [AllowHtml]
         public string Text { get; set; }
 
+        [Display(ResourceType = typeof(Forums), Name = "Poll")]
+        public PollViewModel Poll { get; set; }
+
         public CreateTopicCommand ToCreateTopicCommand(string userName)
         {
-            return new CreateTopicCommand { AuthorName = userName, ExcludedUserNames = this.ExcludedUserNames, Text = this.Text, TimeStamp = DateTime.UtcNow, Title = this.Subject };
+            return new CreateTopicCommand { AuthorName = userName, ExcludedUserNames = this.ExcludedUserNames, Text = this.Text, TimeStamp = DateTime.UtcNow, Title = this.Subject, Poll = this.Poll.CreatePoll() };
         }
 
         public UpdateTopicCommand ToUpdateTopicCommand()

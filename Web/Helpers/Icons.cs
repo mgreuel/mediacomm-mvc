@@ -1,7 +1,5 @@
-﻿using Core;
-using Core.Forum.Models;
-using Core.Forum.ViewModels;
-
+﻿using MediaCommMvc.Web.Models.Forum.Models;
+using MediaCommMvc.Web.ViewModels;
 using MediaCommMvc.Web.ViewModels.Forum;
 
 namespace MediaCommMvc.Web.Helpers

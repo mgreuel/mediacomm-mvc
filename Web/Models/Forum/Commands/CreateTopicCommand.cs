@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using Core.Forum.Models;
+using MediaCommMvc.Web.Models.Forum.Models;
 
-namespace Core.Forum.Commands
+namespace MediaCommMvc.Web.Models.Forum.Commands
 {
     public class CreateTopicCommand
     {
@@ -16,6 +16,8 @@ namespace Core.Forum.Commands
         public string Title { get; set; }
 
         public IEnumerable<string> ExcludedUserNames { get; set; }
+
+        public Poll Poll { get; set; }
 
         public Topic ToTopic()
         {
@@ -39,6 +41,7 @@ namespace Core.Forum.Commands
                                                 }
                                         }
                             };
+
             topic.MarkTopicAsRead(this.AuthorName);
 
             return topic;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core.Forum.Commands
+namespace MediaCommMvc.Web.Models.Forum.Commands
 {
     public class AddReplyCommand
     {

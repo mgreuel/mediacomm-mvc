@@ -1,8 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Linq;
 
-using Core;
-
+using MediaCommMvc.Web.Models;
 using MediaCommMvc.Web.ViewModels;
 
 using Microsoft.AspNet.Identity;

@@ -1,6 +1,3 @@
-using Core;
-using Core.Forum;
-
 using MediaCommMvc.Web.Infrastructure;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(MediaCommMvc.Web.App_Start.NinjectWebCommon), "Start")]

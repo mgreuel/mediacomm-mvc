@@ -2,10 +2,9 @@
 using System.Linq;
 using System.Web.Mvc;
 
-using Core.Forum.Models;
-using Core.Forum.ViewModels;
-
 using MediaCommMvc.Web.Infrastructure;
+using MediaCommMvc.Web.Models.Forum.Models;
+using MediaCommMvc.Web.ViewModels;
 using MediaCommMvc.Web.ViewModels.Forum;
 
 using Microsoft.AspNet.Identity;

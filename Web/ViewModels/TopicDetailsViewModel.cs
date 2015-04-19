@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 
-using Core.Forum.Models;
+using MediaCommMvc.Web.Models.Forum.Models;
 
-namespace Core.Forum.ViewModels
+namespace MediaCommMvc.Web.ViewModels
 {
     public class TopicDetailsViewModel
     {
-        public TopicDetailsViewModel(Topic topicDetails, int pageNumber, int postsPerPage, IPrincipal currentUser)
+        public TopicDetailsViewModel(Topic topic, int pageNumber, int postsPerPage, IPrincipal currentUser)
         {
-            this.Title = topicDetails.Title;
-            this.Id = topicDetails.TopicId;
+            this.Title = topic.Title;
+            this.Id = topic.TopicId;
             this.PostsPerPage = postsPerPage;
             this.PageNumber = pageNumber;
-            this.TotalNumberOfPosts = topicDetails.Posts.Count;
+            this.TotalNumberOfPosts = topic.Posts.Count;
             int pageCount = this.TotalNumberOfPosts > 0
                             ? (int)Math.Ceiling(this.TotalNumberOfPosts / (double)postsPerPage)
                             : 0;
@@ -23,7 +23,7 @@ namespace Core.Forum.ViewModels
             this.IsLastPage = pageNumber >= pageCount;
             
             this.PostsForCurrentPage =
-                topicDetails.Posts
+                topic.Posts
                     .OrderBy(post => post.Created)
                     .Skip((pageNumber - 1) * postsPerPage)
                     .Take(postsPerPage)

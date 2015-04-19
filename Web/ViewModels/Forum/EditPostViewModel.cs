@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-using Core.Forum.Commands;
-using Core.Forum.Models;
+using MediaCommMvc.Web.Models.Forum.Commands;
+using MediaCommMvc.Web.Models.Forum.Models;
 
 namespace MediaCommMvc.Web.ViewModels.Forum
 {

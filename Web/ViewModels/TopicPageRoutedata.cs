@@ -1,6 +1,6 @@
-using Core.Forum.Models;
+using MediaCommMvc.Web.Models.Forum.Models;
 
-namespace Core.Forum.ViewModels
+namespace MediaCommMvc.Web.ViewModels
 {
     public class TopicPageRoutedata
     {

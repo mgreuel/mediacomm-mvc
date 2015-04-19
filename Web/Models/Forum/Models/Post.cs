@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Forum.Models
+namespace MediaCommMvc.Web.Models.Forum.Models
 {
     public class Post
     {
@@ -40,7 +40,7 @@ namespace Core.Forum.Models
         {
             List<string> approvals = new List<string>(this.Approvals);
             approvals.Add(username);
-            this.ApprovalStorage = string.Join(",", approvals.Distinct());
+            this.ApprovalStorage = string.Join((string)",", (IEnumerable<string>)approvals.Distinct());
         }
     }
 }

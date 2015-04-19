@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 
-using Core.Forum.Models;
+using MediaCommMvc.Web.Models;
+using MediaCommMvc.Web.Models.Forum.Models;
 
-namespace Core.Forum.ViewModels
+namespace MediaCommMvc.Web.ViewModels
 {
     public class PostViewModel
     {

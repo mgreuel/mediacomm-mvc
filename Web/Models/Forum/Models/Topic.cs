@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Core.Forum.Models
+namespace MediaCommMvc.Web.Models.Forum.Models
 {
     public class Topic
     {
@@ -22,6 +22,8 @@ namespace Core.Forum.Models
         }
 
         public string CreatedBy { get; set; }
+
+        public Poll Poll { get; set; }
 
         public int TopicId { get; set; }
 

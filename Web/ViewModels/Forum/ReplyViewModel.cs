@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-using Core.Forum.Commands;
+using MediaCommMvc.Web.Models.Forum.Commands;
 
 using Resources;
 

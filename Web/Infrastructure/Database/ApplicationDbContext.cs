@@ -2,8 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure.Annotations;
 
-using Core.Forum.Models;
-
+using MediaCommMvc.Web.Models.Forum.Models;
 using MediaCommMvc.Web.ViewModels;
 
 using Microsoft.AspNet.Identity.EntityFramework;
