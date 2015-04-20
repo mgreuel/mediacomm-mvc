@@ -73,7 +73,7 @@
 
                 </div>
 
-                <button id="add-answer" type="button">@Resources.Forums.AddAnswer</button>
+                <button id="add-answer" class="btn btn-default btn-sm" type="button">@Resources.Forums.AddAnswer</button>
             </div>
         </div>
     </div>
@@ -87,29 +87,29 @@
 
     <script>
 
-        $(function () {
-            $('#Text').wysihtml5({
-                toolbar: {
-                    "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
-                    "emphasis": true, //Italics, bold, etc. Default true
-                    "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-                    "html": false, //Button which allows you to edit the generated HTML. Default false
-                    "link": true, //Button to insert a link. Default true
-                    "image": true, //Button to insert an image. Default true,
-                    "color": false, //Button to change color of font
-                    "blockquote": true, //Blockquote
-                    "size": "sm" //default: none, other options are xs, sm, lg
-                }
-            });
+    $(function () {
+        $('#Text').wysihtml5({
+            toolbar: {
+                "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+                "emphasis": true, //Italics, bold, etc. Default true
+                "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                "html": false, //Button which allows you to edit the generated HTML. Default false
+                "link": true, //Button to insert a link. Default true
+                "image": true, //Button to insert an image. Default true,
+                "color": false, //Button to change color of font
+                "blockquote": true, //Blockquote
+                "size": "sm" //default: none, other options are xs, sm, lg
+            }
+        });
 
-            $("#ExcludedUserNames").multiselect({
-                buttonText: function (options, select) {
-                    if (options.length === 0) {
-                        return '@Resources.General.NoneSelected';
-                    } else if (options.length == $('option', $(select)).length) {
-                        return '@Resources.General.AllSelected';
+        $("#ExcludedUserNames").multiselect({
+            buttonText: function (options, select) {
+                if (options.length === 0) {
+                    return '@Html.Raw(Resources.General.NoneSelected)';
+                } else if (options.length == $('option', $(select)).length) {
+                    return '@Html.Raw(Resources.General.AllSelected)';
                     } else if (options.length > 5) {
-                        return options.length + ' @Resources.General.Selected';
+                        return options.length + ' @Html.Raw(Resources.General.Selected)';
                     } else {
                         var selected = '';
                         options.each(function () {
@@ -123,22 +123,22 @@
                 }
             });
 
-            $("#add-answer").click(function () {
-                var $template = $('.poll-answers div:first').clone();
-                var $input = $template.find('input');
+                    $("#add-answer").click(function () {
+                        var $template = $('.poll-answers div:first').clone();
+                        var $input = $template.find('input');
 
-                var numberOfQuestions = $('.poll-answers input').length;
+                        var numberOfQuestions = $('.poll-answers input').length;
 
-                var name = $input.prop('name').replace(/0/, numberOfQuestions);
-                $input.prop('name', name);
+                        var name = $input.prop('name').replace(/0/, numberOfQuestions);
+                        $input.prop('name', name);
 
-                var id = $input.prop('id').replace(/0/, numberOfQuestions);
-                $input.prop('id', id);
+                        var id = $input.prop('id').replace(/0/, numberOfQuestions);
+                        $input.prop('id', id);
 
-                $input.val('');
+                        $input.val('');
 
-                $('.poll-answers').append($template);
-            });
-        });
-    </script>
+                        $('.poll-answers').append($template);
+                    });
+                });
+</script>
 }
