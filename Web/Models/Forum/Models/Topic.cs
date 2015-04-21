@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+using Newtonsoft.Json;
+
 namespace MediaCommMvc.Web.Models.Forum.Models
 {
     public class Topic
@@ -23,7 +25,29 @@ namespace MediaCommMvc.Web.Models.Forum.Models
 
         public string CreatedBy { get; set; }
 
-        public Poll Poll { get; set; }
+        public string PollStorage { get; set; }
+
+        public Poll Poll
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.PollStorage))
+                {
+                    return null;
+                }
+
+                return JsonConvert.DeserializeObject<Poll>(this.PollStorage);
+            }
+            set
+            {
+                if (value == null)
+                {
+                    return;
+                }
+
+                this.PollStorage = JsonConvert.SerializeObject(value);
+            }
+        }
 
         public int TopicId { get; set; }
 

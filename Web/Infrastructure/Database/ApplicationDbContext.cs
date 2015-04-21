@@ -38,6 +38,7 @@ namespace MediaCommMvc.Web.Infrastructure.Database
             modelBuilder.Entity<Topic>()
                 .Property(overview => overview.LastPostTime)
                 .HasColumnAnnotation("index", new IndexAnnotation(new IndexAttribute("IX_TopicOrder", 2)));
+            modelBuilder.Entity<Topic>().Ignore(t => t.Poll);
 
             modelBuilder.Entity<Topic>().HasMany(details => details.Posts).WithRequired(post => post.Topic).HasForeignKey(post => post.TopicId);
 

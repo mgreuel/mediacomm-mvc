@@ -11,12 +11,24 @@ namespace MediaCommMvc.Web.ViewModels.Forum
 {
     public class PollViewModel
     {
-        public PollViewModel(Poll poll)
+        public PollViewModel(Poll poll) 
         {
-            if (!poll.Answers.Any())
+            if (poll == null || !poll.Answers.Any())
             {
                 this.Answers = new List<string> { string.Empty, string.Empty, string.Empty };
             }
+            else
+            {
+                this.Answers = poll.Answers.Select(a => a.Text).ToList();
+            }
+
+            if (poll == null)
+            {
+                return;
+            }
+
+            this.Question = poll.Question;
+            this.PollType = poll.PollType;
         }
 
         public PollViewModel()

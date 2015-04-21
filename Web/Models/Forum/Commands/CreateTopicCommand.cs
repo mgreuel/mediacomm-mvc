@@ -29,6 +29,7 @@ namespace MediaCommMvc.Web.Models.Forum.Commands
                                 LastPostTime = this.TimeStamp,
                                 PostCount = 1,
                                 Title = this.Title,
+                                Poll = this.Poll,
                                 Posts =
                                     new List<Post>
                                         {

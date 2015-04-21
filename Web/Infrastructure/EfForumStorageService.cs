@@ -142,7 +142,8 @@ namespace MediaCommMvc.Web.Infrastructure
                            AllUserNames = allUserNames,
                            ExcludedUserNames = topic.ExcludedUserNames,
                            Subject = topic.Title,
-                           Text = topic.Posts.First().Text
+                           Text = topic.Posts.First().Text,
+                           Poll = new PollViewModel(topic.Poll)
                        };
         }
 
