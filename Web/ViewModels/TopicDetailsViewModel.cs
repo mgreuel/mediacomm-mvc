@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 
 using MediaCommMvc.Web.Models.Forum.Models;
+using MediaCommMvc.Web.ViewModels.Forum;
 
 namespace MediaCommMvc.Web.ViewModels
 {
@@ -29,9 +30,13 @@ namespace MediaCommMvc.Web.ViewModels
                     .Take(postsPerPage)
                     .Select(post => new PostViewModel(post, currentUser))
                     .ToList();
+
+            this.Poll = new ShowPollViewModel(topic.Poll, currentUser.Identity.Name);
         }
 
-        public int TotalNumberOfPosts { get; private set; }
+        public ShowPollViewModel Poll { get; set; }
+
+        public int TotalNumberOfPosts { get; }
 
         public int PostsPerPage { get; private set; }
 

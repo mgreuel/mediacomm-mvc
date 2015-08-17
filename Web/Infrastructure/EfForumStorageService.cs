@@ -143,7 +143,7 @@ namespace MediaCommMvc.Web.Infrastructure
                            ExcludedUserNames = topic.ExcludedUserNames,
                            Subject = topic.Title,
                            Text = topic.Posts.First().Text,
-                           Poll = new PollViewModel(topic.Poll)
+                           Poll = new CreatePollViewModel(topic.Poll)
                        };
         }
 

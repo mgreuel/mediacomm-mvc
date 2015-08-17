@@ -13,7 +13,7 @@ namespace MediaCommMvc.Web.ViewModels.Forum
     {
         public EditTopicWebViewModel()
         {
-            this.Poll = new PollViewModel();
+            this.Poll = new CreatePollViewModel();
         }
 
         public int Id { get; set; }
@@ -33,11 +33,11 @@ namespace MediaCommMvc.Web.ViewModels.Forum
         public string Text { get; set; }
 
         [Display(ResourceType = typeof(Forums), Name = "Poll")]
-        public PollViewModel Poll { get; set; }
+        public CreatePollViewModel Poll { get; set; }
 
         public CreateTopicCommand ToCreateTopicCommand(string userName)
         {
-            return new CreateTopicCommand { AuthorName = userName, ExcludedUserNames = this.ExcludedUserNames, Text = this.Text, TimeStamp = DateTime.UtcNow, Title = this.Subject, Poll = this.Poll.CreatePoll() };
+            return new CreateTopicCommand { AuthorName = userName, ExcludedUserNames = this.ExcludedUserNames, Text = this.Text, TimeStamp = DateTime.UtcNow, Title = this.Subject, Poll = this.Poll.ToPoll() };
         }
 
         public UpdateTopicCommand ToUpdateTopicCommand()

@@ -4,22 +4,15 @@ namespace MediaCommMvc.Web.ViewModels.Forum
 {
     public class PagedTopicDetailsViewModel
     {
-        private readonly TopicDetailsViewModel topicDetails;
-
         public PagedTopicDetailsViewModel(TopicDetailsViewModel topicDetails)
         {
-            this.topicDetails = topicDetails;
+            this.TopicDetails = topicDetails;
             this.PagedPosts = new StaticPagedList<PostViewModel>(topicDetails.PostsForCurrentPage, topicDetails.PageNumber, topicDetails.PostsPerPage, topicDetails.TotalNumberOfPosts);
         }
 
-        public IPagedList<PostViewModel> PagedPosts { get; set; }
+        public IPagedList<PostViewModel> PagedPosts { get; }
 
-        public TopicDetailsViewModel TopicDetails
-        {
-            get
-            {
-                return this.topicDetails;
-            }
-        }
+        public TopicDetailsViewModel TopicDetails { get; }
+
     }
 }

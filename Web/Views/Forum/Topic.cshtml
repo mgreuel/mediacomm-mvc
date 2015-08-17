@@ -1,28 +1,25 @@
 ﻿@using MediaCommMvc.Web.ViewModels.Forum
 @using Microsoft.AspNet.Identity
-@using PagedList
 @using PagedList.Mvc
 @model PagedTopicDetailsViewModel
 
 @{
     PagedListRenderOptions pagerRenderOptions = new PagedListRenderOptions
-                                                    {
-                                                        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
-                                                        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
-                                                        Display = PagedListDisplayMode.IfNeeded,
-                                                        DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
-                                                        DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
-                                                        LinkToFirstPageFormat = Resources.General.First,
-                                                        LinkToPreviousPageFormat = Resources.General.Previous,
-                                                        LinkToNextPageFormat = Resources.General.Next,
-                                                        LinkToLastPageFormat = Resources.General.Last,
-                                                        MaximumPageNumbersToDisplay = 10,
-                                                        UlElementClasses = new List<string> { "pagination", "pagination-sm" },
-                                                        DisplayEllipsesWhenNotShowingAllPageNumbers = true
-                                                    };
+    {
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+        Display = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+        LinkToFirstPageFormat = Resources.General.First,
+        LinkToPreviousPageFormat = Resources.General.Previous,
+        LinkToNextPageFormat = Resources.General.Next,
+        LinkToLastPageFormat = Resources.General.Last,
+        MaximumPageNumbersToDisplay = 10,
+        UlElementClasses = new List<string> { "pagination", "pagination-sm" },
+        DisplayEllipsesWhenNotShowingAllPageNumbers = true
+    };
 }
-
-
 
 <div class="clearfix">
     <div class="pull-left">
@@ -32,6 +29,57 @@
         @Html.PagedListPager(this.Model.PagedPosts, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("page", pageNumber)), pagerRenderOptions)
     </div>
 </div>
+
+@if (Model.TopicDetails.Poll != null)
+{
+    <div id="poll">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>
+                        @Resources.Users.UserName
+                    </th>
+
+                    @foreach (var answerText in Model.TopicDetails.Poll.AnswerTexts)
+                {
+                        <th class="text-center">@answerText</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var userAnswers in Model.TopicDetails.Poll.UserAnswers)
+                {
+                    <tr>
+                        <th>
+                            @userAnswers.Key
+                        </th>
+
+                        @foreach (var userAnswer in userAnswers.Value)
+                        {
+                            if (userAnswer)
+                            {
+                                @:<td class="success text-center">
+                            }
+                            else
+                            {
+                                @:<td class="danger text-center">
+                            }
+
+                            if (userAnswers.Key.Equals(User.Identity.Name, StringComparison.OrdinalIgnoreCase))
+                            {
+                                @:<input type="checkbox" name="answers" />
+                            }
+
+                        @:</td>
+
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
 <div class="panel panel-default">
     <table id="topic-posts" class="table table-striped table-bordered">
         <tbody>
@@ -54,7 +102,7 @@
                                 @Html.Raw(@post.Text)
                             </div>
                             <div class="post-actions clearfix">
-                                
+
                                 <div class="approvals">
                                     @foreach (string approval in post.Approvals)
                                     {
@@ -67,7 +115,7 @@
                                     if (firstPost)
                                     {
                                         firstPost = false;
-                                        
+
                                         <div class="pull-right">
                                             @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditTopic().AddRouteValue("id", Model.TopicDetails.Id), new { @class = "btn btn-xs btn-warning" })
                                         </div>
@@ -79,7 +127,7 @@
                                         </div>
                                     }
                                 }
-                                
+
                                 @if (post.ShowApprovalButton)
                                 {
                                     <div class="approval-button-container pull-right">
@@ -96,7 +144,7 @@
 </div>
 <div class="clearfix">
     <div class="pull-right">
-        @Html.PagedListPager(this.Model.PagedPosts, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("page", pageNumber)), pagerRenderOptions)
+        @Html.PagedListPager(Model.PagedPosts, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("page", pageNumber)), pagerRenderOptions)
     </div>
 </div>
 
@@ -112,10 +160,6 @@
         <script>
 
             $(function () {
-                $('#reply > form').submit(function () {
-                    $('#reply #Text').val(editor.html());
-                });
-
                 var editor = $('#reply-input').wysihtml5({
                     toolbar: {
                         "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
@@ -130,7 +174,11 @@
                     }
                 });
 
-                $(".approval-button").click(function() {
+                $('#reply > form').submit(function () {
+                    $('#reply #Text').val(editor.html());
+                });
+
+                $(".approval-button").click(function () {
                     var $postLink = $(this);
                     var url = $postLink.data("url");
                     var postId = $postLink.data("id");
@@ -138,9 +186,9 @@
                     $.post(url, { postId: postId })
                         .done(function (data) {
 
-                        $postLink.parents(".post").find(".approval-button-container").hide();
-                        $postLink.parents(".post").find(".approvals").append("<div class='pull-left label label-info'>@User.Identity.GetUserName() @Resources.Approval.ApprovalText</div>");
-                    });
+                            $postLink.parents(".post").find(".approval-button-container").hide();
+                            $postLink.parents(".post").find(".approvals").append("<div class='pull-left label label-info'>@User.Identity.GetUserName() @Resources.Approval.ApprovalText</div>");
+                        });
                 });
             });
         </script>

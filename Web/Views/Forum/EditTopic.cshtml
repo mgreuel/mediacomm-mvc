@@ -52,11 +52,6 @@
             <div class="form-group panel-body">
 
                 <div class="form-group">
-                    @Html.LabelFor(m => m.Poll.PollType)
-                    @Html.EnumDropDownListFor(m => m.Poll.PollType, new { @class = "form-control" })
-                </div>
-
-                <div class="form-group">
                     @Html.LabelFor(m => m.Poll.Question)
                     @Html.TextBoxFor(m => m.Poll.Question, new { @class = "form-control full-width" })
 

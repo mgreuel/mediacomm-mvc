@@ -6,8 +6,6 @@ namespace MediaCommMvc.Web.Models.Forum.Models
     {
         public string Question { get; set; }
 
-        public PollType PollType { get; set; }
-
         public IEnumerable<PollAnswer> Answers { get; set; }
     }
 }

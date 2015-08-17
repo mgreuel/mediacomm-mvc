@@ -28,13 +28,7 @@ namespace MediaCommMvc.Web.ViewModels
 
         public int Id { get; set; }
 
-        public bool IsEditable
-        {
-            get
-            {
-                return this.currentUser.Identity.Name.Equals(this.AuthorName, StringComparison.OrdinalIgnoreCase) || this.currentUser.IsInRole(UserRoles.Administrator);
-            }
-        }
+        public bool IsEditable => this.currentUser.Identity.Name.Equals(this.AuthorName, StringComparison.OrdinalIgnoreCase) || this.currentUser.IsInRole(UserRoles.Administrator);
 
         public string Text { get; set; }
 

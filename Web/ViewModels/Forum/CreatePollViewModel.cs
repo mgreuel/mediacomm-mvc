@@ -9,9 +9,9 @@ using Resources;
 
 namespace MediaCommMvc.Web.ViewModels.Forum
 {
-    public class PollViewModel
+    public class CreatePollViewModel
     {
-        public PollViewModel(Poll poll) 
+        public CreatePollViewModel(Poll poll) 
         {
             if (poll == null || !poll.Answers.Any())
             {
@@ -28,10 +28,9 @@ namespace MediaCommMvc.Web.ViewModels.Forum
             }
 
             this.Question = poll.Question;
-            this.PollType = poll.PollType;
         }
 
-        public PollViewModel()
+        public CreatePollViewModel()
         {
             this.Answers = new List<string> { string.Empty, string.Empty, string.Empty };
         }
@@ -40,12 +39,9 @@ namespace MediaCommMvc.Web.ViewModels.Forum
 
         public IList<string> Answers { get; set; }
 
-        [Display(ResourceType = typeof(Forums), Name = "PollType")]
-        public PollType PollType { get; set; }
-
-        public Poll CreatePoll()
+        public Poll ToPoll()
         {
-            return new Poll { Question = this.Question, Answers = this.Answers.Select(a => new PollAnswer { Text = a, Usernames = new List<string>() }).ToList(), PollType = this.PollType};
+            return new Poll { Question = this.Question, Answers = this.Answers.Where(a => !string.IsNullOrWhiteSpace(a)).Select(a => new PollAnswer { Text = a, Usernames = new List<string>() }).ToList() };
         }
     }
 }
