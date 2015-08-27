@@ -64,6 +64,12 @@ namespace MediaCommMvc.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AnswerPoll()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AnswerPoll);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Index()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
@@ -109,6 +115,7 @@ namespace MediaCommMvc.Web.Controllers
         public class ActionNamesClass
         {
             public readonly string AddApproval = "AddApproval";
+            public readonly string AnswerPoll = "AnswerPoll";
             public readonly string Index = "Index";
             public readonly string CreateTopic = "CreateTopic";
             public readonly string EditTopic = "EditTopic";
@@ -121,6 +128,7 @@ namespace MediaCommMvc.Web.Controllers
         public class ActionNameConstants
         {
             public const string AddApproval = "AddApproval";
+            public const string AnswerPoll = "AnswerPoll";
             public const string Index = "Index";
             public const string CreateTopic = "CreateTopic";
             public const string EditTopic = "EditTopic";
@@ -137,6 +145,14 @@ namespace MediaCommMvc.Web.Controllers
         public class ActionParamsClass_AddApproval
         {
             public readonly string postId = "postId";
+        }
+        static readonly ActionParamsClass_AnswerPoll s_params_AnswerPoll = new ActionParamsClass_AnswerPoll();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AnswerPoll AnswerPollParams { get { return s_params_AnswerPoll; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AnswerPoll
+        {
+            public readonly string answer = "answer";
         }
         static readonly ActionParamsClass_Index s_params_Index = new ActionParamsClass_Index();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -219,6 +235,18 @@ namespace MediaCommMvc.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AddApproval);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "postId", postId);
             AddApprovalOverride(callInfo, postId);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AnswerPollOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.PollUserAnswerInput answer);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AnswerPoll(MediaCommMvc.Web.ViewModels.PollUserAnswerInput answer)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AnswerPoll);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "answer", answer);
+            AnswerPollOverride(callInfo, answer);
             return callInfo;
         }
 

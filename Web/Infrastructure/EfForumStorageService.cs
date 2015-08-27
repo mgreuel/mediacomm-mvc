@@ -111,7 +111,7 @@ namespace MediaCommMvc.Web.Infrastructure
             return TopicPageRoutedata.FromPost(post, postsPerTopic);
         }
 
-        public TopicPageRoutedata GetRouteDataForLastTopicpage(int topicId, int postsPerPage)
+        public TopicPageRoutedata GetRouteDataForLastTopicPage(int topicId, int postsPerPage)
         {
             Topic topic = this.databaseContext.Topics.Single(t => t.TopicId == topicId);
             return TopicPageRoutedata.LastPageOfTopic(topic, postsPerPage);
@@ -159,6 +159,33 @@ namespace MediaCommMvc.Web.Infrastructure
         public IList<string> GetAllUserNames()
         {
             return this.databaseContext.Users.Select(u => u.UserName).ToList();
+        }
+
+        public void SavePollAnswer(PollUserAnswerInput userAnswer)
+        {
+            Topic topic = this.databaseContext.Topics.Single(t => t.TopicId == userAnswer.TopicId);
+
+            int index = 0;
+
+            // if the ordering is changed, make sure to also change it in the view model
+            foreach (PollAnswer answer in topic.Poll.Answers.OrderBy(a => a.Text))
+            {
+                // todo: Check whether this should be moved to the model
+                bool newAnswerValue = false;// = userAnswer.Answers[index];
+
+                if (newAnswerValue && !answer.Usernames.Contains(userAnswer.Username))
+                {
+                    answer.Usernames.Add(userAnswer.Username);
+                }
+                else if (!newAnswerValue && answer.Usernames.Contains(userAnswer.Username))
+                {
+                    answer.Usernames.Remove(userAnswer.Username);
+                }
+
+                index = index + 1;
+            }
+
+            this.databaseContext.SaveChanges();
         }
     }
 }

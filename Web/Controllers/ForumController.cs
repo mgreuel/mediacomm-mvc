@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 
 using MediaCommMvc.Web.Infrastructure;
@@ -27,6 +28,14 @@ namespace MediaCommMvc.Web.Controllers
         public virtual ActionResult AddApproval(int postId)
         {
             this.efForumStorageService.AddApproval(postId, this.User.Identity.GetUserName());
+
+            return new EmptyResult();
+        }
+
+        [HttpPost]
+        public virtual ActionResult AnswerPoll(PollUserAnswerInput answer)
+        {
+            this.efForumStorageService.SavePollAnswer(answer);
 
             return new EmptyResult();
         }
@@ -118,7 +127,7 @@ namespace MediaCommMvc.Web.Controllers
 
             this.efForumStorageService.AddReply(viewModel.ToAddReplyCommand(this.User.Identity.GetUserName()));
 
-            TopicPageRoutedata topicPage = this.efForumStorageService.GetRouteDataForLastTopicpage(viewModel.TopicId, ForumOptions.PostsPerPage);
+            TopicPageRoutedata topicPage = this.efForumStorageService.GetRouteDataForLastTopicPage(viewModel.TopicId, ForumOptions.PostsPerPage);
 
             return
                 this.RedirectToAction(
