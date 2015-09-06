@@ -1,6 +1,6 @@
 using MediaCommMvc.Web.Models.Forum.Models;
 
-namespace MediaCommMvc.Web.ViewModels
+namespace MediaCommMvc.Web.ViewModels.Forum
 {
     public class TopicPageRoutedata
     {
@@ -25,7 +25,7 @@ namespace MediaCommMvc.Web.ViewModels
             return new TopicPageRoutedata
                        {
                            PageNumber = ((topic.PostCount - 1) / postsPerPage) + 1, 
-                           TopicId = topic.TopicId, 
+                           TopicId = topic.NumericId, 
                            TopicTitle = topic.Title
                        };
         }

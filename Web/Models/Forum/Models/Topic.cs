@@ -4,10 +4,69 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-using Newtonsoft.Json;
-
 namespace MediaCommMvc.Web.Models.Forum.Models
 {
+    public enum TopicDisplayPriority
+    {
+        None = 0, 
+
+        Sticky = 10
+    }
+
+    public class PollAnswer
+    {
+        public string Text { get; set; }
+
+        public IList<string> Usernames { get; set; }
+    }
+
+    public class Post
+    {
+        public Post()
+        {
+            this.ApprovalStorage = string.Empty;
+        }
+
+        public string AuthorName { get; set; }
+
+        public DateTime Created { get; set; }
+
+        public int Id { get; set; }
+
+        public string Text { get; set; }
+
+        public int TopicId { get; set; }
+
+        public Topic Topic { get; set; }
+
+        public IEnumerable<string> Approvals
+        {
+            get
+            {
+                return this.ApprovalStorage.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            }
+        }
+
+        // Todo make private/protected // http://blog.oneunicorn.com/2012/03/26/code-first-data-annotations-on-non-public-properties/ */
+        public string ApprovalStorage { get; set; }
+
+        public int IndexInTopic { get; set; }
+
+        public void AddApproval(string username)
+        {
+            List<string> approvals = new List<string>(this.Approvals);
+            approvals.Add(username);
+            this.ApprovalStorage = string.Join((string)",", (IEnumerable<string>)approvals.Distinct());
+        }
+    }
+
+    public class Poll
+    {
+        public string Question { get; set; }
+
+        public IEnumerable<PollAnswer> Answers { get; set; }
+    }
+
     public class Topic
     {
         private const string AccessTimeValueSeparator = ",";
@@ -19,7 +78,7 @@ namespace MediaCommMvc.Web.Models.Forum.Models
         public Topic()
         {
             this.ExcludedUserNames = new List<string>();
-            this.ExcludedUsersStorage = string.Empty;
+            //this.ExcludedUsersStorage = string.Empty;
             this.LastAccessTimesStorage = string.Empty;
         }
 
@@ -27,29 +86,11 @@ namespace MediaCommMvc.Web.Models.Forum.Models
 
         public string PollStorage { get; set; }
 
-        public Poll Poll
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(this.PollStorage))
-                {
-                    return null;
-                }
+        public Poll Poll { get; set; }
 
-                return JsonConvert.DeserializeObject<Poll>(this.PollStorage);
-            }
-            set
-            {
-                if (value == null)
-                {
-                    return;
-                }
+        public string Id { get; set; }
 
-                this.PollStorage = JsonConvert.SerializeObject(value);
-            }
-        }
-
-        public int TopicId { get; set; }
+        public int NumericId => int.Parse(this.Id.Split('/')[1]);
 
         public string LastPostAuthor { get; set; }
 
@@ -62,25 +103,11 @@ namespace MediaCommMvc.Web.Models.Forum.Models
         public TopicDisplayPriority DisplayPriority { get; set; }
 
         // Todo make private/protected // http://blog.oneunicorn.com/2012/03/26/code-first-data-annotations-on-non-public-properties/ 
-        public string ExcludedUsersStorage { get; set; }
+        //public string ExcludedUsersStorage { get; set; }
 
         public string LastAccessTimesStorage { get; set; }
 
-        public IEnumerable<string> ExcludedUserNames
-        {
-            get
-            {
-                return this.ExcludedUsersStorage.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-            }
-
-            set
-            {
-                if (value != null)
-                {
-                    this.ExcludedUsersStorage = string.Join(",", value);
-                }
-            }
-        }
+        public IEnumerable<string> ExcludedUserNames { get; set; }
 
         public List<Post> Posts { get; set; }
 

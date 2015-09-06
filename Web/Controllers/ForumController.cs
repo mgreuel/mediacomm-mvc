@@ -1,33 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Principal;
 using System.Web.Mvc;
 
 using MediaCommMvc.Web.Infrastructure;
+using MediaCommMvc.Web.Models.Forum.Commands;
 using MediaCommMvc.Web.Models.Forum.Models;
 using MediaCommMvc.Web.ViewModels;
 using MediaCommMvc.Web.ViewModels.Forum;
 
-using Microsoft.AspNet.Identity;
-
 using PagedList;
+
+using Raven.Client;
+using Raven.Client.Indexes;
 
 namespace MediaCommMvc.Web.Controllers
 {
     [Authorize]
-    public partial class ForumController : Controller
+    public partial class ForumController : RavenController
     {
-        private readonly EfForumStorageService efForumStorageService;
-
-        public ForumController(EfForumStorageService efForumStorageService)
-        {
-            this.efForumStorageService = efForumStorageService;
-        }
-
         [HttpPost]
         public virtual ActionResult AddApproval(int postId)
         {
-            this.efForumStorageService.AddApproval(postId, this.User.Identity.GetUserName());
+            //this.AddApproval(postId, this.User.Identity.GetUserName());
 
             return new EmptyResult();
         }
@@ -35,14 +32,14 @@ namespace MediaCommMvc.Web.Controllers
         [HttpPost]
         public virtual ActionResult AnswerPoll(PollUserAnswerInput answer)
         {
-            this.efForumStorageService.SavePollAnswer(answer);
+            this.SavePollAnswer(answer);
 
             return new EmptyResult();
         }
 
         public virtual ActionResult Index(int page)
         {
-            ForumOverview forumOverview = this.efForumStorageService.GetForumOverview(page, ForumOptions.TopicsPerPage, this.User.Identity.GetUserName());
+            ForumOverview forumOverview = this.GetForumOverview(page, ForumOptions.TopicsPerPage, this.User.Identity.Name);
 
             StaticPagedList<TopicOverviewViewModel> topics = new StaticPagedList<TopicOverviewViewModel>(
                 forumOverview.TopicsForCurrentPage,
@@ -55,8 +52,9 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult CreateTopic()
         {
-            IEnumerable<SelectListItem> allUsers = this.efForumStorageService.GetAllUserNames().Select(
-                u => new SelectListItem { Text = u, Value = u }).ToList();
+          // this.applicationUserManager.Users.a
+            IEnumerable<SelectListItem> allUsers = null;//this.GetAllUserNames().Select(
+               // u => new SelectListItem { Text = u, Value = u }).ToList();
 
             return this.View(MVC.Forum.Views.EditTopic, new EditTopicWebViewModel { AllUserNames = allUsers });
         }
@@ -66,8 +64,8 @@ namespace MediaCommMvc.Web.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                IEnumerable<SelectListItem> allUsers = this.efForumStorageService.GetAllUserNames().Select(
-                u => new SelectListItem { Text = u, Value = u }).ToList();
+                IEnumerable<SelectListItem> allUsers = null;//this.GetAllUserNames().Select(
+                //u => new SelectListItem { Text = u, Value = u }).ToList();
 
                 viewModel.AllUserNames = allUsers;
                 return this.View(MVC.Forum.Views.EditTopic, viewModel);
@@ -77,11 +75,11 @@ namespace MediaCommMvc.Web.Controllers
 
             if (viewModel.Id == 0)
             {
-                topicId = this.efForumStorageService.AddTopic(viewModel.ToCreateTopicCommand(this.User.Identity.GetUserName()));
+                topicId = this.AddTopic(viewModel.ToCreateTopicCommand(this.User.Identity.Name));
             }
             else
             {
-                this.efForumStorageService.UpdateTopic(viewModel.ToUpdateTopicCommand());
+                //this.UpdateTopic(viewModel.ToUpdateTopicCommand());
                 topicId = viewModel.Id;
             }
 
@@ -91,13 +89,13 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult EditPost(int id)
         {
-            EditPostViewModel viewModel = this.efForumStorageService.GetEditPostViewModel(id);
+            EditPostViewModel viewModel = this.GetEditPostViewModel(id);
             return this.View(viewModel);
         }
 
         public virtual ActionResult EditTopic(int id)
         {
-            EditTopicWebViewModel viewModel = this.efForumStorageService.GetEditTopicViewModel(id);
+            EditTopicWebViewModel viewModel = null;//this.GetEditTopicViewModel(id);
             return this.View(viewModel);
         }
 
@@ -109,8 +107,8 @@ namespace MediaCommMvc.Web.Controllers
                 return this.View(viewModel);
             }
 
-            this.efForumStorageService.UpdatePost(viewModel.ToSavePostCommand());
-            TopicPageRoutedata topicPage = this.efForumStorageService.GetTopicPageRouteDataForPost(viewModel.PostId, ForumOptions.PostsPerPage);
+            //this.UpdatePost(viewModel.ToSavePostCommand());
+            TopicPageRoutedata topicPage = null;//this.GetTopicPageRouteDataForPost(viewModel.PostId, ForumOptions.PostsPerPage);
 
             return
                 this.RedirectToAction(
@@ -125,9 +123,9 @@ namespace MediaCommMvc.Web.Controllers
                 return this.View(viewModel);
             }
 
-            this.efForumStorageService.AddReply(viewModel.ToAddReplyCommand(this.User.Identity.GetUserName()));
+            this.AddReply(viewModel.ToAddReplyCommand(this.User.Identity.Name));
 
-            TopicPageRoutedata topicPage = this.efForumStorageService.GetRouteDataForLastTopicPage(viewModel.TopicId, ForumOptions.PostsPerPage);
+            TopicPageRoutedata topicPage = null; // this.GetRouteDataForLastTopicPage(viewModel.TopicId, ForumOptions.PostsPerPage);
 
             return
                 this.RedirectToAction(
@@ -136,10 +134,186 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult Topic(int id, int page)
         {
-            TopicDetailsViewModel topicDetails = this.efForumStorageService.GetTopicDetailsViewModelAndMarkTopicAsRead(id, page, ForumOptions.PostsPerPage, this.User);
+            TopicDetailsViewModel topicDetails = this.GetTopicDetailsViewModelAndMarkTopicAsRead(id, page, ForumOptions.PostsPerPage, this.User);
             var viewModel = new PagedTopicDetailsViewModel(topicDetails);
 
             return this.View(viewModel);
         }
+
+        public void SavePollAnswer(PollUserAnswerInput userAnswer)
+        {
+
+            Topic topic = null;//this.RavenSession.Query<Topic>().Single(t => t.Id == userAnswer.TopicId);
+
+            int index = 0;
+
+            // if the ordering is changed, make sure to also change it in the view model
+            foreach (PollAnswer answer in topic.Poll.Answers.OrderBy(a => a.Text))
+            {
+                // todo: Check whether this should be moved to the model
+                bool newAnswerValue = userAnswer.CheckedAnswers.Contains(index);
+
+                if (newAnswerValue && !answer.Usernames.Contains(userAnswer.Username))
+                {
+                    answer.Usernames.Add(userAnswer.Username);
+                }
+                else if (!newAnswerValue && answer.Usernames.Contains(userAnswer.Username))
+                {
+                    answer.Usernames.Remove(userAnswer.Username);
+                }
+
+                index = index + 1;
+            }
+        }
+
+        public int AddTopic(CreateTopicCommand createTopicCommand)
+        {
+            Topic topic = createTopicCommand.ToTopic();
+
+            this.RavenSession.Store(topic);
+
+            return topic.NumericId;
+        }
+
+        public ForumOverview GetForumOverview(int page, int topicsPerPage, string currentUsername)
+        {
+            RavenQueryStatistics stats;
+
+            ForumOverview forumOverview = new ForumOverview
+            {
+                TopicsForCurrentPage =
+                                                      this.RavenSession.Query<Topic>()
+                                                      .Statistics(out stats)
+                                                      .Where(t => !t.ExcludedUserNames.Contains(currentUsername))
+                                                      .OrderByDescending(topic => topic.LastPostTime)
+                                                      .Skip((page - 1) * topicsPerPage)
+                                                      .Take(topicsPerPage)
+                                                      // todo move the transformation to raven db
+                                                      .ToList()
+                                                      .Select(topic => new TopicOverviewViewModel(topic, currentUsername))
+                                                      .ToList(),
+
+                TotalNumberOfTopics = stats.TotalResults
+            };
+
+            return forumOverview;
+        }
+
+        public TopicDetailsViewModel GetTopicDetailsViewModelAndMarkTopicAsRead(int id, int page, int postsPerPage, IPrincipal currentUser)
+        {
+            //Topic topic = this.databaseContext.Topics
+            //    .Include(t => t.Posts)
+            //    .Single(details => details.TopicId == id);
+
+            //topic.MarkTopicAsRead(currentUser.Identity.GetUserName());
+            //this.databaseContext.SaveChanges();
+
+            //return new TopicDetailsViewModel(topic, page, postsPerPage, currentUser);
+
+            return null;
+        }
+
+        public void AddReply(AddReplyCommand addReplyCommand)
+        {
+            //Post post = new Post
+            //{
+            //    AuthorName = addReplyCommand.AuthorName,
+            //    Created = addReplyCommand.Created,
+            //    TopicId = addReplyCommand.TopicId,
+            //    Text = addReplyCommand.Text
+            //};
+
+            //using (DbContextTransaction transaction = this.databaseContext.Database.BeginTransaction())
+            //{
+            //    Topic topic = this.databaseContext.Topics.Single(overview => overview.TopicId == addReplyCommand.TopicId);
+
+            //    post.IndexInTopic = topic.PostCount;
+
+            //    topic.PostCount = topic.PostCount + 1;
+            //    topic.LastPostAuthor = addReplyCommand.AuthorName;
+            //    topic.LastPostTime = addReplyCommand.Created;
+
+            //    this.databaseContext.SaveChanges();
+            //    transaction.Commit();
+            //}
+
+            //this.databaseContext.Posts.Add(post);
+            //this.databaseContext.SaveChanges();
+
+        }
+
+        public EditPostViewModel GetEditPostViewModel(int id)
+        {
+            //Post post = this.databaseContext.Posts.Single(p => p.Id == id);
+            //return new EditPostViewModel(post);
+
+            return null;
+        }
+
+        //public void UpdatePost(UpdatePostCommand updatePostCommand)
+        //{
+        //    Post post = this.databaseContext.Posts.Single(p => p.Id == updatePostCommand.PostId);
+        //    post.Text = updatePostCommand.Text;
+        //}
+
+        //public TopicPageRoutedata GetTopicPageRouteDataForPost(int postId, int postsPerTopic)
+        //{
+        //    Post post = this.databaseContext.Posts.Include(p => p.Topic).Single(p => p.Id == postId);
+        //    return TopicPageRoutedata.FromPost(post, postsPerTopic);
+        //}
+
+        //public TopicPageRoutedata GetRouteDataForLastTopicPage(int topicId, int postsPerPage)
+        //{
+        //    Topic topic = this.databaseContext.Topics.Single(t => t.TopicId == topicId);
+        //    return TopicPageRoutedata.LastPageOfTopic(topic, postsPerPage);
+        //}
+
+        //public void AddApproval(int postId, string userName)
+        //{
+        //    Post post = this.databaseContext.Posts.Single(p => p.Id == postId);
+        //    post.AddApproval(userName);
+        //    this.databaseContext.SaveChanges();
+        //}
+
+        //public EditTopicWebViewModel GetEditTopicViewModel(int id)
+        //{
+        //    Topic topic = this.session.Query<Topic>().Single(t => t.TopicId == id);
+
+        //    IEnumerable<SelectListItem> allUserNames =
+        //        this.databaseContext.Users.ToList().Select(
+        //            u =>
+        //            new SelectListItem
+        //            {
+        //                Text = u.UserName,
+        //                Value = u.UserName,
+        //                Selected = topic.ExcludedUserNames.Contains(u.UserName, StringComparer.OrdinalIgnoreCase)
+        //            });
+
+        //    return new EditTopicWebViewModel
+        //    {
+        //        AllUserNames = allUserNames,
+        //        ExcludedUserNames = topic.ExcludedUserNames,
+        //        Subject = topic.Title,
+        //        Text = topic.Posts.First().Text,
+        //        Poll = new CreatePollViewModel(topic.Poll)
+        //    };
+        //}
+
+        //public void UpdateTopic(UpdateTopicCommand toUpdateTopicCommand)
+        //{
+        //    Topic topic = this.session.Query<Topic>().Single(t => t.TopicId == toUpdateTopicCommand.Id);
+        //    topic.Title = toUpdateTopicCommand.Title;
+        //    topic.Posts.First().Text = toUpdateTopicCommand.Text;
+        //    topic.ExcludedUserNames = toUpdateTopicCommand.ExcludedUserNames;
+        //}
+
+        //public IList<string> GetAllUserNames()
+        //{
+
+        //    //return this.databaseContext.Users.Select(u => u.UserName).ToList();
+        //    return null;
+        //}
+
     }
+
 }

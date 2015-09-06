@@ -4,16 +4,15 @@ using System.Linq;
 using System.Security.Principal;
 
 using MediaCommMvc.Web.Models.Forum.Models;
-using MediaCommMvc.Web.ViewModels.Forum;
 
-namespace MediaCommMvc.Web.ViewModels
+namespace MediaCommMvc.Web.ViewModels.Forum
 {
     public class TopicDetailsViewModel
     {
         public TopicDetailsViewModel(Topic topic, int pageNumber, int postsPerPage, IPrincipal currentUser)
         {
             this.Title = topic.Title;
-            this.Id = topic.TopicId;
+            this.Id = topic.NumericId;
             this.PostsPerPage = postsPerPage;
             this.PageNumber = pageNumber;
             this.TotalNumberOfPosts = topic.Posts.Count;

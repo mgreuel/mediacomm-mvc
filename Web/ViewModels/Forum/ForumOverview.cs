@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
-using MediaCommMvc.Web.ViewModels;
-
-namespace MediaCommMvc.Web.Models.Forum.Models
+namespace MediaCommMvc.Web.ViewModels.Forum
 {
     public class ForumOverview
     {

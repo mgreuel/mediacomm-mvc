@@ -6,7 +6,7 @@ using System.Security.Principal;
 using MediaCommMvc.Web.Models;
 using MediaCommMvc.Web.Models.Forum.Models;
 
-namespace MediaCommMvc.Web.ViewModels
+namespace MediaCommMvc.Web.ViewModels.Forum
 {
     public class PostViewModel
     {

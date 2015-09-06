@@ -28,6 +28,9 @@ namespace MediaCommMvc.Web.Controllers
     public partial class ForumController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ForumController() { }
+
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected ForumController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -239,10 +242,10 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void AnswerPollOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.PollUserAnswerInput answer);
+        partial void AnswerPollOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.Forum.PollUserAnswerInput answer);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AnswerPoll(MediaCommMvc.Web.ViewModels.PollUserAnswerInput answer)
+        public override System.Web.Mvc.ActionResult AnswerPoll(MediaCommMvc.Web.ViewModels.Forum.PollUserAnswerInput answer)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AnswerPoll);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "answer", answer);

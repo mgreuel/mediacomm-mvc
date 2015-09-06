@@ -4,7 +4,7 @@ using System.Linq;
 
 using MediaCommMvc.Web.Models.Forum.Models;
 
-namespace MediaCommMvc.Web.ViewModels
+namespace MediaCommMvc.Web.ViewModels.Forum
 {
     public class ShowPollViewModel
     {

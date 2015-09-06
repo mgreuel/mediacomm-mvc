@@ -3,7 +3,7 @@ using System.Linq;
 
 using MediaCommMvc.Web.Models.Forum.Models;
 
-namespace MediaCommMvc.Web.ViewModels
+namespace MediaCommMvc.Web.ViewModels.Forum
 {
     public class TopicOverviewViewModel
     {
@@ -16,7 +16,7 @@ namespace MediaCommMvc.Web.ViewModels
             topic.ExcludedUserNames.ToList().CopyTo(tempExcludedUsers);
             this.ExcludedUsernames = tempExcludedUsers;
 
-            this.Id = topic.TopicId;
+            this.Id = topic.NumericId;
             this.LastPostAuthor = topic.LastPostAuthor;
             this.LastPostTime = $"{topic.LastPostTime:g}";
             this.PostCount = topic.PostCount;
@@ -29,6 +29,11 @@ namespace MediaCommMvc.Web.ViewModels
             {
                 this.TopicTitleCssClass = "unread";
             }
+        }
+
+        public TopicOverviewViewModel()
+        {
+            
         }
 
         public IEnumerable<string> ExcludedUsernames { get; }
