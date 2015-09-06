@@ -26,7 +26,7 @@ namespace MediaCommMvc.Web.ViewModels.Forum
 
         public UpdatePostCommand ToSavePostCommand()
         {
-           return new UpdatePostCommand { PostId = this.PostId, Text = this.Text };
+            return new UpdatePostCommand { PostId = this.PostId, Text = this.Text };
         }
     }
 }

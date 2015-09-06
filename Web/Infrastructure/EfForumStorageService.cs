@@ -171,7 +171,7 @@ namespace MediaCommMvc.Web.Infrastructure
             foreach (PollAnswer answer in topic.Poll.Answers.OrderBy(a => a.Text))
             {
                 // todo: Check whether this should be moved to the model
-                bool newAnswerValue = false;// = userAnswer.Answers[index];
+                bool newAnswerValue = userAnswer.CheckedAnswers.Contains(index);
 
                 if (newAnswerValue && !answer.Usernames.Contains(userAnswer.Username))
                 {

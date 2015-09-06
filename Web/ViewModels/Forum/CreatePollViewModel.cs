@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 using MediaCommMvc.Web.Models.Forum.Models;
-
-using Resources;
 
 namespace MediaCommMvc.Web.ViewModels.Forum
 {
     public class CreatePollViewModel
     {
-        public CreatePollViewModel(Poll poll) 
+        public CreatePollViewModel(Poll poll)
         {
             if (poll == null || !poll.Answers.Any())
             {
@@ -41,7 +37,14 @@ namespace MediaCommMvc.Web.ViewModels.Forum
 
         public Poll ToPoll()
         {
-            return new Poll { Question = this.Question, Answers = this.Answers.Where(a => !string.IsNullOrWhiteSpace(a)).Select(a => new PollAnswer { Text = a, Usernames = new List<string>() }).ToList() };
+            return new Poll
+                       {
+                           Question = this.Question, 
+                           Answers =
+                               this.Answers.Where(a => !string.IsNullOrWhiteSpace(a))
+                               .Select(a => new PollAnswer { Text = a, Usernames = new List<string>() })
+                               .ToList()
+                       };
         }
     }
 }

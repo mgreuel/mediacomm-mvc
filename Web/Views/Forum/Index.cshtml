@@ -59,6 +59,11 @@
                                                                                                     id = topic.Id,
                                                                                                     name = UrlEncoder.ToFriendlyUrl(topic.Title)
                                                                                                 }))
+
+                            @if (topic.HasPoll)
+                            {
+                                <span class="glyphicon glyphicon-check"></span>
+                            }
                         </div>
 
                         <div class="topic-pager">
@@ -83,8 +88,8 @@
         </tbody>
     </table>
 </div>
-<div class="pull-right forum-legend">
+@*<div class="pull-right forum-legend">
     <span>@Resources.Forums.NewPosts</span><i class="glyphicon glyphicon-eye-open"></i>
     | <span>@Resources.Forums.NoNewPosts</span>
     <i class="glyphicon glyphicon-eye-close"></i>
-</div>
+</div>*@

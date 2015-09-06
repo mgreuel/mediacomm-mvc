@@ -14,8 +14,8 @@ namespace MediaCommMvc.Web.ViewModels
         {
             return new TopicPageRoutedata
                        {
-                           PageNumber = (post.IndexInTopic / postsPerPage) + 1,
-                           TopicId = post.TopicId,
+                           PageNumber = (post.IndexInTopic / postsPerPage) + 1, 
+                           TopicId = post.TopicId, 
                            TopicTitle = post.Topic.Title
                        };
         }
@@ -24,8 +24,8 @@ namespace MediaCommMvc.Web.ViewModels
         {
             return new TopicPageRoutedata
                        {
-                           PageNumber = ((topic.PostCount - 1) / postsPerPage) + 1,
-                           TopicId = topic.TopicId,
+                           PageNumber = ((topic.PostCount - 1) / postsPerPage) + 1, 
+                           TopicId = topic.TopicId, 
                            TopicTitle = topic.Title
                        };
         }

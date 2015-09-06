@@ -18,10 +18,12 @@ namespace MediaCommMvc.Web.ViewModels
 
             this.Id = topic.TopicId;
             this.LastPostAuthor = topic.LastPostAuthor;
-            this.LastPostTime = string.Format("{0:g}", topic.LastPostTime);
+            this.LastPostTime = $"{topic.LastPostTime:g}";
             this.PostCount = topic.PostCount;
             this.Title = topic.Title;
             this.ReadByCurrentUser = topic.AllPostsReadByUser(currentUser);
+
+            this.HasPoll = topic.Poll != null;
 
             if (!this.ReadByCurrentUser)
             {
@@ -29,24 +31,26 @@ namespace MediaCommMvc.Web.ViewModels
             }
         }
 
-        public IEnumerable<string> ExcludedUsernames { get; set; }
+        public IEnumerable<string> ExcludedUsernames { get; }
 
-        public string CreatedBy { get; set; }
+        public string CreatedBy { get; }
 
-        public int PostCount { get; set; }
+        public int PostCount { get; }
 
-        public string LastPostTime { get; set; }
+        public string LastPostTime { get; }
 
-        public string LastPostAuthor { get; set; }
+        public string LastPostAuthor { get; }
 
-        public string Title { get; set; }
+        public string Title { get; }
 
-        public bool ReadByCurrentUser { get; set; }
+        public bool ReadByCurrentUser { get; }
 
-        public TopicDisplayPriority DisplayPriority { get; set; }
+        public TopicDisplayPriority DisplayPriority { get; }
 
-        public int Id { get; set; }
+        public int Id { get; }
 
-        public string TopicTitleCssClass { get; set; }
+        public string TopicTitleCssClass { get; }
+
+        public bool HasPoll { get; }
     }
 }

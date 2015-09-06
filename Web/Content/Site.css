@@ -194,3 +194,7 @@ input[type="checkbox"].input-validation-error {
     max-height: 250px;
     overflow: auto;
 }
+
+.edit-topic .panel-heading[data-toggle="collapse"] {
+    cursor: pointer;
+}
