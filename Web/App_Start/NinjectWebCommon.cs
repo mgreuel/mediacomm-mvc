@@ -1,4 +1,8 @@
+using System.Net;
+
 using MediaCommMvc.Web.Infrastructure;
+
+using Microsoft.Owin.Security;
 
 using Raven.Client;
 
@@ -66,6 +70,8 @@ namespace MediaCommMvc.Web.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IDocumentSession>().ToMethod(context => DocumentStoreContainer.CurrentSession);
+
+            kernel.Bind<IAuthenticationManager>().ToMethod(context => HttpContext.Current.GetOwinContext().Authentication);
         }        
     }
 }

@@ -1,17 +1,28 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
+using MediaCommMvc.Web.Account;
+using MediaCommMvc.Web.Models;
 using MediaCommMvc.Web.ViewModels;
+
+using Microsoft.AspNet.Identity.Owin;
 
 namespace MediaCommMvc.Web.Controllers
 {
     [Authorize]
-    public partial class AccountController : Controller
+    public partial class AccountController : RavenController
     {
-        public AccountController()
+        private readonly LoginService loginService;
+
+        private readonly UserStorage userStorage;
+
+        public AccountController(LoginService loginService, UserStorage userStorage) : base(userStorage)
         {
+            this.loginService = loginService;
+            this.userStorage = userStorage;
         }
 
         [AllowAnonymous]
@@ -23,17 +34,30 @@ namespace MediaCommMvc.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public virtual async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public virtual ActionResult Login(LoginViewModel input)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(model);
+                return this.View(input);
             }
 
-            return this.View(model);
+            User user = this.userStorage.GetUser(input.Username);
 
+            if (user == null || user.ValidatePassword(input.Password) == false)
+            {
+                this.ModelState.AddModelError(string.Empty, Resources.Login.UsernameOrPasswordWrongErrorMessage);
+            }
+            
+            if (this.ModelState.IsValid)
+            {
+                this.loginService.SignIn(input.Username, input.RememberMe);
+                return this.RedirectToLocal(input.ReturnUrl);
+            }
 
+            return this.View(new LoginViewModel { Username = input.Username, ReturnUrl = input.ReturnUrl });
+            
+
+            //this.SignInManager.PasswordSignInAsync
             //// This doesn't count login failures towards account lockout
             //// To enable password failures to trigger account lockout, change to shouldLockout: true
             //var result = await this.SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
@@ -60,30 +84,20 @@ namespace MediaCommMvc.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public virtual async Task<ActionResult> Register(RegisterViewModel model)
+        public virtual ActionResult Register(RegisterViewModel model)
         {
-            //if (this.ModelState.IsValid)
-            //{
-            //    var user = new ApplicationUser { UserName = model.Username, Email = model.Email, Id = model.Username };
-            //    var result = await this.UserManager.CreateAsync(user, model.Password);
-            //    if (result.Succeeded)
-            //    {
-            //        await this.SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            if (!this.ModelState.IsValid)
+            { 
+                return this.View(model);
+            }
 
-            //        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-            //        // Send an email with this link
-            //        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-            //        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-            //        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-            //        return this.RedirectToAction("Index", "Home");
-            //    }
+            var user = new User { UserName = model.Username, Email = model.Email };
+            user.SetPassword(model.Password);
+            this.userStorage.CreateUser(user);
 
-            //    this.AddErrors(result);
-            //}
+            this.loginService.SignIn(user.UserName, false);
 
-            // If we got this far, something failed, redisplay form
-            return this.View(model);
+            return this.RedirectToAction(MVC.Home.Index());
         }
 
         [AllowAnonymous]
@@ -94,7 +108,6 @@ namespace MediaCommMvc.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public virtual async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             //if (this.ModelState.IsValid)
@@ -132,7 +145,6 @@ namespace MediaCommMvc.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public virtual async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             //if (!this.ModelState.IsValid)
@@ -168,11 +180,10 @@ namespace MediaCommMvc.Web.Controllers
      
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public virtual ActionResult LogOff()
         {
-            //this.AuthenticationManager.SignOut();
-            return this.RedirectToAction("Index", "Home");
+            this.loginService.SignOut();
+            return this.RedirectToAction(MVC.Account.Login());
         }
 
 
@@ -183,5 +194,17 @@ namespace MediaCommMvc.Web.Controllers
        
 
         #endregion
+
+        protected ActionResult RedirectToLocal(string url)
+        {
+            if (this.Url.IsLocalUrl(url))
+            {
+                return this.Redirect(url);
+            }
+            else
+            {
+                return this.RedirectToAction(MVC.Home.Index());
+            }
+        }
     }
 }

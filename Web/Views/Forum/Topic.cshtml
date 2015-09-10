@@ -1,7 +1,7 @@
-﻿@using MediaCommMvc.Web.ViewModels.Forum
+﻿@using MediaCommMvc.Web.Forum.ViewModels
 @using Microsoft.AspNet.Identity
 @using PagedList.Mvc
-@model PagedTopicDetailsViewModel
+@model TopicDetailsViewModel
 
 @{
     PagedListRenderOptions pagerRenderOptions = new PagedListRenderOptions
@@ -23,26 +23,26 @@
 
 <div class="clearfix">
     <div class="pull-left">
-        <h3 id="topic-title">@Model.TopicDetails.Title</h3>
+        <h3 id="topic-title">@Model.Title</h3>
     </div>
     <div class="pull-right">
-        @Html.PagedListPager(this.Model.PagedPosts, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("page", pageNumber)), pagerRenderOptions)
+        @Html.PagedListPager(this.Model.PostsForCurrentpage, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("page", pageNumber)), pagerRenderOptions)
     </div>
 </div>
 
-@if (Model.TopicDetails.Poll != null)
+@if (Model.Poll != null)
 {
     <div id="poll" class="panel panel-default">
 
         <div class="panel-heading">
-            @Model.TopicDetails.Poll.Question
+            @Model.Poll.Question
         </div>
         <div class="panel-body">
 
 
             @using (Html.BeginForm(MVC.Forum.AnswerPoll()))
             {
-                <input type="hidden" name="TopicId" value="@Model.TopicDetails.Id"/>
+                <input type="hidden" name="TopicId" value="@Model.Id"/>
                 <table class="table table-condensed">
                     <thead>
                     <tr>
@@ -50,7 +50,7 @@
                             @Resources.Users.UserName
                         </th>
 
-                        @foreach (var answerText in Model.TopicDetails.Poll.AnswerTexts)
+                        @foreach (var answerText in Model.Poll.AnswerTexts)
                         {
                             <th class="text-center">@answerText</th>
                         }
@@ -59,7 +59,7 @@
 
                     <tbody>
 
-                    @foreach (var userAnswers in Model.TopicDetails.Poll.UserAnswers)
+                    @foreach (var userAnswers in Model.Poll.UserAnswers)
                     {
                         <tr>
                             <th>
@@ -118,7 +118,7 @@
                             <tbody>
                                 @{ bool firstPost = true; }
 
-                                @foreach (PostViewModel post in Model.PagedPosts)
+                                @foreach (PostViewModel post in Model.PostsForCurrentpage)
                                 {
                                     <tr>
                                         <td>
@@ -143,14 +143,14 @@
                                                         }
                                                     </div>
 
-                                                    @if (post.IsEditable)
+                                                    @if (post.IsEditable(User))
                                                     {
                                                         if (firstPost)
                                                         {
                                                             firstPost = false;
 
                                                             <div class="pull-right">
-                                                                @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditTopic().AddRouteValue("id", Model.TopicDetails.Id), new { @class = "btn btn-xs btn-warning" })
+                                                                @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditTopic().AddRouteValue("id", Model.Id), new { @class = "btn btn-xs btn-warning" })
                                                             </div>
                                                         }
                                                         else
@@ -161,7 +161,7 @@
                                                         }
                                                     }
 
-                                                    @if (post.ShowApprovalButton)
+                                                    @if (post.ShowApprovalButton(User))
                                                     {
                                                         <div class="approval-button-container pull-right">
                                                             <a class="approval-button btn btn-primary btn-xs" data-id="@post.Id" data-url="@Url.Action(MVC.Forum.AddApproval())">@Resources.Approval.IApprove</a>
@@ -177,13 +177,13 @@
                     </div>
                     <div class="clearfix">
                         <div class="pull-right">
-                            @Html.PagedListPager(Model.PagedPosts, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("page", pageNumber)), pagerRenderOptions)
+                            @Html.PagedListPager(Model.PostsForCurrentpage, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("page", pageNumber)), pagerRenderOptions)
                         </div>
                     </div>
 
-                    @if (Model.PagedPosts.IsLastPage)
+                    @if (Model.PostsForCurrentpage.IsLastPage)
                     {
-                        Html.RenderPartial(MVC.Forum.Views._Reply, new ReplyViewModel { TopicId = Model.TopicDetails.Id });
+                        Html.RenderPartial(MVC.Forum.Views._Reply, new ReplyViewModel { TopicId = Model.Id });
 
                         //sections are not supported in partials, so the js must be included here
                         @section scripts

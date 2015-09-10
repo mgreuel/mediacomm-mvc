@@ -5,11 +5,13 @@ using System.Net;
 using System.Security.Principal;
 using System.Web.Mvc;
 
+using MediaCommMvc.Web.Account;
+using MediaCommMvc.Web.Forum;
+using MediaCommMvc.Web.Forum.ViewModels;
 using MediaCommMvc.Web.Infrastructure;
 using MediaCommMvc.Web.Models.Forum.Commands;
 using MediaCommMvc.Web.Models.Forum.Models;
 using MediaCommMvc.Web.ViewModels;
-using MediaCommMvc.Web.ViewModels.Forum;
 
 using PagedList;
 
@@ -21,6 +23,16 @@ namespace MediaCommMvc.Web.Controllers
     [Authorize]
     public partial class ForumController : RavenController
     {
+        private readonly UserStorage userStorage;
+
+        private readonly ForumStorage forumStorage;
+
+        public ForumController(UserStorage userStorage, ForumStorage forumStorage) : base(userStorage)
+        {
+            this.userStorage = userStorage;
+            this.forumStorage = forumStorage;
+        }
+
         [HttpPost]
         public virtual ActionResult AddApproval(int postId)
         {
@@ -52,9 +64,7 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult CreateTopic()
         {
-          // this.applicationUserManager.Users.a
-            IEnumerable<SelectListItem> allUsers = null;//this.GetAllUserNames().Select(
-               // u => new SelectListItem { Text = u, Value = u }).ToList();
+            IEnumerable<SelectListItem> allUsers = this.GetSelectListOfAllUsernames();
 
             return this.View(MVC.Forum.Views.EditTopic, new EditTopicWebViewModel { AllUserNames = allUsers });
         }
@@ -64,10 +74,7 @@ namespace MediaCommMvc.Web.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                IEnumerable<SelectListItem> allUsers = null;//this.GetAllUserNames().Select(
-                //u => new SelectListItem { Text = u, Value = u }).ToList();
-
-                viewModel.AllUserNames = allUsers;
+                viewModel.AllUserNames = this.GetSelectListOfAllUsernames();
                 return this.View(MVC.Forum.Views.EditTopic, viewModel);
             }
 
@@ -134,10 +141,11 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult Topic(int id, int page)
         {
-            TopicDetailsViewModel topicDetails = this.GetTopicDetailsViewModelAndMarkTopicAsRead(id, page, ForumOptions.PostsPerPage, this.User);
-            var viewModel = new PagedTopicDetailsViewModel(topicDetails);
+            TopicDetailsViewModel topicDetailsViewModel = this.forumStorage.GetTopicDetailsViewModel(id, page, this.User.Identity.Name);
 
-            return this.View(viewModel);
+            // todo: mark as read on last page loading
+
+            return this.View(topicDetailsViewModel);
         }
 
         public void SavePollAnswer(PollUserAnswerInput userAnswer)
@@ -315,5 +323,4 @@ namespace MediaCommMvc.Web.Controllers
         //}
 
     }
-
 }

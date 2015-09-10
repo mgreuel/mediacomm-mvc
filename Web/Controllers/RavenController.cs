@@ -1,14 +1,25 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
+using MediaCommMvc.Web.Account;
 using MediaCommMvc.Web.Infrastructure;
 
 using Raven.Client;
+
 
 namespace MediaCommMvc.Web.Controllers
 {
     public abstract partial class RavenController : Controller
     {
+        private readonly UserStorage userStorage;
+
         public IDocumentSession RavenSession { get; protected set; }
+
+        public RavenController(UserStorage userStorage)
+        {
+            this.userStorage = userStorage;
+        }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -31,6 +42,11 @@ namespace MediaCommMvc.Web.Controllers
 
                 this.RavenSession?.SaveChanges();
             }
+        }
+
+        protected List<SelectListItem> GetSelectListOfAllUsernames()
+        {
+            return this.userStorage.GetAllUsernames().Select(u => new SelectListItem { Text = u, Value = u }).ToList();
         }
     }
 }

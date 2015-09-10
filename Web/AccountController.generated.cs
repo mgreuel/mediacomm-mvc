@@ -113,7 +113,7 @@ namespace MediaCommMvc.Web.Controllers
         public class ActionParamsClass_Login
         {
             public readonly string returnUrl = "returnUrl";
-            public readonly string model = "model";
+            public readonly string input = "input";
         }
         static readonly ActionParamsClass_Register s_params_Register = new ActionParamsClass_Register();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -151,36 +151,24 @@ namespace MediaCommMvc.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _ChangePasswordPartial = "_ChangePasswordPartial";
-                public readonly string _ExternalLoginsListPartial = "_ExternalLoginsListPartial";
-                public readonly string _RemoveAccountPartial = "_RemoveAccountPartial";
                 public readonly string _SetPasswordPartial = "_SetPasswordPartial";
                 public readonly string ConfirmEmail = "ConfirmEmail";
-                public readonly string ExternalLoginConfirmation = "ExternalLoginConfirmation";
-                public readonly string ExternalLoginFailure = "ExternalLoginFailure";
                 public readonly string ForgotPassword = "ForgotPassword";
                 public readonly string ForgotPasswordConfirmation = "ForgotPasswordConfirmation";
                 public readonly string Login = "Login";
                 public readonly string Register = "Register";
                 public readonly string ResetPassword = "ResetPassword";
                 public readonly string ResetPasswordConfirmation = "ResetPasswordConfirmation";
-                public readonly string SendCode = "SendCode";
-                public readonly string VerifyCode = "VerifyCode";
             }
             public readonly string _ChangePasswordPartial = "~/Views/Account/_ChangePasswordPartial.cshtml";
-            public readonly string _ExternalLoginsListPartial = "~/Views/Account/_ExternalLoginsListPartial.cshtml";
-            public readonly string _RemoveAccountPartial = "~/Views/Account/_RemoveAccountPartial.cshtml";
             public readonly string _SetPasswordPartial = "~/Views/Account/_SetPasswordPartial.cshtml";
             public readonly string ConfirmEmail = "~/Views/Account/ConfirmEmail.cshtml";
-            public readonly string ExternalLoginConfirmation = "~/Views/Account/ExternalLoginConfirmation.cshtml";
-            public readonly string ExternalLoginFailure = "~/Views/Account/ExternalLoginFailure.cshtml";
             public readonly string ForgotPassword = "~/Views/Account/ForgotPassword.cshtml";
             public readonly string ForgotPasswordConfirmation = "~/Views/Account/ForgotPasswordConfirmation.cshtml";
             public readonly string Login = "~/Views/Account/Login.cshtml";
             public readonly string Register = "~/Views/Account/Register.cshtml";
             public readonly string ResetPassword = "~/Views/Account/ResetPassword.cshtml";
             public readonly string ResetPasswordConfirmation = "~/Views/Account/ResetPasswordConfirmation.cshtml";
-            public readonly string SendCode = "~/Views/Account/SendCode.cshtml";
-            public readonly string VerifyCode = "~/Views/Account/VerifyCode.cshtml";
         }
     }
 
@@ -202,16 +190,15 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.LoginViewModel model, string returnUrl);
+        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.LoginViewModel input);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Login(MediaCommMvc.Web.ViewModels.LoginViewModel model, string returnUrl)
+        public override System.Web.Mvc.ActionResult Login(MediaCommMvc.Web.ViewModels.LoginViewModel input)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "returnUrl", returnUrl);
-            LoginOverride(callInfo, model, returnUrl);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "input", input);
+            LoginOverride(callInfo, input);
+            return callInfo;
         }
 
         [NonAction]
@@ -229,12 +216,12 @@ namespace MediaCommMvc.Web.Controllers
         partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.RegisterViewModel model);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> Register(MediaCommMvc.Web.ViewModels.RegisterViewModel model)
+        public override System.Web.Mvc.ActionResult Register(MediaCommMvc.Web.ViewModels.RegisterViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Register);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
             RegisterOverride(callInfo, model);
-            return System.Threading.Tasks.Task.FromResult(callInfo as ActionResult);
+            return callInfo;
         }
 
         [NonAction]

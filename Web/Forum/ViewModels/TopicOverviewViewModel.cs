@@ -3,7 +3,7 @@ using System.Linq;
 
 using MediaCommMvc.Web.Models.Forum.Models;
 
-namespace MediaCommMvc.Web.ViewModels.Forum
+namespace MediaCommMvc.Web.Forum.ViewModels
 {
     public class TopicOverviewViewModel
     {

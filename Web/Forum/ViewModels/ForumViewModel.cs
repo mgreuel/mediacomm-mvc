@@ -1,6 +1,6 @@
 ﻿using PagedList;
 
-namespace MediaCommMvc.Web.ViewModels.Forum
+namespace MediaCommMvc.Web.Forum.ViewModels
 {
     public class ForumViewModel
     {

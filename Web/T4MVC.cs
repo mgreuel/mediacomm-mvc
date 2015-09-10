@@ -32,6 +32,7 @@ public static partial class MVC
     public static MediaCommMvc.Web.Controllers.AccountController Account = new MediaCommMvc.Web.Controllers.T4MVC_AccountController();
     public static MediaCommMvc.Web.Controllers.ForumController Forum = new MediaCommMvc.Web.Controllers.T4MVC_ForumController();
     public static MediaCommMvc.Web.Controllers.HomeController Home = new MediaCommMvc.Web.Controllers.T4MVC_HomeController();
+    public static T4MVC.LoginController Login = new T4MVC.LoginController();
     public static T4MVC.ManageController Manage = new T4MVC.ManageController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }

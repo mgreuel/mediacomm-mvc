@@ -161,5 +161,10 @@ namespace MediaCommMvc.Web.Models.Forum.Models
                 return DateTime.MinValue;
             }
         }
+
+        public static string NumericIdToId(int id)
+        {
+            return $"{typeof(Topic)}/{id}";
+        }
     }
 }

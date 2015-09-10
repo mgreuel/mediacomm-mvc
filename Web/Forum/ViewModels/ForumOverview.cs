@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace MediaCommMvc.Web.ViewModels.Forum
+namespace MediaCommMvc.Web.Forum.ViewModels
 {
     public class ForumOverview
     {

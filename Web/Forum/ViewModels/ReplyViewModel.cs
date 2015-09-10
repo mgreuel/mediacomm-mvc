@@ -6,7 +6,7 @@ using MediaCommMvc.Web.Models.Forum.Commands;
 
 using Resources;
 
-namespace MediaCommMvc.Web.ViewModels.Forum
+namespace MediaCommMvc.Web.Forum.ViewModels
 {
     public class ReplyViewModel
     {

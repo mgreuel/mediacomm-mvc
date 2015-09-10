@@ -28,9 +28,6 @@ namespace MediaCommMvc.Web.Controllers
     public partial class ForumController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public ForumController() { }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected ForumController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -242,10 +239,10 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void AnswerPollOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.Forum.PollUserAnswerInput answer);
+        partial void AnswerPollOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Forum.ViewModels.PollUserAnswerInput answer);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult AnswerPoll(MediaCommMvc.Web.ViewModels.Forum.PollUserAnswerInput answer)
+        public override System.Web.Mvc.ActionResult AnswerPoll(MediaCommMvc.Web.Forum.ViewModels.PollUserAnswerInput answer)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AnswerPoll);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "answer", answer);
@@ -277,10 +274,10 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void EditTopicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.Forum.EditTopicWebViewModel viewModel);
+        partial void EditTopicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Forum.ViewModels.EditTopicWebViewModel viewModel);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult EditTopic(MediaCommMvc.Web.ViewModels.Forum.EditTopicWebViewModel viewModel)
+        public override System.Web.Mvc.ActionResult EditTopic(MediaCommMvc.Web.Forum.ViewModels.EditTopicWebViewModel viewModel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditTopic);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
@@ -313,10 +310,10 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void EditPostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.Forum.EditPostViewModel viewModel);
+        partial void EditPostOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Forum.ViewModels.EditPostViewModel viewModel);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult EditPost(MediaCommMvc.Web.ViewModels.Forum.EditPostViewModel viewModel)
+        public override System.Web.Mvc.ActionResult EditPost(MediaCommMvc.Web.Forum.ViewModels.EditPostViewModel viewModel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPost);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
@@ -325,10 +322,10 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void ReplyOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.ViewModels.Forum.ReplyViewModel viewModel);
+        partial void ReplyOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Forum.ViewModels.ReplyViewModel viewModel);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Reply(MediaCommMvc.Web.ViewModels.Forum.ReplyViewModel viewModel)
+        public override System.Web.Mvc.ActionResult Reply(MediaCommMvc.Web.Forum.ViewModels.ReplyViewModel viewModel)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Reply);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);

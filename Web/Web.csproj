@@ -57,6 +57,14 @@
       <HintPath>..\packages\Glimpse.RavenDb.3.0\lib\net45\Glimpse.RavenDb.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -199,6 +207,9 @@
     <Compile Include="AccountController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Account\LoginService.cs" />
+    <Compile Include="Account\UserStorage.cs" />
+    <Compile Include="App_Start\AuthenticationConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
@@ -211,6 +222,18 @@
     <Compile Include="ForumController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Forum\ForumStorage.cs" />
+    <Compile Include="Forum\ViewModels\CreatePollViewModel.cs" />
+    <Compile Include="Forum\ViewModels\EditPostViewModel.cs" />
+    <Compile Include="Forum\ViewModels\EditTopicWebViewModel.cs" />
+    <Compile Include="Forum\ViewModels\ForumOverview.cs" />
+    <Compile Include="Forum\ViewModels\ForumViewModel.cs" />
+    <Compile Include="Forum\ViewModels\PostViewModel.cs" />
+    <Compile Include="Forum\ViewModels\ReplyViewModel.cs" />
+    <Compile Include="Forum\ViewModels\ShowPollViewModel.cs" />
+    <Compile Include="Forum\ViewModels\TopicDetailsViewModel.cs" />
+    <Compile Include="Forum\ViewModels\TopicOverviewViewModel.cs" />
+    <Compile Include="Forum\ViewModels\TopicPageRoutedata.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -223,6 +246,9 @@
     </Compile>
     <Compile Include="Infrastructure\DocumentStoreContainer.cs" />
     <Compile Include="Infrastructure\ForumOptions.cs" />
+    <Compile Include="LoginController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="ManageController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -231,30 +257,28 @@
     <Compile Include="Models\Forum\Commands\UpdatePostCommand.cs" />
     <Compile Include="Models\Forum\Commands\UpdateTopicCommand.cs" />
     <Compile Include="Models\Forum\Models\Topic.cs" />
-    <Compile Include="Models\UserRoles.cs" />
+    <Compile Include="Account\User.cs" />
+    <Compile Include="Account\UserRoles.cs" />
+    <Compile Include="RavenController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="SharedController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Startup.cs" />
     <Compile Include="T4MVC.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AccountViewModels.cs" />
-    <Compile Include="ViewModels\Forum\EditPostViewModel.cs" />
-    <Compile Include="ViewModels\Forum\EditTopicWebViewModel.cs" />
-    <Compile Include="ViewModels\Forum\ForumOverview.cs" />
-    <Compile Include="ViewModels\Forum\ForumViewModel.cs" />
-    <Compile Include="ViewModels\Forum\PagedTopicDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Forum\CreatePollViewModel.cs" />
-    <Compile Include="ViewModels\Forum\PostViewModel.cs" />
-    <Compile Include="ViewModels\Forum\ReplyViewModel.cs" />
-    <Compile Include="ViewModels\Forum\ShowPollViewModel.cs" />
-    <Compile Include="ViewModels\Forum\TopicDetailsViewModel.cs" />
-    <Compile Include="ViewModels\Forum\TopicOverviewViewModel.cs" />
-    <Compile Include="ViewModels\Forum\TopicPageRoutedata.cs" />
-    <Compile Include="ViewModels\ManageViewModels.cs" />
+    <Compile Include="ViewModels\ForgotViewModel.cs" />
+    <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\SetPasswordViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\ResetPasswordViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -318,20 +342,14 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
@@ -348,6 +366,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

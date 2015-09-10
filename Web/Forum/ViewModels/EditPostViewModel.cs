@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using MediaCommMvc.Web.Models.Forum.Commands;
 using MediaCommMvc.Web.Models.Forum.Models;
 
-namespace MediaCommMvc.Web.ViewModels.Forum
+namespace MediaCommMvc.Web.Forum.ViewModels
 {
     public class EditPostViewModel
     {
