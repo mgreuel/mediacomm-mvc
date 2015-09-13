@@ -43,20 +43,4 @@ namespace MediaCommMvc.Web.Forum.ViewModels
             return this.UserAnswers.Any(ua => ua.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
         }
     }
-
-    public class PollUserAnswerViewModel
-    {
-        public string Username { get; set; }
-
-        public IList<bool> Answers { get; set; }
-    }
-
-    public class PollUserAnswerInput
-    {
-        public int TopicId { get; set; }
-
-        public string Username { get; set; }
-
-        public IList<int> CheckedAnswers { get; set; }
-    }
 }

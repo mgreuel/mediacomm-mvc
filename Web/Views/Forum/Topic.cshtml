@@ -21,6 +21,8 @@
     };
 }
 
+
+
 <div class="clearfix">
     <div class="pull-left">
         <h3 id="topic-title">@Model.Title</h3>
@@ -156,7 +158,7 @@
                                                         else
                                                         {
                                                             <div class="pull-right">
-                                                                @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditPost().AddRouteValue("id", post.Id), new { @class = "btn btn-xs btn-warning" })
+                                                                @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditPost().AddRouteValues(new { topicId = Model.Id, postIndex = post.IndexInTopic }), new { @class = "btn btn-xs btn-warning" })
                                                             </div>
                                                         }
                                                     }
@@ -164,7 +166,7 @@
                                                     @if (post.ShowApprovalButton(User))
                                                     {
                                                         <div class="approval-button-container pull-right">
-                                                            <a class="approval-button btn btn-primary btn-xs" data-id="@post.Id" data-url="@Url.Action(MVC.Forum.AddApproval())">@Resources.Approval.IApprove</a>
+                                                            <a class="approval-button btn btn-primary btn-xs" data-topic-id="@Model.Id" data-post-index="@post.IndexInTopic" data-url="@Url.Action(MVC.Forum.AddApproval())">@Resources.Approval.IApprove</a>
                                                         </div>
                                                     }
                                                 </div>
@@ -183,16 +185,16 @@
 
                     @if (Model.PostsForCurrentpage.IsLastPage)
                     {
-                        Html.RenderPartial(MVC.Forum.Views._Reply, new ReplyViewModel { TopicId = Model.Id });
+                        Html.RenderPartial(MVC.Forum.Views.Reply, new ReplyViewModel { TopicId = Model.Id });
 
                         //sections are not supported in partials, so the js must be included here
                         @section scripts
-    {
+                        {
                             @Scripts.Render("~/bundles/jqueryval")
 
                             <script>
 
-                                $(function () {
+                                $(function() {
                                     var editor = $('#reply-input').wysihtml5({
                                         toolbar: {
                                             "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
@@ -207,24 +209,31 @@
                                         }
                                     });
 
-                                    $('#reply > form').submit(function () {
+                                    $('#reply > form').submit(function() {
                                         $('#reply #Text').val(editor.html());
                                     });
 
-                                    $(".approval-button").click(function () {
+                                    $(".approval-button").click(function() {
                                         var $postLink = $(this);
                                         var url = $postLink.data("url");
-                                        var postId = $postLink.data("id");
+                                        var topicId = $postLink.data("topic-id");
+                                        var postIndex = $postLink.data("post-index");
 
-                                        $.post(url, { postId: postId })
-                                            .done(function (data) {
+                                        $.post(url, { topicId: topicId, postIndex: postIndex })
+                                            .done(function(data) {
 
                                                 $postLink.parents(".post").find(".approval-button-container").hide();
                                                 $postLink.parents(".post").find(".approvals").append("<div class='pull-left label label-info'>@User.Identity.GetUserName() @Resources.Approval.ApprovalText</div>");
                                             });
                                     });
 
-                                    $('#poll form').submit(function (e) {
+                                    @if (this.Model.IsLastPage)
+                                    {
+                                        @:$.post("@Url.Action(MVC.Forum.MarkTopicAsRead())", { id: "@Model.Id" });
+                                    }
+                                    
+
+                                    $('#poll form').submit(function(e) {
 
                                         e.preventDefault();
                                         e.returnValue = false;
@@ -241,7 +250,7 @@
                                                 type: this.method,
                                                 data: $form.serialize(),
                                                 traditional: true,
-                                                success: function (result) {
+                                                success: function(result) {
                                                     $('#poll-success').removeClass("hidden");
                                                     $('#poll-error').addClass("hidden");
                                                 },

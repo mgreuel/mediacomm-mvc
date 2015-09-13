@@ -4,7 +4,7 @@ namespace MediaCommMvc.Web.Models.Forum.Commands
 {
     public class AddReplyCommand
     {
-        public int TopicId { get; set; }
+        public string TopicId { get; set; }
 
         public string AuthorName { get; set; }
 

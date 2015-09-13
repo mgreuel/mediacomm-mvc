@@ -12,18 +12,19 @@ namespace MediaCommMvc.Web.Forum.ViewModels
     {
         public PostViewModel(Post post)
         {
-            this.Approvals = post.Approvals;
+            this.Approvals = post.Approvals ?? new List<string>();
             this.AuthorName = post.AuthorName;
             this.Created = post.Created;
-            this.Id = post.Id;
+            //this.Id = post.Id;
             this.Text = post.Text;
+            this.IndexInTopic = post.IndexInTopic;
         }
 
         public string AuthorName { get; set; }
 
         public DateTime Created { get; set; }
 
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         public bool IsEditable(IPrincipal currentUser)
         {
@@ -39,5 +40,7 @@ namespace MediaCommMvc.Web.Forum.ViewModels
         }
 
         public IEnumerable<string> Approvals { get; set; }
+
+        public int IndexInTopic { get; set; }
     }
 }

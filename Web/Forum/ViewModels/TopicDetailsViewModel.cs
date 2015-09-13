@@ -26,7 +26,7 @@ namespace MediaCommMvc.Web.Forum.ViewModels
             ? (int)Math.Ceiling(this.TotalNumberOfPosts / (double)ForumOptions.PostsPerPage)
             : 0;
 
-        public int Id { get; private set; }
+        public string Id { get; set; }
 
         public IEnumerable<PostViewModel> Posts { get; set; }
 

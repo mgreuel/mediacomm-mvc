@@ -1,51 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
+﻿//using System;
+//using System.Collections.Generic;
 
-using MediaCommMvc.Web.Models.Forum.Models;
+//using MediaCommMvc.Web.Models.Forum.Models;
 
-namespace MediaCommMvc.Web.Models.Forum.Commands
-{
-    public class CreateTopicCommand
-    {
-        public string AuthorName { get; set; }
+//namespace MediaCommMvc.Web.Models.Forum.Commands
+//{
+//    public class CreateTopicCommand
+//    {
+//        public CreateTopicCommand()
+//        {
+//            this.ExcludedUserNames = new List<string>();
+//        }
 
-        public DateTime TimeStamp { get; set; }
+//        public string AuthorName { get; set; }
 
-        public string Text { get; set; }
+//        public DateTime TimeStamp { get; set; }
 
-        public string Title { get; set; }
+//        public string Text { get; set; }
 
-        public IEnumerable<string> ExcludedUserNames { get; set; }
+//        public string Title { get; set; }
 
-        public Poll Poll { get; set; }
+//        public IEnumerable<string> ExcludedUserNames { get; set; }
 
-        public Topic ToTopic()
-        {
-            var topic = new Topic
-                            {
-                                CreatedBy = this.AuthorName,
-                                ExcludedUserNames = this.ExcludedUserNames,
-                                LastPostAuthor = this.AuthorName,
-                                LastPostTime = this.TimeStamp,
-                                PostCount = 1,
-                                Title = this.Title,
-                                Poll = this.Poll,
-                                Posts =
-                                    new List<Post>
-                                        {
-                                            new Post
-                                                {
-                                                    AuthorName = this.AuthorName,
-                                                    Created = this.TimeStamp,
-                                                    Id = 1,
-                                                    Text = this.Text
-                                                }
-                                        }
-                            };
+//        public Poll Poll { get; set; }
 
-            topic.MarkTopicAsRead(this.AuthorName);
+//        public Topic ToTopic()
+//        {
+//            var topic = new Topic
+//                            {
+//                                CreatedBy = this.AuthorName,
+//                                ExcludedUserNames = this.ExcludedUserNames,
+//                                LastPostAuthor = this.AuthorName,
+//                                LastPostTime = this.TimeStamp,
+//                                PostCount = 1,
+//                                Title = this.Title,
+//                                Poll = this.Poll,
+//                                Posts =
+//                                    new List<Post>
+//                                        {
+//                                            new Post
+//                                                {
+//                                                    AuthorName = this.AuthorName,
+//                                                    Created = this.TimeStamp,
+//                                                    IndexInTopic = 1,
+//                                                    Text = this.Text
+//                                                }
+//                                        }
+//                            };
 
-            return topic;
-        }
-    }
-}
+//            topic.MarkTopicAsRead(this.AuthorName);
+
+//            return topic;
+//        }
+//    }
+//}

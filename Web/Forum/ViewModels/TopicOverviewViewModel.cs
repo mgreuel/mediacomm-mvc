@@ -12,18 +12,25 @@ namespace MediaCommMvc.Web.Forum.ViewModels
             this.CreatedBy = topic.CreatedBy;
             this.DisplayPriority = topic.DisplayPriority;
 
-            string[] tempExcludedUsers = new string[topic.ExcludedUserNames.Count()];
-            topic.ExcludedUserNames.ToList().CopyTo(tempExcludedUsers);
-            this.ExcludedUsernames = tempExcludedUsers;
+            if (topic.ExcludedUserNames != null && topic.ExcludedUserNames.Any())
+            {
+                string[] tempExcludedUsers = new string[topic.ExcludedUserNames.Count()];
+                topic.ExcludedUserNames.ToList().CopyTo(tempExcludedUsers);
+                this.ExcludedUsernames = tempExcludedUsers;
+            }
+            else
+            {
+                this.ExcludedUsernames = new List<string>();
+            }
 
-            this.Id = topic.NumericId;
+            this.Id = topic.Id;
             this.LastPostAuthor = topic.LastPostAuthor;
             this.LastPostTime = $"{topic.LastPostTime:g}";
             this.PostCount = topic.PostCount;
             this.Title = topic.Title;
             this.ReadByCurrentUser = topic.AllPostsReadByUser(currentUser);
 
-            this.HasPoll = topic.Poll != null;
+            this.HasPoll = topic.Poll != null && topic.Poll.Answers.Any();
 
             if (!this.ReadByCurrentUser)
             {
@@ -52,7 +59,7 @@ namespace MediaCommMvc.Web.Forum.ViewModels
 
         public TopicDisplayPriority DisplayPriority { get; }
 
-        public int Id { get; }
+        public string Id { get; }
 
         public string TopicTitleCssClass { get; }
 

@@ -14,7 +14,7 @@ namespace MediaCommMvc.Web.Forum.ViewModels
         [Required(ErrorMessageResourceType = typeof(Forums), ErrorMessageResourceName = "TextRequired")]
         public string Text { get; set; }
 
-        public int TopicId { get; set; }
+        public string TopicId { get; set; }
 
         public AddReplyCommand ToAddReplyCommand(string userName)
         {

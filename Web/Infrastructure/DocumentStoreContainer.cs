@@ -19,6 +19,9 @@ namespace MediaCommMvc.Web.Infrastructure
         public static IDocumentStore Initialize()
         {
             documentStore = new DocumentStore { ConnectionStringName = "raven" };
+            
+            // replacing / with - as a separator allows using the ids in urls
+            documentStore.Conventions.IdentityPartsSeparator = "-";
             documentStore.Initialize();
 
             return documentStore;

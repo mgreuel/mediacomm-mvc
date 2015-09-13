@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Web.Mvc;
 
 using MediaCommMvc.Web.Models.Forum.Commands;
@@ -9,14 +10,14 @@ using Resources;
 
 namespace MediaCommMvc.Web.Forum.ViewModels
 {
-    public class EditTopicWebViewModel
+    public class EditTopicViewModel
     {
-        public EditTopicWebViewModel()
+        public EditTopicViewModel()
         {
             this.Poll = new CreatePollViewModel();
         }
 
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public IEnumerable<SelectListItem> AllUserNames { get; set; }
 
@@ -25,7 +26,7 @@ namespace MediaCommMvc.Web.Forum.ViewModels
 
         [Required(ErrorMessageResourceType = typeof(Forums), ErrorMessageResourceName = "SubjectRequired")]
         [Display(ResourceType = typeof(Forums), Name = "Subject")]
-        public string Subject { get; set; }
+        public string Title { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Forums), ErrorMessageResourceName = "TextRequired")]
         [Display(ResourceType = typeof(Forums), Name = "Message")]
@@ -35,14 +36,17 @@ namespace MediaCommMvc.Web.Forum.ViewModels
         [Display(ResourceType = typeof(Forums), Name = "Poll")]
         public CreatePollViewModel Poll { get; set; }
 
-        public CreateTopicCommand ToCreateTopicCommand(string userName)
+        public bool HasPoll
         {
-            return new CreateTopicCommand { AuthorName = userName, ExcludedUserNames = this.ExcludedUserNames, Text = this.Text, TimeStamp = DateTime.UtcNow, Title = this.Subject, Poll = this.Poll.ToPoll() };
+            get
+            {
+                return this.Poll.Answers.Any(a => !string.IsNullOrWhiteSpace(a));
+            }
         }
 
-        public UpdateTopicCommand ToUpdateTopicCommand()
-        {
-            return new UpdateTopicCommand { Text = this.Text, ExcludedUserNames = this.ExcludedUserNames, Title = this.Subject, Id = this.Id };
-        }
+        //public CreateTopicCommand ToCreateTopicCommand(string userName)
+        //{
+        //    return new CreateTopicCommand { AuthorName = userName, ExcludedUserNames = this.ExcludedUserNames, Text = this.Text, TimeStamp = DateTime.UtcNow, Title = this.Title, Poll = this.Poll.ToPoll() };
+        //}
     }
 }

@@ -222,12 +222,15 @@
     <Compile Include="ForumController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Forum\ForumStorage.cs" />
+    <Compile Include="Forum\ForumStorageReader.cs" />
+    <Compile Include="Forum\ForumStorageWriter.cs" />
     <Compile Include="Forum\ViewModels\CreatePollViewModel.cs" />
     <Compile Include="Forum\ViewModels\EditPostViewModel.cs" />
-    <Compile Include="Forum\ViewModels\EditTopicWebViewModel.cs" />
+    <Compile Include="Forum\ViewModels\EditTopicViewModel.cs" />
     <Compile Include="Forum\ViewModels\ForumOverview.cs" />
     <Compile Include="Forum\ViewModels\ForumViewModel.cs" />
+    <Compile Include="Forum\ViewModels\PollUserAnswerInput.cs" />
+    <Compile Include="Forum\ViewModels\PollUserAnswerViewModel.cs" />
     <Compile Include="Forum\ViewModels\PostViewModel.cs" />
     <Compile Include="Forum\ViewModels\ReplyViewModel.cs" />
     <Compile Include="Forum\ViewModels\ShowPollViewModel.cs" />
@@ -256,9 +259,13 @@
     <Compile Include="Models\Forum\Commands\CreateTopicCommand.cs" />
     <Compile Include="Models\Forum\Commands\UpdatePostCommand.cs" />
     <Compile Include="Models\Forum\Commands\UpdateTopicCommand.cs" />
+    <Compile Include="Models\Forum\Models\Poll.cs" />
+    <Compile Include="Models\Forum\Models\PollAnswer.cs" />
+    <Compile Include="Models\Forum\Models\Post.cs" />
     <Compile Include="Models\Forum\Models\Topic.cs" />
     <Compile Include="Account\User.cs" />
     <Compile Include="Account\UserRoles.cs" />
+    <Compile Include="Models\Forum\Models\TopicDisplayPriority.cs" />
     <Compile Include="RavenController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -350,17 +357,14 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ResetPassword.cshtml" />
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
     <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Forum\Index.cshtml" />
     <Content Include="Views\Forum\Topic.cshtml" />
-    <Content Include="Views\Forum\_Reply.cshtml" />
+    <Content Include="Views\Forum\Reply.cshtml" />
     <Content Include="Views\Forum\EditTopic.cshtml" />
     <Content Include="Views\Forum\EditPost.cshtml" />
   </ItemGroup>

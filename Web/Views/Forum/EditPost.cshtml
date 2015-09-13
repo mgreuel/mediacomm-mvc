@@ -7,7 +7,9 @@
     {
         @Html.HiddenFor(m => m.Text)
 
-        @Html.HiddenFor(m => m.PostId)
+        @Html.HiddenFor(m => m.TopicId)
+
+        @Html.HiddenFor(m => m.PostIndex)
 
         <div contenteditable id="edit-post-input" class="editor well well-sm">
 

@@ -20,6 +20,7 @@ namespace MediaCommMvc.Web
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
 
             DocumentStoreContainer.Initialize();
+
         }
     }
 }
