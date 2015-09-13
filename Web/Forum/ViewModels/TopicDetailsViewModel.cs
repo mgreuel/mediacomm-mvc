@@ -4,7 +4,6 @@ using System.Linq;
 using System.Security.Principal;
 
 using MediaCommMvc.Web.Infrastructure;
-using MediaCommMvc.Web.Models.Forum.Models;
 
 using PagedList;
 

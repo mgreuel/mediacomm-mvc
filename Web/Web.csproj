@@ -209,6 +209,13 @@
     </Compile>
     <Compile Include="Account\LoginService.cs" />
     <Compile Include="Account\UserStorage.cs" />
+    <Compile Include="Account\ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="Account\ViewModels\ForgotPasswordViewModel.cs" />
+    <Compile Include="Account\ViewModels\ForgotViewModel.cs" />
+    <Compile Include="Account\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Account\ViewModels\RegisterViewModel.cs" />
+    <Compile Include="Account\ViewModels\ResetPasswordViewModel.cs" />
+    <Compile Include="Account\ViewModels\SetPasswordViewModel.cs" />
     <Compile Include="App_Start\AuthenticationConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -224,6 +231,11 @@
     </Compile>
     <Compile Include="Forum\ForumStorageReader.cs" />
     <Compile Include="Forum\ForumStorageWriter.cs" />
+    <Compile Include="Forum\Models\Poll.cs" />
+    <Compile Include="Forum\Models\PollAnswer.cs" />
+    <Compile Include="Forum\Models\Post.cs" />
+    <Compile Include="Forum\Models\Topic.cs" />
+    <Compile Include="Forum\Models\TopicDisplayPriority.cs" />
     <Compile Include="Forum\ViewModels\CreatePollViewModel.cs" />
     <Compile Include="Forum\ViewModels\EditPostViewModel.cs" />
     <Compile Include="Forum\ViewModels\EditTopicViewModel.cs" />
@@ -255,17 +267,8 @@
     <Compile Include="ManageController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Forum\Commands\AddReplyCommand.cs" />
-    <Compile Include="Models\Forum\Commands\CreateTopicCommand.cs" />
-    <Compile Include="Models\Forum\Commands\UpdatePostCommand.cs" />
-    <Compile Include="Models\Forum\Commands\UpdateTopicCommand.cs" />
-    <Compile Include="Models\Forum\Models\Poll.cs" />
-    <Compile Include="Models\Forum\Models\PollAnswer.cs" />
-    <Compile Include="Models\Forum\Models\Post.cs" />
-    <Compile Include="Models\Forum\Models\Topic.cs" />
     <Compile Include="Account\User.cs" />
     <Compile Include="Account\UserRoles.cs" />
-    <Compile Include="Models\Forum\Models\TopicDisplayPriority.cs" />
     <Compile Include="RavenController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -278,14 +281,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\ForgotViewModel.cs" />
-    <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
-    <Compile Include="ViewModels\ForgotPasswordViewModel.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\SetPasswordViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\RegisterViewModel.cs" />
-    <Compile Include="ViewModels\ResetPasswordViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -370,6 +366,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ViewModels\" />
     <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>

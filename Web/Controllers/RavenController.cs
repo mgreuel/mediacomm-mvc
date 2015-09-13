@@ -14,7 +14,7 @@ namespace MediaCommMvc.Web.Controllers
     {
         private readonly UserStorage userStorage;
 
-        public IDocumentSession RavenSession { get; protected set; }
+        private IDocumentSession RavenSession { get; set; }
 
         public RavenController(UserStorage userStorage)
         {

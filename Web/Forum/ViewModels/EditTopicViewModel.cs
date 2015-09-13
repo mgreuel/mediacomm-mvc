@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 
-using MediaCommMvc.Web.Models.Forum.Commands;
-
 using Resources;
 
 namespace MediaCommMvc.Web.Forum.ViewModels

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MediaCommMvc.Web.ViewModels
+namespace MediaCommMvc.Web.Account.ViewModels
 {
 
 

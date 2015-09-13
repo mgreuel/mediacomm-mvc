@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using MediaCommMvc.Web.Forum.Models;
 using MediaCommMvc.Web.Forum.ViewModels;
-using MediaCommMvc.Web.Models.Forum.Models;
 
 using Raven.Abstractions.Data;
 using Raven.Client;
@@ -98,6 +98,30 @@ namespace MediaCommMvc.Web.Forum
         {
             var topic = this.ravenSession.Load<Topic>(topicId);
             topic.MarkTopicAsRead(currentUsername);
+        }
+
+        public void AddReply(ReplyViewModel viewModel, string currentUsername)
+        {
+            var post = new Post
+            {
+                AuthorName = currentUsername,
+                Created = DateTime.UtcNow,
+                Text = viewModel.Text
+            };
+
+            var topic = this.ravenSession.Load<Topic>(viewModel.TopicId);
+            post.IndexInTopic = topic.PostCount;
+
+            topic.Posts.Add(post);
+            topic.PostCount = topic.PostCount + 1;
+            topic.LastPostAuthor = currentUsername;
+            topic.LastPostTime = DateTime.UtcNow;
+        }
+
+        public void UpdatePost(EditPostViewModel viewModel)
+        {
+            var topic = this.ravenSession.Load<Topic>(viewModel.TopicId);
+            topic.Posts.Single(p => p.IndexInTopic == viewModel.PostIndex).Text = viewModel.Text;
         }
     }
 }

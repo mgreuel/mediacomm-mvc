@@ -198,3 +198,13 @@ input[type="checkbox"].input-validation-error {
 .edit-topic .panel-heading[data-toggle="collapse"] {
     cursor: pointer;
 }
+
+/* End Create Topic */
+
+/* Start Edit Post */
+
+#edit-post {
+    margin-top: 30px;
+}
+
+/* Start Edit Post */

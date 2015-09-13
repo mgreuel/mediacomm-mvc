@@ -1,4 +1,4 @@
-namespace MediaCommMvc.Web.Models.Forum.Models
+namespace MediaCommMvc.Web.Forum.Models
 {
     public enum TopicDisplayPriority
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-using MediaCommMvc.Web.Models.Forum.Models;
+using MediaCommMvc.Web.Forum.Models;
 
 namespace MediaCommMvc.Web.Forum.ViewModels
 {

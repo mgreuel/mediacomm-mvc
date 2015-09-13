@@ -213,6 +213,10 @@
                                         $('#reply #Text').val(editor.html());
                                     });
 
+                                    $('form').submit(function () {
+                                        $('#Text').val(editor.html());
+                                    });
+
                                     $(".approval-button").click(function() {
                                         var $postLink = $(this);
                                         var url = $postLink.data("url");

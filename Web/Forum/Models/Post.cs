@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace MediaCommMvc.Web.Models.Forum.Models
+namespace MediaCommMvc.Web.Forum.Models
 {
     public class Post
     {

@@ -5,8 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 
 using MediaCommMvc.Web.Account;
+using MediaCommMvc.Web.Account.ViewModels;
 using MediaCommMvc.Web.Models;
-using MediaCommMvc.Web.ViewModels;
 
 using Microsoft.AspNet.Identity.Owin;
 

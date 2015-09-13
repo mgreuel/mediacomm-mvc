@@ -1,5 +1,5 @@
-﻿using MediaCommMvc.Web.Forum.ViewModels;
-using MediaCommMvc.Web.Models.Forum.Models;
+﻿using MediaCommMvc.Web.Forum.Models;
+using MediaCommMvc.Web.Forum.ViewModels;
 
 namespace MediaCommMvc.Web.Helpers
 {
@@ -18,6 +18,26 @@ namespace MediaCommMvc.Web.Helpers
             }
 
             return "glyphicon glyphicon-eye-close";
+        }
+
+        public static string TopicIconTitle(TopicOverviewViewModel topic)
+        {
+            if (!topic.ReadByCurrentUser)
+            {
+                return @Resources.Forums.NewPosts;
+            }
+
+            if (topic.DisplayPriority == TopicDisplayPriority.Sticky)
+            {
+                if (!topic.ReadByCurrentUser)
+                {
+                    return @Resources.Forums.StickyNewPosts;
+                }
+
+                return @Resources.Forums.StickyNoNewPosts;
+            }
+
+            return @Resources.Forums.NoNewPosts;
         }
     }
 }

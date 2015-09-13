@@ -1,23 +1,27 @@
 ﻿@model MediaCommMvc.Web.Forum.ViewModels.EditPostViewModel
 
+<div id="edit-post" class="panel panel-default">
+    <div class="panel-heading">
+       @Resources.Forums.EditPost
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.HiddenFor(m => m.Text)
 
-<div id="edit-post" class="row">
+            @Html.HiddenFor(m => m.TopicId)
 
-    @using (Html.BeginForm())
-    {
-        @Html.HiddenFor(m => m.Text)
+            @Html.HiddenFor(m => m.PostIndex)
 
-        @Html.HiddenFor(m => m.TopicId)
+            <div contenteditable id="edit-post-input" class="editor well well-sm">
 
-        @Html.HiddenFor(m => m.PostIndex)
+            </div>
+            @Html.ValidationMessageFor(m => m.Text)
 
-        <div contenteditable id="edit-post-input" class="editor well well-sm">
+            <button type="submit" class="btn btn-primary">@Resources.General.Save</button>
+        }
 
-        </div>
-        @Html.ValidationMessageFor(m => m.Text)
-
-        <button type="submit" class="btn btn-primary">@Resources.General.Save</button>
-    }
+    </div>
 
     @section scripts
     {
@@ -26,11 +30,7 @@
 
         <script>
 
-            $(function () {
-
-                $('form').submit(function () {
-                    $('#Text').val(editor.html());
-                });
+            $(function() {
 
                 // todo: remove duplication of editor config
                 var editor = $('#edit-post-input').wysihtml5({
@@ -45,6 +45,11 @@
                         "blockquote": true, //Blockquote
                         "size": "sm" //default: none, other options are xs, sm, lg
                     }
+                });
+
+
+                $('form').submit(function() {
+                    $('#Text').val(editor.html());
                 });
 
                 editor.html($('#Text').val());
