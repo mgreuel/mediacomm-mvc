@@ -21,11 +21,13 @@
     };
 }
 
-
-
 <div class="clearfix">
     <div class="pull-left">
         <h3 id="topic-title">@Model.Title</h3>
+        @if (Model.ExcludedUsernames != null && Model.ExcludedUsernames.Any())
+        {
+            <div id="topic-hidden-for">@Resources.Forums.InvisibleFor @string.Join(", ", Model.ExcludedUsernames)</div>
+        }
     </div>
     <div class="pull-right">
         @Html.PagedListPager(this.Model.PostsForCurrentpage, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("page", pageNumber)), pagerRenderOptions)
@@ -34,12 +36,13 @@
 
 @if (Model.Poll != null)
 {
-    <div id="poll" class="panel panel-default">
+    <div id="poll-panel" class="panel panel-default">
 
-        <div class="panel-heading">
-            @Model.Poll.Question
+        <div class="panel-heading" data-toggle="collapse" data-target="#poll">
+            <span class="glyphicon glyphicon-collapse-up toggle-icon"></span>
+           @Resources.Forums.Poll: @Model.Poll.Question
         </div>
-        <div class="panel-body">
+        <div id="poll" class="panel-body panel-collapse collapse in">
 
 
             @using (Html.BeginForm(MVC.Forum.AnswerPoll()))
@@ -64,14 +67,14 @@
                     @foreach (var userAnswers in Model.Poll.UserAnswers)
                     {
                         <tr>
-                            <th>
+                            <td>
                                 @userAnswers.Username
 
                                 @if (userAnswers.Username.Equals(User.Identity.Name))
                                 {
                                     <input name="Username" type="hidden" value="@userAnswers.Username"/>
                                 }
-                            </th>
+                            </td>
 
                             @{ int counter = 0; }
 
@@ -79,19 +82,18 @@
                             {
                                 if (userAnswer)
                                 {
-                                    @:<td class="success text-center">
+                                    @:<td class="success text-center"><i class="glyphicon glyphicon-ok-circle"></i>
                                 }
                                 else
                                 {
-                                    @:<td class="danger text-center">
+                                    @:<td class="danger text-center"><i class="glyphicon glyphicon-remove-circle"></i>
                                 }
 
                                 if (userAnswers.Username.Equals(User.Identity.Name))
                                 {
                                     @* checkbox value are not sent if they are not checked see http://stackoverflow.com/questions/1809494/post-the-checkboxes-that-are-unchecked*@
 
-                                    <input class="answer-checkbox" type="checkbox" value="@counter" name="CheckedAnswers"/>
-
+                                    <input class="answer-checkbox" type="checkbox" value="@counter" @(userAnswer ? "checked" : "") name="CheckedAnswers"/>
                                 }
 
                                 @:</td>
@@ -99,12 +101,29 @@
                                 counter = counter + 1;
                             }
                         </tr>
-
-
-                        @:</tbody>
                     }
+                    </tbody>
+
+                    <tfoot>
+                    <tr>
+                        <td></td>
+                        @foreach (int answerCount in Model.Poll.AnswerCountByQuestion)
+                        {
+                            <td class="text-center">
+                                @if (answerCount == Model.Poll.AnswerCountByQuestion.Max())
+                                {
+                                    <strong>@answerCount</strong>
+                                }
+                                else
+                                {
+                                   @answerCount
+                                }
+                            </td>
+                        }
+                    </tr>
+                    </tfoot>
                 </table>
-                <input class="btn btn-primary btn-sm" type="submit" value="@Resources.General.Save"/>
+                <input class="btn btn-default btn-sm" type="submit" value="@Resources.General.Save"/>
 
                 <p id="poll-success" class="text-success hidden">@Resources.General.ChangesSaved</p>
                 <p id="poll-success1" class="text-success hidden">@Resources.General.ChangesSaved</p>
@@ -186,36 +205,50 @@
                     @if (Model.PostsForCurrentpage.IsLastPage)
                     {
                         Html.RenderPartial(MVC.Forum.Views.Reply, new ReplyViewModel { TopicId = Model.Id });
+                    }
 
-                        //sections are not supported in partials, so the js must be included here
+                    @* sections are not supported in partials, so the js must be included here*@
+
                         @section scripts
                         {
-                            @Scripts.Render("~/bundles/jqueryval")
+                            @if (Model.PostsForCurrentpage.IsLastPage)
+                            {
+                                @Scripts.Render("~/bundles/jqueryval")
+
+                                <script>
+
+                                    $(function() {
+                                        var editor = $('#reply-input').wysihtml5({
+                                            toolbar: {
+                                                "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+                                                "emphasis": true, //Italics, bold, etc. Default true
+                                                "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                                                "html": false, //Button which allows you to edit the generated HTML. Default false
+                                                "link": true, //Button to insert a link. Default true
+                                                "image": true, //Button to insert an image. Default true,
+                                                "color": false, //Button to change color of font
+                                                "blockquote": true, //Blockquote
+                                                "size": "sm" //default: none, other options are xs, sm, lg
+                                            }
+                                        });
+
+                                        $('#reply > form').submit(function() {
+                                            $('#reply #Text').val(editor.html());
+                                        });
+
+                                        $('form').submit(function() {
+                                            $('#Text').val(editor.html());
+                                        });
+
+                                        $.post("@Url.Action(MVC.Forum.MarkTopicAsRead())", { id: "@Model.Id" });
+                                    });
+
+                                </script>
+                            }
 
                             <script>
 
                                 $(function() {
-                                    var editor = $('#reply-input').wysihtml5({
-                                        toolbar: {
-                                            "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
-                                            "emphasis": true, //Italics, bold, etc. Default true
-                                            "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-                                            "html": false, //Button which allows you to edit the generated HTML. Default false
-                                            "link": true, //Button to insert a link. Default true
-                                            "image": true, //Button to insert an image. Default true,
-                                            "color": false, //Button to change color of font
-                                            "blockquote": true, //Blockquote
-                                            "size": "sm" //default: none, other options are xs, sm, lg
-                                        }
-                                    });
-
-                                    $('#reply > form').submit(function() {
-                                        $('#reply #Text').val(editor.html());
-                                    });
-
-                                    $('form').submit(function () {
-                                        $('#Text').val(editor.html());
-                                    });
 
                                     $(".approval-button").click(function() {
                                         var $postLink = $(this);
@@ -231,48 +264,22 @@
                                             });
                                     });
 
-                                    @if (this.Model.IsLastPage)
-                                    {
-                                        @:$.post("@Url.Action(MVC.Forum.MarkTopicAsRead())", { id: "@Model.Id" });
-                                    }
-                                    
+                                    $('.panel-heading[data-toggle="collapse"]').click(function (e) {
 
-                                    $('#poll form').submit(function(e) {
+                                        var $icon = $(this).find('.toggle-icon');
 
-                                        e.preventDefault();
-                                        e.returnValue = false;
-
-                                        var $form = $(this);
-
-                                        if ($form.valid()) {
-                                            var $submitButton = $form.find('input[type="submit"]');
-
-                                            $submitButton.prop("disabled", true);
-
-                                            $.ajax({
-                                                url: this.action,
-                                                type: this.method,
-                                                data: $form.serialize(),
-                                                traditional: true,
-                                                success: function(result) {
-                                                    $('#poll-success').removeClass("hidden");
-                                                    $('#poll-error').addClass("hidden");
-                                                },
-                                                error: function() {
-                                                    $('#poll-success').addClass("hidden");
-                                                    $('#poll-error').removeClass("hidden");
-                                                },
-                                                complete: function() {
-                                                    $submitButton.prop("disabled", false);
-                                                }
-                                            });
+                                        if ($icon.hasClass('glyphicon-collapse-down')) {
+                                            $icon.removeClass('glyphicon-collapse-down');
+                                            $icon.addClass('glyphicon-collapse-up');
                                         }
-
-                                        return false;
+                                        else {
+                                            $icon.removeClass('glyphicon-collapse-up');
+                                            $icon.addClass('glyphicon-collapse-down');
+                                        }
                                     });
                                 });
 
 
                             </script>
                         }
-                    }
+                    

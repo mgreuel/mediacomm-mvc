@@ -19,10 +19,8 @@ namespace MediaCommMvc.Web.Forum
             this.ravenSession = ravenSession;
         }
 
-        public void SavePollAnswer(PollUserAnswerInput userAnswer)
+        public void SavePollAnswer(PollUserAnswerInput userAnswer, string username)
         {
-
-            //Topic topic = this.ravenSession.Load<Topic>(RavenHelper.ToStringId<Topic>(userAnswer.TopicId));
             Topic topic = this.ravenSession.Load<Topic>(userAnswer.TopicId);
 
             int index = 0;
@@ -33,19 +31,18 @@ namespace MediaCommMvc.Web.Forum
                 // todo: Check whether this should be moved to the model
                 bool newAnswerValue = userAnswer.CheckedAnswers.Contains(index);
 
-                if (newAnswerValue && !answer.Usernames.Contains(userAnswer.Username))
+                if (newAnswerValue && !answer.Usernames.Contains(username))
                 {
-                    answer.Usernames.Add(userAnswer.Username);
+                    answer.Usernames.Add(username);
                 }
-                else if (!newAnswerValue && answer.Usernames.Contains(userAnswer.Username))
+                else if (!newAnswerValue && answer.Usernames.Contains(username))
                 {
-                    answer.Usernames.Remove(userAnswer.Username);
+                    answer.Usernames.Remove(username);
                 }
 
                 index = index + 1;
             }
         }
-
 
         public string SaveTopic(EditTopicViewModel viewModel, string currentUsername)
         {

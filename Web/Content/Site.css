@@ -60,6 +60,15 @@ input[type="checkbox"].input-validation-error {
 
 /* End validation helpers */
 
+/* Start global */
+
+.panel-heading[data-toggle="collapse"] {
+    cursor: pointer;
+}
+
+/* End global */
+
+
 /* Start Forum Overview */
 
 .forum-legend {
@@ -147,8 +156,16 @@ input[type="checkbox"].input-validation-error {
     border-radius: 6px;
 }
 
+#poll th {
+    font-size: 12px !important;
+}
+
 #topic-title {
     margin-top: 24px;
+}
+
+#topic-hidden-for {
+    margin-bottom: 6px;
 }
 
 .post-header {
@@ -199,9 +216,6 @@ input[type="checkbox"].input-validation-error {
     overflow: auto;
 }
 
-.edit-topic .panel-heading[data-toggle="collapse"] {
-    cursor: pointer;
-}
 
 /* End Create Topic */
 

@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
 
 using MediaCommMvc.Web.Infrastructure;
 
@@ -31,5 +29,7 @@ namespace MediaCommMvc.Web.Forum.ViewModels
 
         public IPagedList<PostViewModel> PostsForCurrentpage
             => new StaticPagedList<PostViewModel>(this.Posts, this.PageNumber, ForumOptions.PostsPerPage, this.TotalNumberOfPosts);
+
+        public IEnumerable<string> ExcludedUsernames { get; set; }
     }
 }

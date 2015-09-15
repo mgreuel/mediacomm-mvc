@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using MediaCommMvc.Web.Account;
 using MediaCommMvc.Web.Forum;
 using MediaCommMvc.Web.Forum.ViewModels;
+using MediaCommMvc.Web.Helpers;
 using MediaCommMvc.Web.Infrastructure;
 
 using PagedList;
@@ -35,9 +36,13 @@ namespace MediaCommMvc.Web.Controllers
         [HttpPost]
         public virtual ActionResult AnswerPoll(PollUserAnswerInput answer)
         {
-            this.forumStorageWriter.SavePollAnswer(answer);
+            this.forumStorageWriter.SavePollAnswer(answer, this.User.Identity.Name);
 
-            return new EmptyResult();
+            TopicPageRoutedata topicPage = this.forumStorageReader.GetRouteDataForLastTopicPage(answer.TopicId);
+
+            return
+                this.RedirectToAction(
+                    MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = UrlEncoder.ToFriendlyUrl(topicPage.TopicTitle), page = topicPage.PageNumber }));
         }
 
         public virtual ActionResult Index(int page)
@@ -101,7 +106,7 @@ namespace MediaCommMvc.Web.Controllers
 
             return
                 this.RedirectToAction(
-                    MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = topicPage.TopicTitle, page = topicPage.PageNumber }));
+                    MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = UrlEncoder.ToFriendlyUrl(topicPage.TopicTitle), page = topicPage.PageNumber }));
         }
 
         public virtual ActionResult FirstNewPostInTopic(string topicId)
@@ -110,7 +115,7 @@ namespace MediaCommMvc.Web.Controllers
 
             return
                 this.RedirectToAction(
-                    MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = topicPage.TopicTitle, page = topicPage.PageNumber }));
+                    MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = UrlEncoder.ToFriendlyUrl(topicPage.TopicTitle), page = topicPage.PageNumber }));
         }
 
         [HttpPost]
@@ -125,7 +130,7 @@ namespace MediaCommMvc.Web.Controllers
 
             return
                 this.RedirectToAction(
-                    MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = topicPage.TopicTitle, page = topicPage.PageNumber }));
+                    MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = UrlEncoder.ToFriendlyUrl(topicPage.TopicTitle), page = topicPage.PageNumber }));
         }
 
         public virtual ActionResult Topic(string id, int page)

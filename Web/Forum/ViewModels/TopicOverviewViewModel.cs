@@ -41,7 +41,6 @@ namespace MediaCommMvc.Web.Forum.ViewModels
 
         public TopicOverviewViewModel()
         {
-            
         }
 
         public IEnumerable<string> ExcludedUsernames { get; }

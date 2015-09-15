@@ -30,7 +30,11 @@ namespace MediaCommMvc.Web.Forum.ViewModels
             {
                 this.UserAnswers.Add(new PollUserAnswerViewModel { Username = currentUserName, Answers = new bool[orderedAnswers.Count]});
             }
+
+            this.AnswerCountByQuestion = orderedAnswers.Select(a => a.Usernames.Count).ToList();
         }
+
+        public IEnumerable<int> AnswerCountByQuestion { get; }
 
         public string Question { get; private set; }
 

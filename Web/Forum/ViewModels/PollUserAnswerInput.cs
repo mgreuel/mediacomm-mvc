@@ -6,8 +6,6 @@ namespace MediaCommMvc.Web.Forum.ViewModels
     {
         public string TopicId { get; set; }
 
-        public string Username { get; set; }
-
         public IList<int> CheckedAnswers { get; set; }
     }
 }

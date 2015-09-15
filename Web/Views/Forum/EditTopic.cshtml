@@ -138,14 +138,17 @@
             });
         });
 
-        $('.panel-heading[data-toggle="collapse"]').click(function () {
+        $('.panel-heading[data-toggle="collapse"]').click(function (e) {
+
             var $icon = $(this).find('.toggle-icon');
 
             if ($icon.hasClass('glyphicon-collapse-down')) {
-                $icon.replaceWith('<span class="glyphicon glyphicon-collapse-up toggle-icon"></span>');
+                $icon.removeClass('glyphicon-collapse-down');
+                $icon.addClass('glyphicon-collapse-up');
             }
             else {
-                $icon.replaceWith('<span class="glyphicon glyphicon-collapse-down toggle-icon"></span>');
+                $icon.removeClass('glyphicon-collapse-up');
+                $icon.addClass('glyphicon-collapse-down');
             }
         });
 </script>

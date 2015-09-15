@@ -3,6 +3,7 @@ using System.Linq;
 
 using MediaCommMvc.Web.Forum.Models;
 using MediaCommMvc.Web.Forum.ViewModels;
+using MediaCommMvc.Web.Helpers;
 using MediaCommMvc.Web.Infrastructure;
 
 using Raven.Client;
@@ -24,6 +25,7 @@ namespace MediaCommMvc.Web.Forum
             Topic topic = this.ravenSession.Load<Topic>(id);
             var viewModel = new TopicDetailsViewModel
             {
+                ExcludedUsernames = topic.ExcludedUserNames,
                 Id = topic.Id,
                 Title = topic.Title,
                 PageNumber = pageNumber,
@@ -32,7 +34,7 @@ namespace MediaCommMvc.Web.Forum
                     .Take(ForumOptions.PostsPerPage)
                     .Select(post => new PostViewModel(post))
                     .ToList(),
-                TotalNumberOfPosts = topic.Posts.Count
+                TotalNumberOfPosts = topic.PostCount
             };
 
             if (topic.Poll != null && topic.Poll.Answers.Any())
