@@ -78,8 +78,8 @@ input[type="checkbox"].input-validation-error {
 }
 
 .topic-additional-info {
-    font-size: 11px;
-    line-height: 11px;
+    font-size: 10px !important;
+    line-height: 10px;
 }
 
 #forum-topics-container table {
@@ -98,41 +98,45 @@ input[type="checkbox"].input-validation-error {
 
 #forum-topics .topic-post-count {
     width: 32px;
-    min-width: 32px;
+    /*min-width: 32px;*/
     text-align: center;
     vertical-align: central;
 }
 
 #forum-topics .topic-title {
-    min-width: 150px;
+    /*min-width: 150px;*/
 }
 
-#forum-topics .topic-title.unread {
-    font-weight: bold;
-}
-
-#forum-topics .topic-pager {
-    font-size: 90%;
-}
-
-    #forum-topics .topic-pager .btn {
-        padding: 1px 3px;
+    #forum-topics .topic-title.unread {
+        font-weight: bold;
     }
 
-#forum-topics .topic-author {
-    width: 125px;
-    min-width: 100px;
+
+#forum-topics .topic-pager .btn {
+    padding: 0 3px;
+    font-size: 10px !important;
 }
 
 #forum-topics .topic-last-post {
     width: 125px;
-    min-width: 100px;
+    /*min-width: 100px;*/
     font-size: 11px;
     padding: 2px;
     padding-left: 8px;
 }
 
     #forum-topics .topic-last-post div {
+        line-height: 17px;
+    }
+
+    #forum-topics .topic-author {
+    width: 125px;
+    font-size: 11px;
+    padding: 2px;
+    padding-left: 8px;
+}
+
+    #forum-topics .topic-author div {
         line-height: 17px;
     }
 /* End Forum Overview */

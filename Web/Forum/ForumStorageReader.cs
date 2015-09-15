@@ -27,8 +27,7 @@ namespace MediaCommMvc.Web.Forum
                 Id = topic.Id,
                 Title = topic.Title,
                 PageNumber = pageNumber,
-                Posts = topic.Posts
-                    .OrderBy(post => post.Created)
+                Posts = topic.PostsInOrder
                     .Skip((pageNumber - 1) * ForumOptions.PostsPerPage)
                     .Take(ForumOptions.PostsPerPage)
                     .Select(post => new PostViewModel(post))
@@ -53,7 +52,7 @@ namespace MediaCommMvc.Web.Forum
             {
                 ExcludedUserNames = topic.ExcludedUserNames ?? new List<string>(),
                 Title = topic.Title,
-                Text = topic.Posts.OrderBy(p => p.IndexInTopic).First().Text
+                Text = topic.PostsInOrder.First().Text
             };
         }
 
@@ -110,6 +109,14 @@ namespace MediaCommMvc.Web.Forum
                 TopicId = topicId,
                 TopicTitle = topic.Title
             };
+        }
+
+        public TopicPageRoutedata GetRouteDataForFirstNewPost(string topicId, string username)
+        {
+            var topic = this.ravenSession.Load<Topic>(topicId);
+            Post post = topic.FirstUnreadPostForUser(username);
+
+            return new TopicPageRoutedata { TopicId = topicId, PageNumber = (post.IndexInTopic / ForumOptions.PostsPerPage) + 1, TopicTitle = topic.Title };
         }
     }
 }

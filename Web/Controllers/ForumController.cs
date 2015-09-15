@@ -104,6 +104,15 @@ namespace MediaCommMvc.Web.Controllers
                     MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = topicPage.TopicTitle, page = topicPage.PageNumber }));
         }
 
+        public virtual ActionResult FirstNewPostInTopic(string topicId)
+        {
+            TopicPageRoutedata topicPage = this.forumStorageReader.GetRouteDataForFirstNewPost(topicId, this.User.Identity.Name);
+
+            return
+                this.RedirectToAction(
+                    MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = topicPage.TopicTitle, page = topicPage.PageNumber }));
+        }
+
         [HttpPost]
         public virtual ActionResult Reply(ReplyViewModel viewModel)
         {

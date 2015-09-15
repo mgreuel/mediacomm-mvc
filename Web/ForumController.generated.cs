@@ -88,6 +88,12 @@ namespace MediaCommMvc.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult FirstNewPostInTopic()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FirstNewPostInTopic);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult Reply()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Reply);
@@ -126,6 +132,7 @@ namespace MediaCommMvc.Web.Controllers
             public readonly string CreateTopic = "CreateTopic";
             public readonly string EditTopic = "EditTopic";
             public readonly string EditPost = "EditPost";
+            public readonly string FirstNewPostInTopic = "FirstNewPostInTopic";
             public readonly string Reply = "Reply";
             public readonly string Topic = "Topic";
             public readonly string MarkTopicAsRead = "MarkTopicAsRead";
@@ -140,6 +147,7 @@ namespace MediaCommMvc.Web.Controllers
             public const string CreateTopic = "CreateTopic";
             public const string EditTopic = "EditTopic";
             public const string EditPost = "EditPost";
+            public const string FirstNewPostInTopic = "FirstNewPostInTopic";
             public const string Reply = "Reply";
             public const string Topic = "Topic";
             public const string MarkTopicAsRead = "MarkTopicAsRead";
@@ -189,6 +197,14 @@ namespace MediaCommMvc.Web.Controllers
             public readonly string topicId = "topicId";
             public readonly string postIndex = "postIndex";
             public readonly string viewModel = "viewModel";
+        }
+        static readonly ActionParamsClass_FirstNewPostInTopic s_params_FirstNewPostInTopic = new ActionParamsClass_FirstNewPostInTopic();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_FirstNewPostInTopic FirstNewPostInTopicParams { get { return s_params_FirstNewPostInTopic; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_FirstNewPostInTopic
+        {
+            public readonly string topicId = "topicId";
         }
         static readonly ActionParamsClass_Reply s_params_Reply = new ActionParamsClass_Reply();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -338,6 +354,18 @@ namespace MediaCommMvc.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditPost);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "viewModel", viewModel);
             EditPostOverride(callInfo, viewModel);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void FirstNewPostInTopicOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string topicId);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult FirstNewPostInTopic(string topicId)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.FirstNewPostInTopic);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "topicId", topicId);
+            FirstNewPostInTopicOverride(callInfo, topicId);
             return callInfo;
         }
 

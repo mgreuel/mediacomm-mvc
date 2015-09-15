@@ -1,75 +1,53 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+
+using Raven.Imports.Newtonsoft.Json;
 
 namespace MediaCommMvc.Web.Forum.Models
 {
     public class Topic
     {
-        //private const string AccessTimeValueSeparator = ",";
-
-        //private const string AccessTimeItemSeparator = ";;";
-
-        //private static readonly Regex AccessTimeRegex = new Regex("([^;]+?)" + AccessTimeValueSeparator + "([^;]+)");
-
         public Topic()
         {
             this.ExcludedUserNames = new List<string>();
             this.LastAccessTimes  = new Dictionary<string, DateTime>();
         }
 
-        public string CreatedBy { get; set; }
-
+        public string CreatedBy => this.PostsInOrder.First().AuthorName;
 
         public Poll Poll { get; set; }
 
         public string Id { get; set; }
 
         // Probably not required when using ravendb index
-        public string LastPostAuthor { get; set; }
+        public string LastPostAuthor => this.PostsInOrder.Last().AuthorName;
 
         // Probably not required when using ravendb index
-        public DateTime LastPostTime { get; set; }
+        public DateTime LastPostTime => this.PostsInOrder.Last().Created;
 
-        // Probably not required when using ravendb index
-        public int PostCount { get; set; }
+        public int PostCount => this.Posts.Count;
 
         public string Title { get; set; }
 
         public TopicDisplayPriority DisplayPriority { get; set; }
 
-        //public string LastAccessTimesStorage { get; set; }
-
         public IEnumerable<string> ExcludedUserNames { get; set; }
 
         public List<Post> Posts { get; set; }
 
+        [JsonIgnore]
+        public IOrderedEnumerable<Post> PostsInOrder
+        {
+            get
+            {
+                return this.Posts.OrderBy(p => p.IndexInTopic);
+            }
+        }
+
         private Dictionary<string, DateTime> LastAccessTimes { get; set; }
 
-        //private Dictionary<string, DateTime> LastAccessTimes1
-        //{
-        //    get
-        //    {
-        //        Dictionary<string, DateTime> lastAccessTimes = new Dictionary<string, DateTime>();
-
-        //        MatchCollection matchCollection = AccessTimeRegex.Matches(this.LastAccessTimesStorage);
-        //        foreach (Match match in matchCollection)
-        //        {
-        //            lastAccessTimes.Add(match.Groups[1].Value, DateTime.Parse(match.Groups[2].Value));
-        //        }
-
-        //        return lastAccessTimes;
-        //    }
-
-        //    set
-        //    {
-        //        IEnumerable<string> accessTimesStrings =
-        //            value.Select(
-        //                pair => pair.Key + AccessTimeValueSeparator + pair.Value.ToString(
-        //                    "yyyy-MM-dd HH:mm:ss.fff", 
-        //                    CultureInfo.InvariantCulture));
-        //        this.LastAccessTimesStorage = string.Join(AccessTimeItemSeparator, accessTimesStrings);
-        //    }
-        //}
+        public DateTime CreatedAt => this.PostsInOrder.First().Created;
 
         public bool AllPostsReadByUser(string username)
         {
@@ -80,6 +58,14 @@ namespace MediaCommMvc.Web.Forum.Models
         public void MarkTopicAsRead(string username)
         {
             this.LastAccessTimes[username] = DateTime.UtcNow;
+        }
+
+        public Post FirstUnreadPostForUser(string username)
+        {
+            DateTime lastAccessTime = this.LastAccessTimeForUser(username);
+
+            // If all posts have been read, we just return the newest one
+            return this.PostsInOrder.FirstOrDefault(p => p.Created > lastAccessTime) ?? this.PostsInOrder.Last();
         }
 
         private DateTime LastAccessTimeForUser(string user)

@@ -1,5 +1,4 @@
 ﻿@using MediaCommMvc.Web.Forum.ViewModels
-@using MediaCommMvc.Web.Infrastructure
 @using PagedList.Mvc
 @model ForumViewModel
 
@@ -25,7 +24,7 @@
 
 <div class="clearfix">
 
-    @Html.ActionLink(Resources.Forums.CreateTopic, MVC.Forum.CreateTopic(), new { id = "new-topic-button", @class = "btn btn-primary" })
+    @Html.ActionLink(Resources.Forums.CreateTopic, MVC.Forum.CreateTopic(), new { id = "new-topic-button", @class = "btn btn-default" })
 
     <div class="pull-right">
         @Html.PagedListPager(this.Model.Topics, pageNumber => this.Url.Action(MVC.Forum.Index().AddRouteValue("page", pageNumber)), forumPagerRenderOptions)
@@ -39,10 +38,11 @@
             <tr>
                 <th></th>
                 <th>@Resources.Forums.Topic</th>
-                <th>@Resources.Forums.Author</th>
-                <th class="topic-post-count">@Resources.Forums.Posts</th>
-                <th>@Resources.Forums.LastPost</th>
-            </tr>
+                <th class="hidden-xs hidden-sm">@Resources.Forums.Created</th>
+                <th class="topic-post-count hidden-xs">@Resources.Forums.Posts</th>
+                <th class="hidden-xs">@Resources.Forums.LastPost</th>
+                <th class="visible-xs"></th>
+</tr>
         </thead>
         <tbody>
             @foreach (TopicOverviewViewModel topic in Model.Topics)
@@ -61,27 +61,34 @@
 
                             @if (topic.HasPoll)
                             {
-                                <span title="@Resources.Forums.Poll" class="glyphicon glyphicon-check"></span>
+                                <span title="@Resources.Forums.Poll" class="glyphicon glyphicon-check hidden-xs"></span>
                             }
                         </div>
 
-                        <div class="topic-pager">
+                        <div class="topic-additional-info">
+                            @Url.MiniPager(topic, pageNumber => this.Url.Action(MVC.Forum.Topic().AddRouteValues(new { id = topic.Id, page = pageNumber, name = UrlEncoder.ToFriendlyUrl(topic.Title) })))
 
-                            @MiniPager.Build(topic.PostCount, ForumOptions.PostsPerPage, pageNumber => this.Url.Action(MVC.Forum.Topic().AddRouteValues(new { id = topic.Id, page = pageNumber, name = UrlEncoder.ToFriendlyUrl(topic.Title) })))
+                            @if (topic.ExcludedUsernames != null && topic.ExcludedUsernames.Any())
+                            {
+                                <span>@Resources.Forums.InvisibleFor @string.Join(", ", topic.ExcludedUsernames)</span>
+                            }
                         </div>
 
-                        @if (topic.ExcludedUsernames != null && topic.ExcludedUsernames.Any())
-                        {
-                            <div class="topic-additional-info">@Resources.Forums.InvisibleFor @string.Join(", ", topic.ExcludedUsernames)</div>
-                        }
+       
                     </td>
-                    <td class="topic-author">
-                        @topic.CreatedBy
+                    <td class="topic-author hidden-xs hidden-sm">
+                        <div>@topic.CreatedAt</div>
+                        <div>@topic.CreatedBy</div>
                     </td>
-                    <td class="topic-post-count">@topic.PostCount</td>
-                    <td class="topic-last-post">
+                    <td class="topic-post-count hidden-xs">@topic.PostCount</td>
+                    <td class="topic-last-post hidden-xs">
                         <div>@topic.LastPostTime</div>
                         <div>@topic.LastPostAuthor</div>
+                    </td>
+                    <td class="visible-xs">
+                        <a href="@Url.Action(MVC.Forum.FirstNewPostInTopic().AddRouteValue("topicId", topic.Id))">
+                            <i class="glyphicon glyphicon-play-circle"></i>
+                        </a>
                     </td>
                 </tr>}
         </tbody>

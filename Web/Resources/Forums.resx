@@ -243,10 +243,10 @@
   <data name="TextRequired" xml:space="preserve">
     <value>Please enter a text</value>
   </data>
-  <data name="Hide" xml:space="preserve">
-    <value>Hide fromThea &amp; Markus</value>
-  </data>
   <data name="SaveTopic" xml:space="preserve">
     <value>Save Topic</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Created</value>
   </data>
 </root>

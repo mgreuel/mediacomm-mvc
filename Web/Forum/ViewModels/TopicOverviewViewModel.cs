@@ -29,6 +29,7 @@ namespace MediaCommMvc.Web.Forum.ViewModels
             this.PostCount = topic.PostCount;
             this.Title = topic.Title;
             this.ReadByCurrentUser = topic.AllPostsReadByUser(currentUser);
+            this.CreatedAt = $"{topic.CreatedAt:g}";
 
             this.HasPoll = topic.Poll != null && topic.Poll.Answers.Any();
 
@@ -64,5 +65,7 @@ namespace MediaCommMvc.Web.Forum.ViewModels
         public string TopicTitleCssClass { get; }
 
         public bool HasPoll { get; }
+
+        public string CreatedAt { get; set; }
     }
 }

@@ -243,10 +243,10 @@
   <data name="TextRequired" xml:space="preserve">
     <value>Bitte einen Text eingeben</value>
   </data>
-  <data name="Hide" xml:space="preserve">
-    <value>Vor Thea &amp; Markus verstecken</value>
-  </data>
   <data name="SaveTopic" xml:space="preserve">
     <value>Thema speichern</value>
+  </data>
+  <data name="Created" xml:space="preserve">
+    <value>Erstellt</value>
   </data>
 </root>

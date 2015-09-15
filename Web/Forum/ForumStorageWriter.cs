@@ -55,18 +55,14 @@ namespace MediaCommMvc.Web.Forum
             {
                 topic = this.ravenSession.Load<Topic>(viewModel.Id);
                 topic.Title = viewModel.Title;
-                topic.Posts.OrderBy(p => p.IndexInTopic).First().Text = viewModel.Text;
+                topic.PostsInOrder.First().Text = viewModel.Text;
                 topic.ExcludedUserNames = viewModel.ExcludedUserNames;
             }
             else
             {
                 topic = new Topic
                 {
-                    CreatedBy = currentUsername,
                     ExcludedUserNames = viewModel.ExcludedUserNames,
-                    LastPostAuthor = currentUsername,
-                    LastPostTime = DateTime.UtcNow,
-                    PostCount = 1,
                     Title = viewModel.Title,
                     Poll = viewModel.Poll.ToPoll(),
                     Posts =
@@ -113,9 +109,6 @@ namespace MediaCommMvc.Web.Forum
             post.IndexInTopic = topic.PostCount;
 
             topic.Posts.Add(post);
-            topic.PostCount = topic.PostCount + 1;
-            topic.LastPostAuthor = currentUsername;
-            topic.LastPostTime = DateTime.UtcNow;
         }
 
         public void UpdatePost(EditPostViewModel viewModel)

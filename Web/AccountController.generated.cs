@@ -22,9 +22,6 @@ using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
 using System.Web.Mvc.Html;
 using System.Web.Routing;
-
-using MediaCommMvc.Web.Account.ViewModels;
-
 using T4MVC;
 namespace MediaCommMvc.Web.Controllers
 {
@@ -193,10 +190,10 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, LoginViewModel input);
+        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Account.ViewModels.LoginViewModel input);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Login(LoginViewModel input)
+        public override System.Web.Mvc.ActionResult Login(MediaCommMvc.Web.Account.ViewModels.LoginViewModel input)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "input", input);
@@ -216,10 +213,10 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, RegisterViewModel model);
+        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Account.ViewModels.RegisterViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Register(RegisterViewModel model)
+        public override System.Web.Mvc.ActionResult Register(MediaCommMvc.Web.Account.ViewModels.RegisterViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Register);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -239,10 +236,10 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void ForgotPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, ForgotPasswordViewModel model);
+        partial void ForgotPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Account.ViewModels.ForgotPasswordViewModel model);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ForgotPassword(MediaCommMvc.Web.Account.ViewModels.ForgotPasswordViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ForgotPassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -274,10 +271,10 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void ResetPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, ResetPasswordViewModel model);
+        partial void ResetPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Account.ViewModels.ResetPasswordViewModel model);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ResetPassword(MediaCommMvc.Web.Account.ViewModels.ResetPasswordViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ResetPassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
