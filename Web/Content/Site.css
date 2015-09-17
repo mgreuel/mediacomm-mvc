@@ -102,6 +102,8 @@ input[type="checkbox"].input-validation-error {
 
 #forum-topics td {
     padding-bottom: 4px;
+    padding-top: 4px;
+    vertical-align: middle;
 }
 
 #forum-topics .topic-icon {
@@ -113,7 +115,6 @@ input[type="checkbox"].input-validation-error {
     width: 32px;
     /*min-width: 32px;*/
     text-align: center;
-    vertical-align: central;
 }
 
 #forum-topics .topic-title {

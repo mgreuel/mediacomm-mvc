@@ -78,12 +78,12 @@
                 </td>
                 <td class="topic-post-count hidden-xs">@topic.PostCount</td>
                 <td class="topic-author hidden-xs hidden-sm">
+                    <div class="text-nowrap"><i class="glyphicon glyphicon-user"></i> @topic.CreatedBy</div>
                     <div>@topic.CreatedAt</div>
-                    <div>@topic.CreatedBy</div>
                 </td>
                 <td class="topic-last-post hidden-xs">
+                    <div class="text-nowrap"><i class="glyphicon glyphicon-user"></i> @topic.LastPostAuthor</div>
                     <div>@topic.LastPostTime</div>
-                    <div>@topic.LastPostAuthor</div>
                 </td>
                 <td class="visible-xs">
                     <a href="@Url.Action(MVC.Forum.FirstNewPostInTopic().AddRouteValue("topicId", topic.Id))">
