@@ -151,7 +151,7 @@
     <value>Forum Übersicht</value>
   </data>
   <data name="GotoFirstNewPost" xml:space="preserve">
-    <value>Zum ersten neuen Beitrag gehen</value>
+    <value>Neuer Beitrag</value>
   </data>
   <data name="LastPost" xml:space="preserve">
     <value>Letzter Beitrag</value>

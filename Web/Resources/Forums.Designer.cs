@@ -205,7 +205,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Go to the first new post.
+        ///   Looks up a localized string similar to New post.
         /// </summary>
         public static string GotoFirstNewPost {
             get {

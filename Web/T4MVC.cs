@@ -30,9 +30,9 @@ public static partial class MVC
     static readonly DummyT4MvcClass s_DummyT4Mvc = new DummyT4MvcClass();
     public static DummyT4MvcClass DummyT4Mvc { get { return s_DummyT4Mvc; } }
     public static MediaCommMvc.Web.Controllers.AccountController Account = new MediaCommMvc.Web.Controllers.T4MVC_AccountController();
+    public static MediaCommMvc.Web.Controllers.DevController Dev = new MediaCommMvc.Web.Controllers.T4MVC_DevController();
     public static MediaCommMvc.Web.Controllers.ForumController Forum = new MediaCommMvc.Web.Controllers.T4MVC_ForumController();
     public static MediaCommMvc.Web.Controllers.HomeController Home = new MediaCommMvc.Web.Controllers.T4MVC_HomeController();
-    public static T4MVC.LoginController Login = new T4MVC.LoginController();
     public static T4MVC.ManageController Manage = new T4MVC.ManageController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }

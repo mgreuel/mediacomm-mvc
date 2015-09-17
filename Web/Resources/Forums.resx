@@ -151,7 +151,7 @@
     <value>Forum Index</value>
   </data>
   <data name="GotoFirstNewPost" xml:space="preserve">
-    <value>Go to the first new post</value>
+    <value>New post</value>
   </data>
   <data name="LastPost" xml:space="preserve">
     <value>Last Post</value>

@@ -223,9 +223,13 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\DummyT4Mvc\DummyT4MvcAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DevController.cs" />
     <Compile Include="Controllers\ForumController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RavenController.cs" />
+    <Compile Include="DevController.generated.cs">
+      <DependentUpon>T4MVC.tt</DependentUpon>
+    </Compile>
     <Compile Include="ForumController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -261,9 +265,6 @@
     </Compile>
     <Compile Include="Infrastructure\DocumentStoreContainer.cs" />
     <Compile Include="Infrastructure\ForumOptions.cs" />
-    <Compile Include="LoginController.generated.cs">
-      <DependentUpon>T4MVC.tt</DependentUpon>
-    </Compile>
     <Compile Include="ManageController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -400,6 +401,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Forums.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\General.de.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

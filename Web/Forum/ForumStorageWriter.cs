@@ -69,7 +69,7 @@ namespace MediaCommMvc.Web.Forum
                                                 {
                                                     AuthorName = currentUsername,
                                                     Created = DateTime.UtcNow,
-                                                    IndexInTopic = 1,
+                                                    IndexInTopic = 0,
                                                     Text = viewModel.Text
                                                 }
                                         }
@@ -103,7 +103,7 @@ namespace MediaCommMvc.Web.Forum
             };
 
             var topic = this.ravenSession.Load<Topic>(viewModel.TopicId);
-            post.IndexInTopic = topic.PostCount;
+            post.IndexInTopic = topic.Posts.Max(p => p.IndexInTopic) + 1;
 
             topic.Posts.Add(post);
         }

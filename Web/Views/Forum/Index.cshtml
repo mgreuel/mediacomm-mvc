@@ -33,64 +33,72 @@
 </div>
 
 <div id="forum-topics-container">
-    <table id="forum-topics" class="table table-striped">
+    <table id="forum-topics" class="table table-striped table-bordered">
         <thead>
-            <tr>
-                <th></th>
-                <th>@Resources.Forums.Topic</th>
-                <th class="hidden-xs hidden-sm">@Resources.Forums.Created</th>
-                <th class="topic-post-count hidden-xs">@Resources.Forums.Posts</th>
-                <th class="hidden-xs">@Resources.Forums.LastPost</th>
-                <th class="visible-xs"></th>
-</tr>
+        <tr>
+            <th></th>
+            <th>@Resources.Forums.Topic</th>
+            <th class="topic-post-count hidden-xs">@Resources.Forums.Posts</th>
+            <th class="hidden-xs hidden-sm">@Resources.Forums.Created</th>
+            <th class="hidden-xs">@Resources.Forums.LastPost</th>
+            <th class="visible-xs"></th>
+        </tr>
         </thead>
         <tbody>
-            @foreach (TopicOverviewViewModel topic in Model.Topics)
-            {
-                <tr>
-                    <td class="topic-icon">
-                        <i title="@Icons.TopicIconTitle(topic)" class="@Icons.TopicIconClass(topic)"></i>
-                    </td>
-                    <td>
-                        <div class="topic-title @topic.TopicTitleCssClass">
-                            @Html.ActionLink(@topic.Title, MVC.Forum.Topic().AddRouteValues(new
-                                                                                                {
-                                                                                                    id = topic.Id,
-                                                                                                    name = UrlEncoder.ToFriendlyUrl(topic.Title)
-                                                                                                }))
+        @foreach (TopicOverviewViewModel topic in Model.Topics)
+        {
+            <tr>
+                <td class="topic-icon">
+                    <i title="@Icons.TopicIconTitle(topic)" class="@Icons.TopicIconClass(topic)"></i>
+                </td>
+                <td>
+                    <div class="topic-title @topic.TopicTitleCssClass">
+                        @Html.ActionLink(@topic.Title, MVC.Forum.Topic().AddRouteValues(new
+                                                                                            {
+                                                                                                id = topic.Id,
+                                                                                                name = UrlEncoder.ToFriendlyUrl(topic.Title)
+                                                                                            }))
 
-                            @if (topic.HasPoll)
-                            {
-                                <span title="@Resources.Forums.Poll" class="glyphicon glyphicon-check hidden-xs"></span>
-                            }
-                        </div>
+                        @if (topic.HasPoll)
+                        {
+                            <span title="@Resources.Forums.Poll" class="glyphicon glyphicon-check"></span>
+                        }
+                    </div>
 
-                        <div class="topic-additional-info">
-                            @Url.MiniPager(topic, pageNumber => this.Url.Action(MVC.Forum.Topic().AddRouteValues(new { id = topic.Id, page = pageNumber, name = UrlEncoder.ToFriendlyUrl(topic.Title) })))
+                    <div class="topic-additional-info">
+                        @Url.MiniPager(topic, pageNumber => this.Url.Action(MVC.Forum.Topic().AddRouteValues(new { id = topic.Id, page = pageNumber, name = UrlEncoder.ToFriendlyUrl(topic.Title) })))
 
-                            @if (topic.ExcludedUsernames != null && topic.ExcludedUsernames.Any())
-                            {
-                                <span>@Resources.Forums.InvisibleFor @string.Join(", ", topic.ExcludedUsernames)</span>
-                            }
-                        </div>
+                        @if (topic.ExcludedUsernames != null && topic.ExcludedUsernames.Any())
+                        {
+                            <span>@Resources.Forums.InvisibleFor @string.Join(", ", topic.ExcludedUsernames)</span>
+                        }
+                    </div>
 
-       
-                    </td>
-                    <td class="topic-author hidden-xs hidden-sm">
-                        <div>@topic.CreatedAt</div>
-                        <div>@topic.CreatedBy</div>
-                    </td>
-                    <td class="topic-post-count hidden-xs">@topic.PostCount</td>
-                    <td class="topic-last-post hidden-xs">
-                        <div>@topic.LastPostTime</div>
-                        <div>@topic.LastPostAuthor</div>
-                    </td>
-                    <td class="visible-xs">
-                        <a href="@Url.Action(MVC.Forum.FirstNewPostInTopic().AddRouteValue("topicId", topic.Id))">
-                            <i class="glyphicon glyphicon-play-circle"></i>
-                        </a>
-                    </td>
-                </tr>}
+
+                </td>
+                <td class="topic-post-count hidden-xs">@topic.PostCount</td>
+                <td class="topic-author hidden-xs hidden-sm">
+                    <div>@topic.CreatedAt</div>
+                    <div>@topic.CreatedBy</div>
+                </td>
+                <td class="topic-last-post hidden-xs">
+                    <div>@topic.LastPostTime</div>
+                    <div>@topic.LastPostAuthor</div>
+                </td>
+                <td class="visible-xs">
+                    <a href="@Url.Action(MVC.Forum.FirstNewPostInTopic().AddRouteValue("topicId", topic.Id))">
+                        <i class="glyphicon glyphicon-play"></i>
+                    </a>
+                </td>
+            </tr>}
         </tbody>
     </table>
+</div>
+    
+<div class="clearfix">
+
+    <div class="pull-right">
+        @Html.PagedListPager(this.Model.Topics, pageNumber => this.Url.Action(MVC.Forum.Index().AddRouteValue("page", pageNumber)), forumPagerRenderOptions)
+    </div>
+
 </div>

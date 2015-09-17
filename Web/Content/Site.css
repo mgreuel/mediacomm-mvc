@@ -87,8 +87,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 .topic-additional-info {
-    font-size: 10px !important;
-    line-height: 10px;
+    font-size: 12px !important;
 }
 
 #forum-topics-container table {
@@ -101,8 +100,13 @@ input[type="checkbox"].input-validation-error {
     margin-top: 20px;
 }
 
+#forum-topics td {
+    padding-bottom: 4px;
+}
+
 #forum-topics .topic-icon {
     width: 1px;
+    padding-top: 9px !important
 }
 
 #forum-topics .topic-post-count {
@@ -123,13 +127,14 @@ input[type="checkbox"].input-validation-error {
 
 #forum-topics .topic-pager .btn {
     padding: 0 3px;
-    font-size: 10px !important;
+    margin-right: 4px;
+    font-size: 11px !important;
 }
 
 #forum-topics .topic-last-post {
     width: 125px;
     /*min-width: 100px;*/
-    font-size: 11px;
+    font-size: 12px;
     padding: 2px;
     padding-left: 8px;
 }
@@ -140,7 +145,7 @@ input[type="checkbox"].input-validation-error {
 
     #forum-topics .topic-author {
     width: 125px;
-    font-size: 11px;
+    font-size: 12px;
     padding: 2px;
     padding-left: 8px;
 }
