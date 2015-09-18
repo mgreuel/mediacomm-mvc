@@ -42,9 +42,7 @@ namespace MediaCommMvc.Web.Forum.ViewModels
             }
         }
 
-        //public CreateTopicCommand ToCreateTopicCommand(string userName)
-        //{
-        //    return new CreateTopicCommand { AuthorName = userName, ExcludedUserNames = this.ExcludedUserNames, Text = this.Text, TimeStamp = DateTime.UtcNow, Title = this.Title, Poll = this.Poll.ToPoll() };
-        //}
+        [Display(ResourceType = typeof(Forums), Name = "MarkAsSticky")]
+        public bool IsSticky { get; set; }
     }
 }

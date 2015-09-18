@@ -25,11 +25,11 @@ namespace MediaCommMvc.Web.Forum.ViewModels
 
             this.Id = topic.Id;
             this.LastPostAuthor = topic.LastPostAuthor;
-            this.LastPostTime = $"{topic.LastPostTime:g}";
+            this.LastPostTime = $"{topic.LastPostTime.ToLocalTime():g}";
             this.PostCount = topic.PostCount;
             this.Title = topic.Title;
             this.ReadByCurrentUser = topic.AllPostsReadByUser(currentUser);
-            this.CreatedAt = $"{topic.CreatedAt:g}";
+            this.CreatedAt = $"{topic.CreatedAt.ToLocalTime():g}";
 
             this.HasPoll = topic.Poll != null && topic.Poll.Answers.Any();
 

@@ -249,4 +249,7 @@
   <data name="Created" xml:space="preserve">
     <value>Erstellt</value>
   </data>
+  <data name="EditTopic" xml:space="preserve">
+    <value>Beitrag bearbeiten</value>
+  </data>
 </root>

@@ -50,35 +50,53 @@ namespace MediaCommMvc.Web.Forum
 
             if (viewModel.Id != null)
             {
-                topic = this.ravenSession.Load<Topic>(viewModel.Id);
-                topic.Title = viewModel.Title;
-                topic.PostsInOrder.First().Text = viewModel.Text;
-                topic.ExcludedUserNames = viewModel.ExcludedUserNames;
+                topic = this.UpdateTopic(viewModel);
             }
             else
             {
-                topic = new Topic
-                {
-                    ExcludedUserNames = viewModel.ExcludedUserNames,
-                    Title = viewModel.Title,
-                    Poll = viewModel.Poll.ToPoll(),
-                    Posts =
-                                    new List<Post>
-                                        {
-                                            new Post
-                                                {
-                                                    AuthorName = currentUsername,
-                                                    Created = DateTime.UtcNow,
-                                                    IndexInTopic = 0,
-                                                    Text = viewModel.Text
-                                                }
-                                        }
-                };
-
-                this.ravenSession.Store(topic);
+                topic = this.CreateTopic(viewModel, currentUsername);
             }
 
             return topic.Id;
+        }
+
+        private Topic CreateTopic(EditTopicViewModel viewModel, string currentUsername)
+        {
+            Topic topic;
+            topic = new Topic
+                        {
+                            ExcludedUserNames = viewModel.ExcludedUserNames,
+                            Title = viewModel.Title,
+                            Poll = viewModel.Poll.ToPoll(),
+                            Posts =
+                                new List<Post>
+                                    {
+                                        new Post
+                                            {
+                                                AuthorName = currentUsername,
+                                                CreatedAt = DateTime.UtcNow,
+                                                IndexInTopic = 0,
+                                                Text = viewModel.Text
+                                            }
+                                    }
+                        };
+
+            topic.DisplayPriority = viewModel.IsSticky ? TopicDisplayPriority.Sticky : TopicDisplayPriority.None;
+
+            this.ravenSession.Store(topic);
+            return topic;
+        }
+
+        private Topic UpdateTopic(EditTopicViewModel viewModel)
+        {
+            Topic topic;
+            topic = this.ravenSession.Load<Topic>(viewModel.Id);
+            topic.Title = viewModel.Title;
+            topic.PostsInOrder.First().Text = viewModel.Text;
+            topic.ExcludedUserNames = viewModel.ExcludedUserNames;
+
+            topic.DisplayPriority = viewModel.IsSticky ? TopicDisplayPriority.Sticky : TopicDisplayPriority.None;
+            return topic;
         }
 
         public void AddApproval(string topicId, int postIndex, string username)
@@ -98,7 +116,7 @@ namespace MediaCommMvc.Web.Forum
             var post = new Post
             {
                 AuthorName = currentUsername,
-                Created = DateTime.UtcNow,
+                CreatedAt = DateTime.UtcNow,
                 Text = viewModel.Text
             };
 

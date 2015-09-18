@@ -5,30 +5,32 @@
 
 
 @{
+    ViewBag.Title = Resources.Forums.Forum;
+
     PagedListRenderOptions forumPagerRenderOptions = new PagedListRenderOptions
-                                                    {
-                                                        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
-                                                        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
-                                                        Display = PagedListDisplayMode.IfNeeded,
-                                                        DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
-                                                        DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
-                                                        LinkToFirstPageFormat = Resources.General.First,
-                                                        LinkToPreviousPageFormat = Resources.General.Previous,
-                                                        LinkToNextPageFormat = Resources.General.Next,
-                                                        LinkToLastPageFormat = Resources.General.Last,
-                                                        MaximumPageNumbersToDisplay = 10,
-                                                        UlElementClasses = new List<string> { "pagination", "pagination-sm" },
-                                                        DisplayEllipsesWhenNotShowingAllPageNumbers = true
-                                                    };
+    {
+        DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToPreviousPage = PagedListDisplayMode.IfNeeded,
+        Display = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
+        DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
+        //LinkToFirstPageFormat = Resources.General.First,
+        //LinkToPreviousPageFormat = Resources.General.Previous,
+        //LinkToNextPageFormat = Resources.General.Next,
+        //LinkToLastPageFormat = Resources.General.Last,
+        LinkToFirstPageFormat = "<i class='glyphicon glyphicon-fast-backward'></i>",
+        LinkToPreviousPageFormat = "<i class='glyphicon glyphicon-backward'></i>",
+        LinkToNextPageFormat = "<i class='glyphicon glyphicon-forward'></i>",
+        LinkToLastPageFormat = "<i class='glyphicon glyphicon-fast-forward'></i>",
+        MaximumPageNumbersToDisplay = 5,
+        UlElementClasses = new List<string> { "pagination", "pagination-sm" },
+        DisplayEllipsesWhenNotShowingAllPageNumbers = true
+    };
 }
 
-<div class="clearfix">
+<div>
 
-    @Html.ActionLink(Resources.Forums.CreateTopic, MVC.Forum.CreateTopic(), new { id = "new-topic-button", @class = "btn btn-default" })
-
-    <div class="pull-right">
-        @Html.PagedListPager(this.Model.Topics, pageNumber => this.Url.Action(MVC.Forum.Index().AddRouteValue("page", pageNumber)), forumPagerRenderOptions)
-    </div>
+    @Html.ActionLink(Resources.Forums.CreateTopic, MVC.Forum.CreateTopic(), new { id = "new-topic-button", @class = "btn btn-default btn-sm" })
 
 </div>
 

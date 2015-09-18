@@ -14,15 +14,15 @@ namespace MediaCommMvc.Web.Forum.ViewModels
         {
             this.Approvals = post.Approvals ?? new List<string>();
             this.AuthorName = post.AuthorName;
-            this.Created = post.Created;
+            this.CreatedAt = $"{post.CreatedAt.ToLocalTime():g}"; 
             //this.Id = post.Id;
             this.Text = post.Text;
             this.IndexInTopic = post.IndexInTopic;
         }
 
-        public string AuthorName { get; set; }
+        public string AuthorName { get; }
 
-        public DateTime Created { get; set; }
+        public string CreatedAt { get;  }
 
         //public int Id { get; set; }
 

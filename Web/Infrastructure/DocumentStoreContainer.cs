@@ -22,6 +22,10 @@ namespace MediaCommMvc.Web.Infrastructure
             
             // replacing / with - as a separator allows using the ids in urls
             documentStore.Conventions.IdentityPartsSeparator = "-";
+
+            // allows us to sort by enum value
+            documentStore.Conventions.SaveEnumsAsIntegers = true;
+
             documentStore.Initialize();
 
             return documentStore;

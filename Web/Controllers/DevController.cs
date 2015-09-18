@@ -38,7 +38,7 @@ namespace MediaCommMvc.Web.Controllers
 
         private void CreateTopics()
         {
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 500; i++)
             {
                 var topic = new EditTopicViewModel
                 {
@@ -53,7 +53,7 @@ namespace MediaCommMvc.Web.Controllers
 
                 string topicId = this.forumStorageWriter.SaveTopic(topic, GetRandomUser());
 
-                for (int j = 0; j < i * 4; j++)
+                for (int j = 0; j < i; j++)
                 {
                     this.forumStorageWriter.AddReply(new ReplyViewModel { Text = GetRandomText(j), TopicId = topicId }, GetRandomUser());
                 }

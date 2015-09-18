@@ -4,6 +4,9 @@
 @model TopicDetailsViewModel
 
 @{
+
+    ViewBag.Title = Model.Title;
+
     PagedListRenderOptions pagerRenderOptions = new PagedListRenderOptions
     {
         DisplayLinkToNextPage = PagedListDisplayMode.IfNeeded,
@@ -11,11 +14,15 @@
         Display = PagedListDisplayMode.IfNeeded,
         DisplayLinkToFirstPage = PagedListDisplayMode.IfNeeded,
         DisplayLinkToLastPage = PagedListDisplayMode.IfNeeded,
-        LinkToFirstPageFormat = Resources.General.First,
-        LinkToPreviousPageFormat = Resources.General.Previous,
-        LinkToNextPageFormat = Resources.General.Next,
-        LinkToLastPageFormat = Resources.General.Last,
-        MaximumPageNumbersToDisplay = 10,
+        //LinkToFirstPageFormat = Resources.General.First,
+        //LinkToPreviousPageFormat = Resources.General.Previous,
+        //LinkToNextPageFormat = Resources.General.Next,
+        //LinkToLastPageFormat = Resources.General.Last,
+        LinkToFirstPageFormat = "<i class='glyphicon glyphicon-fast-backward'></i>",
+        LinkToPreviousPageFormat = "<i class='glyphicon glyphicon-backward'></i>",
+        LinkToNextPageFormat = "<i class='glyphicon glyphicon-forward'></i>",
+        LinkToLastPageFormat = "<i class='glyphicon glyphicon-fast-forward'></i>",
+        MaximumPageNumbersToDisplay = 5,
         UlElementClasses = new List<string> { "pagination", "pagination-sm" },
         DisplayEllipsesWhenNotShowingAllPageNumbers = true
     };
@@ -40,116 +47,119 @@
 
         <div class="panel-heading" data-toggle="collapse" data-target="#poll">
             <span class="glyphicon glyphicon-collapse-up toggle-icon"></span>
-           @Resources.Forums.Poll: @Model.Poll.Question
+            @Resources.Forums.Poll: @Model.Poll.Question
         </div>
         <div id="poll" class="panel-body panel-collapse collapse in">
 
 
             @using (Html.BeginForm(MVC.Forum.AnswerPoll()))
             {
-                <input type="hidden" name="TopicId" value="@Model.Id"/>
-                <table class="table table-condensed">
+                <input type="hidden" name="TopicId" value="@Model.Id" />
+                <table class="table table-condensed table-bordered">
                     <thead>
-                    <tr>
-                        <th>
-                            @Resources.Users.UserName
-                        </th>
+                        <tr>
+                            <th>
+                                @Resources.Users.UserName
+                            </th>
 
-                        @foreach (var answerText in Model.Poll.AnswerTexts)
-                        {
-                            <th class="text-center">@answerText</th>
-                        }
-                    </tr>
+                            @foreach (var answerText in Model.Poll.AnswerTexts)
+                            {
+                                <th class="text-center">@answerText</th>
+                            }
+                        </tr>
                     </thead>
 
                     <tbody>
 
-                    @foreach (var userAnswers in Model.Poll.UserAnswers)
+                        @foreach (var userAnswers in Model.Poll.UserAnswers)
                     {
-                        <tr>
-                            <td>
-                                @userAnswers.Username
+                            <tr>
+                                <td>
+                                    @userAnswers.Username
 
-                                @if (userAnswers.Username.Equals(User.Identity.Name))
+                                    @if (userAnswers.Username.Equals(User.Identity.Name))
+                                    {
+                                        <input name="Username" type="hidden" value="@userAnswers.Username" />
+                                    }
+                                </td>
+
+                                @{ int counter = 0; }
+
+                                @foreach (var userAnswer in userAnswers.Answers)
                                 {
-                                    <input name="Username" type="hidden" value="@userAnswers.Username"/>
+                                    if (userAnswer)
+                                    {
+                                        @:<td class="success text-center">
+                                            <i class="glyphicon glyphicon-ok-circle"></i>
                                 }
-                            </td>
-
-                            @{ int counter = 0; }
-
-                            @foreach (var userAnswer in userAnswers.Answers)
-                            {
-                                if (userAnswer)
-                                {
-                                    @:<td class="success text-center"><i class="glyphicon glyphicon-ok-circle"></i>
-                                }
-                                else
-                                {
-                                    @:<td class="danger text-center"><i class="glyphicon glyphicon-remove-circle"></i>
-                                }
-
-                                if (userAnswers.Username.Equals(User.Identity.Name))
-                                {
-                                    @* checkbox value are not sent if they are not checked see http://stackoverflow.com/questions/1809494/post-the-checkboxes-that-are-unchecked*@
-
-                                    <input class="answer-checkbox" type="checkbox" value="@counter" @(userAnswer ? "checked" : "") name="CheckedAnswers"/>
+                                    else
+                                    {
+                                        @:<td class="danger text-center">
+                                        <i class="glyphicon glyphicon-remove-circle"></i>
                                 }
 
-                                @:</td>
+                                    if (userAnswers.Username.Equals(User.Identity.Name))
+                                    {
+                                        @* checkbox value are not sent if they are not checked see http://stackoverflow.com/questions/1809494/post-the-checkboxes-that-are-unchecked*@
 
-                                counter = counter + 1;
-                            }
-                        </tr>
-                    }
+                                        <input class="answer-checkbox" type="checkbox" value="@counter" @(userAnswer ? "checked" : "") name="CheckedAnswers" />
+                                    }
+
+                                    @:</td>
+
+
+                                    counter = counter + 1;
+                                }
+                            </tr>
+                                    }
                     </tbody>
 
                     <tfoot>
-                    <tr>
-                        <td></td>
-                        @foreach (int answerCount in Model.Poll.AnswerCountByQuestion)
-                        {
-                            <td class="text-center">
-                                @if (answerCount == Model.Poll.AnswerCountByQuestion.Max())
-                                {
-                                    <strong>@answerCount</strong>
-                                }
-                                else
-                                {
-                                   @answerCount
-                                }
-                            </td>
-                        }
-                    </tr>
+                        <tr>
+                            <td></td>
+                            @foreach (int answerCount in Model.Poll.AnswerCountByQuestion)
+                            {
+                                <td class="text-center">
+                                    @if (answerCount == Model.Poll.AnswerCountByQuestion.Max())
+                                    {
+                                        <strong>@answerCount</strong>
+                                    }
+                                    else
+                                    {
+                                        @answerCount
+                                    }
+                                </td>
+                            }
+                        </tr>
                     </tfoot>
                 </table>
-                <input class="btn btn-default btn-sm" type="submit" value="@Resources.General.Save"/>
+                <input class="btn btn-default btn-sm" type="submit" value="@Resources.General.Save" />
 
                 <p id="poll-success" class="text-success hidden">@Resources.General.ChangesSaved</p>
                 <p id="poll-success1" class="text-success hidden">@Resources.General.ChangesSaved</p>
                 <p id="poll-error" class="text-danger hidden">@Resources.General.ErrorMessage</p>
-            }
+                                    }
 
         </div>
     </div>
-                    }
+}
 
-                    <div class="panel panel-default">
-                        <table id="topic-posts" class="table table-striped table-bordered">
-                            <tbody>
-                                @{ bool firstPost = true; }
+<div class="panel panel-default">
+    <table id="topic-posts" class="table table-striped table-bordered">
+        <tbody>
+            @{ bool firstPost = true; }
 
-                                @foreach (PostViewModel post in Model.PostsForCurrentpage)
-                                {
-                                    <tr>
-                                        <td>
-                                            <div class="post">
-                                                <div class="post-header clearfix">
-                                                    <div class="pull-left">
-                                                        <strong>  @post.AuthorName</strong>
-                                                    </div>
-                                                    <div class="pull-right">
-                                                        @post.Created
+            @foreach (PostViewModel post in Model.PostsForCurrentpage)
+            {
+                <tr>
+                    <td>
+                        <div class="post">
+                            <div class="post-header clearfix">
+                                <div class="pull-left">
+                                    <strong>  @post.AuthorName</strong>
+                                </div>
+                                <div class="pull-right">
+                                    @post.CreatedAt
                                                     </div>
                                                 </div>
                                                 <div>
@@ -192,94 +202,94 @@
                                             </div>
                                         </td>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="clearfix">
-                        <div class="pull-right">
-                            @Html.PagedListPager(Model.PostsForCurrentpage, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("page", pageNumber)), pagerRenderOptions)
-                        </div>
-                    </div>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="clearfix">
+    <div class="pull-right">
+        @Html.PagedListPager(Model.PostsForCurrentpage, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("page", pageNumber)), pagerRenderOptions)
+    </div>
+</div>
 
-                    @if (Model.PostsForCurrentpage.IsLastPage)
-                    {
-                        Html.RenderPartial(MVC.Forum.Views.Reply, new ReplyViewModel { TopicId = Model.Id });
-                    }
+@if (Model.PostsForCurrentpage.IsLastPage)
+{
+    Html.RenderPartial(MVC.Forum.Views.Reply, new ReplyViewModel { TopicId = Model.Id });
+}
 
                     @* sections are not supported in partials, so the js must be included here*@
 
-                        @section scripts
+                    @section scripts
                         {
-                            @if (Model.PostsForCurrentpage.IsLastPage)
-                            {
-                                @Scripts.Render("~/bundles/jqueryval")
-
-                                <script>
-
-                                    $(function() {
-                                        var editor = $('#reply-input').wysihtml5({
-                                            toolbar: {
-                                                "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
-                                                "emphasis": true, //Italics, bold, etc. Default true
-                                                "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
-                                                "html": false, //Button which allows you to edit the generated HTML. Default false
-                                                "link": true, //Button to insert a link. Default true
-                                                "image": true, //Button to insert an image. Default true,
-                                                "color": false, //Button to change color of font
-                                                "blockquote": true, //Blockquote
-                                                "size": "sm" //default: none, other options are xs, sm, lg
-                                            }
-                                        });
-
-                                        $('#reply > form').submit(function() {
-                                            $('#reply #Text').val(editor.html());
-                                        });
-
-                                        $('form').submit(function() {
-                                            $('#Text').val(editor.html());
-                                        });
-
-                                        $.post("@Url.Action(MVC.Forum.MarkTopicAsRead())", { id: "@Model.Id" });
-                                    });
-
-                                </script>
-                            }
+                        @if (Model.PostsForCurrentpage.IsLastPage)
+                        {
+                            @Scripts.Render("~/bundles/jqueryval")
 
                             <script>
 
-                                $(function() {
-
-                                    $(".approval-button").click(function() {
-                                        var $postLink = $(this);
-                                        var url = $postLink.data("url");
-                                        var topicId = $postLink.data("topic-id");
-                                        var postIndex = $postLink.data("post-index");
-
-                                        $.post(url, { topicId: topicId, postIndex: postIndex })
-                                            .done(function(data) {
-
-                                                $postLink.parents(".post").find(".approval-button-container").hide();
-                                                $postLink.parents(".post").find(".approvals").append("<div class='pull-left label label-info'>@User.Identity.GetUserName() @Resources.Approval.ApprovalText</div>");
-                                            });
-                                    });
-
-                                    $('.panel-heading[data-toggle="collapse"]').click(function (e) {
-
-                                        var $icon = $(this).find('.toggle-icon');
-
-                                        if ($icon.hasClass('glyphicon-collapse-down')) {
-                                            $icon.removeClass('glyphicon-collapse-down');
-                                            $icon.addClass('glyphicon-collapse-up');
-                                        }
-                                        else {
-                                            $icon.removeClass('glyphicon-collapse-up');
-                                            $icon.addClass('glyphicon-collapse-down');
+                                $(function () {
+                                    var editor = $('#reply-input').wysihtml5({
+                                        toolbar: {
+                                            "font-styles": false, //Font styling, e.g. h1, h2, etc. Default true
+                                            "emphasis": true, //Italics, bold, etc. Default true
+                                            "lists": true, //(Un)ordered lists, e.g. Bullets, Numbers. Default true
+                                            "html": false, //Button which allows you to edit the generated HTML. Default false
+                                            "link": true, //Button to insert a link. Default true
+                                            "image": true, //Button to insert an image. Default true,
+                                            "color": false, //Button to change color of font
+                                            "blockquote": true, //Blockquote
+                                            "size": "sm" //default: none, other options are xs, sm, lg
                                         }
                                     });
+
+                                    $('#reply > form').submit(function () {
+                                        $('#reply #Text').val(editor.html());
+                                    });
+
+                                    $('form').submit(function () {
+                                        $('#Text').val(editor.html());
+                                    });
+
+                                    $.post("@Url.Action(MVC.Forum.MarkTopicAsRead())", { id: "@Model.Id" });
                                 });
-
 
                             </script>
                         }
-                    
+
+                        <script>
+
+                            $(function () {
+
+                                $(".approval-button").click(function () {
+                                    var $postLink = $(this);
+                                    var url = $postLink.data("url");
+                                    var topicId = $postLink.data("topic-id");
+                                    var postIndex = $postLink.data("post-index");
+
+                                    $.post(url, { topicId: topicId, postIndex: postIndex })
+                                        .done(function (data) {
+
+                                            $postLink.parents(".post").find(".approval-button-container").hide();
+                                            $postLink.parents(".post").find(".approvals").append("<div class='pull-left label label-info'>@User.Identity.GetUserName() @Resources.Approval.ApprovalText</div>");
+                                        });
+                                });
+
+                                $('.panel-heading[data-toggle="collapse"]').click(function (e) {
+
+                                    var $icon = $(this).find('.toggle-icon');
+
+                                    if ($icon.hasClass('glyphicon-collapse-down')) {
+                                        $icon.removeClass('glyphicon-collapse-down');
+                                        $icon.addClass('glyphicon-collapse-up');
+                                    }
+                                    else {
+                                        $icon.removeClass('glyphicon-collapse-up');
+                                        $icon.addClass('glyphicon-collapse-down');
+                                    }
+                                });
+                            });
+
+
+                        </script>
+                    }
+

@@ -66,6 +66,42 @@ input[type="checkbox"].input-validation-error {
     cursor: pointer;
 }
 
+@media (max-width: 767px) {
+    h3 {
+        font-size: 18px !important;
+    }
+
+    .navbar-nav > li > a, .navbar-brand {
+        padding-top: 8px !important;
+        padding-bottom: 0 !important;
+        height: 34px !important;
+    }
+
+    .navbar {
+        min-height: 34px !important;
+    }
+
+    .navbar-toggle .icon-bar {
+        /*height: 1px !important;*/
+    }
+
+    .navbar-toggle {
+        padding: 4px 6px !important;
+        margin-top: 6px !important;
+        margin-bottom: 6px !important;
+    }
+
+    #new-topic-button {
+        margin: 2px 0 0 0 !important;
+    }
+}
+
+
+
+.pagination-sm a {
+    /*padding: 4px 8px !important;*/
+}
+
 /* End global */
 
 
@@ -83,7 +119,7 @@ input[type="checkbox"].input-validation-error {
     }
 
 #new-topic-button {
-    margin: 16px 0 0 0;
+    margin: 14px 0 0 0;
 }
 
 .topic-additional-info {
@@ -97,7 +133,7 @@ input[type="checkbox"].input-validation-error {
 #forum-topics-container {
     border: 1px solid #e3e3e3;
     border-radius: 6px;
-    margin-top: 20px;
+    margin-top: 14px;
 }
 
 #forum-topics td {

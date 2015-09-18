@@ -23,7 +23,7 @@ namespace MediaCommMvc.Web.Helpers
                      Resources.Forums.GotoFirstNewPost + " <i class='glyphicon glyphicon-play'></i>");
             }
 
-            int numberOfPages = (int)Math.Ceiling(topic.PostCount / (double)ForumOptions.TopicsPerPage);
+            int numberOfPages = (int)Math.Ceiling(topic.PostCount / (double)ForumOptions.PostsPerPage);
 
             if (numberOfPages <= 1)
             {

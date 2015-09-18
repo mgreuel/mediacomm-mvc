@@ -7,37 +7,28 @@ namespace MediaCommMvc.Web.Helpers
     {
         public static string TopicIconClass(TopicOverviewViewModel topic)
         {
+            if (topic.DisplayPriority == TopicDisplayPriority.Sticky)
+            {
+                return "glyphicon glyphicon-exclamation-sign";
+            }
+
             if (!topic.ReadByCurrentUser)
             {
                 return "glyphicon glyphicon-eye-open";
             }
 
-            if (topic.DisplayPriority == TopicDisplayPriority.Sticky)
-            {
-                return "glyphicon glyphicon-exclamation-sign";
-            }
 
             return "glyphicon glyphicon-eye-close";
         }
 
         public static string TopicIconTitle(TopicOverviewViewModel topic)
         {
-            if (!topic.ReadByCurrentUser)
-            {
-                return @Resources.Forums.NewPosts;
-            }
-
             if (topic.DisplayPriority == TopicDisplayPriority.Sticky)
             {
-                if (!topic.ReadByCurrentUser)
-                {
-                    return @Resources.Forums.StickyNewPosts;
-                }
-
-                return @Resources.Forums.StickyNoNewPosts;
+                return !topic.ReadByCurrentUser ? @Resources.Forums.StickyNewPosts : @Resources.Forums.StickyNoNewPosts;
             }
 
-            return @Resources.Forums.NoNewPosts;
+            return !topic.ReadByCurrentUser ? @Resources.Forums.NewPosts : @Resources.Forums.NoNewPosts;
         }
     }
 }

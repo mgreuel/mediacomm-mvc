@@ -159,4 +159,7 @@
   <data name="UsernameOrPasswordWrongErrorMessage" xml:space="preserve">
     <value>E-mailadresse oder Passwort sind falsch</value>
   </data>
+  <data name="LogIn" xml:space="preserve">
+    <value>Anmelden</value>
+  </data>
 </root>

@@ -54,7 +54,8 @@ namespace MediaCommMvc.Web.Forum
             {
                 ExcludedUserNames = topic.ExcludedUserNames ?? new List<string>(),
                 Title = topic.Title,
-                Text = topic.PostsInOrder.First().Text
+                Text = topic.PostsInOrder.First().Text,
+                IsSticky = topic.DisplayPriority == TopicDisplayPriority.Sticky
             };
         }
 
@@ -75,7 +76,8 @@ namespace MediaCommMvc.Web.Forum
                     this.ravenSession.Query<Topic>()
                         .Statistics(out stats)
                         .Where(t => !t.ExcludedUserNames.Contains(currentUsername))
-                        .OrderByDescending(topic => topic.LastPostTime)
+                        .OrderByDescending(topic => topic.DisplayPriority)
+                        .ThenByDescending(topic => topic.LastPostTime)
                         .Skip((page - 1) * topicsPerPage)
                         .Take(topicsPerPage)
                         // todo move the transformation to raven db

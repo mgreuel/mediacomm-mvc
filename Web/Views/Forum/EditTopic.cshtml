@@ -1,5 +1,9 @@
 ﻿@model MediaCommMvc.Web.Forum.ViewModels.EditTopicViewModel
 
+@{
+    ViewBag.Title = string.IsNullOrWhiteSpace(Model.Id)? Resources.Forums.CreateTopic : Resources.Forums.EditTopic;
+}
+
 @using (Html.BeginForm(MVC.Forum.EditTopic(), FormMethod.Post, new { role = "form", @class = "edit-topic" }))
 {
     <div class="panel panel-default">
@@ -24,6 +28,13 @@
 
             </div>
 
+            <div class="checkbox">
+                <label>
+                    @Html.CheckBoxFor(m => m.IsSticky)
+                    @Html.DisplayNameFor(m => m.IsSticky)
+                </label>
+            </div>
+
         </div>
     </div>
 
@@ -41,7 +52,6 @@
 
     if (!Model.HasPoll)
      {
-
          <div class="panel panel-default">
              <div class="panel-heading" data-toggle="collapse" data-target="#poll">
                  <span class="glyphicon glyphicon-collapse-down toggle-icon"></span>

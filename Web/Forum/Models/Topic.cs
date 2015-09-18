@@ -24,7 +24,7 @@ namespace MediaCommMvc.Web.Forum.Models
         public string LastPostAuthor => this.PostsInOrder.Last().AuthorName;
 
         // Probably not required when using ravendb index
-        public DateTime LastPostTime => this.PostsInOrder.Last().Created;
+        public DateTime LastPostTime => this.PostsInOrder.Last().CreatedAt;
 
         public int PostCount => this.Posts.Count;
 
@@ -47,7 +47,7 @@ namespace MediaCommMvc.Web.Forum.Models
 
         private Dictionary<string, DateTime> LastAccessTimes { get; set; }
 
-        public DateTime CreatedAt => this.PostsInOrder.First().Created;
+        public DateTime CreatedAt => this.PostsInOrder.First().CreatedAt;
 
         public bool AllPostsReadByUser(string username)
         {
@@ -65,7 +65,7 @@ namespace MediaCommMvc.Web.Forum.Models
             DateTime lastAccessTime = this.LastAccessTimeForUser(username);
 
             // If all posts have been read, we just return the newest one
-            return this.PostsInOrder.FirstOrDefault(p => p.Created > lastAccessTime) ?? this.PostsInOrder.Last();
+            return this.PostsInOrder.FirstOrDefault(p => p.CreatedAt > lastAccessTime) ?? this.PostsInOrder.Last();
         }
 
         private DateTime LastAccessTimeForUser(string user)

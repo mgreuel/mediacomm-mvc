@@ -160,6 +160,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit Topic.
+        /// </summary>
+        public static string EditTopic {
+            get {
+                return ResourceManager.GetString("EditTopic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide topic from user.
         /// </summary>
         public static string ExcludeUser {
