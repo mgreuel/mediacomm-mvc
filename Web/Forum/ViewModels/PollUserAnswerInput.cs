@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace MediaCommMvc.Web.Forum.ViewModels
@@ -6,6 +7,6 @@ namespace MediaCommMvc.Web.Forum.ViewModels
     {
         public string TopicId { get; set; }
 
-        public IList<int> CheckedAnswers { get; set; }
+        public IList<Guid> CheckedAnswers { get; set; }
     }
 }

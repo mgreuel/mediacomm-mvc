@@ -240,11 +240,13 @@
     <Compile Include="Forum\Models\Post.cs" />
     <Compile Include="Forum\Models\Topic.cs" />
     <Compile Include="Forum\Models\TopicDisplayPriority.cs" />
-    <Compile Include="Forum\ViewModels\CreatePollViewModel.cs" />
+    <Compile Include="Forum\ViewModels\EditPollAnswerViewModel.cs" />
+    <Compile Include="Forum\ViewModels\EditPollViewModel.cs" />
     <Compile Include="Forum\ViewModels\EditPostViewModel.cs" />
     <Compile Include="Forum\ViewModels\EditTopicViewModel.cs" />
     <Compile Include="Forum\ViewModels\ForumOverview.cs" />
     <Compile Include="Forum\ViewModels\ForumViewModel.cs" />
+    <Compile Include="Forum\ViewModels\PollAnswerViewModel.cs" />
     <Compile Include="Forum\ViewModels\PollUserAnswerInput.cs" />
     <Compile Include="Forum\ViewModels\PollUserAnswerViewModel.cs" />
     <Compile Include="Forum\ViewModels\PostViewModel.cs" />
@@ -369,7 +371,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

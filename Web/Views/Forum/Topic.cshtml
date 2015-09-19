@@ -83,11 +83,10 @@
                                     }
                                 </td>
 
-                                @{ int counter = 0; }
 
                                 @foreach (var userAnswer in userAnswers.Answers)
                                 {
-                                    if (userAnswer)
+                                    if (userAnswer.Checked)
                                     {
                                         @:<td class="success text-center">
                                             <i class="glyphicon glyphicon-ok-circle"></i>
@@ -102,13 +101,11 @@
                                     {
                                         @* checkbox value are not sent if they are not checked see http://stackoverflow.com/questions/1809494/post-the-checkboxes-that-are-unchecked*@
 
-                                        <input class="answer-checkbox" type="checkbox" value="@counter" @(userAnswer ? "checked" : "") name="CheckedAnswers" />
+                                        <input class="answer-checkbox" type="checkbox" value="@userAnswer.AnswerId" @(userAnswer.Checked ? "checked" : "") name="CheckedAnswers" />
                                     }
 
                                     @:</td>
 
-
-                                    counter = counter + 1;
                                 }
                             </tr>
                                     }
@@ -151,7 +148,7 @@
 
             @foreach (PostViewModel post in Model.PostsForCurrentpage)
             {
-                <tr>
+                <tr id="@post.IndexInTopic">
                     <td>
                         <div class="post">
                             <div class="post-header clearfix">
@@ -178,8 +175,6 @@
                                                     {
                                                         if (firstPost)
                                                         {
-                                                            firstPost = false;
-
                                                             <div class="pull-right">
                                                                 @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditTopic().AddRouteValue("id", Model.Id), new { @class = "btn btn-xs btn-warning" })
                                                             </div>
@@ -198,6 +193,8 @@
                                                             <a class="approval-button btn btn-primary btn-xs" data-topic-id="@Model.Id" data-post-index="@post.IndexInTopic" data-url="@Url.Action(MVC.Forum.AddApproval())">@Resources.Approval.IApprove</a>
                                                         </div>
                                                     }
+
+                                                    @{ firstPost = false; }
                                                 </div>
                                             </div>
                                         </td>

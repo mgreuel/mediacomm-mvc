@@ -47,7 +47,6 @@ namespace MediaCommMvc.Web.Forum
 
         public EditTopicViewModel GetEditTopicViewModel(string id)
         {
-            // todo decide whetehr polls may be edited
             Topic topic = this.ravenSession.Load<Topic>(id);
 
             return new EditTopicViewModel
@@ -55,7 +54,8 @@ namespace MediaCommMvc.Web.Forum
                 ExcludedUserNames = topic.ExcludedUserNames ?? new List<string>(),
                 Title = topic.Title,
                 Text = topic.PostsInOrder.First().Text,
-                IsSticky = topic.DisplayPriority == TopicDisplayPriority.Sticky
+                IsSticky = topic.DisplayPriority == TopicDisplayPriority.Sticky,
+                Poll = new EditPollViewModel { Answers = topic.Poll.Answers.Select(a => new EditPollAnswerViewModel {Id = a.Id, Text = a.Text}).ToList(), Question = topic.Poll.Question }
             };
         }
 
@@ -111,7 +111,8 @@ namespace MediaCommMvc.Web.Forum
             {
                 PageNumber = (post.IndexInTopic / ForumOptions.PostsPerPage) + 1,
                 TopicId = topicId,
-                TopicTitle = topic.Title
+                TopicTitle = topic.Title,
+                PostIndex = postIndex
             };
         }
 
@@ -120,7 +121,7 @@ namespace MediaCommMvc.Web.Forum
             var topic = this.ravenSession.Load<Topic>(topicId);
             Post post = topic.FirstUnreadPostForUser(username);
 
-            return new TopicPageRoutedata { TopicId = topicId, PageNumber = (post.IndexInTopic / ForumOptions.PostsPerPage) + 1, TopicTitle = topic.Title };
+            return new TopicPageRoutedata { TopicId = topicId, PageNumber = (post.IndexInTopic / ForumOptions.PostsPerPage) + 1, TopicTitle = topic.Title, PostIndex = post.IndexInTopic};
         }
     }
 }

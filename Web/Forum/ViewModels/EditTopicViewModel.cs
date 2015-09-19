@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web.Mvc;
 
+using MediaCommMvc.Web.Forum.Models;
+
 using Resources;
 
 namespace MediaCommMvc.Web.Forum.ViewModels
@@ -12,7 +14,7 @@ namespace MediaCommMvc.Web.Forum.ViewModels
     {
         public EditTopicViewModel()
         {
-            this.Poll = new CreatePollViewModel();
+            this.Poll = new EditPollViewModel();
         }
 
         public string Id { get; set; }
@@ -32,17 +34,10 @@ namespace MediaCommMvc.Web.Forum.ViewModels
         public string Text { get; set; }
 
         [Display(ResourceType = typeof(Forums), Name = "Poll")]
-        public CreatePollViewModel Poll { get; set; }
-
-        public bool HasPoll
-        {
-            get
-            {
-                return this.Poll.Answers.Any(a => !string.IsNullOrWhiteSpace(a));
-            }
-        }
+        public EditPollViewModel Poll { get; set; }
 
         [Display(ResourceType = typeof(Forums), Name = "MarkAsSticky")]
         public bool IsSticky { get; set; }
+
     }
 }

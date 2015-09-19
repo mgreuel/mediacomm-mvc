@@ -23,13 +23,11 @@ namespace MediaCommMvc.Web.Forum
         {
             Topic topic = this.ravenSession.Load<Topic>(userAnswer.TopicId);
 
-            int index = 0;
-
             // if the ordering is changed, make sure to also change it in the view model
-            foreach (PollAnswer answer in topic.Poll.Answers.OrderBy(a => a.Text))
+            foreach (PollAnswer answer in topic.Poll.Answers)
             {
                 // todo: Check whether this should be moved to the model
-                bool newAnswerValue = userAnswer.CheckedAnswers.Contains(index);
+                bool newAnswerValue = userAnswer.CheckedAnswers.Contains(answer.Id);
 
                 if (newAnswerValue && !answer.Usernames.Contains(username))
                 {
@@ -39,8 +37,6 @@ namespace MediaCommMvc.Web.Forum
                 {
                     answer.Usernames.Remove(username);
                 }
-
-                index = index + 1;
             }
         }
 
@@ -62,38 +58,56 @@ namespace MediaCommMvc.Web.Forum
 
         private Topic CreateTopic(EditTopicViewModel viewModel, string currentUsername)
         {
-            Topic topic;
-            topic = new Topic
-                        {
-                            ExcludedUserNames = viewModel.ExcludedUserNames,
-                            Title = viewModel.Title,
-                            Poll = viewModel.Poll.ToPoll(),
-                            Posts =
-                                new List<Post>
-                                    {
-                                        new Post
-                                            {
-                                                AuthorName = currentUsername,
-                                                CreatedAt = DateTime.UtcNow,
-                                                IndexInTopic = 0,
-                                                Text = viewModel.Text
-                                            }
-                                    }
-                        };
+            var topic = new Topic
+                              {
+                                  ExcludedUserNames = viewModel.ExcludedUserNames,
+                                  Title = viewModel.Title,
+                                  Posts =
+                                      new List<Post>
+                                          {
+                                              new Post
+                                                  {
+                                                      AuthorName = currentUsername,
+                                                      CreatedAt = DateTime.UtcNow,
+                                                      IndexInTopic = 0,
+                                                      Text = viewModel.Text
+                                                  }
+                                          }
+                              };
 
             topic.DisplayPriority = viewModel.IsSticky ? TopicDisplayPriority.Sticky : TopicDisplayPriority.None;
 
+            if (!viewModel.Poll.IsEmpty())
+            {
+                topic.Poll = viewModel.Poll.ToNewPoll();
+            }
+            
             this.ravenSession.Store(topic);
             return topic;
         }
 
         private Topic UpdateTopic(EditTopicViewModel viewModel)
         {
-            Topic topic;
-            topic = this.ravenSession.Load<Topic>(viewModel.Id);
+            var topic = this.ravenSession.Load<Topic>(viewModel.Id);
             topic.Title = viewModel.Title;
             topic.PostsInOrder.First().Text = viewModel.Text;
             topic.ExcludedUserNames = viewModel.ExcludedUserNames;
+
+            if(viewModel.Poll.IsEmpty())
+            {
+                topic.Poll = null;
+            }
+            else
+            {
+                if (topic.Poll == null)
+                {
+                    topic.Poll = viewModel.Poll.ToNewPoll();
+                }
+                else
+                {
+                    viewModel.Poll.UpdatePoll(topic.Poll);
+                }
+            }
 
             topic.DisplayPriority = viewModel.IsSticky ? TopicDisplayPriority.Sticky : TopicDisplayPriority.None;
             return topic;

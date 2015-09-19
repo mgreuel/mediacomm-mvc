@@ -7,5 +7,7 @@ namespace MediaCommMvc.Web.Forum.ViewModels
         public string TopicTitle { get; set; }
 
         public int PageNumber { get; set; }
+
+        public int? PostIndex { get; set; }
     }
 }

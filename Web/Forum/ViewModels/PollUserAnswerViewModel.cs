@@ -6,6 +6,6 @@ namespace MediaCommMvc.Web.Forum.ViewModels
     {
         public string Username { get; set; }
 
-        public IList<bool> Answers { get; set; }
+        public IList<PollAnswerViewModel> Answers { get; set; }
     }
 }

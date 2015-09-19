@@ -50,8 +50,6 @@
         </div>
     </div>
 
-    if (!Model.HasPoll)
-     {
          <div class="panel panel-default">
              <div class="panel-heading" data-toggle="collapse" data-target="#poll">
                  <span class="glyphicon glyphicon-collapse-down toggle-icon"></span>
@@ -73,7 +71,7 @@
                          @for (int i = 0; i < this.Model.Poll.Answers.Count; i++)
                          {
                              <div class="form-group">
-                                 @Html.TextBoxFor(m => m.Poll.Answers[i], new { @class = "form-control full-width" })
+                                 @Html.TextBoxFor(m => m.Poll.Answers[i]., new { @class = "form-control full-width" })
                              </div>
                          }
 
@@ -83,7 +81,6 @@
                  </div>
              </div>
          </div>
-     }
 
     <button type="submit" class="btn btn-primary">@Resources.Forums.SaveTopic</button>
 }

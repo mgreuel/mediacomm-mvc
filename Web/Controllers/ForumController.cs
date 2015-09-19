@@ -40,9 +40,7 @@ namespace MediaCommMvc.Web.Controllers
 
             TopicPageRoutedata topicPage = this.forumStorageReader.GetRouteDataForLastTopicPage(answer.TopicId);
 
-            return
-                this.RedirectToAction(
-                    MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = UrlEncoder.ToFriendlyUrl(topicPage.TopicTitle), page = topicPage.PageNumber }));
+            return this.RedirectToPost(topicPage);
         }
 
         public virtual ActionResult Index(int page)
@@ -104,18 +102,26 @@ namespace MediaCommMvc.Web.Controllers
 
             TopicPageRoutedata topicPage = this.forumStorageReader.GetRouteDataForPost(viewModel.TopicId, viewModel.PostIndex);
 
-            return
-                this.RedirectToAction(
-                    MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = UrlEncoder.ToFriendlyUrl(topicPage.TopicTitle), page = topicPage.PageNumber }));
+            return this.RedirectToPost(topicPage);
+        }
+
+        private ActionResult RedirectToPost(TopicPageRoutedata topicPage)
+        {
+            string url = this.Url.Action(MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = UrlEncoder.ToFriendlyUrl(topicPage.TopicTitle), page = topicPage.PageNumber }));
+
+            if (topicPage.PostIndex != null)
+            {
+                url += $"#{topicPage.PostIndex}";
+            }
+
+            return this.Redirect(url);
         }
 
         public virtual ActionResult FirstNewPostInTopic(string topicId)
         {
             TopicPageRoutedata topicPage = this.forumStorageReader.GetRouteDataForFirstNewPost(topicId, this.User.Identity.Name);
 
-            return
-                this.RedirectToAction(
-                    MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = UrlEncoder.ToFriendlyUrl(topicPage.TopicTitle), page = topicPage.PageNumber }));
+            return this.RedirectToPost(topicPage);
         }
 
         [HttpPost]
@@ -128,9 +134,7 @@ namespace MediaCommMvc.Web.Controllers
 
             TopicPageRoutedata topicPage = this.forumStorageReader.GetRouteDataForLastTopicPage(viewModel.TopicId);
 
-            return
-                this.RedirectToAction(
-                    MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = UrlEncoder.ToFriendlyUrl(topicPage.TopicTitle), page = topicPage.PageNumber }));
+            return this.RedirectToPost(topicPage);
         }
 
         public virtual ActionResult Topic(string id, int page)

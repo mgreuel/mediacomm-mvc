@@ -48,7 +48,7 @@ namespace MediaCommMvc.Web.Controllers
 
                 if (i % 5 == 0)
                 {
-                    topic.Poll = new CreatePollViewModel { Question = GetRandomPollQuestion(), Answers = GetRandomPollAnswers() };
+                    topic.Poll = new EditPollViewModel { Question = GetRandomPollQuestion(), Answers = GetRandomPollAnswers() };
                 }
 
                 string topicId = this.forumStorageWriter.SaveTopic(topic, GetRandomUser());
@@ -60,16 +60,16 @@ namespace MediaCommMvc.Web.Controllers
             }
         }
 
-        private static IList<string> GetRandomPollAnswers()
+        private static List<EditPollAnswerViewModel> GetRandomPollAnswers()
         {
-            var titles = new List<List<string>>
+            var titles = new List<List<EditPollAnswerViewModel>>
                              {
-                               new List<string> { "y", "n" },
-                               new List<string> { "I'm in" },
-                               new List<string> { DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F")},
-                               new List<string> { DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F")},
-                               new List<string> { DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"),"y", "none", DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F")},
-                               new List<string> { DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F"), DateTime.UtcNow.ToString("F")},
+                               new List<EditPollAnswerViewModel> { new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = "y" }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = "n" }},
+                               new List<EditPollAnswerViewModel> { new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = "I'm in" }},
+                               new List<EditPollAnswerViewModel> { new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F")}},
+                               new List<EditPollAnswerViewModel> { new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }},
+                               new List<EditPollAnswerViewModel> { new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") },new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = "y"},new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = "none"}, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }},
+                               new List<EditPollAnswerViewModel> { new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }, new EditPollAnswerViewModel { Id = Guid.NewGuid(), Text = DateTime.UtcNow.ToString("F") }}
                              };
 
             int index = random.Next(titles.Count);
