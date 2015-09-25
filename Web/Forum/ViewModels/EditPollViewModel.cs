@@ -31,18 +31,22 @@ namespace MediaCommMvc.Web.Forum.ViewModels
 
         public bool IsEmpty()
         {
-            return this.Answers.All(a => !string.IsNullOrWhiteSpace(a.Text));
+            return this.Answers.All(a => string.IsNullOrWhiteSpace(a.Text));
         }
 
         public void UpdatePoll(Poll poll)
         {
-            Poll temp = poll;
-            poll = this.ToNewPoll();
-
             // We want the new question, but if there were already answers for some question, they need to be copied to the new poll
+            Poll newPoll = this.ToNewPoll();
+
+            poll.Question = newPoll.Question;
+
+            var tempAnswers = poll.Answers;
+            poll.Answers = newPoll.Answers;
+
             foreach (PollAnswer pollAnswer in poll.Answers)
             {
-                pollAnswer.Usernames = temp.Answers.SingleOrDefault(a => a.Id == pollAnswer.Id)?.Usernames;
+                pollAnswer.Usernames = tempAnswers.SingleOrDefault(a => a.Id == pollAnswer.Id)?.Usernames ?? new List<string>();
             }
         }
     }

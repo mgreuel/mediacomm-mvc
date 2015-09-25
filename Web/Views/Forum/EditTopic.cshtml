@@ -71,7 +71,8 @@
                          @for (int i = 0; i < this.Model.Poll.Answers.Count; i++)
                          {
                              <div class="form-group">
-                                 @Html.TextBoxFor(m => m.Poll.Answers[i]., new { @class = "form-control full-width" })
+                                 @Html.HiddenFor(m => m.Poll.Answers[i].Id)
+                                 @Html.TextBoxFor(m => m.Poll.Answers[i].Text, new { @class = "form-control full-width" })
                              </div>
                          }
 
@@ -127,23 +128,35 @@
                 }
             });
 
+
             $("#add-answer").click(function() {
                 var $template = $('.poll-answers div:first').clone();
-                var $input = $template.find('input');
+                
+                var numberOfQuestions = $('.poll-answers input[type=text]').length;
 
-                var numberOfQuestions = $('.poll-answers input').length;
+                var $textInput = $template.find('input[type=text]');
+                $textInput.prop('name', $textInput.prop('name').replace(/0/, numberOfQuestions));
+                $textInput.prop('id', $textInput.prop('id').replace(/0/, numberOfQuestions));
+                $textInput.attr('value', '');
 
-                var name = $input.prop('name').replace(/0/, numberOfQuestions);
-                $input.prop('name', name);
-
-                var id = $input.prop('id').replace(/0/, numberOfQuestions);
-                $input.prop('id', id);
-
-                $input.val('');
+                var $IdInput = $template.find('input[type=hidden]');
+                $IdInput.prop('name', $IdInput.prop('name').replace(/0/, numberOfQuestions));
+                $IdInput.prop('id', $IdInput.prop('id').replace(/0/, numberOfQuestions));
+                $IdInput.val(guid());
 
                 $('.poll-answers').append($template);
             });
         });
+
+        function guid() {
+            function s4() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                  .toString(16)
+                  .substring(1);
+            }
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+              s4() + '-' + s4() + s4() + s4();
+        }
 
         $('.panel-heading[data-toggle="collapse"]').click(function (e) {
 

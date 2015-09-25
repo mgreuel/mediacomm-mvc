@@ -29,7 +29,7 @@ namespace MediaCommMvc.Web.Forum.ViewModels
             // The current user should always be part of the answers collection as it is also used for taking aprt in the poll
             if (!this.UserHasAnswered(currentUserName))
             {
-                this.UserAnswers.Add(new PollUserAnswerViewModel { Username = currentUserName, Answers = new List<PollAnswerViewModel>(orderedAnswers.Count)});
+                this.UserAnswers.Add(new PollUserAnswerViewModel { Username = currentUserName, Answers = orderedAnswers.Select(a => new PollAnswerViewModel { AnswerId = a.Id}).ToList()});
             }
 
             this.AnswerCountByQuestion = orderedAnswers.Select(a => a.Usernames.Count).ToList();

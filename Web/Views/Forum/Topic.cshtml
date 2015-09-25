@@ -130,7 +130,7 @@
                         </tr>
                     </tfoot>
                 </table>
-                <input class="btn btn-default btn-sm" type="submit" value="@Resources.General.Save" />
+                <input class="btn btn-primary btn-sm" type="submit" value="@Resources.General.Save" />
 
                 <p id="poll-success" class="text-success hidden">@Resources.General.ChangesSaved</p>
                 <p id="poll-success1" class="text-success hidden">@Resources.General.ChangesSaved</p>
@@ -239,12 +239,19 @@
                                         }
                                     });
 
-                                    $('#reply > form').submit(function () {
-                                        $('#reply #Text').val(editor.html());
-                                    });
+                                    var $replyForm = $('#reply > form');
 
-                                    $('form').submit(function () {
-                                        $('#Text').val(editor.html());
+                                    $replyForm.submit(function (e) {
+
+                                        if (/\S/.test(editor.html())) {
+
+                                            // string is not empty and not just whitespace
+                                            $('#reply #Text').val(editor.html());
+                                        }
+                                        else {
+
+                                            e.preventDefault();
+                                        }
                                     });
 
                                     $.post("@Url.Action(MVC.Forum.MarkTopicAsRead())", { id: "@Model.Id" });
