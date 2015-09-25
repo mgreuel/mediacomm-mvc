@@ -12,9 +12,7 @@ namespace MediaCommMvc.Web.Forum.ViewModels
         {
             this.Question = poll.Question;
 
-            // if the ordering is changed, make sure to also change it in the save method!
-            List<PollAnswer> orderedAnswers = poll.Answers.OrderBy(a => a.Text).ToList();
-            this.AnswerTexts = orderedAnswers.Select(a => a.Text);
+            this.AnswerTexts = poll.Answers.Select(a => a.Text);
 
             // The results are group by answer option, we building the table we to group by user
             IEnumerable<string> allUsers = poll.Answers.SelectMany(a => a.Usernames).Distinct(StringComparer.OrdinalIgnoreCase).OrderBy(u => u).ToList();
@@ -23,16 +21,16 @@ namespace MediaCommMvc.Web.Forum.ViewModels
                 userName => new PollUserAnswerViewModel
                                 {
                                     Username = userName,
-                                    Answers = orderedAnswers.Select(answer => new PollAnswerViewModel { Checked = answer.Usernames.Any(answerUsername => answerUsername.Equals(userName, StringComparison.OrdinalIgnoreCase)), AnswerId = answer.Id }).ToList()
+                                    Answers = poll.Answers.Select(answer => new PollAnswerViewModel { Checked = answer.Usernames.Any(answerUsername => answerUsername.Equals(userName, StringComparison.OrdinalIgnoreCase)), AnswerId = answer.Id }).ToList()
                                 }).ToList();
 
             // The current user should always be part of the answers collection as it is also used for taking aprt in the poll
             if (!this.UserHasAnswered(currentUserName))
             {
-                this.UserAnswers.Add(new PollUserAnswerViewModel { Username = currentUserName, Answers = orderedAnswers.Select(a => new PollAnswerViewModel { AnswerId = a.Id}).ToList()});
+                this.UserAnswers.Add(new PollUserAnswerViewModel { Username = currentUserName, Answers = poll.Answers.Select(a => new PollAnswerViewModel { AnswerId = a.Id}).ToList()});
             }
 
-            this.AnswerCountByQuestion = orderedAnswers.Select(a => a.Usernames.Count).ToList();
+            this.AnswerCountByQuestion = poll.Answers.Select(a => a.Usernames.Count).ToList();
         }
 
         public IEnumerable<int> AnswerCountByQuestion { get; }
