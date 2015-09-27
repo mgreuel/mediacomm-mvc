@@ -1,4 +1,4 @@
-namespace MediaCommMvc.Web.Infrastructure
+namespace MediaCommMvc.Web.Forum
 {
     public class ForumOptions
     {

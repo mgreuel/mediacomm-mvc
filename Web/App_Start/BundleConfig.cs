@@ -28,15 +28,39 @@ namespace MediaCommMvc.Web
                     "~/Scripts/bootstrap-multiselect.js"));
 
             bundles.Add(
+                new ScriptBundle("~/bundles/upload").Include(
+                    "~/Scripts/tmpl.js",
+                    "~/Scripts/load-image.all.min.js",
+                    "~/Scripts/canvas-to-blob.js",
+                    "~/Scripts/jquery.ui.widget.js",
+                    "~/Scripts/jQuery.FileUpload/jquery.iframe-transport.js",
+                    "~/Scripts/jQuery.FileUpload/jquery.fileupload.js",
+                    "~/Scripts/jQuery.FileUpload/jquery.fileupload-process.js",
+                    "~/Scripts/jQuery.FileUpload/jquery.fileupload-image.js",
+                    "~/Scripts/jQuery.FileUpload/jquery.fileupload-audio.js",
+                    "~/Scripts/jQuery.FileUpload/jquery.fileupload-video.js",
+                    "~/Scripts/jQuery.FileUpload/jquery.fileupload-validate.js",
+                    "~/Scripts/jQuery.FileUpload/jquery.fileupload-ui.js"
+
+                    ));
+
+            bundles.Add(
                 new StyleBundle("~/Content/css").Include(
                     "~/Content/bootstrap3-wysihtml5.min.css",
                     "~/Content/bootstrap.cerulean.css",
                     "~/Content/bootstrap-multiselect.css",
                     "~/Content/site.css"));
 
-            // Set EnableOptimizations to false for debugging. For more information,
-            // visit http://go.microsoft.com/fwlink/?LinkId=301862
-            BundleTable.EnableOptimizations = true;
+
+            bundles.Add(
+                new StyleBundle("~/Content/css/upload")
+                    .Include("~/Content/jQuery.FileUpload/css/*.css", new CssRewriteUrlTransform()));
+
+            #if DEBUG
+                        BundleTable.EnableOptimizations = false;
+            #else
+                BundleTable.EnableOptimizations = true;
+            #endif
         }
     }
 }

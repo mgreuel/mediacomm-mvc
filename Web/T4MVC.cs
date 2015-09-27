@@ -33,6 +33,7 @@ public static partial class MVC
     public static MediaCommMvc.Web.Controllers.DevController Dev = new MediaCommMvc.Web.Controllers.T4MVC_DevController();
     public static MediaCommMvc.Web.Controllers.ForumController Forum = new MediaCommMvc.Web.Controllers.T4MVC_ForumController();
     public static MediaCommMvc.Web.Controllers.HomeController Home = new MediaCommMvc.Web.Controllers.T4MVC_HomeController();
+    public static MediaCommMvc.Web.Controllers.PhotosController Photos = new MediaCommMvc.Web.Controllers.T4MVC_PhotosController();
     public static T4MVC.ManageController Manage = new T4MVC.ManageController();
     public static T4MVC.SharedController Shared = new T4MVC.SharedController();
 }
@@ -87,20 +88,52 @@ namespace Links
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
         public static readonly string bootstrap3_wysihtml5_all_min_js = Url("bootstrap3-wysihtml5.all.min.js");
         public static readonly string bootstrap3_wysihtml5_de_DE_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap3-wysihtml5.de-DE.min.js") ? Url("bootstrap3-wysihtml5.de-DE.min.js") : Url("bootstrap3-wysihtml5.de-DE.js");
+        public static readonly string canvas_to_blob_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/canvas-to-blob.min.js") ? Url("canvas-to-blob.min.js") : Url("canvas-to-blob.js");
         public static readonly string jquery_2_1_4_intellisense_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.4.intellisense.min.js") ? Url("jquery-2.1.4.intellisense.min.js") : Url("jquery-2.1.4.intellisense.js");
         public static readonly string jquery_2_1_4_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-2.1.4.min.js") ? Url("jquery-2.1.4.min.js") : Url("jquery-2.1.4.js");
         public static readonly string jquery_2_1_4_min_js = Url("jquery-2.1.4.min.js");
         public static readonly string jquery_2_1_4_min_map = Url("jquery-2.1.4.min.map");
+        public static readonly string jquery_ui_1_9_0_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui-1.9.0.min.js") ? Url("jquery-ui-1.9.0.min.js") : Url("jquery-ui-1.9.0.js");
+        public static readonly string jquery_ui_1_9_0_min_js = Url("jquery-ui-1.9.0.min.js");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class jQuery_FileUpload {
+            private const string URLPATH = "~/Scripts/jQuery.FileUpload";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class cors {
+                private const string URLPATH = "~/Scripts/jQuery.FileUpload/cors";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string jquery_postmessage_transport_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.postmessage-transport.min.js") ? Url("jquery.postmessage-transport.min.js") : Url("jquery.postmessage-transport.js");
+                public static readonly string jquery_xdr_transport_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.xdr-transport.min.js") ? Url("jquery.xdr-transport.min.js") : Url("jquery.xdr-transport.js");
+            }
+        
+            public static readonly string jquery_fileupload_angular_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.fileupload-angular.min.js") ? Url("jquery.fileupload-angular.min.js") : Url("jquery.fileupload-angular.js");
+            public static readonly string jquery_fileupload_audio_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.fileupload-audio.min.js") ? Url("jquery.fileupload-audio.min.js") : Url("jquery.fileupload-audio.js");
+            public static readonly string jquery_fileupload_image_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.fileupload-image.min.js") ? Url("jquery.fileupload-image.min.js") : Url("jquery.fileupload-image.js");
+            public static readonly string jquery_fileupload_jquery_ui_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.fileupload-jquery-ui.min.js") ? Url("jquery.fileupload-jquery-ui.min.js") : Url("jquery.fileupload-jquery-ui.js");
+            public static readonly string jquery_fileupload_process_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.fileupload-process.min.js") ? Url("jquery.fileupload-process.min.js") : Url("jquery.fileupload-process.js");
+            public static readonly string jquery_fileupload_ui_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.fileupload-ui.min.js") ? Url("jquery.fileupload-ui.min.js") : Url("jquery.fileupload-ui.js");
+            public static readonly string jquery_fileupload_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.fileupload-validate.min.js") ? Url("jquery.fileupload-validate.min.js") : Url("jquery.fileupload-validate.js");
+            public static readonly string jquery_fileupload_video_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.fileupload-video.min.js") ? Url("jquery.fileupload-video.min.js") : Url("jquery.fileupload-video.js");
+            public static readonly string jquery_fileupload_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.fileupload.min.js") ? Url("jquery.fileupload.min.js") : Url("jquery.fileupload.js");
+            public static readonly string jquery_iframe_transport_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.iframe-transport.min.js") ? Url("jquery.iframe-transport.min.js") : Url("jquery.iframe-transport.js");
+        }
+    
+        public static readonly string jquery_ui_widget_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.widget.min.js") ? Url("jquery.ui.widget.min.js") : Url("jquery.ui.widget.js");
         public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate-vsdoc.min.js") ? Url("jquery.validate-vsdoc.min.js") : Url("jquery.validate-vsdoc.js");
         public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
         public static readonly string jquery_validate_min_js = Url("jquery.validate.min.js");
         public static readonly string jquery_validate_unobtrusive_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.unobtrusive.min.js") ? Url("jquery.validate.unobtrusive.min.js") : Url("jquery.validate.unobtrusive.js");
         public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
+        public static readonly string load_image_all_min_js = Url("load-image.all.min.js");
         public static readonly string modernizr_2_8_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.8.3.min.js") ? Url("modernizr-2.8.3.min.js") : Url("modernizr-2.8.3.js");
         public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
         public static readonly string respond_matchmedia_addListener_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.matchmedia.addListener.min.js") ? Url("respond.matchmedia.addListener.min.js") : Url("respond.matchmedia.addListener.js");
         public static readonly string respond_matchmedia_addListener_min_js = Url("respond.matchmedia.addListener.min.js");
         public static readonly string respond_min_js = Url("respond.min.js");
+        public static readonly string tmpl_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/tmpl.min.js") ? Url("tmpl.min.js") : Url("tmpl.js");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -122,10 +155,150 @@ namespace Links
         public static readonly string bootstrap_css_map = Url("bootstrap.css.map");
         public static readonly string bootstrap_min_css = Url("bootstrap.min.css");
         public static readonly string bootstrap3_wysihtml5_min_css = Url("bootstrap3-wysihtml5.min.css");
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class jQuery_FileUpload {
+            private const string URLPATH = "~/Content/jQuery.FileUpload";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class css {
+                private const string URLPATH = "~/Content/jQuery.FileUpload/css";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string jquery_fileupload_ui_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.fileupload-ui.min.css") ? Url("jquery.fileupload-ui.min.css") : Url("jquery.fileupload-ui.css");
+                     
+                public static readonly string jquery_fileupload_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.fileupload.min.css") ? Url("jquery.fileupload.min.css") : Url("jquery.fileupload.css");
+                     
+            }
+        
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class img {
+                private const string URLPATH = "~/Content/jQuery.FileUpload/img";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string loading_gif = Url("loading.gif");
+                public static readonly string progressbar_gif = Url("progressbar.gif");
+            }
+        
+        }
+    
         public static readonly string PagedList_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PagedList.min.css") ? Url("PagedList.min.css") : Url("PagedList.css");
              
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
              
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class themes {
+            private const string URLPATH = "~/Content/themes";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class @base {
+                private const string URLPATH = "~/Content/themes/base";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class images {
+                    private const string URLPATH = "~/Content/themes/base/images";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    public static readonly string ui_bg_flat_0_aaaaaa_40x100_png = Url("ui-bg_flat_0_aaaaaa_40x100.png");
+                    public static readonly string ui_bg_flat_75_ffffff_40x100_png = Url("ui-bg_flat_75_ffffff_40x100.png");
+                    public static readonly string ui_bg_glass_55_fbf9ee_1x400_png = Url("ui-bg_glass_55_fbf9ee_1x400.png");
+                    public static readonly string ui_bg_glass_65_ffffff_1x400_png = Url("ui-bg_glass_65_ffffff_1x400.png");
+                    public static readonly string ui_bg_glass_75_dadada_1x400_png = Url("ui-bg_glass_75_dadada_1x400.png");
+                    public static readonly string ui_bg_glass_75_e6e6e6_1x400_png = Url("ui-bg_glass_75_e6e6e6_1x400.png");
+                    public static readonly string ui_bg_glass_95_fef1ec_1x400_png = Url("ui-bg_glass_95_fef1ec_1x400.png");
+                    public static readonly string ui_bg_highlight_soft_75_cccccc_1x100_png = Url("ui-bg_highlight-soft_75_cccccc_1x100.png");
+                    public static readonly string ui_icons_222222_256x240_png = Url("ui-icons_222222_256x240.png");
+                    public static readonly string ui_icons_2e83ff_256x240_png = Url("ui-icons_2e83ff_256x240.png");
+                    public static readonly string ui_icons_454545_256x240_png = Url("ui-icons_454545_256x240.png");
+                    public static readonly string ui_icons_888888_256x240_png = Url("ui-icons_888888_256x240.png");
+                    public static readonly string ui_icons_cd0a0a_256x240_png = Url("ui-icons_cd0a0a_256x240.png");
+                }
+            
+                public static readonly string jquery_ui_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery-ui.min.css") ? Url("jquery-ui.min.css") : Url("jquery-ui.css");
+                     
+                public static readonly string jquery_ui_accordion_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.accordion.min.css") ? Url("jquery.ui.accordion.min.css") : Url("jquery.ui.accordion.css");
+                     
+                public static readonly string jquery_ui_all_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.all.min.css") ? Url("jquery.ui.all.min.css") : Url("jquery.ui.all.css");
+                     
+                public static readonly string jquery_ui_autocomplete_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.autocomplete.min.css") ? Url("jquery.ui.autocomplete.min.css") : Url("jquery.ui.autocomplete.css");
+                     
+                public static readonly string jquery_ui_base_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.base.min.css") ? Url("jquery.ui.base.min.css") : Url("jquery.ui.base.css");
+                     
+                public static readonly string jquery_ui_button_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.button.min.css") ? Url("jquery.ui.button.min.css") : Url("jquery.ui.button.css");
+                     
+                public static readonly string jquery_ui_core_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.core.min.css") ? Url("jquery.ui.core.min.css") : Url("jquery.ui.core.css");
+                     
+                public static readonly string jquery_ui_datepicker_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.datepicker.min.css") ? Url("jquery.ui.datepicker.min.css") : Url("jquery.ui.datepicker.css");
+                     
+                public static readonly string jquery_ui_dialog_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.dialog.min.css") ? Url("jquery.ui.dialog.min.css") : Url("jquery.ui.dialog.css");
+                     
+                public static readonly string jquery_ui_menu_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.menu.min.css") ? Url("jquery.ui.menu.min.css") : Url("jquery.ui.menu.css");
+                     
+                public static readonly string jquery_ui_progressbar_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.progressbar.min.css") ? Url("jquery.ui.progressbar.min.css") : Url("jquery.ui.progressbar.css");
+                     
+                public static readonly string jquery_ui_resizable_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.resizable.min.css") ? Url("jquery.ui.resizable.min.css") : Url("jquery.ui.resizable.css");
+                     
+                public static readonly string jquery_ui_selectable_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.selectable.min.css") ? Url("jquery.ui.selectable.min.css") : Url("jquery.ui.selectable.css");
+                     
+                public static readonly string jquery_ui_slider_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.slider.min.css") ? Url("jquery.ui.slider.min.css") : Url("jquery.ui.slider.css");
+                     
+                public static readonly string jquery_ui_spinner_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.spinner.min.css") ? Url("jquery.ui.spinner.min.css") : Url("jquery.ui.spinner.css");
+                     
+                public static readonly string jquery_ui_tabs_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.tabs.min.css") ? Url("jquery.ui.tabs.min.css") : Url("jquery.ui.tabs.css");
+                     
+                public static readonly string jquery_ui_theme_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.theme.min.css") ? Url("jquery.ui.theme.min.css") : Url("jquery.ui.theme.css");
+                     
+                public static readonly string jquery_ui_tooltip_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.tooltip.min.css") ? Url("jquery.ui.tooltip.min.css") : Url("jquery.ui.tooltip.css");
+                     
+                [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                public static class minified {
+                    private const string URLPATH = "~/Content/themes/base/minified";
+                    public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                    public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                    [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+                    public static class images {
+                        private const string URLPATH = "~/Content/themes/base/minified/images";
+                        public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                        public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                        public static readonly string ui_bg_flat_0_aaaaaa_40x100_png = Url("ui-bg_flat_0_aaaaaa_40x100.png");
+                        public static readonly string ui_bg_flat_75_ffffff_40x100_png = Url("ui-bg_flat_75_ffffff_40x100.png");
+                        public static readonly string ui_bg_glass_55_fbf9ee_1x400_png = Url("ui-bg_glass_55_fbf9ee_1x400.png");
+                        public static readonly string ui_bg_glass_65_ffffff_1x400_png = Url("ui-bg_glass_65_ffffff_1x400.png");
+                        public static readonly string ui_bg_glass_75_dadada_1x400_png = Url("ui-bg_glass_75_dadada_1x400.png");
+                        public static readonly string ui_bg_glass_75_e6e6e6_1x400_png = Url("ui-bg_glass_75_e6e6e6_1x400.png");
+                        public static readonly string ui_bg_glass_95_fef1ec_1x400_png = Url("ui-bg_glass_95_fef1ec_1x400.png");
+                        public static readonly string ui_bg_highlight_soft_75_cccccc_1x100_png = Url("ui-bg_highlight-soft_75_cccccc_1x100.png");
+                        public static readonly string ui_icons_222222_256x240_png = Url("ui-icons_222222_256x240.png");
+                        public static readonly string ui_icons_2e83ff_256x240_png = Url("ui-icons_2e83ff_256x240.png");
+                        public static readonly string ui_icons_454545_256x240_png = Url("ui-icons_454545_256x240.png");
+                        public static readonly string ui_icons_888888_256x240_png = Url("ui-icons_888888_256x240.png");
+                        public static readonly string ui_icons_cd0a0a_256x240_png = Url("ui-icons_cd0a0a_256x240.png");
+                    }
+                
+                    public static readonly string jquery_ui_min_css = Url("jquery-ui.min.css");
+                    public static readonly string jquery_ui_accordion_min_css = Url("jquery.ui.accordion.min.css");
+                    public static readonly string jquery_ui_autocomplete_min_css = Url("jquery.ui.autocomplete.min.css");
+                    public static readonly string jquery_ui_button_min_css = Url("jquery.ui.button.min.css");
+                    public static readonly string jquery_ui_core_min_css = Url("jquery.ui.core.min.css");
+                    public static readonly string jquery_ui_datepicker_min_css = Url("jquery.ui.datepicker.min.css");
+                    public static readonly string jquery_ui_dialog_min_css = Url("jquery.ui.dialog.min.css");
+                    public static readonly string jquery_ui_menu_min_css = Url("jquery.ui.menu.min.css");
+                    public static readonly string jquery_ui_progressbar_min_css = Url("jquery.ui.progressbar.min.css");
+                    public static readonly string jquery_ui_resizable_min_css = Url("jquery.ui.resizable.min.css");
+                    public static readonly string jquery_ui_selectable_min_css = Url("jquery.ui.selectable.min.css");
+                    public static readonly string jquery_ui_slider_min_css = Url("jquery.ui.slider.min.css");
+                    public static readonly string jquery_ui_spinner_min_css = Url("jquery.ui.spinner.min.css");
+                    public static readonly string jquery_ui_tabs_min_css = Url("jquery.ui.tabs.min.css");
+                    public static readonly string jquery_ui_theme_min_css = Url("jquery.ui.theme.min.css");
+                    public static readonly string jquery_ui_tooltip_min_css = Url("jquery.ui.tooltip.min.css");
+                }
+            
+            }
+        
+        }
+    
     }
 
     
@@ -134,6 +307,30 @@ namespace Links
     {
         public static partial class Scripts 
         {
+            public static partial class jQuery_FileUpload 
+            {
+                public static partial class cors 
+                {
+                    public static class Assets
+                    {
+                        public const string jquery_postmessage_transport_js = "~/Scripts/jQuery.FileUpload/cors/jquery.postmessage-transport.js"; 
+                        public const string jquery_xdr_transport_js = "~/Scripts/jQuery.FileUpload/cors/jquery.xdr-transport.js"; 
+                    }
+                }
+                public static class Assets
+                {
+                    public const string jquery_fileupload_angular_js = "~/Scripts/jQuery.FileUpload/jquery.fileupload-angular.js"; 
+                    public const string jquery_fileupload_audio_js = "~/Scripts/jQuery.FileUpload/jquery.fileupload-audio.js"; 
+                    public const string jquery_fileupload_image_js = "~/Scripts/jQuery.FileUpload/jquery.fileupload-image.js"; 
+                    public const string jquery_fileupload_jquery_ui_js = "~/Scripts/jQuery.FileUpload/jquery.fileupload-jquery-ui.js"; 
+                    public const string jquery_fileupload_process_js = "~/Scripts/jQuery.FileUpload/jquery.fileupload-process.js"; 
+                    public const string jquery_fileupload_ui_js = "~/Scripts/jQuery.FileUpload/jquery.fileupload-ui.js"; 
+                    public const string jquery_fileupload_validate_js = "~/Scripts/jQuery.FileUpload/jquery.fileupload-validate.js"; 
+                    public const string jquery_fileupload_video_js = "~/Scripts/jQuery.FileUpload/jquery.fileupload-video.js"; 
+                    public const string jquery_fileupload_js = "~/Scripts/jQuery.FileUpload/jquery.fileupload.js"; 
+                    public const string jquery_iframe_transport_js = "~/Scripts/jQuery.FileUpload/jquery.iframe-transport.js"; 
+                }
+            }
             public static class Assets
             {
                 public const string _references_js = "~/Scripts/_references.js"; 
@@ -142,22 +339,112 @@ namespace Links
                 public const string bootstrap_min_js = "~/Scripts/bootstrap.min.js"; 
                 public const string bootstrap3_wysihtml5_all_min_js = "~/Scripts/bootstrap3-wysihtml5.all.min.js"; 
                 public const string bootstrap3_wysihtml5_de_DE_js = "~/Scripts/bootstrap3-wysihtml5.de-DE.js"; 
+                public const string canvas_to_blob_js = "~/Scripts/canvas-to-blob.js"; 
                 public const string jquery_2_1_4_intellisense_js = "~/Scripts/jquery-2.1.4.intellisense.js"; 
                 public const string jquery_2_1_4_js = "~/Scripts/jquery-2.1.4.js"; 
                 public const string jquery_2_1_4_min_js = "~/Scripts/jquery-2.1.4.min.js"; 
+                public const string jquery_ui_1_9_0_js = "~/Scripts/jquery-ui-1.9.0.js"; 
+                public const string jquery_ui_1_9_0_min_js = "~/Scripts/jquery-ui-1.9.0.min.js"; 
+                public const string jquery_ui_widget_js = "~/Scripts/jquery.ui.widget.js"; 
                 public const string jquery_validate_js = "~/Scripts/jquery.validate.js"; 
                 public const string jquery_validate_min_js = "~/Scripts/jquery.validate.min.js"; 
                 public const string jquery_validate_unobtrusive_js = "~/Scripts/jquery.validate.unobtrusive.js"; 
                 public const string jquery_validate_unobtrusive_min_js = "~/Scripts/jquery.validate.unobtrusive.min.js"; 
+                public const string load_image_all_min_js = "~/Scripts/load-image.all.min.js"; 
                 public const string modernizr_2_8_3_js = "~/Scripts/modernizr-2.8.3.js"; 
                 public const string respond_js = "~/Scripts/respond.js"; 
                 public const string respond_matchmedia_addListener_js = "~/Scripts/respond.matchmedia.addListener.js"; 
                 public const string respond_matchmedia_addListener_min_js = "~/Scripts/respond.matchmedia.addListener.min.js"; 
                 public const string respond_min_js = "~/Scripts/respond.min.js"; 
+                public const string tmpl_js = "~/Scripts/tmpl.js"; 
             }
         }
         public static partial class Content 
         {
+            public static partial class jQuery_FileUpload 
+            {
+                public static partial class css 
+                {
+                    public static class Assets
+                    {
+                        public const string jquery_fileupload_ui_css = "~/Content/jQuery.FileUpload/css/jquery.fileupload-ui.css";
+                        public const string jquery_fileupload_css = "~/Content/jQuery.FileUpload/css/jquery.fileupload.css";
+                    }
+                }
+                public static partial class img 
+                {
+                    public static class Assets
+                    {
+                    }
+                }
+                public static class Assets
+                {
+                }
+            }
+            public static partial class themes 
+            {
+                public static partial class @base 
+                {
+                    public static partial class images 
+                    {
+                        public static class Assets
+                        {
+                        }
+                    }
+                    public static partial class minified 
+                    {
+                        public static partial class images 
+                        {
+                            public static class Assets
+                            {
+                            }
+                        }
+                        public static class Assets
+                        {
+                            public const string jquery_ui_min_css = "~/Content/themes/base/minified/jquery-ui.min.css";
+                            public const string jquery_ui_accordion_min_css = "~/Content/themes/base/minified/jquery.ui.accordion.min.css";
+                            public const string jquery_ui_autocomplete_min_css = "~/Content/themes/base/minified/jquery.ui.autocomplete.min.css";
+                            public const string jquery_ui_button_min_css = "~/Content/themes/base/minified/jquery.ui.button.min.css";
+                            public const string jquery_ui_core_min_css = "~/Content/themes/base/minified/jquery.ui.core.min.css";
+                            public const string jquery_ui_datepicker_min_css = "~/Content/themes/base/minified/jquery.ui.datepicker.min.css";
+                            public const string jquery_ui_dialog_min_css = "~/Content/themes/base/minified/jquery.ui.dialog.min.css";
+                            public const string jquery_ui_menu_min_css = "~/Content/themes/base/minified/jquery.ui.menu.min.css";
+                            public const string jquery_ui_progressbar_min_css = "~/Content/themes/base/minified/jquery.ui.progressbar.min.css";
+                            public const string jquery_ui_resizable_min_css = "~/Content/themes/base/minified/jquery.ui.resizable.min.css";
+                            public const string jquery_ui_selectable_min_css = "~/Content/themes/base/minified/jquery.ui.selectable.min.css";
+                            public const string jquery_ui_slider_min_css = "~/Content/themes/base/minified/jquery.ui.slider.min.css";
+                            public const string jquery_ui_spinner_min_css = "~/Content/themes/base/minified/jquery.ui.spinner.min.css";
+                            public const string jquery_ui_tabs_min_css = "~/Content/themes/base/minified/jquery.ui.tabs.min.css";
+                            public const string jquery_ui_theme_min_css = "~/Content/themes/base/minified/jquery.ui.theme.min.css";
+                            public const string jquery_ui_tooltip_min_css = "~/Content/themes/base/minified/jquery.ui.tooltip.min.css";
+                        }
+                    }
+                    public static class Assets
+                    {
+                        public const string jquery_ui_css = "~/Content/themes/base/jquery-ui.css";
+                        public const string jquery_ui_accordion_css = "~/Content/themes/base/jquery.ui.accordion.css";
+                        public const string jquery_ui_all_css = "~/Content/themes/base/jquery.ui.all.css";
+                        public const string jquery_ui_autocomplete_css = "~/Content/themes/base/jquery.ui.autocomplete.css";
+                        public const string jquery_ui_base_css = "~/Content/themes/base/jquery.ui.base.css";
+                        public const string jquery_ui_button_css = "~/Content/themes/base/jquery.ui.button.css";
+                        public const string jquery_ui_core_css = "~/Content/themes/base/jquery.ui.core.css";
+                        public const string jquery_ui_datepicker_css = "~/Content/themes/base/jquery.ui.datepicker.css";
+                        public const string jquery_ui_dialog_css = "~/Content/themes/base/jquery.ui.dialog.css";
+                        public const string jquery_ui_menu_css = "~/Content/themes/base/jquery.ui.menu.css";
+                        public const string jquery_ui_progressbar_css = "~/Content/themes/base/jquery.ui.progressbar.css";
+                        public const string jquery_ui_resizable_css = "~/Content/themes/base/jquery.ui.resizable.css";
+                        public const string jquery_ui_selectable_css = "~/Content/themes/base/jquery.ui.selectable.css";
+                        public const string jquery_ui_slider_css = "~/Content/themes/base/jquery.ui.slider.css";
+                        public const string jquery_ui_spinner_css = "~/Content/themes/base/jquery.ui.spinner.css";
+                        public const string jquery_ui_tabs_css = "~/Content/themes/base/jquery.ui.tabs.css";
+                        public const string jquery_ui_theme_css = "~/Content/themes/base/jquery.ui.theme.css";
+                        public const string jquery_ui_tooltip_css = "~/Content/themes/base/jquery.ui.tooltip.css";
+                    }
+                }
+                public static class Assets
+                {
+                }
+            }
             public static class Assets
             {
                 public const string bootstrap_multiselect_css = "~/Content/bootstrap-multiselect.css";

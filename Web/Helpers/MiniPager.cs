@@ -2,6 +2,7 @@
 using System.Text;
 using System.Web.Mvc;
 
+using MediaCommMvc.Web.Forum;
 using MediaCommMvc.Web.Forum.ViewModels;
 using MediaCommMvc.Web.Infrastructure;
 
