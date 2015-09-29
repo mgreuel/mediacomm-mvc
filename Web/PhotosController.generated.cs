@@ -28,9 +28,6 @@ namespace MediaCommMvc.Web.Controllers
     public partial class PhotosController
     {
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
-        public PhotosController() { }
-
-        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         protected PhotosController(Dummy d) { }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -87,6 +84,14 @@ namespace MediaCommMvc.Web.Controllers
         }
 
 
+        static readonly ActionParamsClass_Upload s_params_Upload = new ActionParamsClass_Upload();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Upload UploadParams { get { return s_params_Upload; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Upload
+        {
+            public readonly string files = "files";
+        }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ViewsClass Views { get { return s_views; } }
@@ -127,6 +132,18 @@ namespace MediaCommMvc.Web.Controllers
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Upload);
             UploadOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UploadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, System.Web.HttpPostedFileBase[] files);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Upload(System.Web.HttpPostedFileBase[] files)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Upload);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "files", files);
+            UploadOverride(callInfo, files);
             return callInfo;
         }
 

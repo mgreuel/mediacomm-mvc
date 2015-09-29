@@ -6,16 +6,21 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using ImageProcessor;
-using ImageProcessor.Imaging.Formats;
-
+using MediaCommMvc.Web.Account;
 using MediaCommMvc.Web.Forum;
 using MediaCommMvc.Web.Photos;
 
 namespace MediaCommMvc.Web.Controllers
 {
-    public partial class PhotosController : Controller
+    public partial class PhotosController : RavenController
     {
+        private readonly ImageGenerator imageGenerator;
+
+        public PhotosController(ImageGenerator imageGenerator, UserStorage userStorage) : base(userStorage)
+        {
+            this.imageGenerator = imageGenerator;
+        }
+
         public virtual ActionResult Index()
         {
             return this.View();
@@ -30,15 +35,10 @@ namespace MediaCommMvc.Web.Controllers
         public virtual ActionResult Upload(HttpPostedFileBase[] files)
         {
             HttpPostedFileBase file = this.Request.Files[0];
+            string filename = @"C:\temp\output\orig.jpg";
+            file.SaveAs(filename);
 
-                ResizeImage(file, new Size(1900,1100));
-                ResizeImage(file, new Size(1300,700));
-                ResizeImage(file, new Size(600,600));
-                ResizeImage(file, new Size(200,200));
-            ResizeImage(file, new Size(175, 175));
-                //ResizeImage(file, new Size(2048,1535));
-                //ResizeImage(file, new Size(2048,1535));
-                //ResizeImage(file, new Size(2048,1535));
+            this.imageGenerator.GenerateAllImageSizes(filename);
 
             return this.Json(new[] {
                 new
@@ -51,36 +51,6 @@ namespace MediaCommMvc.Web.Controllers
                     thumbnail_url = "http://none"
                 }
             });
-        }
-
-        private static void ResizeImage(HttpPostedFileBase file,Size size)
-        {
-            string filename = @"C:\temp\output\orig.jpg";
-            file.SaveAs(filename);
-
-            byte[] photoBytes = System.IO.File.ReadAllBytes(filename);
-
-            //ISupportedImageFormat format = new JpegFormat { Quality = quality };
-           // Size size = new Size(1800, 900);
-
-            using (MemoryStream inStream = new MemoryStream(photoBytes))
-            {
-                using (FileStream outStream = new FileStream($@"C:\temp\output\{size}_{PhotoOptions.JpegQuality}.jpg", FileMode.Create))
-                {
-                    using (ImageFactory imageFactory = new ImageFactory(preserveExifData: false))
-                    {
-                        // Load, resize, set the format and quality and save an image.
-                        imageFactory.Load(inStream)
-                            .Constrain(size)
-                            .AutoRotate()
-                            //.Format(format)
-                            .Quality(PhotoOptions.JpegQuality)
-                            .Save(outStream);
-                    }
-
-                    // Do something with the stream.
-                }
-            }
         }
     }
 }
