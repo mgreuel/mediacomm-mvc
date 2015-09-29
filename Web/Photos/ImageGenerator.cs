@@ -42,7 +42,7 @@ namespace MediaCommMvc.Web.Photos
             {
                 foreach (ImageSize size in SizesToGenerate)
                 {
-                    using (Bitmap newImage = this.imageResizer.ResizeImage(image, size.MaxWidth, size.MaxHeight))
+                    using (Image newImage = this.imageResizer.ResizeImage(image, size.MaxWidth, size.MaxHeight))
                     {
                         this.SaveJpeg($@"C:\temp\output\custom{size.Name}_{JpegQuality}.jpg", newImage);
                     }
@@ -52,10 +52,13 @@ namespace MediaCommMvc.Web.Photos
 
         private void SaveJpeg(string path, Image image)
         {
-            EncoderParameter qualityParam = new EncoderParameter(Encoder.Quality, JpegQuality);
-
-            EncoderParameters encoderParams = new EncoderParameters(1) { Param = {[0] = qualityParam } };
-            image.Save(path, JpegEncoder, encoderParams);
+            using (EncoderParameter qualityParam = new EncoderParameter(Encoder.Quality, JpegQuality))
+            {
+                using (EncoderParameters encoderParams = new EncoderParameters(1) { Param = { [0] = qualityParam } })
+                {
+                    image.Save(path, JpegEncoder, encoderParams);
+                }
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ namespace MediaCommMvc.Web.Photos
         /// <summary>
         /// see http://stackoverflow.com/a/24199315
         /// </summary>
-        public Bitmap ResizeImage(Image image, int maxWidth, int maxHeight)
+        public Image ResizeImage(Image image, int maxWidth, int maxHeight)
         {
             Size targetSize = CalculateTargetSize(image, maxWidth, maxHeight);
 
