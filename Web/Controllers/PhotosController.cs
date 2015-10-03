@@ -16,41 +16,51 @@ namespace MediaCommMvc.Web.Controllers
     {
         private readonly ImageGenerator imageGenerator;
 
-        public PhotosController(ImageGenerator imageGenerator, UserStorage userStorage) : base(userStorage)
+        private PhotoMetaDataStorage photoMetaDataStorage;
+
+        public PhotosController(ImageGenerator imageGenerator, UserStorage userStorage, PhotoMetaDataStorage photoMetaDataStorage) : base(userStorage)
         {
             this.imageGenerator = imageGenerator;
+            this.photoMetaDataStorage = photoMetaDataStorage;
         }
 
         public virtual ActionResult Index()
         {
-            return this.View();
+            return this.View(new PhotoIndexViewModel());
         }
 
         public virtual ActionResult Upload()
         {
-            return this.View(new UploadPhotosViewModel());
+            return this.View(new UploadPhotosViewModel {ExistingAlbums = this.photoMetaDataStorage.GetAllAlbumNames()});
         }
 
         [HttpPost]
         public virtual ActionResult Upload(HttpPostedFileBase[] files)
         {
-            HttpPostedFileBase file = this.Request.Files[0];
-            string filename = @"C:\temp\output\orig.jpg";
-            file.SaveAs(filename);
+            foreach (HttpPostedFileBase imageFile in this.Request.Files)
+            {
 
-            this.imageGenerator.GenerateAllImageSizes(filename);
+                string filename = @"C:\temp\output\orig.jpg";
+                imageFile.SaveAs(filename);
 
-            return this.Json(new[] {
+                this.imageGenerator.GenerateAllImageSizes(filename);
+            }
+
+            return this.Json(
                 new
-                {
-                    name = file.FileName,
-                    size = file.ContentLength,
-                    delete_url = "http://none",
-                    delete_type = "none",
-                    url = "http://none",
-                    thumbnail_url = "http://none"
-                }
-            });
+                    {
+                        files = files.Select(
+                            file => new
+                                        {
+                                            name = file.FileName,
+                                            size = file.ContentLength,
+                                            //delete_url = "http://none",
+                                            //delete_type = "none",
+                                            url = "http://placehold.it/350x350",
+                                            //thumbnail_url = "http://placehold.it/150x150"
+                                        }
+                            )
+                    });
         }
     }
 }

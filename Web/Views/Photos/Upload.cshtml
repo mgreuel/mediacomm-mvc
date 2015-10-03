@@ -1,5 +1,5 @@
 ﻿@model MediaCommMvc.Web.Photos.UploadPhotosViewModel
-
+@using Newtonsoft.Json
 @{
     ViewBag.Title = @Resources.Photos.Upload;
 }
@@ -15,6 +15,8 @@
                 This example uses some basic API method calls. See also database demo. API calls are only supporten in the commercial license editions.
             </p>
         </blockquote>
+
+        <input type="text" id="album"/>
         <br>
 
         <!-- The file upload form used as target for the file upload widget -->
@@ -142,11 +144,44 @@
 
         <script>
 
-            $(function() {
+            $(function () {
+
+                var albumNames = @JsonConvert.SerializeObject(Model.ExistingAlbums);
+                
                 $('#fileupload').fileupload({
                     maxFileSize: 100000000,
                     acceptFileTypes: /(\.|\/)(jpe?g)$/i,
-                    sequentialUploads: true
+                    limitConcurrentUploads: 3
+                });
+
+                // see http://twitter.github.io/typeahead.js/examples/#the-basics
+                var substringMatcher = function(strs) {
+                    return function findMatches(q, cb) { // an array that will be populated with substring matches
+                        var matches = [];
+
+                        // regex used to determine if a string contains the substring `q`
+                        var substringRegex = new RegExp(q, 'i');
+
+                        // iterate through the pool of strings and for any string that
+                        // contains the substring `q`, add it to the `matches` array
+                        $.each(strs, function(i, str) {
+                            if (substringRegex.test(str)) {
+                                matches.push(str);
+                            }
+                        });
+
+                        cb(matches);
+                    };
+                };
+
+                $('#album').typeahead({
+                    hint: true,
+                    highlight: true,
+                    minLength: 1
+                },
+                {
+                    name: 'album',
+                    source: substringMatcher(albumNames)
                 });
             });
 

@@ -5,7 +5,6 @@ using MediaCommMvc.Web.Account;
 using MediaCommMvc.Web.Forum;
 using MediaCommMvc.Web.Forum.ViewModels;
 using MediaCommMvc.Web.Helpers;
-using MediaCommMvc.Web.Infrastructure;
 
 using PagedList;
 

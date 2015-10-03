@@ -279,6 +279,10 @@
     </Compile>
     <Compile Include="Photos\ImageGenerator.cs" />
     <Compile Include="Photos\ImageResizer.cs" />
+    <Compile Include="Photos\Photo.cs" />
+    <Compile Include="Photos\PhotoAlbum.cs" />
+    <Compile Include="Photos\PhotoIndexViewModel.cs" />
+    <Compile Include="Photos\PhotoMetaDataStorage.cs" />
     <Compile Include="Photos\UploadPhotosViewModel.cs" />
     <Compile Include="RavenController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
@@ -373,6 +377,8 @@
     <Content Include="Glimpse.RavenDb.Readme.txt" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -417,6 +423,10 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\tmpl.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Scripts\_references.js" />
     <None Include="T4MVC.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -458,6 +468,7 @@
     <Content Include="Views\Forum\EditTopic.cshtml" />
     <Content Include="Views\Forum\EditPost.cshtml" />
     <Content Include="Views\Photos\Upload.cshtml" />
+    <None Include="Views\Photos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

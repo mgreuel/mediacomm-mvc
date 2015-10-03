@@ -1,0 +1,13 @@
+﻿@model MediaCommMvc.Web.Photos.PhotoIndexViewModel
+
+@{
+    ViewBag.Title = Resources.Photos.PhotosTitle;
+}
+
+<h2>Photos ;)</h2>
+
+<div>
+
+    @Html.ActionLink(Resources.Photos.Upload, MVC.Photos.Upload(), new { id = "upload-button", @class = "btn btn-default btn-sm" })
+
+</div>

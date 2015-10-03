@@ -40,7 +40,8 @@ namespace MediaCommMvc.Web
                     "~/Scripts/jQuery.FileUpload/jquery.fileupload-audio.js",
                     "~/Scripts/jQuery.FileUpload/jquery.fileupload-video.js",
                     "~/Scripts/jQuery.FileUpload/jquery.fileupload-validate.js",
-                    "~/Scripts/jQuery.FileUpload/jquery.fileupload-ui.js"
+                    "~/Scripts/jQuery.FileUpload/jquery.fileupload-ui.js",
+                    "~/Scripts/typeahead.jquery.min.js"
 
                     ));
 
