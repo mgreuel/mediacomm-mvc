@@ -4,7 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - @Config.Sitename</title>
+    <title>@ViewBag.Title -
+        @{
+            string sitename = ViewBag.Config?.Sitename ?? "Empty Title";
+        }
+        @sitename</title>
 
    
     @Styles.Render("~/Content/css/upload")
@@ -22,7 +26,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink(Config.Sitename, MVC.Home.Index(), new { @class = "navbar-brand" })
+                @Html.ActionLink(sitename, MVC.Home.Index(), new { @class = "navbar-brand" })
                
             </div>
             <div class="navbar-collapse collapse">
@@ -31,7 +35,7 @@
                     <li>@Html.ActionLink(Resources.Navigation.Forums, MVC.Forum.Index().AddRouteValue("page", 1))</li>
                     <li>@Html.ActionLink(Resources.Navigation.Photos, MVC.Photos.Index())</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
     </div>

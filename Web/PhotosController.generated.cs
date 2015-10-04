@@ -90,7 +90,7 @@ namespace MediaCommMvc.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Upload
         {
-            public readonly string files = "files";
+            public readonly string album = "album";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -102,8 +102,10 @@ namespace MediaCommMvc.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string Index = "Index";
                 public readonly string Upload = "Upload";
             }
+            public readonly string Index = "~/Views/Photos/Index.cshtml";
             public readonly string Upload = "~/Views/Photos/Upload.cshtml";
         }
     }
@@ -136,14 +138,14 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void UploadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, System.Web.HttpPostedFileBase[] files);
+        partial void UploadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string album);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Upload(System.Web.HttpPostedFileBase[] files)
+        public override System.Web.Mvc.ActionResult Upload(string album)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Upload);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "files", files);
-            UploadOverride(callInfo, files);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "album", album);
+            UploadOverride(callInfo, album);
             return callInfo;
         }
 

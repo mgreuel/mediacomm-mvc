@@ -16,7 +16,14 @@ namespace MediaCommMvc.Web.Photos
 
         public IEnumerable<string> GetAllAlbumNames()
         {
-            return new List<string> { "Silvester 2012", "silvester 2013", "Geburtstag Thea", "Thea Geburtstag 2014" }; //return this.documentSession.Query<PhotoAlbum>().Select(a => a.Title).ToList();
+            return this.documentSession.Query<PhotoAlbum>().Select(a => a.Title).ToList();
+        }
+
+        public void SavePhoto(string album, string fileName)
+        {
+            var photoAlbum = this.documentSession.Query<PhotoAlbum>().SingleOrDefault(a => a.Title == album) ?? new PhotoAlbum { Title = album};
+            photoAlbum.Photos.Add(new Photo { Filename = fileName});
+            this.documentSession.Store(photoAlbum);
         }
     }
 }

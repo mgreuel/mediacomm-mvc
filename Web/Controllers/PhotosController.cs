@@ -4,6 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 
 using MediaCommMvc.Web.Account;
@@ -16,7 +17,7 @@ namespace MediaCommMvc.Web.Controllers
     {
         private readonly ImageGenerator imageGenerator;
 
-        private PhotoMetaDataStorage photoMetaDataStorage;
+        private readonly PhotoMetaDataStorage photoMetaDataStorage;
 
         public PhotosController(ImageGenerator imageGenerator, UserStorage userStorage, PhotoMetaDataStorage photoMetaDataStorage) : base(userStorage)
         {
@@ -31,36 +32,39 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult Upload()
         {
-            return this.View(new UploadPhotosViewModel {ExistingAlbums = this.photoMetaDataStorage.GetAllAlbumNames()});
+            return this.View(new UploadPhotosViewModel { ExistingAlbums = this.photoMetaDataStorage.GetAllAlbumNames() });
         }
 
         [HttpPost]
-        public virtual ActionResult Upload(HttpPostedFileBase[] files)
+        public virtual ActionResult Upload(string album)
         {
-            foreach (HttpPostedFileBase imageFile in this.Request.Files)
-            {
+            HttpPostedFileBase file = this.Request.Files[0];
 
-                string filename = @"C:\temp\output\orig.jpg";
-                imageFile.SaveAs(filename);
+            string filename = @"C:\temp\output\orig.jpg";
 
-                this.imageGenerator.GenerateAllImageSizes(filename);
-            }
+            this.photoMetaDataStorage.SavePhoto(album, file.FileName);
 
+            file.SaveAs(filename);
+
+            HostingEnvironment.QueueBackgroundWorkItem(token => this.imageGenerator.GenerateAllImageSizes(filename, this.Config.PhotoStorageRootFolder));
+
+            // see https://github.com/blueimp/jQuery-File-Upload/wiki/Setup for the return object structure
             return this.Json(
                 new
-                    {
-                        files = files.Select(
-                            file => new
-                                        {
-                                            name = file.FileName,
-                                            size = file.ContentLength,
-                                            //delete_url = "http://none",
-                                            //delete_type = "none",
-                                            url = "http://placehold.it/350x350",
-                                            //thumbnail_url = "http://placehold.it/150x150"
-                                        }
-                            )
-                    });
+                {
+                    files = new[]
+                                    {
+                                        new
+                                            {
+                                                name = file.FileName,
+                                                size = file.ContentLength,
+                                                //delete_url = "http://none",
+                                                //delete_type = "none",
+                                                url = "http://placehold.it/350x350",
+                                                //thumbnail_url = "http://placehold.it/150x150"
+                                            }
+                                    }
+                });
         }
     }
 }

@@ -7,25 +7,16 @@ namespace MediaCommMvc.Web.Photos
 {
     public class ImageGenerator
     {
-        // the jpg encoder required the parameter to be of type long!
+        // the jpg encoder requires the parameter to be of type long!
         private const long JpegQuality = 85;
 
-        private class ImageSize
-        {
-            public int MaxWidth { get; set; }
-
-            public int MaxHeight { get; set; }
-
-            public string Name { get; set; }
-        }
-
         private static readonly List<ImageSize> SizesToGenerate = new List<ImageSize>
-        {
-            new ImageSize { Name = "large", MaxWidth = 1900, MaxHeight = 1100 },
-            new ImageSize { Name = "medium", MaxWidth = 1300, MaxHeight = 700 },
-            new ImageSize { Name = "small", MaxWidth = 600, MaxHeight = 600 },
-            new ImageSize { Name = "thumbnail", MaxWidth = 200, MaxHeight = 200 }
-        };
+                                                                      {
+                                                                          new ImageSize { Name = "large", MaxWidth = 1900, MaxHeight = 1100 },
+                                                                          new ImageSize { Name = "medium", MaxWidth = 1300, MaxHeight = 700 },
+                                                                          new ImageSize { Name = "small", MaxWidth = 600, MaxHeight = 600 },
+                                                                          new ImageSize { Name = "thumbnail", MaxWidth = 200, MaxHeight = 200 }
+                                                                      };
 
         private static readonly ImageCodecInfo JpegEncoder = ImageCodecInfo.GetImageDecoders().SingleOrDefault(c => c.FormatID == ImageFormat.Jpeg.Guid);
 
@@ -36,7 +27,7 @@ namespace MediaCommMvc.Web.Photos
             this.imageResizer = imageResizer;
         }
 
-        public void GenerateAllImageSizes(string filePath)
+        public void GenerateAllImageSizes(string filePath, string photoStorageRootFolder)
         {
             using (Image image = Image.FromFile(filePath))
             {
@@ -59,6 +50,15 @@ namespace MediaCommMvc.Web.Photos
                     image.Save(path, JpegEncoder, encoderParams);
                 }
             }
+        }
+
+        private class ImageSize
+        {
+            public int MaxWidth { get; set; }
+
+            public int MaxHeight { get; set; }
+
+            public string Name { get; set; }
         }
     }
 }

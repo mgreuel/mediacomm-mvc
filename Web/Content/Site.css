@@ -267,4 +267,10 @@ input[type="checkbox"].input-validation-error {
     margin-top: 30px;
 }
 
-/* Start Edit Post */
+/* End Edit Post */
+
+/* Start Photo Upload */
+
+.photo-upload-album {
+    margin: 20px 0;
+}

@@ -23,7 +23,17 @@ namespace MediaCommMvc.Web.Controllers
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
+            base.OnActionExecuting(filterContext);
+
             this.RavenSession = DocumentStoreContainer.CurrentSession;
+
+            if (filterContext.IsChildAction)
+            {
+                return;
+            }
+
+            this.Config = this.RavenSession.Load<Config>(MvcApplication.ConfigId);
+            this.ViewBag.Config = this.Config;
         }
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
@@ -48,5 +58,7 @@ namespace MediaCommMvc.Web.Controllers
         {
             return this.userStorage.GetAllUsernames().Select(u => new SelectListItem { Text = u, Value = u }).ToList();
         }
+
+        protected Config Config { get; private set; }
     }
 }

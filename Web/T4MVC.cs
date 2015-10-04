@@ -83,9 +83,13 @@ namespace Links
         public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
         public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
         public static readonly string _references_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/_references.min.js") ? Url("_references.min.js") : Url("_references.js");
+        public static readonly string bloodhound_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bloodhound.min.js") ? Url("bloodhound.min.js") : Url("bloodhound.js");
+        public static readonly string bloodhound_min_js = Url("bloodhound.min.js");
         public static readonly string bootstrap_multiselect_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap-multiselect.min.js") ? Url("bootstrap-multiselect.min.js") : Url("bootstrap-multiselect.js");
         public static readonly string bootstrap_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap.min.js") ? Url("bootstrap.min.js") : Url("bootstrap.js");
         public static readonly string bootstrap_min_js = Url("bootstrap.min.js");
+        public static readonly string bootstrap3_typeahead_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap3-typeahead.min.js") ? Url("bootstrap3-typeahead.min.js") : Url("bootstrap3-typeahead.js");
+        public static readonly string bootstrap3_typeahead_min_js = Url("bootstrap3-typeahead.min.js");
         public static readonly string bootstrap3_wysihtml5_all_min_js = Url("bootstrap3-wysihtml5.all.min.js");
         public static readonly string bootstrap3_wysihtml5_de_DE_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/bootstrap3-wysihtml5.de-DE.min.js") ? Url("bootstrap3-wysihtml5.de-DE.min.js") : Url("bootstrap3-wysihtml5.de-DE.js");
         public static readonly string canvas_to_blob_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/canvas-to-blob.min.js") ? Url("canvas-to-blob.min.js") : Url("canvas-to-blob.js");
@@ -134,6 +138,10 @@ namespace Links
         public static readonly string respond_matchmedia_addListener_min_js = Url("respond.matchmedia.addListener.min.js");
         public static readonly string respond_min_js = Url("respond.min.js");
         public static readonly string tmpl_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/tmpl.min.js") ? Url("tmpl.min.js") : Url("tmpl.js");
+        public static readonly string typeahead_bundle_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.bundle.min.js") ? Url("typeahead.bundle.min.js") : Url("typeahead.bundle.js");
+        public static readonly string typeahead_bundle_min_js = Url("typeahead.bundle.min.js");
+        public static readonly string typeahead_jquery_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.jquery.min.js") ? Url("typeahead.jquery.min.js") : Url("typeahead.jquery.js");
+        public static readonly string typeahead_jquery_min_js = Url("typeahead.jquery.min.js");
     }
 
     [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -299,6 +307,8 @@ namespace Links
         
         }
     
+        public static readonly string typeahead_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/typeahead.min.css") ? Url("typeahead.min.css") : Url("typeahead.css");
+             
     }
 
     
@@ -334,9 +344,13 @@ namespace Links
             public static class Assets
             {
                 public const string _references_js = "~/Scripts/_references.js"; 
+                public const string bloodhound_js = "~/Scripts/bloodhound.js"; 
+                public const string bloodhound_min_js = "~/Scripts/bloodhound.min.js"; 
                 public const string bootstrap_multiselect_js = "~/Scripts/bootstrap-multiselect.js"; 
                 public const string bootstrap_js = "~/Scripts/bootstrap.js"; 
                 public const string bootstrap_min_js = "~/Scripts/bootstrap.min.js"; 
+                public const string bootstrap3_typeahead_js = "~/Scripts/bootstrap3-typeahead.js"; 
+                public const string bootstrap3_typeahead_min_js = "~/Scripts/bootstrap3-typeahead.min.js"; 
                 public const string bootstrap3_wysihtml5_all_min_js = "~/Scripts/bootstrap3-wysihtml5.all.min.js"; 
                 public const string bootstrap3_wysihtml5_de_DE_js = "~/Scripts/bootstrap3-wysihtml5.de-DE.js"; 
                 public const string canvas_to_blob_js = "~/Scripts/canvas-to-blob.js"; 
@@ -357,6 +371,10 @@ namespace Links
                 public const string respond_matchmedia_addListener_min_js = "~/Scripts/respond.matchmedia.addListener.min.js"; 
                 public const string respond_min_js = "~/Scripts/respond.min.js"; 
                 public const string tmpl_js = "~/Scripts/tmpl.js"; 
+                public const string typeahead_bundle_js = "~/Scripts/typeahead.bundle.js"; 
+                public const string typeahead_bundle_min_js = "~/Scripts/typeahead.bundle.min.js"; 
+                public const string typeahead_jquery_js = "~/Scripts/typeahead.jquery.js"; 
+                public const string typeahead_jquery_min_js = "~/Scripts/typeahead.jquery.min.js"; 
             }
         }
         public static partial class Content 
@@ -457,6 +475,7 @@ namespace Links
                 public const string bootstrap3_wysihtml5_min_css = "~/Content/bootstrap3-wysihtml5.min.css";
                 public const string PagedList_css = "~/Content/PagedList.css";
                 public const string Site_css = "~/Content/Site.css";
+                public const string typeahead_css = "~/Content/typeahead.css";
             }
         }
     }
