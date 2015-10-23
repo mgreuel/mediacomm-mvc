@@ -35,6 +35,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -286,10 +287,12 @@
     <Compile Include="PhotosController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Photos\ExifRotation.cs" />
     <Compile Include="Photos\ImageGenerator.cs" />
     <Compile Include="Photos\ImageResizer.cs" />
     <Compile Include="Photos\Photo.cs" />
     <Compile Include="Photos\PhotoAlbum.cs" />
+    <Compile Include="Photos\PhotoImporter.cs" />
     <Compile Include="Photos\PhotoIndexViewModel.cs" />
     <Compile Include="Photos\PhotoMetaDataStorage.cs" />
     <Compile Include="Photos\UploadPhotosViewModel.cs" />

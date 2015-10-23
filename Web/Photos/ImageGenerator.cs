@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 
 namespace MediaCommMvc.Web.Photos
@@ -27,15 +28,19 @@ namespace MediaCommMvc.Web.Photos
             this.imageResizer = imageResizer;
         }
 
-        public void GenerateAllImageSizes(string filePath, string photoStorageRootFolder)
+        public void GenerateAllImageSizes(string originalImageFilePath)
         {
-            using (Image image = Image.FromFile(filePath))
+            using (Image sourceImage = Image.FromFile(originalImageFilePath))
             {
                 foreach (ImageSize size in SizesToGenerate)
                 {
-                    using (Image newImage = this.imageResizer.ResizeImage(image, size.MaxWidth, size.MaxHeight))
+                    FileInfo originalImageFile = new FileInfo(originalImageFilePath);
+                    string targetFilename = $"{originalImageFile.Name.Replace(originalImageFile.Extension, string.Empty)}_{size.Name}{originalImageFile.Extension}";
+                    string targetFilePath = Path.Combine(originalImageFile.DirectoryName, targetFilename);
+
+                    using (Image newImage = this.imageResizer.ResizeImage(sourceImage, size.MaxWidth, size.MaxHeight))
                     {
-                        this.SaveJpeg($@"C:\temp\output\custom{size.Name}_{JpegQuality}.jpg", newImage);
+                        this.SaveJpeg(targetFilePath, newImage);
                     }
                 }
             }

@@ -34,6 +34,7 @@ namespace MediaCommMvc.Web
             {
                 DocumentStoreContainer.CurrentSession.Store(new Config
                 {
+                    Id = ConfigId,
                     Sitename = "Absolutmoments",
                     PhotoStorageRootFolder = @"C:\temp\Absolutmoments\Photos"
                 });

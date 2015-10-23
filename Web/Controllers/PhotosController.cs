@@ -15,14 +15,14 @@ namespace MediaCommMvc.Web.Controllers
 {
     public partial class PhotosController : RavenController
     {
-        private readonly ImageGenerator imageGenerator;
-
         private readonly PhotoMetaDataStorage photoMetaDataStorage;
 
-        public PhotosController(ImageGenerator imageGenerator, UserStorage userStorage, PhotoMetaDataStorage photoMetaDataStorage) : base(userStorage)
+        private readonly PhotoImporter photoImporter;
+
+        public PhotosController(UserStorage userStorage, PhotoMetaDataStorage photoMetaDataStorage, PhotoImporter photoImporter) : base(userStorage)
         {
-            this.imageGenerator = imageGenerator;
             this.photoMetaDataStorage = photoMetaDataStorage;
+            this.photoImporter = photoImporter;
         }
 
         public virtual ActionResult Index()
@@ -39,14 +39,8 @@ namespace MediaCommMvc.Web.Controllers
         public virtual ActionResult Upload(string album)
         {
             HttpPostedFileBase file = this.Request.Files[0];
-
-            string filename = @"C:\temp\output\orig.jpg";
-
-            this.photoMetaDataStorage.SavePhoto(album, file.FileName);
-
-            file.SaveAs(filename);
-
-            HostingEnvironment.QueueBackgroundWorkItem(token => this.imageGenerator.GenerateAllImageSizes(filename, this.Config.PhotoStorageRootFolder));
+            
+            this.photoImporter.ImportPhoto(file.InputStream, file.FileName, album, this.Config.PhotoStorageRootFolder);
 
             // see https://github.com/blueimp/jQuery-File-Upload/wiki/Setup for the return object structure
             return this.Json(
@@ -57,11 +51,7 @@ namespace MediaCommMvc.Web.Controllers
                                         new
                                             {
                                                 name = file.FileName,
-                                                size = file.ContentLength,
-                                                //delete_url = "http://none",
-                                                //delete_type = "none",
-                                                url = "http://placehold.it/350x350",
-                                                //thumbnail_url = "http://placehold.it/150x150"
+                                                size = file.ContentLength
                                             }
                                     }
                 });
