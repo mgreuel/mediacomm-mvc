@@ -4,20 +4,14 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 
+using MediaCommMvc.Web.Photos.Models;
+
 namespace MediaCommMvc.Web.Photos
 {
     public class ImageGenerator
     {
         // the jpg encoder requires the parameter to be of type long!
         private const long JpegQuality = 85;
-
-        private static readonly List<ImageSize> SizesToGenerate = new List<ImageSize>
-                                                                      {
-                                                                          new ImageSize { Name = "large", MaxWidth = 1900, MaxHeight = 1100 },
-                                                                          new ImageSize { Name = "medium", MaxWidth = 1300, MaxHeight = 700 },
-                                                                          new ImageSize { Name = "small", MaxWidth = 600, MaxHeight = 600 },
-                                                                          new ImageSize { Name = "thumbnail", MaxWidth = 200, MaxHeight = 200 }
-                                                                      };
 
         private static readonly ImageCodecInfo JpegEncoder = ImageCodecInfo.GetImageDecoders().SingleOrDefault(c => c.FormatID == ImageFormat.Jpeg.Guid);
 
@@ -28,17 +22,17 @@ namespace MediaCommMvc.Web.Photos
             this.imageResizer = imageResizer;
         }
 
-        public void GenerateAllImageSizes(string originalImageFilePath)
+        public void GenerateAllImageSizes(string originalImageFilePath, List<ImageSize> sizesToGenerate)
         {
             using (Image sourceImage = Image.FromFile(originalImageFilePath))
             {
-                foreach (ImageSize size in SizesToGenerate)
+                foreach (ImageSize size in sizesToGenerate)
                 {
                     FileInfo originalImageFile = new FileInfo(originalImageFilePath);
                     string targetFilename = $"{originalImageFile.Name.Replace(originalImageFile.Extension, string.Empty)}_{size.Name}{originalImageFile.Extension}";
                     string targetFilePath = Path.Combine(originalImageFile.DirectoryName, targetFilename);
-
-                    using (Image newImage = this.imageResizer.ResizeImage(sourceImage, size.MaxWidth, size.MaxHeight))
+                    
+                    using (Image newImage = this.imageResizer.GetResizedImage(sourceImage, size))
                     {
                         this.SaveJpeg(targetFilePath, newImage);
                     }
@@ -55,15 +49,6 @@ namespace MediaCommMvc.Web.Photos
                     image.Save(path, JpegEncoder, encoderParams);
                 }
             }
-        }
-
-        private class ImageSize
-        {
-            public int MaxWidth { get; set; }
-
-            public int MaxHeight { get; set; }
-
-            public string Name { get; set; }
         }
     }
 }

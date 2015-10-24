@@ -1,18 +1,13 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Hosting;
+﻿using System.Web;
 using System.Web.Mvc;
 
 using MediaCommMvc.Web.Account;
-using MediaCommMvc.Web.Forum;
 using MediaCommMvc.Web.Photos;
+using MediaCommMvc.Web.Photos.ViewModels;
 
 namespace MediaCommMvc.Web.Controllers
 {
+    [Authorize]
     public partial class PhotosController : RavenController
     {
         private readonly PhotoMetaDataStorage photoMetaDataStorage;
@@ -33,6 +28,11 @@ namespace MediaCommMvc.Web.Controllers
         public virtual ActionResult Upload()
         {
             return this.View(new UploadPhotosViewModel { ExistingAlbums = this.photoMetaDataStorage.GetAllAlbumNames() });
+        }
+
+        public virtual ActionResult View(string filename)
+        {
+            
         }
 
         [HttpPost]

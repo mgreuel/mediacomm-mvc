@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using MediaCommMvc.Web.Photos.Models;
+
 using Raven.Client;
 
 namespace MediaCommMvc.Web.Photos
@@ -19,10 +21,10 @@ namespace MediaCommMvc.Web.Photos
             return this.documentSession.Query<PhotoAlbum>().Select(a => a.Title).ToList();
         }
 
-        public void SavePhoto(string album, string fileName)
+        public void SavePhoto(string album, Photo photo)
         {
             var photoAlbum = this.documentSession.Query<PhotoAlbum>().SingleOrDefault(a => a.Title == album) ?? new PhotoAlbum { Title = album};
-            photoAlbum.Photos.Add(new Photo { Filename = fileName});
+            photoAlbum.Photos.Add(photo);
             this.documentSession.Store(photoAlbum);
         }
     }

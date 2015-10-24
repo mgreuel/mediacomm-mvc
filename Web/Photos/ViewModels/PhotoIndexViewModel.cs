@@ -1,4 +1,4 @@
-namespace MediaCommMvc.Web.Photos
+namespace MediaCommMvc.Web.Photos.ViewModels
 {
     public class PhotoIndexViewModel 
     {

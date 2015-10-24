@@ -3,46 +3,43 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Hosting;
 
-using MediaCommMvc.Web.Infrastructure;
+using MediaCommMvc.Web.Photos.Models;
 
 namespace MediaCommMvc.Web.Photos
 {
     public class PhotoImporter
     {
-        private readonly PhotoMetaDataStorage photoMetaDataStorage;
-
         private readonly ImageGenerator imageGenerator;
 
-        public PhotoImporter(PhotoMetaDataStorage photoMetaDataStorage, ImageGenerator imageGenerator)
+        private readonly ImageSizeCalculator imageSizeCalculator;
+
+        private readonly ImageRotator imageRotator;
+
+        private readonly PhotoMetaDataStorage photoMetaDataStorage;
+
+        public PhotoImporter(PhotoMetaDataStorage photoMetaDataStorage, ImageGenerator imageGenerator, ImageSizeCalculator imageSizeCalculator, ImageRotator imageRotator)
         {
             this.photoMetaDataStorage = photoMetaDataStorage;
             this.imageGenerator = imageGenerator;
+            this.imageSizeCalculator = imageSizeCalculator;
+            this.imageRotator = imageRotator;
         }
 
         public void ImportPhoto(Stream inputStream, string filename, string album, string photoStorageRootFolder)
         {
             Image originalImage = Image.FromStream(inputStream);
-            RotateImageIfRequired(originalImage);
+            this.imageRotator.RotateImageIfRequired(originalImage);
 
             string targetPath = this.GetStoragePathForImage(filename, album, photoStorageRootFolder);
             originalImage.Save(targetPath);
 
-            this.photoMetaDataStorage.SavePhoto(album, filename);
+            List<ImageSize> targetSizes = PhotoOptions.MaxSizesToGenerate.Select(size => this.imageSizeCalculator.CalculateTargetSize(originalImage, size)).ToList();
 
-            HostingEnvironment.QueueBackgroundWorkItem(token => this.imageGenerator.GenerateAllImageSizes(targetPath));
-        }
+            this.photoMetaDataStorage.SavePhoto(album, new Photo { Filename = filename, Width = originalImage.Width, Height = originalImage.Height, ImageSizes = targetSizes });
 
-        private static void RotateImageIfRequired(Image originalImage)
-        {
-            if (ExifRotation.ImageNeedsRotation(originalImage))
-            {
-                ExifRotation.ExifOrientations imageRotation = ExifRotation.DetermineImageRotation(originalImage);
-                ExifRotation.RotateImageUsingExifOrientation(originalImage, imageRotation);
-            }
+            HostingEnvironment.QueueBackgroundWorkItem(token => this.imageGenerator.GenerateAllImageSizes(targetPath, targetSizes));
         }
 
         private string GetStoragePathForImage(string filename, string album, string photoStorageRootFolder)

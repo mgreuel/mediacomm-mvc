@@ -1,31 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MediaCommMvc.Web.Photos
 {
-    public static class ExifRotation
+    public class ImageRotator
     {
         private const int OrientationId = 0x0112;
 
-        public enum ExifOrientations : byte
-        {
-            Unknown = 0,
-            TopLeft = 1,
-            TopRight = 2,
-            BottomRight = 3,
-            BottomLeft = 4,
-            LeftTop = 5,
-            RightTop = 6,
-            RightBottom = 7,
-            LeftBottom = 8,
-        }
-
-        public static ExifOrientations DetermineImageRotation(Image img)
+        private static ExifOrientations DetermineImageRotation(Image img)
         {
             int orientationIndex = Array.IndexOf(img.PropertyIdList, OrientationId);
 
@@ -37,13 +20,13 @@ namespace MediaCommMvc.Web.Photos
             return (ExifOrientations)img.GetPropertyItem(OrientationId).Value[0];
         }
 
-        public static bool ImageNeedsRotation(Image img)
+        private static bool ImageNeedsRotation(Image img)
         {
             ExifOrientations imageRotation = DetermineImageRotation(img);
             return imageRotation != ExifOrientations.Unknown && imageRotation != ExifOrientations.TopLeft;
         }
 
-        public static void RotateImageUsingExifOrientation(Image img, ExifOrientations orientation)
+        private static void RotateImageUsingExifOrientation(Image img, ExifOrientations orientation)
         {
             switch (orientation)
             {
@@ -76,7 +59,7 @@ namespace MediaCommMvc.Web.Photos
             SetImageOrientation(img, ExifOrientations.TopLeft);
         }
 
-        public static void SetImageOrientation(Image img, ExifOrientations orientation)
+        private static void SetImageOrientation(Image img, ExifOrientations orientation)
         {
             int orientationIndex = Array.IndexOf(img.PropertyIdList, OrientationId);
 
@@ -88,6 +71,36 @@ namespace MediaCommMvc.Web.Photos
             PropertyItem item = img.GetPropertyItem(OrientationId);
             item.Value[0] = (byte)orientation;
             img.SetPropertyItem(item);
+        }
+
+        public void RotateImageIfRequired(Image originalImage)
+        {
+            if (ImageRotator.ImageNeedsRotation(originalImage))
+            {
+                ImageRotator.ExifOrientations imageRotation = ImageRotator.DetermineImageRotation(originalImage);
+                ImageRotator.RotateImageUsingExifOrientation(originalImage, imageRotation);
+            }
+        }
+
+        private enum ExifOrientations : byte
+        {
+            Unknown = 0,
+
+            TopLeft = 1,
+
+            TopRight = 2,
+
+            BottomRight = 3,
+
+            BottomLeft = 4,
+
+            LeftTop = 5,
+
+            RightTop = 6,
+
+            RightBottom = 7,
+
+            LeftBottom = 8,
         }
     }
 }

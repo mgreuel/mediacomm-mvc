@@ -3,6 +3,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
+using MediaCommMvc.Web.Photos.Models;
+
 namespace MediaCommMvc.Web.Photos
 {
     public class ImageResizer
@@ -10,10 +12,8 @@ namespace MediaCommMvc.Web.Photos
         /// <summary>
         /// see http://stackoverflow.com/a/24199315
         /// </summary>
-        public Image ResizeImage(Image image, int maxWidth, int maxHeight)
+        public Image GetResizedImage(Image image, ImageSize targetSize)
         {
-            Size targetSize = CalculateTargetSize(image, maxWidth, maxHeight);
-
             var destRect = new Rectangle(0, 0, targetSize.Width, targetSize.Height);
             var destImage = new Bitmap(targetSize.Width, targetSize.Height);
 
@@ -35,19 +35,6 @@ namespace MediaCommMvc.Web.Photos
             }
 
             return destImage;
-        }
-
-        private static Size CalculateTargetSize(Image image, int maxWidth, int maxHeight)
-        {
-            float originalHeight = Convert.ToSingle(image.Height);
-            float originalWidth = Convert.ToSingle(image.Width);
-
-            float scale = Math.Max(originalHeight / maxHeight, originalWidth / maxWidth);
-            int targetWidth = Convert.ToInt32(originalHeight / scale);
-            int targetHeight = Convert.ToInt32(originalWidth / scale);
-
-            Size targetSize = new Size(targetHeight, targetWidth);
-            return targetSize;
         }
     }
 }

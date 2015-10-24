@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace MediaCommMvc.Web.Photos
+namespace MediaCommMvc.Web.Photos.ViewModels
 {
     public class UploadPhotosViewModel 
     {
