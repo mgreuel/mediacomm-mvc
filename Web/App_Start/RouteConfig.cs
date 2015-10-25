@@ -9,14 +9,16 @@ namespace MediaCommMvc.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute("forum", "forum/{page}", MVC.Forum.Index(), constraints: new { page = @"\d+" });
+            routes.MapMvcAttributeRoutes();
 
-            routes.MapRoute("topic", "forum/topic/{id}/{name}/{page}", MVC.Forum.Topic().AddRouteValue("page", 1));
+            //routes.MapRoute("forum", "forum/{page}", MVC.Forum.Index(), constraints: new { page = @"\d+" });
 
-            routes.MapRoute(
-                name: "Default", 
-                url: "{controller}/{action}/{id}", 
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, page = 1 });
+            //routes.MapRoute("topic", "forum/topic/{id}/{name}/{page}", MVC.Forum.Topic().AddRouteValue("page", 1));
+
+            //routes.MapRoute(
+            //    name: "Default", 
+            //    url: "{controller}/{action}/{id}", 
+            //    defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, page = 1 });
         }
     }
 }

@@ -7,19 +7,21 @@ using MediaCommMvc.Web.Infrastructure;
 
 using Raven.Client;
 
-
 namespace MediaCommMvc.Web.Controllers
 {
     public abstract partial class RavenController : Controller
     {
         private readonly UserStorage userStorage;
 
-        private IDocumentSession RavenSession { get; set; }
-
-        public RavenController(UserStorage userStorage)
+        public RavenController(UserStorage userStorage, Config config)
         {
             this.userStorage = userStorage;
+            this.Config = config;
         }
+
+        private IDocumentSession RavenSession { get; set; }
+
+        protected Config Config { get; private set; }
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -32,8 +34,7 @@ namespace MediaCommMvc.Web.Controllers
                 return;
             }
 
-            this.Config = this.RavenSession.Load<Config>(MvcApplication.ConfigId);
-            this.ViewBag.Config = this.Config;
+            this.ViewBag.Sitename = this.Config.Sitename;
         }
 
         protected override void OnActionExecuted(ActionExecutedContext filterContext)
@@ -58,7 +59,5 @@ namespace MediaCommMvc.Web.Controllers
         {
             return this.userStorage.GetAllUsernames().Select(u => new SelectListItem { Text = u, Value = u }).ToList();
         }
-
-        protected Config Config { get; private set; }
     }
 }

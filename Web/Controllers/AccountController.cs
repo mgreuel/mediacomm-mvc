@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 using MediaCommMvc.Web.Account;
 using MediaCommMvc.Web.Account.ViewModels;
+using MediaCommMvc.Web.Infrastructure;
 using MediaCommMvc.Web.Models;
 
 using Microsoft.AspNet.Identity.Owin;
@@ -19,7 +20,7 @@ namespace MediaCommMvc.Web.Controllers
 
         private readonly UserStorage userStorage;
 
-        public AccountController(LoginService loginService, UserStorage userStorage) : base(userStorage)
+        public AccountController(LoginService loginService, UserStorage userStorage, Config config) : base(userStorage, config)
         {
             this.loginService = loginService;
             this.userStorage = userStorage;

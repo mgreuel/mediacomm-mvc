@@ -71,6 +71,8 @@ namespace MediaCommMvc.Web.App_Start
         {
             kernel.Bind<IDocumentSession>().ToMethod(context => DocumentStoreContainer.CurrentSession);
 
+            kernel.Bind<Config>().ToMethod(context => DocumentStoreContainer.CurrentSession.Load<Config>(MvcApplication.ConfigId));
+
             kernel.Bind<IAuthenticationManager>().ToMethod(context => HttpContext.Current.GetOwinContext().Authentication);
         }        
     }

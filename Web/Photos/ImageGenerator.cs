@@ -17,9 +17,12 @@ namespace MediaCommMvc.Web.Photos
 
         private readonly ImageResizer imageResizer;
 
-        public ImageGenerator(ImageResizer imageResizer)
+        private readonly PhotoStorage photoStorage;
+
+        public ImageGenerator(ImageResizer imageResizer, PhotoStorage photoStorage)
         {
             this.imageResizer = imageResizer;
+            this.photoStorage = photoStorage;
         }
 
         public void GenerateAllImageSizes(string originalImageFilePath, List<ImageSize> sizesToGenerate)
@@ -29,7 +32,7 @@ namespace MediaCommMvc.Web.Photos
                 foreach (ImageSize size in sizesToGenerate)
                 {
                     FileInfo originalImageFile = new FileInfo(originalImageFilePath);
-                    string targetFilename = $"{originalImageFile.Name.Replace(originalImageFile.Extension, string.Empty)}_{size.Name}{originalImageFile.Extension}";
+                    string targetFilename = this.photoStorage.GetFileNameForImageSize(originalImageFile.Name, size.Name);
                     string targetFilePath = Path.Combine(originalImageFile.DirectoryName, targetFilename);
                     
                     using (Image newImage = this.imageResizer.GetResizedImage(sourceImage, size))

@@ -5,6 +5,7 @@ using MediaCommMvc.Web.Account;
 using MediaCommMvc.Web.Forum;
 using MediaCommMvc.Web.Forum.ViewModels;
 using MediaCommMvc.Web.Helpers;
+using MediaCommMvc.Web.Infrastructure;
 
 using PagedList;
 
@@ -17,8 +18,8 @@ namespace MediaCommMvc.Web.Controllers
 
         private readonly ForumStorageWriter forumStorageWriter;
 
-        public ForumController(UserStorage userStorage, ForumStorageReader forumStorageReader, ForumStorageWriter forumStorageWriter)
-            : base(userStorage)
+        public ForumController(UserStorage userStorage, ForumStorageReader forumStorageReader, ForumStorageWriter forumStorageWriter, Config config)
+            : base(userStorage, config)
         {
             this.forumStorageReader = forumStorageReader;
             this.forumStorageWriter = forumStorageWriter;

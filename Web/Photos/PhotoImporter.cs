@@ -19,42 +19,31 @@ namespace MediaCommMvc.Web.Photos
 
         private readonly PhotoMetaDataStorage photoMetaDataStorage;
 
-        public PhotoImporter(PhotoMetaDataStorage photoMetaDataStorage, ImageGenerator imageGenerator, ImageSizeCalculator imageSizeCalculator, ImageRotator imageRotator)
+        private readonly PhotoStorage photoStorage;
+
+        public PhotoImporter(PhotoMetaDataStorage photoMetaDataStorage, ImageGenerator imageGenerator, ImageSizeCalculator imageSizeCalculator, ImageRotator imageRotator, PhotoStorage photoStorage)
         {
             this.photoMetaDataStorage = photoMetaDataStorage;
             this.imageGenerator = imageGenerator;
             this.imageSizeCalculator = imageSizeCalculator;
             this.imageRotator = imageRotator;
+            this.photoStorage = photoStorage;
         }
 
         public void ImportPhoto(Stream inputStream, string filename, string album, string photoStorageRootFolder)
         {
-            Image originalImage = Image.FromStream(inputStream);
-            this.imageRotator.RotateImageIfRequired(originalImage);
-
-            string targetPath = this.GetStoragePathForImage(filename, album, photoStorageRootFolder);
-            originalImage.Save(targetPath);
-
-            List<ImageSize> targetSizes = PhotoOptions.MaxSizesToGenerate.Select(size => this.imageSizeCalculator.CalculateTargetSize(originalImage, size)).ToList();
-
-            this.photoMetaDataStorage.SavePhoto(album, new Photo { Filename = filename, Width = originalImage.Width, Height = originalImage.Height, ImageSizes = targetSizes });
-
-            HostingEnvironment.QueueBackgroundWorkItem(token => this.imageGenerator.GenerateAllImageSizes(targetPath, targetSizes));
-        }
-
-        private string GetStoragePathForImage(string filename, string album, string photoStorageRootFolder)
-        {
-            string directoryPath = Path.Combine(photoStorageRootFolder, album);
-            string targetPath = Path.Combine(directoryPath, filename);
-
-            Directory.CreateDirectory(directoryPath);
-
-            if (File.Exists(targetPath))
+            using (Image originalImage = Image.FromStream(inputStream))
             {
-                targetPath = targetPath.Insert(targetPath.LastIndexOf("."), DateTime.UtcNow.ToString("_yyyyMMdd_HHmmss"));
-            }
+                this.imageRotator.RotateImageIfRequired(originalImage);
 
-            return targetPath;
+                string targetPath = this.photoStorage.StorePhoto(originalImage, filename, album);
+                
+                List<ImageSize> targetSizes = PhotoOptions.MaxSizesToGenerate.Select(size => this.imageSizeCalculator.CalculateTargetSize(originalImage, size)).ToList();
+
+                this.photoMetaDataStorage.SavePhoto(album, new Photo { Filename = filename, Width = originalImage.Width, Height = originalImage.Height, ImageSizes = targetSizes });
+
+                HostingEnvironment.QueueBackgroundWorkItem(token => this.imageGenerator.GenerateAllImageSizes(targetPath, targetSizes));
+            }
         }
     }
 }

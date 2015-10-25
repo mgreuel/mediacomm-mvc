@@ -297,6 +297,7 @@
     <Compile Include="Photos\PhotoImporter.cs" />
     <Compile Include="Photos\PhotoMetaDataStorage.cs" />
     <Compile Include="Photos\PhotoOptions.cs" />
+    <Compile Include="Photos\PhotoStorage.cs" />
     <Compile Include="Photos\ViewModels\PhotoIndexViewModel.cs" />
     <Compile Include="Photos\ViewModels\UploadPhotosViewModel.cs" />
     <Compile Include="RavenController.generated.cs">

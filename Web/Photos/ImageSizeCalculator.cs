@@ -9,12 +9,12 @@ namespace MediaCommMvc.Web.Photos
     {
         public ImageSize CalculateTargetSize(Image image, ImageSize maxImageSize)
         {
-            float originalHeight = Convert.ToSingle(image.Height);
             float originalWidth = Convert.ToSingle(image.Width);
+            float originalHeight = Convert.ToSingle(image.Height);
 
             float scale = Math.Max(originalWidth / maxImageSize.Width, originalHeight / maxImageSize.Height);
-            int targetWidth = Convert.ToInt32(originalHeight / scale);
-            int targetHeight = Convert.ToInt32(originalWidth / scale);
+            int targetWidth = Convert.ToInt32(originalWidth / scale);
+            int targetHeight = Convert.ToInt32(originalHeight / scale);
 
             return new ImageSize { Name = maxImageSize.Name, Width = targetWidth, Height = targetHeight };
         }

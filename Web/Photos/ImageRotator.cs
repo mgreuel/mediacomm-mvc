@@ -75,10 +75,10 @@ namespace MediaCommMvc.Web.Photos
 
         public void RotateImageIfRequired(Image originalImage)
         {
-            if (ImageRotator.ImageNeedsRotation(originalImage))
+            if (ImageNeedsRotation(originalImage))
             {
-                ImageRotator.ExifOrientations imageRotation = ImageRotator.DetermineImageRotation(originalImage);
-                ImageRotator.RotateImageUsingExifOrientation(originalImage, imageRotation);
+                ExifOrientations imageRotation = DetermineImageRotation(originalImage);
+                RotateImageUsingExifOrientation(originalImage, imageRotation);
             }
         }
 
