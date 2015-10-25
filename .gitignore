@@ -157,5 +157,8 @@ $RECYCLE.BIN/
 
 #Sass
 */.sass-cache
-/Web/App_Data
-Web/Properties/PublishProfiles/
+
+
+Web/App_Data
+Web/Properties/PublishProfiles
+*.pubxml
