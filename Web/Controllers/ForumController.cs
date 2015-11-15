@@ -2,8 +2,8 @@
 using System.Web.Mvc;
 
 using MediaCommMvc.Web.Account;
-using MediaCommMvc.Web.Forum;
-using MediaCommMvc.Web.Forum.ViewModels;
+using MediaCommMvc.Web.Features.Forum;
+using MediaCommMvc.Web.Features.Forum.ViewModels;
 using MediaCommMvc.Web.Helpers;
 using MediaCommMvc.Web.Infrastructure;
 
@@ -11,6 +11,8 @@ using PagedList;
 
 namespace MediaCommMvc.Web.Controllers
 {
+    [RoutePrefix("forum")]
+    [Route("{action=index}")]
     [Authorize]
     public partial class ForumController : RavenController
     {
@@ -43,6 +45,7 @@ namespace MediaCommMvc.Web.Controllers
             return this.RedirectToPost(topicPage);
         }
 
+        [Route("{page}")]
         public virtual ActionResult Index(int page)
         {
             ForumOverview forumOverview = this.forumStorageReader.GetForumOverview(page, ForumOptions.TopicsPerPage, this.User.Identity.Name);

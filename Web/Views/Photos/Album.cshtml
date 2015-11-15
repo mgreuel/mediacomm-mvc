@@ -1,0 +1,30 @@
+﻿@using MediaCommMvc.Web.Features.Photos.ViewModels
+@model PhotoAlbumViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+<h3>@Model.Title</h3>
+
+
+@foreach (PhotoItemViewModel photo in Model.Photos)
+{
+    <div class="photo-thumbnail-container">
+        <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" height="@photo.Height" width="@photo.Width" data-original="@Url.Action(MVC.Photos.ViewPhoto().AddRouteValues(new { albumname = Model.Name, filename = photo.Filename, size = "thumbnail" }))" />
+    </div>
+}
+
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/images");
+
+    <script>
+        $(function () {
+            $("img.lazy").lazyload({
+                threshold: 200
+            });
+        });
+    </script>
+}

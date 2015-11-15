@@ -131,6 +131,8 @@ namespace Links
         public static readonly string jquery_validate_unobtrusive_min_js = Url("jquery.validate.unobtrusive.min.js");
         public static readonly string load_image_all_min_js = Url("load-image.all.min.js");
         public static readonly string modernizr_2_8_3_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/modernizr-2.8.3.min.js") ? Url("modernizr-2.8.3.min.js") : Url("modernizr-2.8.3.js");
+        public static readonly string photoswipe_ui_default_min_js = Url("photoswipe-ui-default.min.js");
+        public static readonly string photoswipe_min_js = Url("photoswipe.min.js");
         public static readonly string respond_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.min.js") ? Url("respond.min.js") : Url("respond.js");
         public static readonly string respond_matchmedia_addListener_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/respond.matchmedia.addListener.min.js") ? Url("respond.matchmedia.addListener.min.js") : Url("respond.matchmedia.addListener.js");
         public static readonly string respond_matchmedia_addListener_min_js = Url("respond.matchmedia.addListener.min.js");
@@ -186,6 +188,27 @@ namespace Links
     
         public static readonly string PagedList_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/PagedList.min.css") ? Url("PagedList.min.css") : Url("PagedList.css");
              
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public static class photoswipe {
+            private const string URLPATH = "~/Content/photoswipe";
+            public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+            public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+            [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+            public static class default_skin {
+                private const string URLPATH = "~/Content/photoswipe/default-skin";
+                public static string Url() { return T4MVCHelpers.ProcessVirtualPath(URLPATH); }
+                public static string Url(string fileName) { return T4MVCHelpers.ProcessVirtualPath(URLPATH + "/" + fileName); }
+                public static readonly string default_skin_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/default-skin.min.css") ? Url("default-skin.min.css") : Url("default-skin.css");
+                     
+                public static readonly string default_skin_png = Url("default-skin.png");
+                public static readonly string default_skin_svg = Url("default-skin.svg");
+                public static readonly string preloader_gif = Url("preloader.gif");
+            }
+        
+            public static readonly string photoswipe_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/photoswipe.min.css") ? Url("photoswipe.min.css") : Url("photoswipe.css");
+                 
+        }
+    
         public static readonly string Site_css = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/Site.min.css") ? Url("Site.min.css") : Url("Site.css");
              
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -356,6 +379,8 @@ namespace Links
                 public const string jquery_validate_unobtrusive_min_js = "~/Scripts/jquery.validate.unobtrusive.min.js"; 
                 public const string load_image_all_min_js = "~/Scripts/load-image.all.min.js"; 
                 public const string modernizr_2_8_3_js = "~/Scripts/modernizr-2.8.3.js"; 
+                public const string photoswipe_ui_default_min_js = "~/Scripts/photoswipe-ui-default.min.js"; 
+                public const string photoswipe_min_js = "~/Scripts/photoswipe.min.js"; 
                 public const string respond_js = "~/Scripts/respond.js"; 
                 public const string respond_matchmedia_addListener_js = "~/Scripts/respond.matchmedia.addListener.js"; 
                 public const string respond_matchmedia_addListener_min_js = "~/Scripts/respond.matchmedia.addListener.min.js"; 
@@ -383,6 +408,20 @@ namespace Links
                 }
                 public static class Assets
                 {
+                }
+            }
+            public static partial class photoswipe 
+            {
+                public static partial class default_skin 
+                {
+                    public static class Assets
+                    {
+                        public const string default_skin_css = "~/Content/photoswipe/default-skin/default-skin.css";
+                    }
+                }
+                public static class Assets
+                {
+                    public const string photoswipe_css = "~/Content/photoswipe/photoswipe.css";
                 }
             }
             public static partial class themes 

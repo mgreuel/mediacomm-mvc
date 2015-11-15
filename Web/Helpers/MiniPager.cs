@@ -2,9 +2,8 @@
 using System.Text;
 using System.Web.Mvc;
 
-using MediaCommMvc.Web.Forum;
-using MediaCommMvc.Web.Forum.ViewModels;
-using MediaCommMvc.Web.Infrastructure;
+using MediaCommMvc.Web.Features.Forum;
+using MediaCommMvc.Web.Features.Forum.ViewModels;
 
 namespace MediaCommMvc.Web.Helpers
 {

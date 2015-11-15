@@ -5,9 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 
 using MediaCommMvc.Web.Account;
-using MediaCommMvc.Web.Forum;
-using MediaCommMvc.Web.Forum.Models;
-using MediaCommMvc.Web.Forum.ViewModels;
+using MediaCommMvc.Web.Features.Forum;
+using MediaCommMvc.Web.Features.Forum.ViewModels;
 using MediaCommMvc.Web.Models;
 
 namespace MediaCommMvc.Web.Controllers

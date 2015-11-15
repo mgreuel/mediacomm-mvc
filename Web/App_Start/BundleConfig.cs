@@ -46,6 +46,12 @@ namespace MediaCommMvc.Web
                     ));
 
             bundles.Add(
+                new ScriptBundle("~/bundles/images")
+                    .Include(
+                        "~/Scripts/jquery.lazyload.min.js"
+                    ));
+
+            bundles.Add(
                 new StyleBundle("~/Content/css").Include(
                     "~/Content/bootstrap3-wysihtml5.min.css",
                     "~/Content/bootstrap.cerulean.css",

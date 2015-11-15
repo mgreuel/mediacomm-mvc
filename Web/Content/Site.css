@@ -274,3 +274,46 @@ input[type="checkbox"].input-validation-error {
 .photo-upload-album {
     margin: 20px 0;
 }
+
+/* End Photo Upload */
+
+/* Start photo album index */
+
+.photo-album-row {
+    cursor: pointer;
+}
+
+.photo-upload-button-container {
+    margin-top: 8px;
+    margin-bottom: 10px;
+}
+
+
+/* End Album index */
+
+/* Start photo album  */
+
+/* see http://stackoverflow.com/questions/7273338/how-to-vertically-align-an-image-inside-div */
+
+.photo-thumbnail-container {
+    display: inline-block;
+    width: 177px;
+    height: 177px;
+    border: 1px solid lightgray;
+    position: relative;
+}
+
+.photo-thumbnail-container img {
+    max-height: 170px;
+    max-width: 170px;
+    position: absolute;  
+    top: 0;  
+    bottom: 0;  
+    left: 0;  
+    right: 0;  
+    margin: auto;  
+}
+
+.container {
+    /*border: red 1px solid;*/
+}

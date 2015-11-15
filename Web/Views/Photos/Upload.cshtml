@@ -1,4 +1,4 @@
-﻿@model MediaCommMvc.Web.Photos.ViewModels.UploadPhotosViewModel
+﻿@model MediaCommMvc.Web.Features.Photos.ViewModels.UploadPhotosViewModel
 @using Newtonsoft.Json
 @{
     ViewBag.Title = @Resources.Photos.Upload;
@@ -13,7 +13,7 @@
             <div class="col-lg-7 photo-upload-album">
                 <label for="album">@Resources.Photos.Album</label>
 
-                <input data-val="true" data-val-required="!!Please enter an album!!" type="text" id="album" name="album" class="form-control" autocomplete="off"/>
+                <input data-val="true" data-val-required="!!Please enter an album!!" type="text" id="albumTitle" name="albumTitle" class="form-control" autocomplete="off"/>
 
                  <span class="field-validation-valid text-danger" data-valmsg-for="album" data-valmsg-replace="true"></span>
 
@@ -49,7 +49,7 @@
             <div class="col-lg-5 fileupload-progress fade">
                 <!-- The global progress bar -->
                 <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                    <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                    <div class="progress-bar progress-bar-success" style="width:0;"></div>
                 </div>
                 <!-- The extended global progress state -->
                 <div class="progress-extended">&nbsp;</div>
@@ -73,7 +73,7 @@
         </td>
         <td>
             <p class="size">!Processing...!</p>
-            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0;"></div></div>
         </td>
         <td>
             {% if (!i && !o.options.autoUpload) { %}
@@ -81,7 +81,7 @@
                 <i class="glyphicon glyphicon-upload"></i>
                 <span>!Start!</span>
             </button>
-            {% } %}*
+            {% } %}
             @*{% if (!i) { %}
                 <button class="btn btn-warning cancel">
                     <i class="glyphicon glyphicon-ban-circle"></i>
@@ -119,6 +119,9 @@
         <td>
             <span class="size">{%=o.formatFileSize(file.size)%}</span>
         </td>
+        <td>
+
+        </td>
         @*<td>
                 {% if (file.deleteUrl) { %}
                 <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}" {% if (file.deletewithcredentials) { %} data-xhr-fields='{"withCredentials":true}' {% } %}>
@@ -147,7 +150,7 @@
 
         $(function() {
 
-            var albumNames = @Html.Raw(JsonConvert.SerializeObject(Model.ExistingAlbums));;
+            var albumTitles = @Html.Raw(JsonConvert.SerializeObject(Model.ExistingAlbums));;
 
             $('#fileupload')
                 .fileupload({
@@ -155,9 +158,11 @@
                     acceptFileTypes: /(\.|\/)(jpe?g)$/i,
                     sequentialUploads: true
                 })
-                .bind('fileuploadstart', function() {
+                .bind('fileuploadstart', function(e) {
+                    
+                    $('#albumTitle').prop("readonly", true);
 
-                    $('#album').prop("readonly", true);
+
                 })
                 .bind('fileuploadsubmit', function(e, data) {
 
@@ -172,8 +177,8 @@
                 originalUnHighlight.call(validation, element, errorClass, validClass);
             }
 
-            $('#album').typeahead({
-                source: albumNames
+            $('#albumTitle').typeahead({
+                source: albumTitles
             });
         });
 

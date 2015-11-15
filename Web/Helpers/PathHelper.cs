@@ -1,21 +1,21 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace MediaCommMvc.Web.Helpers
 {
     public static class PathHelper
     {
-        private static readonly char[] InvalidCharacters = Path.GetInvalidFileNameChars().Concat(Path.GetInvalidPathChars()).Distinct().ToArray();
+        private static readonly Regex InvalidFileNameCharactersRegex = new Regex("[^0-9a-zA-Z.]+");
 
-        private static readonly string InvalidCharactersPattern = $@"[{Regex.Escape(new string(InvalidCharacters) + " $.§ß%^&;=,'^´`#")}]";
-
-        private static readonly Regex InvalidCharactersRegex = new Regex(InvalidCharactersPattern);
+        private static readonly Regex InvalidDirectoryNameCharactersRegex = new Regex("[^0-9a-zA-Z]+");
 
         public static string GetValidDirectoryName(string directoryName)
         {
-            return InvalidCharactersRegex.Replace(directoryName, "_");
+            return InvalidDirectoryNameCharactersRegex.Replace(directoryName, "_").Trim('_');
+        }
+
+        public static string GetValidFileName(string fileName)
+        {
+            return InvalidFileNameCharactersRegex.Replace(fileName, "_").Trim('_');
         }
     }
 }

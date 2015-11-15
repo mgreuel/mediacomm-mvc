@@ -56,6 +56,24 @@ namespace MediaCommMvc.Web.Controllers
             return RedirectToActionPermanent(taskResult.Result);
         }
 
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult Album()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Album);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult AlbumCover()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AlbumCover);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult ViewPhoto()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ViewPhoto);
+        }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public PhotosController Actions { get { return MVC.Photos; } }
@@ -72,25 +90,57 @@ namespace MediaCommMvc.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNamesClass
         {
+            public readonly string Album = "Album";
+            public readonly string AlbumCover = "AlbumCover";
             public readonly string Index = "Index";
             public readonly string Upload = "Upload";
+            public readonly string ViewPhoto = "ViewPhoto";
         }
 
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionNameConstants
         {
+            public const string Album = "Album";
+            public const string AlbumCover = "AlbumCover";
             public const string Index = "Index";
             public const string Upload = "Upload";
+            public const string ViewPhoto = "ViewPhoto";
         }
 
 
+        static readonly ActionParamsClass_Album s_params_Album = new ActionParamsClass_Album();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_Album AlbumParams { get { return s_params_Album; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_Album
+        {
+            public readonly string album = "album";
+        }
+        static readonly ActionParamsClass_AlbumCover s_params_AlbumCover = new ActionParamsClass_AlbumCover();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_AlbumCover AlbumCoverParams { get { return s_params_AlbumCover; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_AlbumCover
+        {
+            public readonly string albumName = "albumName";
+        }
+        static readonly ActionParamsClass_ViewPhoto s_params_ViewPhoto = new ActionParamsClass_ViewPhoto();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_ViewPhoto ViewPhotoParams { get { return s_params_ViewPhoto; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_ViewPhoto
+        {
+            public readonly string album = "album";
+            public readonly string filename = "filename";
+            public readonly string size = "size";
+        }
         static readonly ActionParamsClass_Upload s_params_Upload = new ActionParamsClass_Upload();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_Upload UploadParams { get { return s_params_Upload; } }
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Upload
         {
-            public readonly string album = "album";
+            public readonly string albumTitle = "albumTitle";
         }
         static readonly ViewsClass s_views = new ViewsClass();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -116,6 +166,30 @@ namespace MediaCommMvc.Web.Controllers
         public T4MVC_PhotosController() : base(Dummy.Instance) { }
 
         [NonAction]
+        partial void AlbumOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string album);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Album(string album)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Album);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "album", album);
+            AlbumOverride(callInfo, album);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void AlbumCoverOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string albumName);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult AlbumCover(string albumName)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.AlbumCover);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "albumName", albumName);
+            AlbumCoverOverride(callInfo, albumName);
+            return callInfo;
+        }
+
+        [NonAction]
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
@@ -138,14 +212,28 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void UploadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string album);
+        partial void ViewPhotoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string album, string filename, string size);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Upload(string album)
+        public override System.Web.Mvc.ActionResult ViewPhoto(string albumName, string filename, string size)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ViewPhoto);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "album", albumName);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "filename", filename);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "size", size);
+            ViewPhotoOverride(callInfo, albumName, filename, size);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UploadOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string albumTitle);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult Upload(string albumTitle)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Upload);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "album", album);
-            UploadOverride(callInfo, album);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "albumTitle", albumTitle);
+            UploadOverride(callInfo, albumTitle);
             return callInfo;
         }
 

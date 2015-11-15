@@ -1,13 +1,65 @@
-﻿@model MediaCommMvc.Web.Photos.ViewModels.PhotoIndexViewModel
+﻿@using MediaCommMvc.Web.Features.Photos.ViewModels
+@model PhotoIndexViewModel
 
 @{
     ViewBag.Title = Resources.Photos.PhotosTitle;
 }
 
-<h2>Photos ;)</h2>
-
-<div>
+<div class="photo-upload-button-container">
 
     @Html.ActionLink(Resources.Photos.Upload, MVC.Photos.Upload(), new { id = "upload-button", @class = "btn btn-default btn-sm" })
 
 </div>
+
+<div class="row">
+
+    <div class="col-md-8">
+        <table class="table table-hover photo-album-table">
+
+            @foreach (IGrouping<int, PhotoAlbumItemViewModel> year in Model.AlbumsByYear.OrderByDescending(g => g.Key))
+            {
+                <tr class=""><td colspan="4"><h4>@year.Key</h4></td></tr>
+
+                foreach (PhotoAlbumItemViewModel album in year.OrderByDescending(a => a.Date))
+                {
+                    <tr class="photo-album-row" data-href="@Url.Action(MVC.Photos.Album().AddRouteValue("albumName", album.Name))">
+                        <td class="hidden-xs">
+                            <img class="lazy" height="50" data-original="@Url.Action(MVC.Photos.AlbumCover().AddRouteValue("albumName", album.Name))" alt="cover"/>
+                        </td>
+                        <td>
+                            <a>@album.Title</a>
+                        </td>
+                        <td class="hidden-xs">
+                            @album.PhotoCount @Resources.Photos.PhotosTitle
+                        </td>
+                        <td class="hidden-xs">
+                            @album.Date.ToString("dd.MM.yyyy")
+                        </td>
+                    </tr>
+                }
+            }
+        </table>
+    </div>
+
+    <div class="random-images col-md-4 hidden-sm">
+        
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/images");
+
+    <script>
+        $(function() {
+            $(".photo-album-row").click(function () {
+                window.document.location = $(this).data("href");
+            });
+
+            $("img.lazy").lazyload({
+                threshold: 200,
+                skip_invisible: true
+            });
+        });
+    </script>
+}

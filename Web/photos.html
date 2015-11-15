@@ -84,36 +84,54 @@
     var items = [
         {
             smallImage: {
-                src: 'file:///C:/temp/Absolutmoments/Photos/test123/DSC01771_small.JPG',
-                w: 600,
-                h: 400
+                src: 'http://localhost:62418/Photos/View/test_123/img_3034.jpg/small',
+                w: 400,
+                h: 600
             },
             mediumImage: {
-                src: 'file:///C:/temp/Absolutmoments/Photos/test123/DSC01771_medium.JPG',
-                w: 1050,
+                src: 'http://localhost:62418/Photos/View/test_123/img_3034.jpg/medium',
+                w: 467,
                 h: 700
             },
             largeImage: {
-                src: 'file:///C:/temp/Absolutmoments/Photos/test123/DSC01771_large.JPG',
-                w: 1650,
+                src: 'http://localhost:62418/Photos/View/test_123/img_3034.jpg/large',
+                w: 733,
                 h: 1100
             }
 
         },
         {
             smallImage: {
-                src: 'file:///C:/temp/Absolutmoments/Photos/test123/DSC01822_small.JPG',
+                src: 'http://localhost:62418/Photos/View/test_123/IMG_7725_Final.jpg/small',
                 w: 600,
-                h: 400
+                h: 355
             },
             mediumImage: {
-                src: 'file:///C:/temp/Absolutmoments/Photos/test123/DSC01822_medium.JPG',
-                w: 1050,
+                src: 'http://localhost:62418/Photos/View/test_123/IMG_7725_Final.jpg/medium',
+                w: 1182,
                 h: 700
             },
             largeImage: {
-                src: 'file:///C:/temp/Absolutmoments/Photos/test123/DSC01822_large.JPG',
-                w: 1650,
+                src: 'http://localhost:62418/Photos/View/test_123/IMG_7725_Final.jpg/large',
+                w: 1858,
+                h: 1100
+            }
+
+        },
+        {
+            smallImage: {
+                src: 'http://localhost:62418/Photos/View/test_123/IMG_3285.jpg/small',
+                w: 400,
+                h: 600
+            },
+            mediumImage: {
+                src: 'http://localhost:62418/Photos/View/test_123/IMG_3285.jpg/medium',
+                w: 467,
+                h: 700
+            },
+            largeImage: {
+                src: 'http://localhost:62418/Photos/View/test_123/IMG_3285.jpg/large',
+                w: 733,
                 h: 1100
             }
 
@@ -143,12 +161,12 @@
         // gallery.viewportSize.y - height of PhotoSwipe viewport
         // window.devicePixelRatio - ratio between physical pixels and device independent pixels (Number)
         //                          1 (regular display), 2 (@2x, retina) ...
+        
 
+        // Not just multiplying devicePixelRatio with the viewport size to prevent mobile devices from loading large files
+        realViewportWidth = window.gallery.viewportSize.x;
 
-        // calculate real pixels when size changes
-        realViewportWidth = gallery.viewportSize.x * window.devicePixelRatio;
-
-        console.log(realViewportWidth);
+        console.log("viewport:" + window.gallery.viewportSize.x);
 
         // Code below is needed if you want image to switch dynamically on window.resize
 
@@ -158,16 +176,22 @@
             useMediumImages = false;
             useSmallImages = true;
             imageSrcWillChange = true;
+
+            console.log("small images");
         } else if (!useMediumImages && realViewportWidth >= 700 && realViewportWidth < 1600) {
             useLargeImages = false;
             useMediumImages = true;
             useSmallImages = false;
             imageSrcWillChange = true;
+
+            console.log("medium images");
         } else if (!useLargeImages && realViewportWidth >= 1600){
             useLargeImages = true;
             useMediumImages = false;
             useSmallImages = false;
             imageSrcWillChange = true;
+
+            console.log("large iamges");
         }
 
         // Invalidate items only when source is changed and when it's not the first update
