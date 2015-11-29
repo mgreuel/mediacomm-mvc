@@ -4,16 +4,101 @@
 @{
     ViewBag.Title = Model.Title;
 }
-<h3>@Model.Title</h3>
 
-
-@foreach (PhotoItemViewModel photo in Model.Photos)
+@section head
 {
-    <div class="photo-thumbnail-container">
-        <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" height="@photo.Height" width="@photo.Width" data-original="@Url.Action(MVC.Photos.ViewPhoto().AddRouteValues(new { albumname = Model.Name, filename = photo.Filename, size = "thumbnail" }))" />
-    </div>
+    @Styles.Render("~/Content/css/images")
 }
 
+<h3>@Model.Title</h3>
+
+<div id="gallery" data-pswp-uid="1">
+    @foreach (PhotoItemViewModel photo in Model.Photos)
+    {
+        <div class="photo-thumbnail-container">
+            <a class="image-element" href="@Url.Action(MVC.Photos.ViewPhoto().AddRouteValues(new { albumname = Model.Name, filename = photo.Filename, size = "large" }))"
+               data-large-src="@Url.Action(MVC.Photos.ViewPhoto().AddRouteValues(new { albumname = Model.Name, filename = photo.Filename, size = "large" }))"
+               data-large-width="@photo.LargeWidth" data-large-height="@photo.LargeHeight"
+               data-medium-src="@Url.Action(MVC.Photos.ViewPhoto().AddRouteValues(new { albumname = Model.Name, filename = photo.Filename, size = "medium" }))"
+               data-medium-width="@photo.MediumWidth" data-medium-height="@photo.MediumHeight"
+               data-small-src="@Url.Action(MVC.Photos.ViewPhoto().AddRouteValues(new { albumname = Model.Name, filename = photo.Filename, size = "small" }))"
+               data-small-width="@photo.SmallWidth" data-small-height="@photo.SmallHeight">
+
+
+                <img class="lazy" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                     data-original="@Url.Action(MVC.Photos.ViewPhoto().AddRouteValues(new { albumname = Model.Name, filename = photo.Filename, size = "thumbnail" }))"/>
+            </a>
+        </div>
+    }
+</div>
+
+
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="!Close (Esc)!"></button>
+
+                @*<button class="pswp__button pswp__button--download" title="Absolut">A!</button>*@
+
+                @*<button class="pswp__button pswp__button--share" title="!Share!"></button>*@
+
+                <button class="pswp__button pswp__button--fs" title="!Toggle fullscreen!"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="!Zoom in/out!"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="!Previous (arrow left)!"></button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="!Next (arrow right)!"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 
 @section scripts
@@ -21,10 +106,221 @@
     @Scripts.Render("~/bundles/images");
 
     <script>
-        $(function () {
+
+        var photoswipeParseHash = function() {
+            var hash = window.location.hash.substring(1),
+                params = {};
+
+            if (hash.length < 5) { // pid=1
+                return params;
+            }
+
+            var vars = hash.split('&');
+            for (var i = 0; i < vars.length; i++) {
+                if (!vars[i]) {
+                    continue;
+                }
+                var pair = vars[i].split('=');
+                if (pair.length < 2) {
+                    continue;
+                }
+                params[pair[0]] = pair[1];
+            }
+
+            if (params.gid) {
+                params.gid = parseInt(params.gid, 10);
+            }
+
+            return params;
+        };
+
+        var getGalleryItems = function() {
+            var items = [];
+
+            $(".image-element").each(function(index, value) {
+                var $image = $(this);
+
+                var item = {
+                    //title : "something",
+                    msrc : $image.find("img").data("original"),
+                    smallImage: {
+                        src: $image.data("small-src"),
+                        w: parseInt($image.data("small-width"), 10),
+                        h: parseInt($image.data("small-height"), 10)
+                    },
+                    mediumImage: {
+                        src: $image.data("medium-src"),
+                        w: parseInt($image.data("medium-width"), 10),
+                        h: parseInt($image.data("medium-height"), 10)
+                    },
+                    largeImage: {
+                        src: $image.data("large-src"),
+                        w: parseInt($image.data("large-width"), 10),
+                        h: parseInt($image.data("large-height"), 10)
+                    }
+                };
+
+                items.push(item);
+            });
+
+            return items;
+        };
+
+        var openPhotoSwipe = function(index, disableAnimation) {
+            var pswpElement = document.querySelectorAll('.pswp')[0];
+
+            var items = getGalleryItems();
+
+            // define options (if needed)
+            var options = {
+                galleryUID: 1,
+                index: parseInt(index, 10),
+                getThumbBoundsFn: function(index) {
+                    // See Options->getThumbBoundsFn section of docs for more info
+                    index = index + 1;
+                    var thumbnail = $(".photo-thumbnail-container:nth-child(" + index + ") img")[0],
+                        pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                        rect = thumbnail.getBoundingClientRect();
+
+                    return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                }
+                //,
+
+                //addCaptionHTMLFn: function (item, captionEl, isFake) {
+                    //if (!item.title) {
+                    //    captionEl.children[0].innerText = '';
+                    //    return false;
+                    //}
+                    @*captionEl.children[0].innerHTML = '<a class="approval-button btn btn-primary btn-xs" data-topic-id="@Model.Id" data-post-index="@post.IndexInTopic" data-url="@Url.Action(MVC.Forum.AddApproval())">@Resources.Approval.IApprove</a>'; "test 123";// item.title + '<br/><small>Photo: ' + item.author + '</small>';
+                    return true;
+                }*@
+            };
+
+            // exit if index not found
+            if (isNaN(options.index)) {
+                return;
+            }
+
+            if (disableAnimation) {
+                options.showAnimationDuration = 0;
+            }
+
+            // Pass data to PhotoSwipe and initialize it
+            var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+
+            // create variable that will store real size of viewport
+            var realViewportWidth,
+                useLargeImages = false,
+                useMediumImages = false,
+                useSmallImages = true,
+                firstResize = true,
+                imageSrcWillChange;
+
+            // beforeResize event fires each time size of gallery viewport updates
+            gallery.listen('beforeResize', function() {
+                // gallery.viewportSize.x - width of PhotoSwipe viewport
+                // gallery.viewportSize.y - height of PhotoSwipe viewport
+                // window.devicePixelRatio - ratio between physical pixels and device independent pixels (Number)
+                //                          1 (regular display), 2 (2x, retina) ...
+
+
+                // Not just multiplying devicePixelRatio with the viewport size to prevent mobile devices from loading large files
+                realViewportWidth = gallery.viewportSize.x;
+
+                //console.log("viewport:" + gallery.viewportSize.x);
+
+                // Code below is needed if you want image to switch dynamically on window.resize
+
+                // Find out if current images need to be changed
+                if (!useSmallImages && realViewportWidth < 700) {
+                    useLargeImages = false;
+                    useMediumImages = false;
+                    useSmallImages = true;
+                    imageSrcWillChange = true;
+
+                    //console.log("small images");
+                } else if (!useMediumImages && realViewportWidth >= 700 && realViewportWidth < 1600) {
+                    useLargeImages = false;
+                    useMediumImages = true;
+                    useSmallImages = false;
+                    imageSrcWillChange = true;
+
+                    //console.log("medium images");
+                } else if (!useLargeImages && realViewportWidth >= 1600) {
+                    useLargeImages = true;
+                    useMediumImages = false;
+                    useSmallImages = false;
+                    imageSrcWillChange = true;
+
+                    //console.log("large iamges");
+                }
+
+                // Invalidate items only when source is changed and when it's not the first update
+                if (imageSrcWillChange && !firstResize) {
+                    // invalidateCurrItems sets a flag on slides that are in DOM,
+                    // which will force update of content (image) on window.resize.
+                    gallery.invalidateCurrItems();
+                }
+
+                if (firstResize) {
+                    firstResize = false;
+                }
+
+                imageSrcWillChange = false;
+
+            });
+
+            // gettingData event fires each time PhotoSwipe retrieves image source & size
+            gallery.listen('gettingData', function(index, item) {
+
+                // Set image source & size based on real viewport width
+                if (useLargeImages) {
+                    item.src = item.largeImage.src;
+                    item.w = item.largeImage.w;
+                    item.h = item.largeImage.h;
+                } else if (useMediumImages) {
+                    item.src = item.mediumImage.src;
+                    item.w = item.mediumImage.w;
+                    item.h = item.mediumImage.h;
+                } else {
+                    item.src = item.smallImage.src;
+                    item.w = item.smallImage.w;
+                    item.h = item.smallImage.h;
+                }
+
+                // It doesn't really matter what will you do here,
+                // as long as item.src, item.w and item.h have valid values.
+                //
+                // Just avoid http requests in this listener, as it fires quite often
+
+            });
+
+            // Note that init() method is called after gettingData event is bound
+            gallery.init();
+        };
+
+
+        $(function() {
+
             $("img.lazy").lazyload({
                 threshold: 200
             });
+
+
+            $(".photo-thumbnail-container").click(function (e) {
+                e.preventDefault();
+                var $container = $(this);
+                var index = $container.index();
+                openPhotoSwipe(index);
+            });
+
+
+            var hashData = photoswipeParseHash();
+            if (hashData.pid && hashData.gid) {
+                openPhotoSwipe(hashData.pid, true);
+            }
+
+
         });
     </script>
 }

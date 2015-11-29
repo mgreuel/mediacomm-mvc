@@ -48,8 +48,16 @@ namespace MediaCommMvc.Web
             bundles.Add(
                 new ScriptBundle("~/bundles/images")
                     .Include(
-                        "~/Scripts/jquery.lazyload.min.js"
+                        "~/Scripts/jquery.lazyload.min.js",
+                        "~/Scripts/photoswipe.min.js",
+                        "~/Scripts/photoswipe-ui-default.min.js"
                     ));
+
+            bundles.Add(
+                new StyleBundle("~/Content/css/images")
+                    .Include("~/Content/photoswipe/photoswipe.css", new CssRewriteUrlTransform())
+                    .Include("~/Content/photoswipe/default-skin/default-skin.css", new CssRewriteUrlTransform())
+                );
 
             bundles.Add(
                 new StyleBundle("~/Content/css").Include(

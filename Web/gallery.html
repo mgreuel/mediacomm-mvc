@@ -8,19 +8,15 @@
 </head>
 <body>
 
-    <div class="my-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+    <div class="my-gallery" >
 
-        <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-            <a href="http://localhost:62418/Photos/View/test_123/img_3034.jpg/large" itemprop="contentUrl" data-size="600x400">
-                <img src="http://localhost:62418/Photos/View/test_123/img_3034.jpg/thumbnail" itemprop="thumbnail" alt="Image description" />
+            <a href="http://localhost:62418/photos/view/test321/Hochzeit_M_T_63.JPG/large" itemprop="contentUrl" data-size="600x400">
+                <img src="http://localhost:62418/photos/view/test321/Hochzeit_M_T_63.JPG/thumbnail" itemprop="thumbnail" alt="Image description" />
             </a>
-        </figure>
 
-        <figure itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-            <a href="http://localhost:62418/Photos/View/test_123/IMG_7725_Final.jpg/large" itemprop="contentUrl" data-size="600x400">
-                <img src="http://localhost:62418/Photos/View/test_123/IMG_7725_Final.jpg/thumbnail" itemprop="thumbnail" alt="Image description" />
+            <a href="http://localhost:62418/photos/view/test321/Hochzeit_M_T_74.JPG/large" itemprop="contentUrl" data-size="600x400">
+                <img src="http://localhost:62418/photos/view/test321/Hochzeit_M_T_74.JPG/thumbnail" itemprop="thumbnail" alt="Image description" />
             </a>
-        </figure>
 
 
     </div>
@@ -184,7 +180,7 @@
         // Not just multiplying devicePixelRatio with the viewport size to prevent mobile devices from loading large files
         realViewportWidth = window.gallery.viewportSize.x;
 
-        console.log("viewport:" + window.gallery.viewportSize.x);
+        //console.log("viewport:" + window.gallery.viewportSize.x);
 
         // Code below is needed if you want image to switch dynamically on window.resize
 
@@ -255,7 +251,7 @@
 
 
     // Note that init() method is called after gettingData event is bound
-    //gallery.init();
+    gallery.init();
 </script>
 </body>
 </html>

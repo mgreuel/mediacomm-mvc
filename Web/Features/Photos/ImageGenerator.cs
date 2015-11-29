@@ -22,7 +22,7 @@ namespace MediaCommMvc.Web.Features.Photos
 
         private readonly PhotoStorage photoStorage;
 
-        private static int NumberOfOperationsInProgress = 0;
+        private static int numberOfOperationsInProgress;
 
         public ImageGenerator(ImageResizer imageResizer, PhotoStorage photoStorage)
         {
@@ -33,15 +33,15 @@ namespace MediaCommMvc.Web.Features.Photos
         public void GenerateAllImageSizes(string originalImageFilePath, List<ImageSize> sizesToGenerate)
         {
             // too many parallel threads generating images cause OutOfMemoryExceptions
-            while (NumberOfOperationsInProgress >= 4)
+            while (numberOfOperationsInProgress >= 4)
             {
                 Thread.Sleep(1000);
             }
 
+            Interlocked.Increment(ref numberOfOperationsInProgress);
+
             try
             {
-                Interlocked.Increment(ref NumberOfOperationsInProgress);
-
                 using (Image sourceImage = Image.FromFile(originalImageFilePath))
                 {
                     foreach (ImageSize size in sizesToGenerate)
@@ -59,7 +59,7 @@ namespace MediaCommMvc.Web.Features.Photos
             }
             finally
             {
-                Interlocked.Decrement(ref NumberOfOperationsInProgress);
+                Interlocked.Decrement(ref numberOfOperationsInProgress);
             }
         }
 

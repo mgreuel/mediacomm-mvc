@@ -314,6 +314,13 @@ input[type="checkbox"].input-validation-error {
     margin: auto;  
 }
 
+.pswp__button--download, .pswp__button--download:before {
+    background: none;
+  /*ckground-size: 20px 20px;*/
+  width: 44px;
+  height: 44px;
+}
+
 .container {
     /*border: red 1px solid;*/
 }

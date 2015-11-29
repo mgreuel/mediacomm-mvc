@@ -52,7 +52,16 @@ namespace MediaCommMvc.Web.Features.Photos
             {
                 Name = photoAlbum.Name,
                 Title = photoAlbum.Title,
-                Photos = photoAlbum.Photos.Select(p => new PhotoItemViewModel { Width = p.ImageSizes.Single(iz => iz.Name == "thumbnail").Width, Height = p.ImageSizes.Single(iz => iz.Name == "thumbnail").Height, Filename = p.Filename }).ToList()
+                Photos = photoAlbum.Photos.Select(p => new PhotoItemViewModel
+                {
+                    LargeWidth = p.ImageSizes.Single(iz => iz.Name == "large").Width,
+                    LargeHeight = p.ImageSizes.Single(iz => iz.Name == "large").Height,
+                    MediumWidth = p.ImageSizes.Single(iz => iz.Name == "medium").Width,
+                    MediumHeight = p.ImageSizes.Single(iz => iz.Name == "medium").Height,
+                    SmallWidth = p.ImageSizes.Single(iz => iz.Name == "small").Width,
+                    SmallHeight = p.ImageSizes.Single(iz => iz.Name == "small").Height,
+                    Filename = p.Filename
+                }).ToList()
             };
         }
     }

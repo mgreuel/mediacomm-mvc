@@ -58,7 +58,7 @@ namespace MediaCommMvc.Web.Controllers
             return this.View(new UploadPhotosViewModel { ExistingAlbums = this.photoMetaDataStorage.GetAllAlbumTitles() });
         }
 
-        [Route("Photos/View/{albumname}/{filename}/{size}")]
+        [Route("view/{albumname}/{filename}/{size}")]
         [OutputCache(Location = OutputCacheLocation.Client, Duration = 60 * 60 * 24)]
         public virtual ActionResult ViewPhoto(string albumName, string filename, string size)
         {
