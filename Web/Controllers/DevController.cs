@@ -4,10 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using MediaCommMvc.Web.Account;
+using MediaCommMvc.Web.Features.Account;
 using MediaCommMvc.Web.Features.Forum;
 using MediaCommMvc.Web.Features.Forum.ViewModels;
-using MediaCommMvc.Web.Models;
 
 namespace MediaCommMvc.Web.Controllers
 {

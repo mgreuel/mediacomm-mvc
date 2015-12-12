@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using MediaCommMvc.Web.Models;
+using MediaCommMvc.Web.Features.Account.ViewModels;
 
 using Raven.Client;
 
-namespace MediaCommMvc.Web.Account
+namespace MediaCommMvc.Web.Features.Account
 {
     public class UserStorage
     {
@@ -35,6 +35,11 @@ namespace MediaCommMvc.Web.Account
         public IEnumerable<string> GetAllUsernames()
         {
             return this.ravenSession.Query<User>().Select(u => u.UserName).ToList();
+        }
+
+        public IList<UserOverviewItemViewModel> GetUserOverView()
+        {
+            return this.ravenSession.Query<User>().Select(u => new UserOverviewItemViewModel { Username = u.UserName, Firstname = u.FirstName, Lastname = u.LastName }).ToList();
         }
     }
 }

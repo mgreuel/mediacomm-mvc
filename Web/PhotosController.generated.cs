@@ -114,7 +114,7 @@ namespace MediaCommMvc.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_Album
         {
-            public readonly string album = "album";
+            public readonly string albumName = "albumName";
         }
         static readonly ActionParamsClass_AlbumCover s_params_AlbumCover = new ActionParamsClass_AlbumCover();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -130,7 +130,7 @@ namespace MediaCommMvc.Web.Controllers
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public class ActionParamsClass_ViewPhoto
         {
-            public readonly string album = "album";
+            public readonly string albumName = "albumName";
             public readonly string filename = "filename";
             public readonly string size = "size";
         }
@@ -152,9 +152,11 @@ namespace MediaCommMvc.Web.Controllers
             public _ViewNamesClass ViewNames { get { return s_ViewNames; } }
             public class _ViewNamesClass
             {
+                public readonly string Album = "Album";
                 public readonly string Index = "Index";
                 public readonly string Upload = "Upload";
             }
+            public readonly string Album = "~/Views/Photos/Album.cshtml";
             public readonly string Index = "~/Views/Photos/Index.cshtml";
             public readonly string Upload = "~/Views/Photos/Upload.cshtml";
         }
@@ -166,14 +168,14 @@ namespace MediaCommMvc.Web.Controllers
         public T4MVC_PhotosController() : base(Dummy.Instance) { }
 
         [NonAction]
-        partial void AlbumOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string album);
+        partial void AlbumOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string albumName);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Album(string album)
+        public override System.Web.Mvc.ActionResult Album(string albumName)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Album);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "album", album);
-            AlbumOverride(callInfo, album);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "albumName", albumName);
+            AlbumOverride(callInfo, albumName);
             return callInfo;
         }
 
@@ -212,13 +214,13 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void ViewPhotoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string album, string filename, string size);
+        partial void ViewPhotoOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string albumName, string filename, string size);
 
         [NonAction]
         public override System.Web.Mvc.ActionResult ViewPhoto(string albumName, string filename, string size)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ViewPhoto);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "album", albumName);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "albumName", albumName);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "filename", filename);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "size", size);
             ViewPhotoOverride(callInfo, albumName, filename, size);

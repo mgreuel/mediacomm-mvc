@@ -123,6 +123,8 @@ namespace Links
             public static readonly string jquery_iframe_transport_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.iframe-transport.min.js") ? Url("jquery.iframe-transport.min.js") : Url("jquery.iframe-transport.js");
         }
     
+        public static readonly string jquery_lazyload_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.lazyload.min.js") ? Url("jquery.lazyload.min.js") : Url("jquery.lazyload.js");
+        public static readonly string jquery_lazyload_min_js = Url("jquery.lazyload.min.js");
         public static readonly string jquery_ui_widget_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.ui.widget.min.js") ? Url("jquery.ui.widget.min.js") : Url("jquery.ui.widget.js");
         public static readonly string jquery_validate_vsdoc_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate-vsdoc.min.js") ? Url("jquery.validate-vsdoc.min.js") : Url("jquery.validate-vsdoc.js");
         public static readonly string jquery_validate_js = T4MVCHelpers.IsProduction() && T4Extensions.FileExists(URLPATH + "/jquery.validate.min.js") ? Url("jquery.validate.min.js") : Url("jquery.validate.js");
@@ -372,6 +374,8 @@ namespace Links
                 public const string jquery_2_1_4_min_js = "~/Scripts/jquery-2.1.4.min.js"; 
                 public const string jquery_ui_1_9_0_js = "~/Scripts/jquery-ui-1.9.0.js"; 
                 public const string jquery_ui_1_9_0_min_js = "~/Scripts/jquery-ui-1.9.0.min.js"; 
+                public const string jquery_lazyload_js = "~/Scripts/jquery.lazyload.js"; 
+                public const string jquery_lazyload_min_js = "~/Scripts/jquery.lazyload.min.js"; 
                 public const string jquery_ui_widget_js = "~/Scripts/jquery.ui.widget.js"; 
                 public const string jquery_validate_js = "~/Scripts/jquery.validate.js"; 
                 public const string jquery_validate_min_js = "~/Scripts/jquery.validate.min.js"; 

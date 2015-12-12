@@ -1,4 +1,4 @@
-namespace MediaCommMvc.Web.Models
+namespace MediaCommMvc.Web.Features.Account
 {
     public static class UserRoles
     {

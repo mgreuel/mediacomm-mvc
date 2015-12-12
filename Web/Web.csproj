@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MediaCommMvc.Web</RootNamespace>
     <AssemblyName>MediaCommMvc.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -224,15 +224,6 @@
     <Compile Include="AccountController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Account\LoginService.cs" />
-    <Compile Include="Account\UserStorage.cs" />
-    <Compile Include="Account\ViewModels\ChangePasswordViewModel.cs" />
-    <Compile Include="Account\ViewModels\ForgotPasswordViewModel.cs" />
-    <Compile Include="Account\ViewModels\ForgotViewModel.cs" />
-    <Compile Include="Account\ViewModels\LoginViewModel.cs" />
-    <Compile Include="Account\ViewModels\RegisterViewModel.cs" />
-    <Compile Include="Account\ViewModels\ResetPasswordViewModel.cs" />
-    <Compile Include="Account\ViewModels\SetPasswordViewModel.cs" />
     <Compile Include="App_Start\AuthenticationConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -248,6 +239,18 @@
     <Compile Include="DevController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
+    <Compile Include="Features\Account\LoginService.cs" />
+    <Compile Include="Features\Account\User.cs" />
+    <Compile Include="Features\Account\UserRoles.cs" />
+    <Compile Include="Features\Account\UserStorage.cs" />
+    <Compile Include="Features\Account\ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="Features\Account\ViewModels\ForgotPasswordViewModel.cs" />
+    <Compile Include="Features\Account\ViewModels\ForgotViewModel.cs" />
+    <Compile Include="Features\Account\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Features\Account\ViewModels\RegisterViewModel.cs" />
+    <Compile Include="Features\Account\ViewModels\ResetPasswordViewModel.cs" />
+    <Compile Include="Features\Account\ViewModels\UserOverviewItemViewModel.cs" />
+    <Compile Include="Features\Account\ViewModels\UserProfileViewModel.cs" />
     <Compile Include="Features\Forum\ForumOptions.cs" />
     <Compile Include="Features\Forum\ForumStorageReader.cs" />
     <Compile Include="Features\Forum\ForumStorageWriter.cs" />
@@ -306,8 +309,6 @@
     <Compile Include="ManageController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
-    <Compile Include="Account\User.cs" />
-    <Compile Include="Account\UserRoles.cs" />
     <Compile Include="PhotosController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>
     </Compile>
@@ -424,6 +425,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\amBeta.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\canvas-to-blob.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
@@ -482,8 +484,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -502,12 +502,11 @@
     <Content Include="Views\Forum\EditPost.cshtml" />
     <Content Include="Views\Photos\Upload.cshtml" />
     <Content Include="Views\Photos\Album.cshtml" />
-    <None Include="Views\Photos\Index.cshtml" />
+    <Content Include="Views\Photos\Index.cshtml" />
+    <None Include="Views\Account\UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Features\Users\" />
-    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

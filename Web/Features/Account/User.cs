@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace MediaCommMvc.Web.Models
+namespace MediaCommMvc.Web.Features.Account
 {
     public class User
     {
@@ -73,7 +73,7 @@ namespace MediaCommMvc.Web.Models
         {
             using (var sha = SHA256.Create())
             {
-                var computedHash = sha.ComputeHash(Encoding.Unicode.GetBytes(this.PasswordSalt + pwd + ConstantSalt));
+                byte[] computedHash = sha.ComputeHash(Encoding.Unicode.GetBytes(this.PasswordSalt + pwd + ConstantSalt));
                 return Convert.ToBase64String(computedHash);
             }
         }
@@ -81,7 +81,10 @@ namespace MediaCommMvc.Web.Models
         public bool ValidatePassword(string maybePwd)
         {
             if (this.HashedPassword == null)
+            {
                 return true;
+            }
+
             return this.HashedPassword == this.GetHashedPassword(maybePwd);
         }
     }

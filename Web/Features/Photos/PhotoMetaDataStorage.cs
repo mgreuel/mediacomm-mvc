@@ -27,7 +27,8 @@ namespace MediaCommMvc.Web.Features.Photos
         public void SavePhoto(string albumTitle, Photo photo)
         {
             string albumName = PathHelper.GetValidDirectoryName(albumTitle);
-            var photoAlbum = this.documentSession.Query<PhotoAlbum>().SingleOrDefault(a => a.Title == albumTitle) ?? new PhotoAlbum { Title = albumTitle, Name = albumName, Created = DateTime.UtcNow };
+
+            var photoAlbum = this.documentSession.Load<PhotoAlbum>(PhotoAlbum.GetIdForName(albumName)) ?? new PhotoAlbum { Title = albumTitle, Name = albumName, Created = DateTime.UtcNow };
             photoAlbum.Photos.Add(photo);
             this.documentSession.Store(photoAlbum);
         }

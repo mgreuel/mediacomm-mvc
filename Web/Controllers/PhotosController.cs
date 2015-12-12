@@ -7,7 +7,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.UI;
 
-using MediaCommMvc.Web.Account;
+using MediaCommMvc.Web.Features.Account;
 using MediaCommMvc.Web.Features.Photos;
 using MediaCommMvc.Web.Features.Photos.ViewModels;
 using MediaCommMvc.Web.Infrastructure;

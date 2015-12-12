@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 
+using MediaCommMvc.Web.Features.Account;
 using MediaCommMvc.Web.Features.Forum.Models;
-using MediaCommMvc.Web.Models;
 
 namespace MediaCommMvc.Web.Features.Forum.ViewModels
 {

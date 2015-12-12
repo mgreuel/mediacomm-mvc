@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
-using MediaCommMvc.Web.Account;
-using MediaCommMvc.Web.Account.ViewModels;
+using MediaCommMvc.Web.Features.Account;
+using MediaCommMvc.Web.Features.Account.ViewModels;
 using MediaCommMvc.Web.Infrastructure;
-using MediaCommMvc.Web.Models;
 
 using Microsoft.AspNet.Identity.Owin;
 
@@ -56,24 +56,6 @@ namespace MediaCommMvc.Web.Controllers
             }
 
             return this.View(new LoginViewModel { Username = input.Username, ReturnUrl = input.ReturnUrl });
-            
-
-            //this.SignInManager.PasswordSignInAsync
-            //// This doesn't count login failures towards account lockout
-            //// To enable password failures to trigger account lockout, change to shouldLockout: true
-            //var result = await this.SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
-            //switch (result)
-            //{
-            //    case SignInStatus.Success:
-            //        return this.RedirectToLocal(returnUrl);
-            //    case SignInStatus.LockedOut:
-            //        return this.View("Lockout");
-            //    case SignInStatus.RequiresVerification:
-            //        return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, model.RememberMe });
-            //    default:
-            //        this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            //        return this.View(model);
-            //}
         }
 
 
@@ -105,6 +87,19 @@ namespace MediaCommMvc.Web.Controllers
         public virtual ActionResult ForgotPassword()
         {
             return this.View();
+        }
+
+        [Route("users")]
+        public virtual ActionResult UserList()
+        {
+            IList<UserOverviewItemViewModel> users = this.userStorage.GetUserOverView();
+            return this.View(users);
+        }
+
+        [Route("users/profile/{username}")]
+        public virtual ActionResult UserProfile(string username)
+        {
+            return this.View(new UserProfileViewModel());
         }
 
         [HttpPost]
@@ -178,23 +173,12 @@ namespace MediaCommMvc.Web.Controllers
             return this.View();
         }
 
-     
-
         [HttpPost]
         public virtual ActionResult LogOff()
         {
             this.loginService.SignOut();
             return this.RedirectToAction(MVC.Account.Login());
         }
-
-
-        #region Helpers
-
-        // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
-       
-
-        #endregion
 
         protected ActionResult RedirectToLocal(string url)
         {

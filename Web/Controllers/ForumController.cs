@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
-using MediaCommMvc.Web.Account;
+using MediaCommMvc.Web.Features.Account;
 using MediaCommMvc.Web.Features.Forum;
 using MediaCommMvc.Web.Features.Forum.ViewModels;
 using MediaCommMvc.Web.Helpers;
@@ -45,7 +45,7 @@ namespace MediaCommMvc.Web.Controllers
             return this.RedirectToPost(topicPage);
         }
 
-        [Route("{page}")]
+        [Route("{page=1}")]
         public virtual ActionResult Index(int page)
         {
             ForumOverview forumOverview = this.forumStorageReader.GetForumOverview(page, ForumOptions.TopicsPerPage, this.User.Identity.Name);
@@ -80,12 +80,14 @@ namespace MediaCommMvc.Web.Controllers
             return this.RedirectToAction(MVC.Forum.Topic().AddRouteValues(new { id = topicId, name = viewModel.Title }));
         }
 
+        [Route("EditPost/{topicId}/{postIndex}")]
         public virtual ActionResult EditPost(string topicId, int postIndex)
         {
             EditPostViewModel viewModel = this.forumStorageReader.GetEditPostViewModel(topicId, postIndex);
             return this.View(viewModel);
         }
 
+        [Route("EditTopic/{id}")]
         public virtual ActionResult EditTopic(string id)
         {
             EditTopicViewModel viewModel = this.forumStorageReader.GetEditTopicViewModel(id);
@@ -140,6 +142,7 @@ namespace MediaCommMvc.Web.Controllers
             return this.RedirectToPost(topicPage);
         }
 
+        [Route("{id}/{name}/{page=1}")]
         public virtual ActionResult Topic(string id, int page)
         {
             TopicDetailsViewModel topicDetailsViewModel = this.forumStorageReader.GetTopicDetailsViewModel(id, page, this.User.Identity.Name);

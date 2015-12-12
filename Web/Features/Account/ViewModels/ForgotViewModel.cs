@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MediaCommMvc.Web.Account.ViewModels
+namespace MediaCommMvc.Web.Features.Account.ViewModels
 {
     public class ForgotViewModel
     {

@@ -87,12 +87,12 @@
                 <span>!Start!</span>
             </button>
             {% } %}
-            @*{% if (!i) { %}
-                <button class="btn btn-warning cancel">
+            {% if (!i) { %}
+                <button class="btn btn-warning cancel hidden">
                     <i class="glyphicon glyphicon-ban-circle"></i>
                     <span>!Cancel!</span>
                 </button>
-                {% } %}*@
+                {% } %}
         </td>
     </tr>
     {% } %}

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 
-using MediaCommMvc.Web.Account;
+using MediaCommMvc.Web.Features.Account;
 using MediaCommMvc.Web.Infrastructure;
 
 using Raven.Client;

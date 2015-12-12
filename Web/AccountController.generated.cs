@@ -64,6 +64,12 @@ namespace MediaCommMvc.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult UserProfile()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UserProfile);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult ResetPassword()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ResetPassword);
@@ -87,6 +93,8 @@ namespace MediaCommMvc.Web.Controllers
             public readonly string Login = "Login";
             public readonly string Register = "Register";
             public readonly string ForgotPassword = "ForgotPassword";
+            public readonly string UserList = "UserList";
+            public readonly string UserProfile = "UserProfile";
             public readonly string ForgotPasswordConfirmation = "ForgotPasswordConfirmation";
             public readonly string ResetPassword = "ResetPassword";
             public readonly string ResetPasswordConfirmation = "ResetPasswordConfirmation";
@@ -99,6 +107,8 @@ namespace MediaCommMvc.Web.Controllers
             public const string Login = "Login";
             public const string Register = "Register";
             public const string ForgotPassword = "ForgotPassword";
+            public const string UserList = "UserList";
+            public const string UserProfile = "UserProfile";
             public const string ForgotPasswordConfirmation = "ForgotPasswordConfirmation";
             public const string ResetPassword = "ResetPassword";
             public const string ResetPasswordConfirmation = "ResetPasswordConfirmation";
@@ -122,6 +132,14 @@ namespace MediaCommMvc.Web.Controllers
         public class ActionParamsClass_Register
         {
             public readonly string model = "model";
+        }
+        static readonly ActionParamsClass_UserProfile s_params_UserProfile = new ActionParamsClass_UserProfile();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_UserProfile UserProfileParams { get { return s_params_UserProfile; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_UserProfile
+        {
+            public readonly string username = "username";
         }
         static readonly ActionParamsClass_ForgotPassword s_params_ForgotPassword = new ActionParamsClass_ForgotPassword();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
@@ -151,24 +169,22 @@ namespace MediaCommMvc.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _ChangePasswordPartial = "_ChangePasswordPartial";
-                public readonly string _SetPasswordPartial = "_SetPasswordPartial";
-                public readonly string ConfirmEmail = "ConfirmEmail";
                 public readonly string ForgotPassword = "ForgotPassword";
                 public readonly string ForgotPasswordConfirmation = "ForgotPasswordConfirmation";
                 public readonly string Login = "Login";
                 public readonly string Register = "Register";
                 public readonly string ResetPassword = "ResetPassword";
                 public readonly string ResetPasswordConfirmation = "ResetPasswordConfirmation";
+                public readonly string UserList = "UserList";
             }
             public readonly string _ChangePasswordPartial = "~/Views/Account/_ChangePasswordPartial.cshtml";
-            public readonly string _SetPasswordPartial = "~/Views/Account/_SetPasswordPartial.cshtml";
-            public readonly string ConfirmEmail = "~/Views/Account/ConfirmEmail.cshtml";
             public readonly string ForgotPassword = "~/Views/Account/ForgotPassword.cshtml";
             public readonly string ForgotPasswordConfirmation = "~/Views/Account/ForgotPasswordConfirmation.cshtml";
             public readonly string Login = "~/Views/Account/Login.cshtml";
             public readonly string Register = "~/Views/Account/Register.cshtml";
             public readonly string ResetPassword = "~/Views/Account/ResetPassword.cshtml";
             public readonly string ResetPasswordConfirmation = "~/Views/Account/ResetPasswordConfirmation.cshtml";
+            public readonly string UserList = "~/Views/Account/UserList.cshtml";
         }
     }
 
@@ -190,10 +206,10 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Account.ViewModels.LoginViewModel input);
+        partial void LoginOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Features.Account.ViewModels.LoginViewModel input);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Login(MediaCommMvc.Web.Account.ViewModels.LoginViewModel input)
+        public override System.Web.Mvc.ActionResult Login(MediaCommMvc.Web.Features.Account.ViewModels.LoginViewModel input)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Login);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "input", input);
@@ -213,10 +229,10 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Account.ViewModels.RegisterViewModel model);
+        partial void RegisterOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Features.Account.ViewModels.RegisterViewModel model);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Register(MediaCommMvc.Web.Account.ViewModels.RegisterViewModel model)
+        public override System.Web.Mvc.ActionResult Register(MediaCommMvc.Web.Features.Account.ViewModels.RegisterViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Register);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -236,10 +252,33 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void ForgotPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Account.ViewModels.ForgotPasswordViewModel model);
+        partial void UserListOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ForgotPassword(MediaCommMvc.Web.Account.ViewModels.ForgotPasswordViewModel model)
+        public override System.Web.Mvc.ActionResult UserList()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UserList);
+            UserListOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void UserProfileOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, string username);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult UserProfile(string username)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UserProfile);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "username", username);
+            UserProfileOverride(callInfo, username);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void ForgotPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Features.Account.ViewModels.ForgotPasswordViewModel model);
+
+        [NonAction]
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ForgotPassword(MediaCommMvc.Web.Features.Account.ViewModels.ForgotPasswordViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ForgotPassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);
@@ -271,10 +310,10 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [NonAction]
-        partial void ResetPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Account.ViewModels.ResetPasswordViewModel model);
+        partial void ResetPasswordOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Features.Account.ViewModels.ResetPasswordViewModel model);
 
         [NonAction]
-        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ResetPassword(MediaCommMvc.Web.Account.ViewModels.ResetPasswordViewModel model)
+        public override System.Threading.Tasks.Task<System.Web.Mvc.ActionResult> ResetPassword(MediaCommMvc.Web.Features.Account.ViewModels.ResetPasswordViewModel model)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ResetPassword);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "model", model);

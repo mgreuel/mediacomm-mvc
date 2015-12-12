@@ -321,6 +321,13 @@ input[type="checkbox"].input-validation-error {
   height: 44px;
 }
 
-.container {
-    /*border: red 1px solid;*/
+/* End photo album  */
+
+
+/* Start user list*/
+
+.user-table {
+    margin-top: 20px;
 }
+
+/* End user list*/
