@@ -99,7 +99,8 @@ namespace MediaCommMvc.Web.Controllers
         [Route("users/profile/{username}")]
         public virtual ActionResult UserProfile(string username)
         {
-            return this.View(new UserProfileViewModel());
+            User user = this.userStorage.GetUser(username);
+            return this.View(new UserProfileViewModel(user));
         }
 
         [HttpPost]

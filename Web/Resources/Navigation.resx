@@ -130,10 +130,10 @@
     <value>Home</value>
   </data>
   <data name="LogOff" xml:space="preserve">
-    <value>Log Off</value>
+    <value>Log Out</value>
   </data>
   <data name="LogOn" xml:space="preserve">
-    <value>Log On</value>
+    <value>Log In</value>
   </data>
   <data name="Movies" xml:space="preserve">
     <value>Movies</value>
@@ -143,9 +143,6 @@
   </data>
   <data name="Photos" xml:space="preserve">
     <value>Photos</value>
-  </data>
-  <data name="RSVP" xml:space="preserve">
-    <value>RSVP</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Users</value>

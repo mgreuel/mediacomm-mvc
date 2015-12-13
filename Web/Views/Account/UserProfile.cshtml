@@ -1,0 +1,61 @@
+﻿@using MediaCommMvc.Web.Features.Account
+@model MediaCommMvc.Web.Features.Account.ViewModels.UserProfileViewModel
+
+@{
+    ViewBag.Title = Model.Username;
+}
+
+<h3>@Model.Username</h3>
+
+<table class="table user-table">
+    <tbody>
+        <tr>
+            <td>@Resources.Users.FirstName </td>
+            <td>@Model.Firstname</td>
+        </tr>
+        <tr>
+            <td>@Resources.Users.LastName </td>
+            <td>@Model.Lastname</td>
+        </tr>
+        <tr>
+            <td>@Resources.Users.EMailAddress </td>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <td>@Resources.Users.DateOfBirth </td>
+            <td>@Model.DateOfBirth</td>
+        </tr>
+        <tr>
+            <td>@Resources.Users.SkypeNick </td>
+            <td>@Model.SkypeNick</td>
+        </tr>
+        <tr>
+            <td>@Resources.Users.PhoneNumber </td>
+            <td>@Model.PhoneNumber</td>
+        </tr>
+        <tr>
+            <td>@Resources.Users.MobilePhoneNumber </td>
+            <td>@Model.MobilePhoneNumber</td>
+        </tr>
+        <tr>
+            <td>@Resources.Users.Street </td>
+            <td>@Model.Street</td>
+        </tr>
+        <tr>
+            <td>@Resources.Users.ZipCode </td>
+            <td>@Model.ZipCode</td>
+        </tr>
+        <tr>
+            <td>@Resources.Users.City </td>
+            <td>@Model.City</td>
+        </tr>
+        @if (User.IsInRole(UserRoles.Administrator))
+            {
+            <tr>
+                <td>@Resources.Users.LastVisit </td>
+                <td>@Model.LastVisit</td>
+            </tr>
+        }
+    </tbody>
+</table>
+

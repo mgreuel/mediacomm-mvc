@@ -97,7 +97,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log Off.
+        ///   Looks up a localized string similar to Log Out.
         /// </summary>
         public static string LogOff {
             get {
@@ -106,7 +106,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Log On.
+        ///   Looks up a localized string similar to Log In.
         /// </summary>
         public static string LogOn {
             get {
@@ -138,15 +138,6 @@ namespace Resources {
         public static string Photos {
             get {
                 return ResourceManager.GetString("Photos", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to RSVP.
-        /// </summary>
-        public static string RSVP {
-            get {
-                return ResourceManager.GetString("RSVP", resourceCulture);
             }
         }
         

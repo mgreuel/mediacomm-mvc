@@ -144,9 +144,6 @@
   <data name="Photos" xml:space="preserve">
     <value>Fotos</value>
   </data>
-  <data name="RSVP" xml:space="preserve">
-    <value>Rückmeldung</value>
-  </data>
   <data name="Users" xml:space="preserve">
     <value>Benutzer</value>
   </data>
