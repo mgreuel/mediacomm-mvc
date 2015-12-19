@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
+using AutoMapper;
+
 using MediaCommMvc.Web.Features.Account;
 using MediaCommMvc.Web.Features.Account.ViewModels;
 using MediaCommMvc.Web.Infrastructure;
-
-using Microsoft.AspNet.Identity.Owin;
 
 namespace MediaCommMvc.Web.Controllers
 {
@@ -101,6 +100,21 @@ namespace MediaCommMvc.Web.Controllers
         {
             User user = this.userStorage.GetUser(username);
             return this.View(new UserProfileViewModel(user));
+        }
+
+        [Route("MyProfile")]
+        public virtual ActionResult EditMyProfile()
+        {
+            User user = this.userStorage.GetUser(this.User.Identity.Name);
+            return this.View(Mapper.Map<EditUserProfileViewModel>(user));
+        }
+
+        public virtual ActionResult SaveProfile(EditUserProfileViewModel input)
+        {
+            User user = this.userStorage.GetUser(this.User.Identity.Name);
+            Mapper.Map(input, user);
+            this.userStorage.SaveUser(user);
+            return this.RedirectToAction(MVC.Account.UserProfile(this.User.Identity.Name));
         }
 
         [HttpPost]

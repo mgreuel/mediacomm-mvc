@@ -70,6 +70,12 @@ namespace MediaCommMvc.Web.Controllers
         }
         [NonAction]
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public virtual System.Web.Mvc.ActionResult SaveProfile()
+        {
+            return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SaveProfile);
+        }
+        [NonAction]
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public virtual System.Web.Mvc.ActionResult ResetPassword()
         {
             return new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.ResetPassword);
@@ -95,6 +101,8 @@ namespace MediaCommMvc.Web.Controllers
             public readonly string ForgotPassword = "ForgotPassword";
             public readonly string UserList = "UserList";
             public readonly string UserProfile = "UserProfile";
+            public readonly string EditMyProfile = "EditMyProfile";
+            public readonly string SaveProfile = "SaveProfile";
             public readonly string ForgotPasswordConfirmation = "ForgotPasswordConfirmation";
             public readonly string ResetPassword = "ResetPassword";
             public readonly string ResetPasswordConfirmation = "ResetPasswordConfirmation";
@@ -109,6 +117,8 @@ namespace MediaCommMvc.Web.Controllers
             public const string ForgotPassword = "ForgotPassword";
             public const string UserList = "UserList";
             public const string UserProfile = "UserProfile";
+            public const string EditMyProfile = "EditMyProfile";
+            public const string SaveProfile = "SaveProfile";
             public const string ForgotPasswordConfirmation = "ForgotPasswordConfirmation";
             public const string ResetPassword = "ResetPassword";
             public const string ResetPasswordConfirmation = "ResetPasswordConfirmation";
@@ -141,6 +151,14 @@ namespace MediaCommMvc.Web.Controllers
         {
             public readonly string username = "username";
         }
+        static readonly ActionParamsClass_SaveProfile s_params_SaveProfile = new ActionParamsClass_SaveProfile();
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public ActionParamsClass_SaveProfile SaveProfileParams { get { return s_params_SaveProfile; } }
+        [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
+        public class ActionParamsClass_SaveProfile
+        {
+            public readonly string input = "input";
+        }
         static readonly ActionParamsClass_ForgotPassword s_params_ForgotPassword = new ActionParamsClass_ForgotPassword();
         [GeneratedCode("T4MVC", "2.0"), DebuggerNonUserCode]
         public ActionParamsClass_ForgotPassword ForgotPasswordParams { get { return s_params_ForgotPassword; } }
@@ -169,6 +187,7 @@ namespace MediaCommMvc.Web.Controllers
             public class _ViewNamesClass
             {
                 public readonly string _ChangePasswordPartial = "_ChangePasswordPartial";
+                public readonly string EditMyProfile = "EditMyProfile";
                 public readonly string ForgotPassword = "ForgotPassword";
                 public readonly string ForgotPasswordConfirmation = "ForgotPasswordConfirmation";
                 public readonly string Login = "Login";
@@ -176,8 +195,10 @@ namespace MediaCommMvc.Web.Controllers
                 public readonly string ResetPassword = "ResetPassword";
                 public readonly string ResetPasswordConfirmation = "ResetPasswordConfirmation";
                 public readonly string UserList = "UserList";
+                public readonly string UserProfile = "UserProfile";
             }
             public readonly string _ChangePasswordPartial = "~/Views/Account/_ChangePasswordPartial.cshtml";
+            public readonly string EditMyProfile = "~/Views/Account/EditMyProfile.cshtml";
             public readonly string ForgotPassword = "~/Views/Account/ForgotPassword.cshtml";
             public readonly string ForgotPasswordConfirmation = "~/Views/Account/ForgotPasswordConfirmation.cshtml";
             public readonly string Login = "~/Views/Account/Login.cshtml";
@@ -185,6 +206,7 @@ namespace MediaCommMvc.Web.Controllers
             public readonly string ResetPassword = "~/Views/Account/ResetPassword.cshtml";
             public readonly string ResetPasswordConfirmation = "~/Views/Account/ResetPasswordConfirmation.cshtml";
             public readonly string UserList = "~/Views/Account/UserList.cshtml";
+            public readonly string UserProfile = "~/Views/Account/UserProfile.cshtml";
         }
     }
 
@@ -271,6 +293,29 @@ namespace MediaCommMvc.Web.Controllers
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.UserProfile);
             ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "username", username);
             UserProfileOverride(callInfo, username);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void EditMyProfileOverride(T4MVC_System_Web_Mvc_ActionResult callInfo);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult EditMyProfile()
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.EditMyProfile);
+            EditMyProfileOverride(callInfo);
+            return callInfo;
+        }
+
+        [NonAction]
+        partial void SaveProfileOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, MediaCommMvc.Web.Features.Account.ViewModels.EditUserProfileViewModel input);
+
+        [NonAction]
+        public override System.Web.Mvc.ActionResult SaveProfile(MediaCommMvc.Web.Features.Account.ViewModels.EditUserProfileViewModel input)
+        {
+            var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.SaveProfile);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "input", input);
+            SaveProfileOverride(callInfo, input);
             return callInfo;
         }
 

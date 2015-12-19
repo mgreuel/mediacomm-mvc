@@ -6,7 +6,7 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @*@Html.ActionLink("Hello " + User.Identity.Name + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })*@
+                @Html.ActionLink(Resources.General.Welcome + " " + User.Identity.Name, MVC.Account.EditMyProfile())
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
@@ -15,7 +15,6 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
         <li>@Html.ActionLink(Resources.Navigation.LogOn, MVC.Account.Login(), htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }

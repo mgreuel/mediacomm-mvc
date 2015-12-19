@@ -8,7 +8,7 @@
             this.Firstname = user.FirstName;
             this.Lastname = user.LastName;
             this.City = user.City;
-            this.DateOfBirth = $"{user.DateOfBirth?.ToLocalTime():g}";
+            this.DateOfBirth = user.DateOfBirth?.ToString("d");
             this.Email = user.Email;
             this.LastVisit = $"{user.LastVisit?.ToLocalTime():g}";
             this.MobilePhoneNumber = user.MobilePhoneNumber;

@@ -41,5 +41,10 @@ namespace MediaCommMvc.Web.Features.Account
         {
             return this.ravenSession.Query<User>().Select(u => new UserOverviewItemViewModel { Username = u.UserName, Firstname = u.FirstName, Lastname = u.LastName }).ToList();
         }
+
+        public void SaveUser(User user)
+        {
+            this.ravenSession.Store(user);
+        }
     }
 }

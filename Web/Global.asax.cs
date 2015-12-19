@@ -5,6 +5,8 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
+using AutoMapper;
+
 using MediaCommMvc.Web.Infrastructure;
 
 namespace MediaCommMvc.Web
@@ -19,7 +21,7 @@ namespace MediaCommMvc.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
+            MapperConfig.RegisterMappings();
             AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
 
             DocumentStoreContainer.Initialize();

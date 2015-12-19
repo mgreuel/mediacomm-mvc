@@ -6,6 +6,10 @@ namespace MediaCommMvc.Web.Features.Account
 {
     public class User
     {
+        const string ConstantSalt = "ijdsUIZ67?&";
+
+        private string passwordSalt;
+
         public string City { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
@@ -46,11 +50,8 @@ namespace MediaCommMvc.Web.Features.Account
 
         public DateTime? LastVideosNotification { get; set; }
 
-        const string ConstantSalt = "ijdsUIZ67?&";
-
         protected string HashedPassword { get; private set; }
 
-        private string passwordSalt;
         private string PasswordSalt
         {
             get
