@@ -183,6 +183,9 @@
   <data name="PreviousPage" xml:space="preserve">
     <value>previous page</value>
   </data>
+  <data name="RequiredField" xml:space="preserve">
+    <value>The field {0} is required</value>
+  </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>

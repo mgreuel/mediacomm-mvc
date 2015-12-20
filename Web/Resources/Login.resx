@@ -135,8 +135,8 @@
   <data name="Register" xml:space="preserve">
     <value>Register</value>
   </data>
-  <data name="RegistrationKey" xml:space="preserve">
-    <value>wedding date (dd.mm.yyyy)</value>
+  <data name="RegistrationKeyWrong" xml:space="preserve">
+    <value>Wrong registration key, contact the admin</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Remember Me</value>
@@ -158,5 +158,11 @@
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Log In</value>
+  </data>
+  <data name="Einga" xml:space="preserve">
+    <value />
+  </data>
+  <data name="RegistrationKey" xml:space="preserve">
+    <value>Registration key</value>
   </data>
 </root>

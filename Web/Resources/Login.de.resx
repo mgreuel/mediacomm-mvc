@@ -135,8 +135,8 @@
   <data name="Register" xml:space="preserve">
     <value>Registrieren</value>
   </data>
-  <data name="RegistrationKey" xml:space="preserve">
-    <value>Hochzeitsdatum (TT.MM.JJJJ)</value>
+  <data name="RegistrationKeyWrong" xml:space="preserve">
+    <value>Falscher Registrierungs-Code, bitte Admin kontaktieren</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Beim nächsten Mal automatisch einloggen</value>
@@ -153,13 +153,13 @@
   <data name="UsernameRequiredErrorMessage" xml:space="preserve">
     <value>Bitte einen Benutzernamen eingeben</value>
   </data>
-  <data name="WeddingDateDoesNotMatchErrorMessage" xml:space="preserve">
-    <value>Bitte unser Hochzeitsdatum im Format TT.MM.YYYY eingeben, z.B. 24.12.2013</value>
-  </data>
   <data name="UsernameOrPasswordWrongErrorMessage" xml:space="preserve">
     <value>E-mailadresse oder Passwort sind falsch</value>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Anmelden</value>
+  </data>
+  <data name="RegistrationKey" xml:space="preserve">
+    <value>Registrierungs-Code</value>
   </data>
 </root>

@@ -259,6 +259,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The field {0} is required.
+        /// </summary>
+        public static string RequiredField {
+            get {
+                return ResourceManager.GetString("RequiredField", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {

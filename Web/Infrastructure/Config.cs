@@ -7,5 +7,7 @@
         public string Sitename { get; set; }
 
         public string PhotoStorageRootFolder { get; set; }
+
+        public string RegistrationCode { get; set; }
     }
 }

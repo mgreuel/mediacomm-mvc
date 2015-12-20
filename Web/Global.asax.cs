@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Web.Helpers;
 using System.Web.Mvc;
@@ -32,17 +34,36 @@ namespace MediaCommMvc.Web
         {
             Config config = DocumentStoreContainer.CurrentSession.Load<Config>(ConfigId);
 
+            string defaultPhotoPath = @"C:\temp\Absolutmoments\Photos";
+            string defaultSitename = "Absolutmoments";
+
             if (config == null)
             {
-                DocumentStoreContainer.CurrentSession.Store(new Config
+                config = new Config
                 {
                     Id = ConfigId,
-                    Sitename = "Absolutmoments",
-                    PhotoStorageRootFolder = @"C:\temp\Absolutmoments\Photos"
-                });
-
-                DocumentStoreContainer.CurrentSession.SaveChanges();
+                    Sitename = defaultSitename,
+                    PhotoStorageRootFolder = defaultPhotoPath,
+                    RegistrationCode = RandomString(6)
+                };
             }
+            else
+            {
+                config.PhotoStorageRootFolder = config.PhotoStorageRootFolder ?? defaultPhotoPath;
+                config.Sitename = config.Sitename ?? defaultSitename;
+                config.RegistrationCode = config.RegistrationCode ?? RandomString(6);
+            }
+
+            DocumentStoreContainer.CurrentSession.Store(config);
+            DocumentStoreContainer.CurrentSession.SaveChanges();
+        }
+
+        private static string RandomString(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
         }
     }
 }

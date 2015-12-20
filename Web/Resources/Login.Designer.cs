@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Einga {
+            get {
+                return ResourceManager.GetString("Einga", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The e-mailaddress is already in use.
         /// </summary>
         public static string EmailAddressAlreadyInUseErrorMessage {
@@ -124,11 +133,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to wedding date (dd.mm.yyyy).
+        ///   Looks up a localized string similar to Registration key.
         /// </summary>
         public static string RegistrationKey {
             get {
                 return ResourceManager.GetString("RegistrationKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong registration key, contact the admin.
+        /// </summary>
+        public static string RegistrationKeyWrong {
+            get {
+                return ResourceManager.GetString("RegistrationKeyWrong", resourceCulture);
             }
         }
         

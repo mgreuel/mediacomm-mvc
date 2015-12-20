@@ -68,6 +68,11 @@ namespace MediaCommMvc.Web.Controllers
         [AllowAnonymous]
         public virtual ActionResult Register(RegisterViewModel model)
         {
+            if (!model.RegistrationCode.Equals(this.Config.RegistrationCode))
+            {
+                this.ModelState.AddModelError(string.Empty, Resources.Login.RegistrationKeyWrong);
+            }
+
             if (!this.ModelState.IsValid)
             { 
                 return this.View(model);
