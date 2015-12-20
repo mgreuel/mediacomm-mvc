@@ -147,6 +147,9 @@
   <data name="First" xml:space="preserve">
     <value>First</value>
   </data>
+  <data name="GoBackToThe" xml:space="preserve">
+    <value>Go back to the</value>
+  </data>
   <data name="GoToPage" xml:space="preserve">
     <value>Goto page</value>
   </data>
@@ -168,8 +171,17 @@
   <data name="Page" xml:space="preserve">
     <value>Page</value>
   </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>Page not found</value>
+  </data>
+  <data name="PageNotFoundMessage" xml:space="preserve">
+    <value>The page you are looking for was not found.</value>
+  </data>
   <data name="Previous" xml:space="preserve">
     <value>Previous</value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>previous page</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>

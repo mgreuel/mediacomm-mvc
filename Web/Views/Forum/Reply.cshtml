@@ -1,5 +1,8 @@
 ﻿@model MediaCommMvc.Web.Features.Forum.ViewModels.ReplyViewModel
 <div id="reply">
+    <h4>
+        @Resources.Forums.Reply
+    </h4>
     @using (Html.BeginForm("reply", "forum"))
     {
         @Html.HiddenFor(m => m.Text)
@@ -10,7 +13,7 @@
 
         </div>
         @Html.ValidationMessageFor(m => m.Text)
-        
+
         <button type="submit" class="btn btn-primary">@Resources.Forums.Reply</button>
     }
 </div>

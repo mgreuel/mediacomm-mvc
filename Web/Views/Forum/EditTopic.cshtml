@@ -137,7 +137,7 @@
                 var $textInput = $template.find('input[type=text]');
                 $textInput.prop('name', $textInput.prop('name').replace(/0/, numberOfQuestions));
                 $textInput.prop('id', $textInput.prop('id').replace(/0/, numberOfQuestions));
-                $textInput.attr('value', '');
+                $textInput.prop('value', '');
 
                 var $IdInput = $template.find('input[type=hidden]');
                 $IdInput.prop('name', $IdInput.prop('name').replace(/0/, numberOfQuestions));

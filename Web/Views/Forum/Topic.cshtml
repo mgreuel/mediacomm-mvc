@@ -176,13 +176,13 @@
                                                         if (firstPost)
                                                         {
                                                             <div class="pull-right">
-                                                                @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditTopic().AddRouteValue("id", Model.Id), new { @class = "btn btn-xs btn-warning" })
+                                                                @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditTopic().AddRouteValue("id", Model.Id), new { @class = "btn btn-xs btn-default" })
                                                             </div>
                                                         }
                                                         else
                                                         {
                                                             <div class="pull-right">
-                                                                @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditPost().AddRouteValues(new { topicId = Model.Id, postIndex = post.IndexInTopic }), new { @class = "btn btn-xs btn-warning" })
+                                                                @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditPost().AddRouteValues(new { topicId = Model.Id, postIndex = post.IndexInTopic }), new { @class = "btn btn-xs btn-default" })
                                                             </div>
                                                         }
                                                     }

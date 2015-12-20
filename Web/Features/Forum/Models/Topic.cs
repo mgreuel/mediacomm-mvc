@@ -12,6 +12,8 @@ namespace MediaCommMvc.Web.Features.Forum.Models
         {
             this.ExcludedUserNames = new List<string>();
             this.LastAccessTimes  = new Dictionary<string, DateTime>();
+            this.Posts = new List<Post>();
+            this.Poll = new Poll();
         }
 
         public string CreatedBy => this.PostsInOrder.First().AuthorName;

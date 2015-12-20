@@ -3,37 +3,41 @@
 @{
     ViewBag.Title = Resources.Users.Userlist;
 }
-<div class="row">
+
+<div id="user-list" class="row">
     <div class="col-md-8">
+
+        @Html.ActionLink(Resources.Users.EditMyProfile, MVC.Account.EditMyProfile(), new { @class = "btn btn-default btn-sm" })
+
         <table class="table table-striped user-table">
             <thead>
-                <tr>
-                    <th>
-                        @Resources.Users.UserName
-                    </th>
-                    <th>
-                        @Resources.Users.FirstName
-                    </th>
-                    <th>
-                        @Resources.Users.LastName
-                    </th>
-                </tr>
+            <tr>
+                <th>
+                    @Resources.Users.UserName
+                </th>
+                <th class="hidden-xs">
+                    @Resources.Users.FirstName
+                </th>
+                <th class="hidden-xs">
+                    @Resources.Users.LastName
+                </th>
+            </tr>
             </thead>
             <tbody>
-                @foreach (var user in this.Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.ActionLink(user.Username, MVC.Account.UserProfile().AddRouteValue("username", user.Username))
-                        </td>
-                        <td>
-                            @user.Firstname
-                        </td>
-                        <td>
-                            @user.Lastname
-                        </td>
-                    </tr>
-                }
+            @foreach (var user in this.Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(user.Username, MVC.Account.UserProfile().AddRouteValue("username", user.Username))
+                    </td>
+                    <td class="hidden-xs">
+                        @user.Firstname
+                    </td>
+                    <td class="hidden-xs">
+                        @user.Lastname
+                    </td>
+                </tr>
+            }
             </tbody>
         </table>
     </div>

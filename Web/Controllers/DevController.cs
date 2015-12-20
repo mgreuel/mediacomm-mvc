@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using MediaCommMvc.Web.Features.Account;
 using MediaCommMvc.Web.Features.Forum;
 using MediaCommMvc.Web.Features.Forum.ViewModels;
+using MediaCommMvc.Web.Infrastructure;
 
 namespace MediaCommMvc.Web.Controllers
 {
@@ -17,9 +18,9 @@ namespace MediaCommMvc.Web.Controllers
 
         private readonly ForumStorageWriter forumStorageWriter;
 
-        private static Random random = new Random();
+        private static readonly Random random = new Random();
 
-        public DevController(UserStorage userStorage, ForumStorageWriter forumStorageWriter)
+        public DevController(UserStorage userStorage, ForumStorageWriter forumStorageWriter, Config config) : base(userStorage, config)
         {
             this.userStorage = userStorage;
             this.forumStorageWriter = forumStorageWriter;

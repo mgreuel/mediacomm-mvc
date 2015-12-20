@@ -207,4 +207,7 @@
   <data name="VideosNotificationInterval" xml:space="preserve">
     <value>Videos Notification Interval</value>
   </data>
+  <data name="EditMyProfile" xml:space="preserve">
+    <value>Edit My Profile</value>
+  </data>
 </root>

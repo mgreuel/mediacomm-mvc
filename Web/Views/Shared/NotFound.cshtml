@@ -1,0 +1,25 @@
+﻿@using System
+@{
+    // 404 Not Found
+    //
+    // This view was added by NotFoundMVC
+    // For inspiration see: https://www.google.be/search?q=example+404+page
+    //
+    // The following properties are available in the ViewBag:
+    // ViewData["RequestedUrl"]
+    // ViewData["ReferrerUrl"]
+    //
+
+    ViewBag.Title = Resources.General.PageNotFound;
+}
+
+<h1>@Resources.General.PageNotFound</h1>
+
+<p>@Resources.General.PageNotFoundMessage: @ViewBag.RequestedUrl</p>
+@if (ViewBag.ReferrerUrl != null)
+{
+    <p>@Resources.General.GoBackToThe <a href="@ViewBag.ReferrerUrl">@Resources.General.PreviousPage</a>.</p>
+}
+
+@* Error page must be longer than 512 bytes for IE and Chrome to show it. So add padding in case we're short. *@
+@(new string(' ', 512))

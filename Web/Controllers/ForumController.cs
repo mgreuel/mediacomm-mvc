@@ -59,6 +59,7 @@ namespace MediaCommMvc.Web.Controllers
             return this.View(new ForumViewModel { Topics = topics });
         }
 
+        [Route("CreateTopic")]
         public virtual ActionResult CreateTopic()
         {
             IEnumerable<SelectListItem> allUsers = this.GetSelectListOfAllUsernames();
@@ -66,6 +67,7 @@ namespace MediaCommMvc.Web.Controllers
             return this.View(MVC.Forum.Views.EditTopic, new EditTopicViewModel { AllUserNames = allUsers });
         }
 
+        [Route("EditTopic/{id?}")]
         [HttpPost]
         public virtual ActionResult EditTopic(EditTopicViewModel viewModel)
         {
@@ -95,6 +97,7 @@ namespace MediaCommMvc.Web.Controllers
             return this.View(viewModel);
         }
 
+        [Route("EditPost/{topicId}/{postIndex}")]
         [HttpPost]
         public virtual ActionResult EditPost(EditPostViewModel viewModel)
         {

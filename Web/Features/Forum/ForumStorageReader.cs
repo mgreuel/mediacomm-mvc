@@ -47,14 +47,20 @@ namespace MediaCommMvc.Web.Features.Forum
         {
             Topic topic = this.ravenSession.Load<Topic>(id);
 
-            return new EditTopicViewModel
+            var viewModel = new EditTopicViewModel
             {
                 ExcludedUserNames = topic.ExcludedUserNames ?? new List<string>(),
                 Title = topic.Title,
                 Text = topic.PostsInOrder.First().Text,
-                IsSticky = topic.DisplayPriority == TopicDisplayPriority.Sticky,
-                Poll = new EditPollViewModel { Answers = topic.Poll.Answers.Select(a => new EditPollAnswerViewModel {Id = a.Id, Text = a.Text}).ToList(), Question = topic.Poll.Question }
+                IsSticky = topic.DisplayPriority == TopicDisplayPriority.Sticky
             };
+
+            if (topic.Poll != null)
+            {
+                viewModel.Poll = new EditPollViewModel { Answers = topic.Poll?.Answers?.Select(a => new EditPollAnswerViewModel { Id = a.Id, Text = a.Text }).ToList(), Question = topic.Poll?.Question };
+            }
+
+            return viewModel;
         }
 
         public EditPostViewModel GetEditPostViewModel(string topicId, int postIndex)

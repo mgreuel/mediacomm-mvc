@@ -62,6 +62,10 @@ input[type="checkbox"].input-validation-error {
 
 /* Start global */
 
+.borderless tbody tr td, .borderless tbody tr th, .borderless thead tr th {
+    border: none;
+}
+
 .panel-heading[data-toggle="collapse"] {
     cursor: pointer;
 }
@@ -326,8 +330,29 @@ input[type="checkbox"].input-validation-error {
 
 /* Start user list*/
 
+#user-list {
+    margin-top: 10px;
+}
+
 .user-table {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 /* End user list*/
+
+/* Start user profile */
+
+.user-profile td:nth-child(1) {
+    text-align: right;
+}
+
+.user-profile td:nth-child(1):after {
+    content: ":";
+}
+
+
+.user-profile td:nth-child(2) {
+    font-weight: bold;
+}
+
+/* End user profile */

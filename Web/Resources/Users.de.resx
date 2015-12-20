@@ -207,4 +207,7 @@
   <data name="VideosNotificationInterval" xml:space="preserve">
     <value>Benachrichtigung über neue Videos</value>
   </data>
+  <data name="EditMyProfile" xml:space="preserve">
+    <value>Mein Profil bearbeiten</value>
+  </data>
 </root>

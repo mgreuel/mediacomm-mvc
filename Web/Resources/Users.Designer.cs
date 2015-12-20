@@ -115,6 +115,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit My Profile.
+        /// </summary>
+        public static string EditMyProfile {
+            get {
+                return ResourceManager.GetString("EditMyProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to E-Mailaddress.
         /// </summary>
         public static string EMailAddress {
