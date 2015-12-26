@@ -48,6 +48,7 @@ namespace MediaCommMvc.Web.Controllers
         [Route("{page=1}")]
         public virtual ActionResult Index(int page)
         {
+            this.SaveUserVisit();
             ForumOverview forumOverview = this.forumStorageReader.GetForumOverview(page, ForumOptions.TopicsPerPage, this.User.Identity.Name);
 
             StaticPagedList<TopicOverviewViewModel> topics = new StaticPagedList<TopicOverviewViewModel>(

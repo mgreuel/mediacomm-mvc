@@ -52,7 +52,8 @@ namespace MediaCommMvc.Web.Features.Forum
                 ExcludedUserNames = topic.ExcludedUserNames ?? new List<string>(),
                 Title = topic.Title,
                 Text = topic.PostsInOrder.First().Text,
-                IsSticky = topic.DisplayPriority == TopicDisplayPriority.Sticky
+                IsSticky = topic.DisplayPriority == TopicDisplayPriority.Sticky,
+                Id = topic.Id
             };
 
             if (topic.Poll != null)

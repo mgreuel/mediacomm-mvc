@@ -151,7 +151,7 @@
     <value>Bitte warten, während die Fotos verarbeitet werden.</value>
   </data>
   <data name="UploadLimitMessage" xml:space="preserve">
-    <value>Die maximale Dateigröße ist 250MB! Um mehr hochzuladen, bitte in mehrere .zip Dateien aufteilen.</value>
+    <value>Die maximale Dateigröße ist 100MB</value>
   </data>
   <data name="AddPhotos" xml:space="preserve">
     <value>Bilder hinzufügen</value>
@@ -170,5 +170,20 @@
   </data>
   <data name="Finished" xml:space="preserve">
     <value>fertig</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Schließen (Esc)</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Nächstes (Pfeil rechts)</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Vorherhiges (Pfeil links)</value>
+  </data>
+  <data name="Processing" xml:space="preserve">
+    <value>In Bearbeitung</value>
+  </data>
+  <data name="ToggleFullscreen" xml:space="preserve">
+    <value>Vollbild</value>
   </data>
 </root>

@@ -25,7 +25,9 @@ namespace MediaCommMvc.Web
             bundles.Add(
                 new ScriptBundle("~/bundles/js").Include(
                     "~/Scripts/bootstrap3-wysihtml5.all.min.js",
-                    "~/Scripts/bootstrap-multiselect.js"));
+                    "~/Scripts/bootstrap3-wysihtml5.de-DE.js",
+                    "~/Scripts/bootstrap-multiselect.js",
+                    "~/Scripts/js-webshim/minified/polyfiller.js"));
 
             bundles.Add(
                 new ScriptBundle("~/bundles/upload").Include(

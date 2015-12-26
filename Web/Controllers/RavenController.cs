@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -58,6 +59,20 @@ namespace MediaCommMvc.Web.Controllers
         protected List<SelectListItem> GetSelectListOfAllUsernames()
         {
             return this.userStorage.GetAllUsernames().Select(u => new SelectListItem { Text = u, Value = u }).ToList();
+        }
+
+        protected void SaveUserVisit()
+        {
+            var user = this.userStorage.GetUser(this.User.Identity.Name);
+
+            if (user == null)
+            {
+                // can happen directly after registation, when the index wasn't updated yet
+                return;
+            }
+
+            user.LastVisit = DateTime.UtcNow;
+            this.userStorage.SaveUser(user);
         }
     }
 }

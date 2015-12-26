@@ -1,4 +1,5 @@
-﻿@model MediaCommMvc.Web.Features.Forum.ViewModels.EditPostViewModel
+﻿@using System.Globalization
+@model MediaCommMvc.Web.Features.Forum.ViewModels.EditPostViewModel
 
 @{
     ViewBag.Title = Resources.Forums.EditPost;
@@ -49,6 +50,12 @@
                         "blockquote": true, //Blockquote
                         "size": "sm" //default: none, other options are xs, sm, lg
                     }
+
+                    @if (CultureInfo.CurrentUICulture.Name == "de-DE")
+                    {
+                        <text>,locale: "de-DE"</text>
+                    }
+
                 });
 
 

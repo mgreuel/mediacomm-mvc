@@ -16,11 +16,11 @@
 
         <div class="row">
             <div class="col-lg-7 photo-upload-album">
-                <label for="album">@Resources.Photos.Album</label>
+                <label for="albumTitle">@Resources.Photos.Album</label>
 
-                <input data-val="true" data-val-required="!!Please enter an album!!" type="text" id="albumTitle" name="albumTitle" class="form-control" autocomplete="off"/>
+                <input data-val="true" data-val-required="@Resources.Photos.AlbumNameRequiredErrorMessage" type="text" id="albumTitle" name="albumTitle" class="form-control" autocomplete="off"/>
 
-                 <span class="field-validation-valid text-danger" data-valmsg-for="album" data-valmsg-replace="true"></span>
+                 <span class="field-validation-valid text-danger" data-valmsg-for="albumTitle" data-valmsg-replace="true"></span>
 
             </div>
 
@@ -31,7 +31,7 @@
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span id="select-files" class="btn btn-success fileinput-button hidden">
                     <i class="glyphicon glyphicon-plus"></i>
-                    <span>!Add files...!</span>
+                    <span>@Resources.Photos.AddPhotos</span>
                     <input type="file" name="files[]" multiple>
                 </span>
                 @*<button type="submit" class="btn btn-primary start">
@@ -78,20 +78,20 @@
             <strong class="error text-danger"></strong>
         </td>
         <td>
-            <p class="size">!Processing...!</p>
+            <p class="size">@Resources.Photos.Processing</p>
             <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0;"></div></div>
         </td>
         <td>
             {% if (!i && !o.options.autoUpload) { %}
             <button class="btn btn-primary start hidden" disabled>
                 <i class="glyphicon glyphicon-upload"></i>
-                <span>!Start!</span>
+                <span>!Start [unused]!</span>
             </button>
             {% } %}
             {% if (!i) { %}
                 <button class="btn btn-warning cancel hidden">
                     <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>!Cancel!</span>
+                    <span>!Cancel [unused]!</span>
                 </button>
                 {% } %}
         </td>

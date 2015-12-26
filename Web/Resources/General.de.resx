@@ -162,6 +162,12 @@
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Abmelden</value>
+  </data>
+  <data name="MinimumLength" xml:space="preserve">
+    <value>{0} muss mindestens {2} Zeichen lang sein.</value>
+  </data>
   <data name="Next" xml:space="preserve">
     <value>Nächste</value>
   </data>

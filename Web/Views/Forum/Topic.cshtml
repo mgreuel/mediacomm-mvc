@@ -1,4 +1,5 @@
-﻿@using MediaCommMvc.Web.Features.Forum.ViewModels
+﻿@using System.Globalization
+@using MediaCommMvc.Web.Features.Forum.ViewModels
 @using Microsoft.AspNet.Identity
 @using PagedList.Mvc
 @model TopicDetailsViewModel
@@ -235,8 +236,17 @@
                                             "image": true, //Button to insert an image. Default true,
                                             "color": false, //Button to change color of font
                                             "blockquote": true, //Blockquote
+
                                             "size": "sm" //default: none, other options are xs, sm, lg
                                         }
+
+                                        
+
+                                        @if (CultureInfo.CurrentUICulture.Name == "de-DE")
+                                        {
+                                            <text>,locale: "de-DE"</text>
+                                        }
+
                                     });
 
                                     var $replyForm = $('#reply > form');

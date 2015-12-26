@@ -171,4 +171,19 @@
   <data name="Finished" xml:space="preserve">
     <value>finished</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close (Esc)</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>Next (arrow right)</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous (arrow left)</value>
+  </data>
+  <data name="Processing" xml:space="preserve">
+    <value>Processing</value>
+  </data>
+  <data name="ToggleFullscreen" xml:space="preserve">
+    <value>Toggle fullscreen</value>
+  </data>
 </root>

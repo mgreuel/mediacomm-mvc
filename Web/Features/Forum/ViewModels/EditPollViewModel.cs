@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 using MediaCommMvc.Web.Features.Forum.Models;
@@ -13,8 +14,10 @@ namespace MediaCommMvc.Web.Features.Forum.ViewModels
             this.Answers = new List<EditPollAnswerViewModel> { new EditPollAnswerViewModel(), new EditPollAnswerViewModel(), new EditPollAnswerViewModel() };
         }
 
+        [Display(Name = "Question", ResourceType = typeof(Resources.Forums))]
         public string Question { get; set; }
 
+        [Display(Name = "Answers", ResourceType = typeof(Resources.Forums))]
         public List<EditPollAnswerViewModel> Answers { get; set; }
 
         public Poll ToNewPoll()

@@ -133,11 +133,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close (Esc).
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to finished.
         /// </summary>
         public static string Finished {
             get {
                 return ResourceManager.GetString("Finished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next (arrow right).
+        /// </summary>
+        public static string Next {
+            get {
+                return ResourceManager.GetString("Next", resourceCulture);
             }
         }
         
@@ -160,6 +178,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Previous (arrow left).
+        /// </summary>
+        public static string Previous {
+            get {
+                return ResourceManager.GetString("Previous", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Processing.
+        /// </summary>
+        public static string Processing {
+            get {
+                return ResourceManager.GetString("Processing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please wait while the photos are beeing processed..
         /// </summary>
         public static string ProcessingUpload {
@@ -174,6 +210,15 @@ namespace Resources {
         public static string StartUpload {
             get {
                 return ResourceManager.GetString("StartUpload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle fullscreen.
+        /// </summary>
+        public static string ToggleFullscreen {
+            get {
+                return ResourceManager.GetString("ToggleFullscreen", resourceCulture);
             }
         }
         

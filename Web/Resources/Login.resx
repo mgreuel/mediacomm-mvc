@@ -154,15 +154,21 @@
     <value>Please enter a username</value>
   </data>
   <data name="UsernameOrPasswordWrongErrorMessage" xml:space="preserve">
-    <value>E-mailaddress or password wrong</value>
+    <value>Username or password wrong</value>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Log In</value>
   </data>
-  <data name="Einga" xml:space="preserve">
-    <value />
-  </data>
   <data name="RegistrationKey" xml:space="preserve">
     <value>Registration key</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>The password and confirmation password do not match.</value>
   </data>
 </root>

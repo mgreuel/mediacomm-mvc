@@ -46,6 +46,16 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/js")
-    @RenderSection("scripts", required: false)
+
+
+    <script>
+    webshims.setOptions('waitReady', false);
+    webshims.setOptions('forms-ext', { types: 'date' });
+    webshims.polyfill('forms forms-ext');
+    </script>
+
+@RenderSection("scripts", required: false)
+
+
 </body>
 </html>

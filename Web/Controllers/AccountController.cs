@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -50,7 +51,7 @@ namespace MediaCommMvc.Web.Controllers
             
             if (this.ModelState.IsValid)
             {
-                this.loginService.SignIn(input.Username, input.RememberMe);
+                this.loginService.SignIn(input.Username, input.RememberMe, user.IsAdmin ? UserRoles.Administrator : string.Empty);
                 return this.RedirectToLocal(input.ReturnUrl);
             }
 
@@ -82,7 +83,7 @@ namespace MediaCommMvc.Web.Controllers
             user.SetPassword(model.Password);
             this.userStorage.CreateUser(user);
 
-            this.loginService.SignIn(user.UserName, false);
+            this.loginService.SignIn(user.UserName, false, string.Empty);
 
             return this.RedirectToAction(MVC.Home.Index());
         }

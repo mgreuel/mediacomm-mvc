@@ -157,7 +157,7 @@
     <value>Last Post</value>
   </data>
   <data name="MarkAsSticky" xml:space="preserve">
-    <value>Create as sticky</value>
+    <value>Sticky (pin to top)</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>Message</value>
@@ -251,5 +251,8 @@
   </data>
   <data name="EditTopic" xml:space="preserve">
     <value>Edit Topic</value>
+  </data>
+  <data name="Answers" xml:space="preserve">
+    <value>Answers</value>
   </data>
 </root>

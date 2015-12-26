@@ -61,11 +61,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Confirm Password.
         /// </summary>
-        public static string Einga {
+        public static string ConfirmPassword {
             get {
-                return ResourceManager.GetString("Einga", resourceCulture);
+                return ResourceManager.GetString("ConfirmPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
             }
         }
         
@@ -120,6 +129,15 @@ namespace Resources {
         public static string PasswordRequiredErrorMessage {
             get {
                 return ResourceManager.GetString("PasswordRequiredErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password and confirmation password do not match..
+        /// </summary>
+        public static string PasswordsDoNotMatch {
+            get {
+                return ResourceManager.GetString("PasswordsDoNotMatch", resourceCulture);
             }
         }
         
@@ -187,7 +205,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to E-mailaddress or password wrong.
+        ///   Looks up a localized string similar to Username or password wrong.
         /// </summary>
         public static string UsernameOrPasswordWrongErrorMessage {
             get {

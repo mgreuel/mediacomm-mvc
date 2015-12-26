@@ -17,6 +17,8 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult Index()
         {
+            this.SaveUserVisit();
+
             return this.View();
         }
 

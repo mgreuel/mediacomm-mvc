@@ -157,7 +157,7 @@
     <value>Letzter Beitrag</value>
   </data>
   <data name="MarkAsSticky" xml:space="preserve">
-    <value>Als wichtig markieren</value>
+    <value>Sticky (Immer oben anzeigen)</value>
   </data>
   <data name="Message" xml:space="preserve">
     <value>Nachricht</value>
@@ -251,5 +251,8 @@
   </data>
   <data name="EditTopic" xml:space="preserve">
     <value>Beitrag bearbeiten</value>
+  </data>
+  <data name="Answers" xml:space="preserve">
+    <value>Antworten</value>
   </data>
 </root>

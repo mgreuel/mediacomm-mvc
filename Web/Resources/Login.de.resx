@@ -154,12 +154,21 @@
     <value>Bitte einen Benutzernamen eingeben</value>
   </data>
   <data name="UsernameOrPasswordWrongErrorMessage" xml:space="preserve">
-    <value>E-mailadresse oder Passwort sind falsch</value>
+    <value>Benutzername oder Passwort sind falsch</value>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Anmelden</value>
   </data>
   <data name="RegistrationKey" xml:space="preserve">
     <value>Registrierungs-Code</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Passwort Wiederholung</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="PasswordsDoNotMatch" xml:space="preserve">
+    <value>Password und Wiederholung stimmen nicht überein</value>
   </data>
 </root>
