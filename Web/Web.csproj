@@ -285,6 +285,7 @@
     <Compile Include="Features\Forum\ViewModels\TopicDetailsViewModel.cs" />
     <Compile Include="Features\Forum\ViewModels\TopicOverviewViewModel.cs" />
     <Compile Include="Features\Forum\ViewModels\TopicPageRoutedata.cs" />
+    <Compile Include="Features\Home\HomeViewModel.cs" />
     <Compile Include="Features\Photos\ImageGenerator.cs" />
     <Compile Include="Features\Photos\ImageResizer.cs" />
     <Compile Include="Features\Photos\ImageRotator.cs" />
