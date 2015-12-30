@@ -47,6 +47,8 @@ namespace MediaCommMvc.Web.Features.Forum.Models
             }
         }
 
+        public bool IsWiki { get; set; }
+
         private Dictionary<string, DateTime> LastAccessTimes { get; set; }
 
         public DateTime CreatedAt => this.PostsInOrder.First().CreatedAt;

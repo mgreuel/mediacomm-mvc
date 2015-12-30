@@ -10,26 +10,28 @@ namespace MediaCommMvc.Web.Features.Forum.ViewModels
 {
     public class PostViewModel
     {
-        public PostViewModel(Post post)
+        public PostViewModel(Post post, bool topicIsWiki)
         {
             this.Approvals = post.Approvals ?? new List<string>();
             this.AuthorName = post.AuthorName;
             this.CreatedAt = $"{post.CreatedAt.ToLocalTime():g}"; 
-            //this.Id = post.Id;
             this.Text = post.Text;
             this.IndexInTopic = post.IndexInTopic;
+            this.IsWiki = topicIsWiki && post.IndexInTopic == 0;
         }
 
         public string AuthorName { get; }
 
         public string CreatedAt { get;  }
 
-        //public int Id { get; set; }
-
         public bool IsEditable(IPrincipal currentUser)
         {
-            return currentUser.Identity.Name.Equals(this.AuthorName, StringComparison.OrdinalIgnoreCase) || currentUser.IsInRole(UserRoles.Administrator);
+            return currentUser.Identity.Name.Equals(this.AuthorName, StringComparison.OrdinalIgnoreCase) 
+                || currentUser.IsInRole(UserRoles.Administrator) 
+                || this.IsWiki;
         }
+
+        public bool IsWiki { get; set; }
 
         public string Text { get; set; }
 

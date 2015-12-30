@@ -30,7 +30,7 @@ namespace MediaCommMvc.Web.Features.Forum
                 Posts = topic.PostsInOrder
                     .Skip((pageNumber - 1) * ForumOptions.PostsPerPage)
                     .Take(ForumOptions.PostsPerPage)
-                    .Select(post => new PostViewModel(post))
+                    .Select(post => new PostViewModel(post, topic.IsWiki))
                     .ToList(),
                 TotalNumberOfPosts = topic.PostCount
             };
@@ -53,6 +53,7 @@ namespace MediaCommMvc.Web.Features.Forum
                 Title = topic.Title,
                 Text = topic.PostsInOrder.First().Text,
                 IsSticky = topic.DisplayPriority == TopicDisplayPriority.Sticky,
+                IsWiki = topic.IsWiki,
                 Id = topic.Id
             };
 

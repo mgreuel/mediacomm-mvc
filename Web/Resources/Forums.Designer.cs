@@ -277,6 +277,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wiki (anywone can edit).
+        /// </summary>
+        public static string MarkAsWiki {
+            get {
+                return ResourceManager.GetString("MarkAsWiki", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Message.
         /// </summary>
         public static string Message {

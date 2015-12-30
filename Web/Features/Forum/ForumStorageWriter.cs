@@ -60,6 +60,7 @@ namespace MediaCommMvc.Web.Features.Forum
                               {
                                   ExcludedUserNames = viewModel.ExcludedUserNames,
                                   Title = viewModel.Title,
+                                  IsWiki = viewModel.IsWiki,
                                   Posts =
                                       new List<Post>
                                           {
@@ -68,7 +69,7 @@ namespace MediaCommMvc.Web.Features.Forum
                                                       AuthorName = currentUsername,
                                                       CreatedAt = DateTime.UtcNow,
                                                       IndexInTopic = 0,
-                                                      Text = viewModel.Text
+                                                      Text = viewModel.Text,
                                                   }
                                           }
                               };
@@ -107,6 +108,7 @@ namespace MediaCommMvc.Web.Features.Forum
                 }
             }
 
+            topic.IsWiki = viewModel.IsWiki;
             topic.DisplayPriority = viewModel.IsSticky ? TopicDisplayPriority.Sticky : TopicDisplayPriority.None;
             return topic;
         }

@@ -35,5 +35,7 @@ namespace MediaCommMvc.Web.Features.Forum.ViewModels
         [Display(ResourceType = typeof(Forums), Name = "MarkAsSticky")]
         public bool IsSticky { get; set; }
 
+        [Display(ResourceType = typeof(Forums), Name = "MarkAsWiki")]
+        public bool IsWiki { get; set; }
     }
 }

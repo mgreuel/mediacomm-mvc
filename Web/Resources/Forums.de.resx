@@ -255,4 +255,7 @@
   <data name="Answers" xml:space="preserve">
     <value>Antworten</value>
   </data>
+  <data name="MarkAsWiki" xml:space="preserve">
+    <value>Wiki (jeder kann editieren)</value>
+  </data>
 </root>

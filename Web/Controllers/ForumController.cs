@@ -28,6 +28,7 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [HttpPost]
+        [Route("AddApproval")]
         public virtual ActionResult AddApproval(string topicId, int postIndex)
         {
             this.forumStorageWriter.AddApproval(topicId, postIndex, this.User.Identity.Name);
@@ -36,6 +37,7 @@ namespace MediaCommMvc.Web.Controllers
         }
 
         [HttpPost]
+        [Route("AnswerPoll")]
         public virtual ActionResult AnswerPoll(PollUserAnswerInput answer)
         {
             this.forumStorageWriter.SavePollAnswer(answer, this.User.Identity.Name);
@@ -126,6 +128,7 @@ namespace MediaCommMvc.Web.Controllers
             return this.Redirect(url);
         }
 
+        [Route("FirstNewPost/{topicId}")]
         public virtual ActionResult FirstNewPostInTopic(string topicId)
         {
             TopicPageRoutedata topicPage = this.forumStorageReader.GetRouteDataForFirstNewPost(topicId, this.User.Identity.Name);
@@ -133,7 +136,7 @@ namespace MediaCommMvc.Web.Controllers
             return this.RedirectToPost(topicPage);
         }
 
-        [HttpPost]
+        [HttpPost]        
         public virtual ActionResult Reply(ReplyViewModel viewModel)
         {
             if (this.ModelState.IsValid)
@@ -155,6 +158,7 @@ namespace MediaCommMvc.Web.Controllers
         }
         
         [HttpPost]
+        [Route("MarkTopicAsRead")]
         public virtual ActionResult MarkTopicAsRead(string id)
         {
             this.forumStorageWriter.MarkTopicAsRead(id, this.User.Identity.Name);
