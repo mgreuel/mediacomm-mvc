@@ -11,6 +11,8 @@ using MediaCommMvc.Web.Features.Account;
 using MediaCommMvc.Web.Features.Account.ViewModels;
 using MediaCommMvc.Web.Infrastructure;
 
+using MvcThrottle;
+
 namespace MediaCommMvc.Web.Controllers
 {
     [Authorize]
@@ -35,6 +37,7 @@ namespace MediaCommMvc.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [EnableThrottling]
         public virtual ActionResult Login(LoginViewModel input)
         {
             if (!this.ModelState.IsValid)
@@ -67,6 +70,7 @@ namespace MediaCommMvc.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [EnableThrottling]
         public virtual ActionResult Register(RegisterViewModel model)
         {
             if (!model.RegistrationCode.Equals(this.Config.RegistrationCode))
