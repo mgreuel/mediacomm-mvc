@@ -140,6 +140,10 @@ input[type="checkbox"].input-validation-error {
     margin-top: 14px;
 }
 
+.first-new-post-icon {
+    width: 31px;
+}
+
 #forum-topics td {
     padding-bottom: 4px;
     padding-top: 4px;
@@ -148,7 +152,7 @@ input[type="checkbox"].input-validation-error {
 
 #forum-topics .topic-icon {
     width: 1px;
-    padding-top: 9px !important
+    padding-top: 9px !important;
 }
 
 #forum-topics .topic-post-count {
@@ -184,7 +188,7 @@ input[type="checkbox"].input-validation-error {
         line-height: 17px;
     }
 
-    #forum-topics .topic-author {
+#forum-topics .topic-author {
     width: 125px;
     font-size: 12px;
     padding: 2px;
@@ -307,22 +311,22 @@ input[type="checkbox"].input-validation-error {
     position: relative;
 }
 
-.photo-thumbnail-container img {
-    max-height: 170px;
-    max-width: 170px;
-    position: absolute;  
-    top: 0;  
-    bottom: 0;  
-    left: 0;  
-    right: 0;  
-    margin: auto;  
-}
+    .photo-thumbnail-container img {
+        max-height: 170px;
+        max-width: 170px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
 
 .pswp__button--download, .pswp__button--download:before {
     background: none;
-  /*ckground-size: 20px 20px;*/
-  width: 44px;
-  height: 44px;
+    /*ckground-size: 20px 20px;*/
+    width: 44px;
+    height: 44px;
 }
 
 /* End photo album  */
@@ -330,12 +334,19 @@ input[type="checkbox"].input-validation-error {
 
 /* Start user list*/
 
-#user-list {
+#user-list-container {
     margin-top: 10px;
 }
 
-.user-table {
+#user-list {
     margin-top: 10px;
+    border: 1px solid #e3e3e3;
+    border-radius: 6px;
+}
+
+
+#user-table {
+    margin-bottom: 0;
 }
 
 /* End user list*/
@@ -346,9 +357,9 @@ input[type="checkbox"].input-validation-error {
     text-align: right;
 }
 
-.user-profile td:nth-child(1):after {
-    content: ":";
-}
+    .user-profile td:nth-child(1):after {
+        content: ":";
+    }
 
 
 .user-profile td:nth-child(2) {
@@ -356,3 +367,15 @@ input[type="checkbox"].input-validation-error {
 }
 
 /* End user profile */
+
+/* Start home */
+
+
+.home-headline {
+    margin-top: 20px;
+}
+
+
+.home-photos-container {
+    margin-top: 15px;
+}

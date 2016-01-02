@@ -40,6 +40,20 @@ namespace MediaCommMvc.Web.Features.Photos
             return new PhotoIndexViewModel { AlbumsByYear = albums.GroupBy(a => a.Date.Year) };
         }
 
+        public IList<PhotoAlbumItemViewModel> GetNewestAlbums(int count)
+        {
+            return this.documentSession.Query<PhotoAlbum>()
+                .OrderByDescending(a => a.Created)
+                .Take(count)
+                .Select(a => new PhotoAlbumItemViewModel
+                {
+                    PhotoCount = a.Photos.Count,
+                    Title = a.Title,
+                    Date = a.Created,
+                    Name = a.Name
+                }).ToList();
+        }
+
         public string GetAlbumCoverFilename(string albumName)
         {
             return (this.documentSession.Query<PhotoAlbum>().Single(a => a.Name == albumName).Photos.First(p => p.IsLandscape) ?? this.documentSession.Query<PhotoAlbum>().Single(a => a.Name == albumName).Photos.First()).Filename;

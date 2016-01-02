@@ -70,7 +70,7 @@ namespace MediaCommMvc.Web.Controllers
         {
             HttpPostedFileBase file = this.Request.Files[0];
 
-            if (file == null || !IsValidPhotoFilename(file.FileName))
+            if (file == null || !this.IsValidPhotoFilename(file.FileName))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotAcceptable);
             }

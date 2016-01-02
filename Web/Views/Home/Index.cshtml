@@ -1,50 +1,82 @@
 ﻿@using MediaCommMvc.Web.Features.Forum.ViewModels
+@using MediaCommMvc.Web.Features.Photos.ViewModels
 @model MediaCommMvc.Web.Features.Home.HomeViewModel
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-6">
+
+        <h4 class="home-headline">@Resources.Home.NewPosts</h4>
+
         <div id="forum-topics-container">
+
             <table id="forum-topics" class="table table-striped table-bordered">
                 <thead>
-                    <tr>
-                        <th></th>
-                        <th>@Resources.Forums.Topic</th>
-                        <th class="hidden-xs">@Resources.Forums.LastPost</th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th></th>
+                    <th>@Resources.Forums.Topic</th>
+                    <th class="hidden-xs">@Resources.Forums.LastPost</th>
+                    <th class="first-new-post-icon"></th>
+                </tr>
                 </thead>
                 <tbody>
-                    @foreach (TopicOverviewViewModel topic in Model.ForumOverview.TopicsForCurrentPage)
-            {
-                        <tr>
-                            <td class="topic-icon">
-                                <i title="@Icons.TopicIconTitle(topic)" class="@Icons.TopicIconClass(topic)"></i>
-                            </td>
-                            <td>
-                                <div class="topic-title @topic.TopicTitleCssClass">
-                                    @Html.ActionLink(@topic.Title, MVC.Forum.Topic().AddRouteValues(new
-                               {
-                                   id = topic.Id,
-                                   name = UrlEncoder.ToFriendlyUrl(topic.Title)
-                               }))
+                @foreach (TopicOverviewViewModel topic in Model.ForumOverview.TopicsForCurrentPage)
+                {
+                    <tr>
+                        <td class="topic-icon">
+                            <i title="@Icons.TopicIconTitle(topic)" class="@Icons.TopicIconClass(topic)"></i>
+                        </td>
+                        <td>
+                            <div class="topic-title @topic.TopicTitleCssClass">
+                                @Html.ActionLink(@topic.Title, MVC.Forum.Topic().AddRouteValues(new
+                                {
+                                    id = topic.Id,
+                                    name = UrlEncoder.ToFriendlyUrl(topic.Title)
+                                }))
 
-                                    @if (topic.HasPoll)
-                                    {
-                                        <span title="@Resources.Forums.Poll" class="glyphicon glyphicon-check"></span>
-                                    }
-                                </div>
-                            </td>
-                            <td class="topic-last-post hidden-xs">
-                                <div class="text-nowrap"><i class="glyphicon glyphicon-user"></i> @topic.LastPostAuthor</div>
-                                <div>@topic.LastPostTime</div>
-                            </td>
-                            <td>
-                                <a href="@Url.Action(MVC.Forum.FirstNewPostInTopic().AddRouteValue("topicId", topic.Id))">
-                                    <i class="glyphicon glyphicon-play" title="@Resources.Forums.GotoFirstNewPost"></i>
-                                </a>
-                            </td>
-                        </tr>}
+                                @if (topic.HasPoll)
+                                {
+                                    <span title="@Resources.Forums.Poll" class="glyphicon glyphicon-check"></span>
+                                }
+                            </div>
+                        </td>
+                        <td class="topic-last-post hidden-xs">
+                            <div class="text-nowrap"><i class="glyphicon glyphicon-user"></i> @topic.LastPostAuthor</div>
+                            <div>@topic.LastPostTime</div>
+                        </td>
+                        <td class="first-new-post-icon">
+                            <a href="@Url.Action(MVC.Forum.FirstNewPostInTopic().AddRouteValue("topicId", topic.Id))">
+                                <i class="glyphicon glyphicon-play" title="@Resources.Forums.GotoFirstNewPost"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
                 </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-6">
+
+        <h4 class="home-headline">@Resources.Home.NewPhotoAlbums</h4>
+
+        <div class="home-photos-container">
+
+            
+
+            <table class="table table-hover photo-album-table">
+                @foreach (PhotoAlbumItemViewModel album in Model.PhotosAlbums.OrderByDescending(a => a.Date))
+                {
+                    <tr class="photo-album-row" data-href="@Url.Action(MVC.Photos.Album().AddRouteValue("albumName", album.Name))">
+                        <td class="hidden-xs">
+                            <img height="50" src="@Url.Action(MVC.Photos.AlbumCover().AddRouteValue("albumName", album.Name))" alt="cover"/>
+                        </td>
+                        <td>
+                            <a>@album.Title</a>
+                        </td>
+                        <td class="hidden-xs">
+                            @album.Date.ToString("dd.MM.yyyy")
+                        </td>
+                    </tr>
+                }
             </table>
         </div>
     </div>
