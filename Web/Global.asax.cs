@@ -9,6 +9,10 @@ using System.Web.Routing;
 
 using AutoMapper;
 
+using FluentScheduler;
+
+using MediaCommMvc.Web.Features.Account;
+using MediaCommMvc.Web.Features.Forum.Notifications;
 using MediaCommMvc.Web.Infrastructure;
 
 namespace MediaCommMvc.Web
@@ -28,11 +32,13 @@ namespace MediaCommMvc.Web
 
             DocumentStoreContainer.Initialize();
             this.EnsureConfig();
+
+            TaskManager.Initialize(new ForumNotificationSender(() => new UserStorage(DocumentStoreContainer.CreateNewSession)));
         }
 
         private void EnsureConfig()
         {
-            Config config = DocumentStoreContainer.CurrentSession.Load<Config>(ConfigId);
+            Config config = DocumentStoreContainer.CurrentRequestSession.Load<Config>(ConfigId);
 
             string defaultPhotoPath = @"C:\temp\Absolutmoments\Photos";
             string defaultSitename = "Absolutmoments";
@@ -44,7 +50,8 @@ namespace MediaCommMvc.Web
                     Id = ConfigId,
                     Sitename = defaultSitename,
                     PhotoStorageRootFolder = defaultPhotoPath,
-                    RegistrationCode = RandomString(6)
+                    RegistrationCode = RandomString(6),
+                    BaseUrl = "http://replace.me"
                 };
             }
             else
@@ -52,10 +59,11 @@ namespace MediaCommMvc.Web
                 config.PhotoStorageRootFolder = config.PhotoStorageRootFolder ?? defaultPhotoPath;
                 config.Sitename = config.Sitename ?? defaultSitename;
                 config.RegistrationCode = config.RegistrationCode ?? RandomString(6);
+                config.BaseUrl = config.BaseUrl ?? "http://replace.me";
             }
 
-            DocumentStoreContainer.CurrentSession.Store(config);
-            DocumentStoreContainer.CurrentSession.SaveChanges();
+            DocumentStoreContainer.CurrentRequestSession.Store(config);
+            DocumentStoreContainer.CurrentRequestSession.SaveChanges();
         }
 
         private static string RandomString(int length)

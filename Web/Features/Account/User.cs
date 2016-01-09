@@ -24,7 +24,7 @@ namespace MediaCommMvc.Web.Features.Account
 
         public string LastName { get; set; }
 
-        public DateTime? LastVisit { get; set; }
+        public DateTime LastVisit { get; set; }
 
         public string MobilePhoneNumber { get; set; }
 
@@ -42,13 +42,9 @@ namespace MediaCommMvc.Web.Features.Account
 
         public bool NotifyOnNewPhotos { get; set; }
 
-        public bool NotifyOnNewVideos { get; set; }
+        public DateTime LastForumsNotification { get; set; }
 
-        public DateTime? LastForumsNotification { get; set; }
-
-        public DateTime? LastPhotosNotification { get; set; }
-
-        public DateTime? LastVideosNotification { get; set; }
+        public DateTime LastPhotosNotification { get; set; }
 
         protected string HashedPassword { get; private set; }
 

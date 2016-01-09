@@ -3,6 +3,7 @@ using System.Web.Mvc;
 
 using MediaCommMvc.Web.Features.Account;
 using MediaCommMvc.Web.Features.Forum;
+using MediaCommMvc.Web.Features.Forum.Notifications;
 using MediaCommMvc.Web.Features.Forum.ViewModels;
 using MediaCommMvc.Web.Helpers;
 using MediaCommMvc.Web.Infrastructure;
@@ -20,11 +21,18 @@ namespace MediaCommMvc.Web.Controllers
 
         private readonly ForumStorageWriter forumStorageWriter;
 
-        public ForumController(UserStorage userStorage, ForumStorageReader forumStorageReader, ForumStorageWriter forumStorageWriter, Config config)
+        private readonly ForumNotificationSender forumNotificationSender;
+
+        public ForumController(UserStorage userStorage, 
+            ForumStorageReader forumStorageReader, 
+            ForumStorageWriter forumStorageWriter, 
+            Config config, 
+            ForumNotificationSender forumNotificationSender)
             : base(userStorage, config)
         {
             this.forumStorageReader = forumStorageReader;
             this.forumStorageWriter = forumStorageWriter;
+            this.forumNotificationSender = forumNotificationSender;
         }
 
         [HttpPost]
@@ -82,20 +90,25 @@ namespace MediaCommMvc.Web.Controllers
 
             string topicId = this.forumStorageWriter.SaveTopic(viewModel, this.User.Identity.Name);
 
+            if (string.IsNullOrEmpty(viewModel.Id))
+            {
+                this.forumNotificationSender.SendNewTopicNotifications(topicId);
+            }
+
             return this.RedirectToAction(MVC.Forum.Topic().AddRouteValues(new { id = topicId, name = viewModel.Title }));
         }
 
         [Route("EditPost/{topicId}/{postIndex}")]
         public virtual ActionResult EditPost(string topicId, int postIndex)
         {
-            EditPostViewModel viewModel = this.forumStorageReader.GetEditPostViewModel(topicId, postIndex);
+            EditPostViewModel viewModel = this.forumStorageReader.GetEditPostViewModel(topicId, postIndex, this.User.Identity.Name);
             return this.View(viewModel);
         }
 
         [Route("EditTopic/{id}")]
         public virtual ActionResult EditTopic(string id)
         {
-            EditTopicViewModel viewModel = this.forumStorageReader.GetEditTopicViewModel(id);
+            EditTopicViewModel viewModel = this.forumStorageReader.GetEditTopicViewModel(id, this.User.Identity.Name);
             viewModel.AllUserNames = this.GetSelectListOfAllUsernames();
             return this.View(viewModel);
         }
@@ -145,6 +158,8 @@ namespace MediaCommMvc.Web.Controllers
             }
 
             TopicPageRoutedata topicPage = this.forumStorageReader.GetRouteDataForLastTopicPage(viewModel.TopicId);
+
+            this.forumNotificationSender.SendNewReplyNotifications(viewModel.TopicId);
 
             return this.RedirectToPost(topicPage);
         }

@@ -69,9 +69,9 @@ namespace MediaCommMvc.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IDocumentSession>().ToMethod(context => DocumentStoreContainer.CurrentSession);
+            kernel.Bind<IDocumentSession>().ToMethod(context => DocumentStoreContainer.CurrentRequestSession);
 
-            kernel.Bind<Config>().ToMethod(context => DocumentStoreContainer.CurrentSession.Load<Config>(MvcApplication.ConfigId));
+            kernel.Bind<Config>().ToMethod(context => DocumentStoreContainer.CurrentRequestSession.Load<Config>(MvcApplication.ConfigId));
 
             kernel.Bind<IAuthenticationManager>().ToMethod(context => HttpContext.Current.GetOwinContext().Authentication);
         }        

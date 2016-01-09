@@ -9,5 +9,7 @@
         public string PhotoStorageRootFolder { get; set; }
 
         public string RegistrationCode { get; set; }
+
+        public string BaseUrl { get; set; }
     }
 }

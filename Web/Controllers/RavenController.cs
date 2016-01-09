@@ -28,7 +28,7 @@ namespace MediaCommMvc.Web.Controllers
         {
             base.OnActionExecuting(filterContext);
 
-            this.RavenSession = DocumentStoreContainer.CurrentSession;
+            this.RavenSession = DocumentStoreContainer.CurrentRequestSession;
 
             if (filterContext.IsChildAction)
             {

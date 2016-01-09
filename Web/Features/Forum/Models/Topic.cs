@@ -34,7 +34,7 @@ namespace MediaCommMvc.Web.Features.Forum.Models
 
         public TopicDisplayPriority DisplayPriority { get; set; }
 
-        public IEnumerable<string> ExcludedUserNames { get; set; }
+        public IList<string> ExcludedUserNames { get; set; }
 
         public List<Post> Posts { get; set; }
 

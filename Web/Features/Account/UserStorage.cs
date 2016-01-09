@@ -46,5 +46,26 @@ namespace MediaCommMvc.Web.Features.Account
         {
             this.ravenSession.Store(user);
         }
+
+        public IList<string> GetMailAddressesToNotifyAboutNewPost(IList<string> excludedUserNames)
+        {
+    //        IEnumerable<string> mailAddresses =
+    //this.Session.CreateSQLQuery(
+    //    @"SELECT     EMailAddress
+    //                FROM         MediaCommUsers
+    //                WHERE     (ForumsNotificationInterval = 1) AND (LastForumsNotification IS NULL) OR
+    //                  (ForumsNotificationInterval = 1) AND (LastVisit IS NULL) OR
+    //                  (ForumsNotificationInterval = 1) AND (LastForumsNotification < LastVisit) OR
+    //                  (ForumsNotificationInterval = 1) AND (LastForumsNotification < DATEADD(day, - 7, GETDATE()))")
+    //    .List<string>();
+
+           return this.ravenSession.Query<User>()
+                .Where(u => 
+                    u.NotifyOnNewForumPost 
+                    && (u.LastForumsNotification < u.LastVisit || u.LastForumsNotification < DateTime.UtcNow.AddDays(-7)) 
+                    && !excludedUserNames.Contains(u.UserName))
+                .Select(u => u.Email)
+                .ToList();
+        }
     }
 }

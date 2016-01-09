@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,6 +22,12 @@ namespace MediaCommMvc.Web.Features.Forum
         {
             // todo move projections to ravendb
             Topic topic = this.ravenSession.Load<Topic>(id);
+
+            if (topic.ExcludedUserNames.Any(u => u.Equals(currentUsername, StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new UnauthorizedAccessException($"{currentUsername} is not allowed to access {topic.Title}");
+            }
+
             var viewModel = new TopicDetailsViewModel
             {
                 ExcludedUsernames = topic.ExcludedUserNames,
@@ -43,9 +50,14 @@ namespace MediaCommMvc.Web.Features.Forum
             return viewModel;
         }
 
-        public EditTopicViewModel GetEditTopicViewModel(string id)
+        public EditTopicViewModel GetEditTopicViewModel(string id, string currentUsername)
         {
             Topic topic = this.ravenSession.Load<Topic>(id);
+
+            if (topic.ExcludedUserNames.Any(u => u.Equals(currentUsername, StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new UnauthorizedAccessException($"{currentUsername} is not allowed to access {topic.Title}");
+            }
 
             var viewModel = new EditTopicViewModel
             {
@@ -65,10 +77,17 @@ namespace MediaCommMvc.Web.Features.Forum
             return viewModel;
         }
 
-        public EditPostViewModel GetEditPostViewModel(string topicId, int postIndex)
+        public EditPostViewModel GetEditPostViewModel(string topicId, int postIndex, string currentUsername)
         {
             // todo move projection to raven db
-            Post post = this.ravenSession.Load<Topic>(topicId).Posts.Single(p => p.IndexInTopic == postIndex);
+            var topic = this.ravenSession.Load<Topic>(topicId);
+
+            if (topic.ExcludedUserNames.Any(u => u.Equals(currentUsername, StringComparison.OrdinalIgnoreCase)))
+            {
+                throw new UnauthorizedAccessException($"{currentUsername} is not allowed to access {topic.Title}");
+            }
+
+            Post post = topic.Posts.Single(p => p.IndexInTopic == postIndex);
             return new EditPostViewModel { PostIndex = postIndex, Text = post.Text, TopicId = topicId };
         }
 

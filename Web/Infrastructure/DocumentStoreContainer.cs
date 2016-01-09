@@ -12,9 +12,11 @@ namespace MediaCommMvc.Web.Infrastructure
     {
         private static DocumentStore documentStore;
 
-        public static IDocumentSession CurrentSession => HttpContext.Current.Items["RavenDbSession"] as IDocumentSession ??
+        public static IDocumentSession CurrentRequestSession => HttpContext.Current.Items["RavenDbSession"] as IDocumentSession ??
                                                          ((IDocumentSession)
                                                           (HttpContext.Current.Items["RavenDbSession"] = documentStore.OpenSession()));
+
+        public static IDocumentSession CreateNewSession => documentStore.OpenSession();
 
         public static IDocumentStore Initialize()
         {
