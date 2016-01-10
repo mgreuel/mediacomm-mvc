@@ -15,10 +15,10 @@ namespace MediaCommMvc.Web.Features.Forum.ViewModels
 
         public string Id { get; set; }
 
-        public IEnumerable<SelectListItem> AllUserNames { get; set; }
+        public IList<SelectListItem> AllUserNames { get; set; }
 
         [Display(ResourceType = typeof(Forums), Name = "ExcludeUsers")]
-        public IEnumerable<string> ExcludedUserNames { get; set; }
+        public IList<string> ExcludedUserNames { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Forums), ErrorMessageResourceName = "SubjectRequired")]
         [Display(ResourceType = typeof(Forums), Name = "Subject")]

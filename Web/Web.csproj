@@ -327,7 +327,7 @@
     </Compile>
     <Compile Include="Infrastructure\Config.cs" />
     <Compile Include="Infrastructure\DocumentStoreContainer.cs" />
-    <Compile Include="Infrastructure\MailConfiguration.cs" />
+    <Compile Include="Infrastructure\MailConfig.cs" />
     <Compile Include="Infrastructure\MailSender.cs" />
     <Compile Include="ManageController.generated.cs">
       <DependentUpon>T4MVC.tt</DependentUpon>

@@ -7,12 +7,6 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-using AutoMapper;
-
-using FluentScheduler;
-
-using MediaCommMvc.Web.Features.Account;
-using MediaCommMvc.Web.Features.Forum.Notifications;
 using MediaCommMvc.Web.Infrastructure;
 
 namespace MediaCommMvc.Web
@@ -20,6 +14,8 @@ namespace MediaCommMvc.Web
     public class MvcApplication : System.Web.HttpApplication
     {
         public const string ConfigId = "Config";
+
+        public const string MailConfigId = "MailConfig";
 
         protected void Application_Start()
         {
@@ -33,13 +29,34 @@ namespace MediaCommMvc.Web
             DocumentStoreContainer.Initialize();
             this.EnsureConfig();
 
-            TaskManager.Initialize(new ForumNotificationSender(() => new UserStorage(DocumentStoreContainer.CreateNewSession)));
+            FluentScheduler.TaskManager.UnobservedTaskException += (taskExceptionInformation, _) => Elmah.ErrorSignal.Get(null).Raise(taskExceptionInformation.Task.Exception);
         }
 
         private void EnsureConfig()
         {
             Config config = DocumentStoreContainer.CurrentRequestSession.Load<Config>(ConfigId);
+            config = SetupWebsiteConfig(config);
 
+            MailConfig mailConfig = DocumentStoreContainer.CurrentRequestSession.Load<MailConfig>(MailConfigId);
+            mailConfig = SetupMailConfig(mailConfig);
+
+            DocumentStoreContainer.CurrentRequestSession.Store(mailConfig);
+            DocumentStoreContainer.CurrentRequestSession.Store(config);
+            DocumentStoreContainer.CurrentRequestSession.SaveChanges();
+        }
+
+        private static MailConfig SetupMailConfig(MailConfig mailConfig)
+        {
+            if (mailConfig == null)
+            {
+                mailConfig = new MailConfig { MailFrom = "na@local.host", Username = "dev", Password = "dev1", SmtpHost = "localhost" };
+            }
+
+            return mailConfig;
+        }
+
+        private static Config SetupWebsiteConfig(Config config)
+        {
             string defaultPhotoPath = @"C:\temp\Absolutmoments\Photos";
             string defaultSitename = "Absolutmoments";
 
@@ -62,8 +79,7 @@ namespace MediaCommMvc.Web
                 config.BaseUrl = config.BaseUrl ?? "http://replace.me";
             }
 
-            DocumentStoreContainer.CurrentRequestSession.Store(config);
-            DocumentStoreContainer.CurrentRequestSession.SaveChanges();
+            return config;
         }
 
         private static string RandomString(int length)

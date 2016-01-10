@@ -8,24 +8,24 @@ namespace MediaCommMvc.Web.Infrastructure
 {
     public class MailSender
     {
-        private readonly MailConfiguration mailConfiguration;
+        private readonly MailConfig mailConfig;
 
-        public MailSender(MailConfiguration mailConfiguration)
+        public MailSender(MailConfig mailConfig)
         {
-            this.mailConfiguration = mailConfiguration;
+            this.mailConfig = mailConfig;
         }
 
         public void SendMail(string subject, string body, IList<string> recipients)
         {
             var smtp = new SmtpClient
             {
-                Host = this.mailConfiguration.SmtpHost,
+                Host = this.mailConfig.SmtpHost,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 Credentials =
-                    new System.Net.NetworkCredential(this.mailConfiguration.Username, this.mailConfiguration.Password)
+                    new System.Net.NetworkCredential(this.mailConfig.Username, this.mailConfig.Password)
             };
 
-            using (MailMessage message = new MailMessage(this.mailConfiguration.MailFrom, recipients.First()) { Subject = subject, Body = body })
+            using (MailMessage message = new MailMessage(this.mailConfig.MailFrom, recipients.First()) { Subject = subject, Body = body })
             {
                 message.IsBodyHtml = true;
                 recipients.ToList().ForEach(r => message.Bcc.Add(r));

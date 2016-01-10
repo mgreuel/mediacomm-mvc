@@ -1,6 +1,6 @@
 ﻿namespace MediaCommMvc.Web.Infrastructure
 {
-    public class MailConfiguration
+    public class MailConfig
     {
         public string SmtpHost { get; set; }
 

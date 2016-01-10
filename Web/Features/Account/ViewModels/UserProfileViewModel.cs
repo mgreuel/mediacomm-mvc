@@ -10,7 +10,7 @@
             this.City = user.City;
             this.DateOfBirth = user.DateOfBirth?.ToString("d");
             this.Email = user.Email;
-            this.LastVisit = $"{user.LastVisit?.ToLocalTime():g}";
+            this.LastVisit = $"{user.LastVisit.ToLocalTime():g}";
             this.MobilePhoneNumber = user.MobilePhoneNumber;
             this.PhoneNumber = user.PhoneNumber;
             this.Street = user.Street;

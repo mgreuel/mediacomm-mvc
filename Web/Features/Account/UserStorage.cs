@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using AutoMapper;
+
 using MediaCommMvc.Web.Features.Account.ViewModels;
 
 using Raven.Client;
@@ -66,6 +68,27 @@ namespace MediaCommMvc.Web.Features.Account
                     && !excludedUserNames.Contains(u.UserName))
                 .Select(u => u.Email)
                 .ToList();
+        }
+
+        public void UpdateLastForumsNotification(IList<string> usersMailAddressesToNotify, DateTime notificationTime)
+        {
+            var users = this.ravenSession.Query<User>().Where(user=> usersMailAddressesToNotify.Any(mailaddress =>  mailaddress.Equals(user.Email))).ToList();
+
+            foreach (User userFromIndex in users)
+            {
+                var user = this.ravenSession.Load<User>(userFromIndex.Id);
+
+                user.LastForumsNotification = notificationTime;
+            }
+        }
+
+        public void UpdateUser(EditUserProfileViewModel input, string name)
+        {
+            User userFromIndex = this.GetUser(name);
+
+            User user = this.ravenSession.Load<User>(userFromIndex.Id);
+
+            Mapper.Map(input, user);
         }
     }
 }

@@ -73,7 +73,7 @@ namespace MediaCommMvc.Web.Controllers
         [Route("CreateTopic")]
         public virtual ActionResult CreateTopic()
         {
-            IEnumerable<SelectListItem> allUsers = this.GetSelectListOfAllUsernames();
+            IList<SelectListItem> allUsers = this.GetSelectListOfAllUsernames();
 
             return this.View(MVC.Forum.Views.EditTopic, new EditTopicViewModel { AllUserNames = allUsers });
         }

@@ -121,9 +121,7 @@ namespace MediaCommMvc.Web.Controllers
 
         public virtual ActionResult SaveProfile(EditUserProfileViewModel input)
         {
-            User user = this.userStorage.GetUser(this.User.Identity.Name);
-            Mapper.Map(input, user);
-            this.userStorage.SaveUser(user);
+            this.userStorage.UpdateUser(input, this.User.Identity.Name);
             return this.RedirectToAction(MVC.Account.UserProfile(this.User.Identity.Name));
         }
 
