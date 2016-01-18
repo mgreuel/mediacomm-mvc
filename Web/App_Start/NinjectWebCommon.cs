@@ -1,6 +1,7 @@
 using System.Net;
 using System.Web.Hosting;
 
+using MediaCommMvc.Web.Features.Account;
 using MediaCommMvc.Web.Infrastructure;
 
 using Microsoft.Owin.Security;
@@ -72,9 +73,11 @@ namespace MediaCommMvc.Web.App_Start
         {
             kernel.Bind<IDocumentSession>().ToMethod(context => DocumentStoreContainer.CurrentRequestSession);
 
-            kernel.Bind<Config>().ToMethod(context => DocumentStoreContainer.CurrentRequestSession.Load<Config>(MvcApplication.ConfigId));
+            kernel.Bind<Config>().ToMethod(context => DocumentStoreContainer.CurrentRequestSession.Load<Config>(Config.ConfigId));
 
             kernel.Bind<IAuthenticationManager>().ToMethod(context => HttpContext.Current.GetOwinContext().Authentication);
+
+            kernel.Bind<Func<UserStorage>>().ToMethod(context => () => context.Kernel.Get<UserStorage>());
         }        
     }
 }

@@ -51,17 +51,18 @@ namespace MediaCommMvc.Web.Features.Account
 
         public IList<string> GetMailAddressesToNotifyAboutNewPost(IList<string> excludedUserNames)
         {
-    //        IEnumerable<string> mailAddresses =
-    //this.Session.CreateSQLQuery(
-    //    @"SELECT     EMailAddress
-    //                FROM         MediaCommUsers
-    //                WHERE     (ForumsNotificationInterval = 1) AND (LastForumsNotification IS NULL) OR
-    //                  (ForumsNotificationInterval = 1) AND (LastVisit IS NULL) OR
-    //                  (ForumsNotificationInterval = 1) AND (LastForumsNotification < LastVisit) OR
-    //                  (ForumsNotificationInterval = 1) AND (LastForumsNotification < DATEADD(day, - 7, GETDATE()))")
-    //    .List<string>();
+            //        IEnumerable<string> mailAddresses =
+            //this.Session.CreateSQLQuery(
+            //    @"SELECT     EMailAddress
+            //                FROM         MediaCommUsers
+            //                WHERE     (ForumsNotificationInterval = 1) AND (LastForumsNotification IS NULL) OR
+            //                  (ForumsNotificationInterval = 1) AND (LastVisit IS NULL) OR
+            //                  (ForumsNotificationInterval = 1) AND (LastForumsNotification < LastVisit) OR
+            //                  (ForumsNotificationInterval = 1) AND (LastForumsNotification < DATEADD(day, - 7, GETDATE()))")
+            //    .List<string>();
 
-           return this.ravenSession.Query<User>()
+            // in memory, maybe there is another solution, see http://stackoverflow.com/questions/34848950/multiple-nested-where-clauses-in-ravendb
+            return this.ravenSession.Query<User>().ToList()
                 .Where(u => 
                     u.NotifyOnNewForumPost 
                     && (u.LastForumsNotification < u.LastVisit || u.LastForumsNotification < DateTime.UtcNow.AddDays(-7)) 

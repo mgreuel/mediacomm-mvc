@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Web.Helpers;
@@ -13,10 +12,6 @@ namespace MediaCommMvc.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        public const string ConfigId = "Config";
-
-        public const string MailConfigId = "MailConfig";
-
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -34,10 +29,10 @@ namespace MediaCommMvc.Web
 
         private void EnsureConfig()
         {
-            Config config = DocumentStoreContainer.CurrentRequestSession.Load<Config>(ConfigId);
+            Config config = DocumentStoreContainer.CurrentRequestSession.Load<Config>(Config.ConfigId);
             config = SetupWebsiteConfig(config);
 
-            MailConfig mailConfig = DocumentStoreContainer.CurrentRequestSession.Load<MailConfig>(MailConfigId);
+            MailConfig mailConfig = DocumentStoreContainer.CurrentRequestSession.Load<MailConfig>(MailConfig.MailConfigId);
             mailConfig = SetupMailConfig(mailConfig);
 
             DocumentStoreContainer.CurrentRequestSession.Store(mailConfig);
@@ -64,7 +59,6 @@ namespace MediaCommMvc.Web
             {
                 config = new Config
                 {
-                    Id = ConfigId,
                     Sitename = defaultSitename,
                     PhotoStorageRootFolder = defaultPhotoPath,
                     RegistrationCode = RandomString(6),

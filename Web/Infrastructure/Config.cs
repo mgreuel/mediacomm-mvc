@@ -2,7 +2,9 @@
 {
     public class Config
     {
-        public string Id { get; set; }
+        public const string ConfigId = "Config";
+
+        public string Id => ConfigId;
 
         public string Sitename { get; set; }
 

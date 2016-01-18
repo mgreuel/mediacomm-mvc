@@ -58,7 +58,7 @@ namespace MediaCommMvc.Web.Features.Forum
         {
             var topic = new Topic
                               {
-                                  ExcludedUserNames = viewModel.ExcludedUserNames,
+                                  ExcludedUserNames = viewModel.ExcludedUserNames ?? new List<string>(),
                                   Title = viewModel.Title,
                                   IsWiki = viewModel.IsWiki,
                                   Posts =

@@ -6,6 +6,7 @@ using MediaCommMvc.Web.Features.Forum.Models;
 using MediaCommMvc.Web.Features.Forum.ViewModels;
 
 using Raven.Client;
+using Raven.Client.Linq;
 
 namespace MediaCommMvc.Web.Features.Forum
 {
@@ -100,7 +101,7 @@ namespace MediaCommMvc.Web.Features.Forum
                 TopicsForCurrentPage =
                     this.ravenSession.Query<Topic>()
                         .Statistics(out stats)
-                        .Where(t => !t.ExcludedUserNames.Contains(currentUsername))
+                        .Where(t => !t.ExcludedUserNames.ContainsAny(new[] { currentUsername }))
                         .OrderByDescending(topic => topic.DisplayPriority)
                         .ThenByDescending(topic => topic.LastPostTime)
                         .Skip((page - 1) * topicsPerPage)

@@ -2,6 +2,10 @@
 {
     public class MailConfig
     {
+        public const string MailConfigId = "MailConfig";
+
+        public string Id => MailConfigId; 
+
         public string SmtpHost { get; set; }
 
         public string MailFrom { get; set; }

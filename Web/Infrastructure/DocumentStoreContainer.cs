@@ -16,7 +16,7 @@ namespace MediaCommMvc.Web.Infrastructure
                                                          ((IDocumentSession)
                                                           (HttpContext.Current.Items["RavenDbSession"] = documentStore.OpenSession()));
 
-        public static IDocumentSession CreateNewSession => documentStore.OpenSession();
+        public static IDocumentSession NewSession => documentStore.OpenSession();
 
         public static IDocumentStore Initialize()
         {
@@ -29,7 +29,7 @@ namespace MediaCommMvc.Web.Infrastructure
             documentStore.Conventions.SaveEnumsAsIntegers = true;
 
             documentStore.Initialize();
-
+            
             return documentStore;
         }
     }
