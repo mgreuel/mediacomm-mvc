@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="NewPhotosBody" xml:space="preserve">
-    <value>{0} uploaded new photos in the album '{1}'</value>
+    <value>A new photo album was created: {0}</value>
   </data>
   <data name="NewPhotosTitle" xml:space="preserve">
     <value>New photos on </value>

@@ -38,5 +38,11 @@ namespace MediaCommMvc.Web.Features.Account.ViewModels
 
         [Display(Name = "City", ResourceType = typeof(Resources.Users))]
         public string City { get; set; }
+
+        [Display(Name = "NotifyOnNewForumPost", ResourceType = typeof(Resources.Users))]
+        public bool NotifyOnNewForumPost { get; set; }
+
+        [Display(Name = "NotifyOnNewPhotoAlbums", ResourceType = typeof(Resources.Users))]
+        public bool NotifyOnNewPhotoAlbum { get; set; }
     }
 }

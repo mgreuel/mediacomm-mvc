@@ -132,9 +132,6 @@
   <data name="FirstName" xml:space="preserve">
     <value>Vorname</value>
   </data>
-  <data name="ICQUin" xml:space="preserve">
-    <value>ICQ</value>
-  </data>
   <data name="LastName" xml:space="preserve">
     <value>Nachname</value>
   </data>
@@ -198,16 +195,13 @@
   <data name="PasswordChangedText" xml:space="preserve">
     <value>Das Passwort wurde geändert.</value>
   </data>
-  <data name="ForumsNotificationInterval" xml:space="preserve">
-    <value>Benachrichtigung über neue Forenbeiträge</value>
-  </data>
-  <data name="PhotosNotificationInterval" xml:space="preserve">
-    <value>Benachrichtigung über neue Fotos</value>
-  </data>
-  <data name="VideosNotificationInterval" xml:space="preserve">
-    <value>Benachrichtigung über neue Videos</value>
-  </data>
   <data name="EditMyProfile" xml:space="preserve">
     <value>Mein Profil bearbeiten</value>
+  </data>
+  <data name="NotifyOnNewForumPost" xml:space="preserve">
+    <value>Über neue Forenbeiträge informieren</value>
+  </data>
+  <data name="NotifyOnNewPhotoAlbums" xml:space="preserve">
+    <value>Über neue Photoalben informieren</value>
   </data>
 </root>

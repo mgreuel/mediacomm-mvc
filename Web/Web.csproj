@@ -304,6 +304,7 @@
     <Compile Include="Features\Photos\Models\PhotoAlbum.cs" />
     <Compile Include="Features\Photos\PhotoImporter.cs" />
     <Compile Include="Features\Photos\PhotoMetaDataStorage.cs" />
+    <Compile Include="Features\Photos\PhotoNotificationSender.cs" />
     <Compile Include="Features\Photos\PhotoOptions.cs" />
     <Compile Include="Features\Photos\PhotoStorage.cs" />
     <Compile Include="Features\Photos\ViewModels\PhotoAlbumItemViewModel.cs" />

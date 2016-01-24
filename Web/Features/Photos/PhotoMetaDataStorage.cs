@@ -6,6 +6,8 @@ using MediaCommMvc.Web.Features.Photos.Models;
 using MediaCommMvc.Web.Features.Photos.ViewModels;
 using MediaCommMvc.Web.Helpers;
 
+using Microsoft.Ajax.Utilities;
+
 using Raven.Client;
 
 namespace MediaCommMvc.Web.Features.Photos
@@ -14,9 +16,12 @@ namespace MediaCommMvc.Web.Features.Photos
     {
         private readonly IDocumentSession documentSession;
 
-        public PhotoMetaDataStorage(IDocumentSession documentSession)
+        private readonly PhotoNotificationSender photoNotificationSender;
+
+        public PhotoMetaDataStorage(IDocumentSession documentSession, PhotoNotificationSender photoNotificationSender)
         {
             this.documentSession = documentSession;
+            this.photoNotificationSender = photoNotificationSender;
         }
 
         public IEnumerable<string> GetAllAlbumTitles()
@@ -28,7 +33,15 @@ namespace MediaCommMvc.Web.Features.Photos
         {
             string albumName = PathHelper.GetValidDirectoryName(albumTitle);
 
-            var photoAlbum = this.documentSession.Load<PhotoAlbum>(PhotoAlbum.GetIdForName(albumName)) ?? new PhotoAlbum { Title = albumTitle, Name = albumName, Created = DateTime.UtcNow };
+            var photoAlbum = this.documentSession.Load<PhotoAlbum>(PhotoAlbum.GetIdForName(albumName));
+            
+            if (photoAlbum == null)
+            {
+                photoAlbum = new PhotoAlbum { Title = albumTitle, Name = albumName, Created = DateTime.UtcNow };
+
+                this.photoNotificationSender.SendNewPhotoAlbumNotifications(albumTitle);
+            }
+
             photoAlbum.Photos.Add(photo);
             this.documentSession.Store(photoAlbum);
         }

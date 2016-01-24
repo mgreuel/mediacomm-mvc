@@ -82,5 +82,10 @@ namespace MediaCommMvc.Web.Features.Account
 
             Mapper.Map(input, user);
         }
+
+        public IList<string> GetMailAddressesToNotifyAboutNewPhotoAlbum()
+        {
+            return this.ravenSession.Query<User>().Where(u => u.NotifyOnNewPhotoAlbum).Select(u => u.Email).ToList();
+        }
     }
 }

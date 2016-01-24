@@ -142,24 +142,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Forums Notification Interval.
-        /// </summary>
-        public static string ForumsNotificationInterval {
-            get {
-                return ResourceManager.GetString("ForumsNotificationInterval", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ICQ UIN.
-        /// </summary>
-        public static string ICQUin {
-            get {
-                return ResourceManager.GetString("ICQUin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Last Name.
         /// </summary>
         public static string LastName {
@@ -210,6 +192,24 @@ namespace Resources {
         public static string MyProfile {
             get {
                 return ResourceManager.GetString("MyProfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notify on new forum posts.
+        /// </summary>
+        public static string NotifyOnNewForumPost {
+            get {
+                return ResourceManager.GetString("NotifyOnNewForumPost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notify on new photo albums.
+        /// </summary>
+        public static string NotifyOnNewPhotoAlbums {
+            get {
+                return ResourceManager.GetString("NotifyOnNewPhotoAlbums", resourceCulture);
             }
         }
         
@@ -268,15 +268,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Photos Notification Interval.
-        /// </summary>
-        public static string PhotosNotificationInterval {
-            get {
-                return ResourceManager.GetString("PhotosNotificationInterval", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to &apos;s Profile.
         /// </summary>
         public static string Profile {
@@ -318,15 +309,6 @@ namespace Resources {
         public static string UserName {
             get {
                 return ResourceManager.GetString("UserName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Videos Notification Interval.
-        /// </summary>
-        public static string VideosNotificationInterval {
-            get {
-                return ResourceManager.GetString("VideosNotificationInterval", resourceCulture);
             }
         }
         

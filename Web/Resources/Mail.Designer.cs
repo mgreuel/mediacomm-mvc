@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} uploaded new photos in the album &apos;{1}&apos;.
+        ///   Looks up a localized string similar to A new photo album was created: {0}.
         /// </summary>
         public static string NewPhotosBody {
             get {

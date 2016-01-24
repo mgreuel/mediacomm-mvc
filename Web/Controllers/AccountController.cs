@@ -83,7 +83,7 @@ namespace MediaCommMvc.Web.Controllers
                 return this.View(model);
             }
 
-            var user = new User { UserName = model.Username, Email = model.Email };
+            var user = new User { UserName = model.Username, Email = model.Email, NotifyOnNewForumPost = true, NotifyOnNewPhotoAlbum = true};
             user.SetPassword(model.Password);
             this.userStorage.CreateUser(user);
 

@@ -40,11 +40,9 @@ namespace MediaCommMvc.Web.Features.Account
 
         public bool NotifyOnNewForumPost { get; set; }
 
-        public bool NotifyOnNewPhotos { get; set; }
+        public bool NotifyOnNewPhotoAlbum { get; set; }
 
         public DateTime LastForumsNotification { get; set; }
-
-        public DateTime LastPhotosNotification { get; set; }
 
         protected string HashedPassword { get; private set; }
 
