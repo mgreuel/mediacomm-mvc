@@ -7,6 +7,7 @@ using AutoMapper;
 using MediaCommMvc.Web.Features.Account.ViewModels;
 
 using Raven.Client;
+using Raven.Client.Linq;
 
 namespace MediaCommMvc.Web.Features.Account
 {
@@ -51,17 +52,7 @@ namespace MediaCommMvc.Web.Features.Account
 
         public IList<string> GetMailAddressesToNotifyAboutNewPost(IList<string> excludedUserNames)
         {
-            //        IEnumerable<string> mailAddresses =
-            //this.Session.CreateSQLQuery(
-            //    @"SELECT     EMailAddress
-            //                FROM         MediaCommUsers
-            //                WHERE     (ForumsNotificationInterval = 1) AND (LastForumsNotification IS NULL) OR
-            //                  (ForumsNotificationInterval = 1) AND (LastVisit IS NULL) OR
-            //                  (ForumsNotificationInterval = 1) AND (LastForumsNotification < LastVisit) OR
-            //                  (ForumsNotificationInterval = 1) AND (LastForumsNotification < DATEADD(day, - 7, GETDATE()))")
-            //    .List<string>();
-
-            // in memory, maybe there is another solution, see http://stackoverflow.com/questions/34848950/multiple-nested-where-clauses-in-ravendb
+            // in memory, could also be done with an index in fraven db, see http://stackoverflow.com/questions/34848950/multiple-nested-where-clauses-in-ravendb
             return this.ravenSession.Query<User>().ToList()
                 .Where(u => 
                     u.NotifyOnNewForumPost 
@@ -73,7 +64,7 @@ namespace MediaCommMvc.Web.Features.Account
 
         public void UpdateLastForumsNotification(IList<string> usersMailAddressesToNotify, DateTime notificationTime)
         {
-            var users = this.ravenSession.Query<User>().Where(user=> usersMailAddressesToNotify.Any(mailaddress =>  mailaddress.Equals(user.Email))).ToList();
+            var users = this.ravenSession.Query<User>().Where(user=> user.Email.In(usersMailAddressesToNotify)).ToList();
 
             foreach (User userFromIndex in users)
             {

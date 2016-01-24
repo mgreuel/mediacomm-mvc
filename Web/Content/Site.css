@@ -202,6 +202,11 @@ input[type="checkbox"].input-validation-error {
 
 /* Start Topic Detail View */
 
+
+.post-row {
+
+}
+
 #topic-posts {
     border-radius: 6px;
 }

@@ -8,6 +8,6 @@ namespace MediaCommMvc.Web.Features.Forum.ViewModels
 
         public int PageNumber { get; set; }
 
-        public int? PostIndex { get; set; }
+        public int PostIndex { get; set; }
     }
 }

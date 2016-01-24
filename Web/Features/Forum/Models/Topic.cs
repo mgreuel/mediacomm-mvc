@@ -8,6 +8,8 @@ namespace MediaCommMvc.Web.Features.Forum.Models
 {
     public class Topic
     {
+        private IList<string> excludedUserNames;
+
         public Topic()
         {
             this.ExcludedUserNames = new List<string>();
@@ -34,7 +36,17 @@ namespace MediaCommMvc.Web.Features.Forum.Models
 
         public TopicDisplayPriority DisplayPriority { get; set; }
 
-        public IList<string> ExcludedUserNames { get; set; }
+        public IList<string> ExcludedUserNames
+        {
+            get
+            {
+                return this.excludedUserNames;
+            }
+            set
+            {
+                this.excludedUserNames = value ?? new List<string>();
+            }
+        }
 
         public List<Post> Posts { get; set; }
 

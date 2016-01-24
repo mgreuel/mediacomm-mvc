@@ -124,7 +124,8 @@ namespace MediaCommMvc.Web.Features.Forum
             {
                 PageNumber = ((topic.PostCount - 1) / ForumOptions.PostsPerPage) + 1,
                 TopicId = topic.Id,
-                TopicTitle = topic.Title
+                TopicTitle = topic.Title,
+                PostIndex =  topic.Posts.Max(p => p.IndexInTopic)
             };
         }
 

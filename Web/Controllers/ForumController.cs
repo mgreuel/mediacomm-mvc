@@ -133,10 +133,7 @@ namespace MediaCommMvc.Web.Controllers
         {
             string url = this.Url.Action(MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = UrlEncoder.ToFriendlyUrl(topicPage.TopicTitle), page = topicPage.PageNumber }));
 
-            if (topicPage.PostIndex != null)
-            {
-                url += $"#{topicPage.PostIndex}";
-            }
+            url += $"#{topicPage.PostIndex}";
 
             return this.Redirect(url);
         }
@@ -159,7 +156,7 @@ namespace MediaCommMvc.Web.Controllers
 
             TopicPageRoutedata topicPage = this.forumStorageReader.GetRouteDataForLastTopicPage(viewModel.TopicId);
 
-            this.forumNotificationSender.SendNewReplyNotifications(viewModel.TopicId);
+            this.forumNotificationSender.SendNewReplyNotifications(viewModel.TopicId, topicPage.PostIndex);
 
             return this.RedirectToPost(topicPage);
         }

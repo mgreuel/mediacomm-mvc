@@ -19,8 +19,7 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
     {
         public void SendNewTopicNotifications(string topicId)
         {
-           
-            // without saving now, the loading of the topic in the background thread migth be faster than ne save at the end of the http request
+            // without saving now, the loading of the topic in the background thread might be faster than the save at the end of the http request
             DocumentStoreContainer.CurrentRequestSession.SaveChanges();
 
             HostingEnvironment.QueueBackgroundWorkItem(
@@ -28,31 +27,35 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
                 {
                     try
                     {
-                        IDocumentSession documentSession = DocumentStoreContainer.NewSession;
-                        Config config = documentSession.Load<Config>(Config.ConfigId);
-                        MailSender mailSender = new MailSender(documentSession.Load<MailConfig>(MailConfig.MailConfigId));
-                        UserStorage userStorage = new UserStorage(documentSession);
-
-                        Topic topic = documentSession.Load<Topic>(topicId);
-
-                        DateTime notificationTime = DateTime.UtcNow;
-                        IList<string> excludedUserNames = topic.ExcludedUserNames;
-                        excludedUserNames.Add(topic.CreatedBy);
-
-                        IList<string> usersMailAddressesToNotify = userStorage.GetMailAddressesToNotifyAboutNewPost(excludedUserNames);
-
-                        if (!usersMailAddressesToNotify.Any())
+                        using (IDocumentSession documentSession = DocumentStoreContainer.NewSession)
                         {
-                            return;
+                            Config config = documentSession.Load<Config>(Config.ConfigId);
+                            MailSender mailSender = new MailSender(documentSession.Load<MailConfig>(MailConfig.MailConfigId));
+                            UserStorage userStorage = new UserStorage(documentSession);
+
+                            Topic topic = documentSession.Load<Topic>(topicId);
+
+                            DateTime notificationTime = DateTime.UtcNow;
+                            IList<string> excludedUserNames = topic.ExcludedUserNames;
+                            excludedUserNames.Add(topic.CreatedBy);
+
+                            IList<string> usersMailAddressesToNotify = userStorage.GetMailAddressesToNotifyAboutNewPost(excludedUserNames);
+
+                            if (!usersMailAddressesToNotify.Any())
+                            {
+                                return;
+                            }
+
+                            string subject = Mail.NewTopicTitle + config.Sitename;
+                            string body = string.Format(Mail.NewTopicBody, topic.CreatedBy, topic.Title, topic.CreatedAt) + "<br /><br />" +
+                                          config.BaseUrl;
+
+                            mailSender.SendMail(subject, body, usersMailAddressesToNotify);
+
+                            userStorage.UpdateLastForumsNotification(usersMailAddressesToNotify, notificationTime);
+
+                            documentSession.SaveChanges();
                         }
-
-                        string subject = Mail.NewTopicTitle + config.Sitename;
-                        string body = string.Format(Mail.NewTopicBody, topic.CreatedBy, topic.Title, topic.CreatedAt) + "<br /><br />" +
-                                      config.BaseUrl;
-
-                        mailSender.SendMail(subject, body, usersMailAddressesToNotify);
-
-                        userStorage.UpdateLastForumsNotification(usersMailAddressesToNotify, notificationTime);
                     }
                     catch (Exception ex)
                     {
@@ -61,11 +64,53 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
                 });
         }
 
-        public void SendNewReplyNotifications(string topicId)
+        public void SendNewReplyNotifications(string topicId, int postIndex)
         {
-            throw new System.NotImplementedException();
+            // without saving now, the loading of the topic in the background thread might be faster than the save at the end of the http request
+            DocumentStoreContainer.CurrentRequestSession.SaveChanges();
+
+            HostingEnvironment.QueueBackgroundWorkItem(
+                _ =>
+                {
+                    try
+                    {
+                        using (IDocumentSession documentSession = DocumentStoreContainer.NewSession)
+                        {
+                            Config config = documentSession.Load<Config>(Config.ConfigId);
+                            MailSender mailSender = new MailSender(documentSession.Load<MailConfig>(MailConfig.MailConfigId));
+                            UserStorage userStorage = new UserStorage(documentSession);
+
+                            Topic topic = documentSession.Load<Topic>(topicId);
+                            Post newPost = topic.Posts.Single(p => p.IndexInTopic == postIndex);
+
+                            DateTime notificationTime = DateTime.UtcNow;
+                            IList<string> excludedUserNames = new List<string>(topic.ExcludedUserNames);
+                            excludedUserNames.Add(newPost.AuthorName);
+
+                            IList<string> usersMailAddressesToNotify = userStorage.GetMailAddressesToNotifyAboutNewPost(excludedUserNames);
+
+                            if (!usersMailAddressesToNotify.Any())
+                            {
+                                return;
+                            }
+
+                            string subject = Mail.NewPostTitle + config.Sitename;
+                            string body = string.Format(Mail.NewPostBody, newPost.AuthorName, topic.Title, newPost.CreatedAt) + "<br /><br />" +
+                                          config.BaseUrl;
+
+
+                            mailSender.SendMail(subject, body, usersMailAddressesToNotify);
+
+                            userStorage.UpdateLastForumsNotification(usersMailAddressesToNotify, notificationTime);
+
+                            documentSession.SaveChanges();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorLog.GetDefault(null).Log(new Error(ex));
+                    }
+                });
         }
-
-
     }
 }

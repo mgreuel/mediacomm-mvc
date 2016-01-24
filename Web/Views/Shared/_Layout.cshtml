@@ -9,6 +9,13 @@
         }
         @sitename</title>
 
+    @* Fixes the anchor position which is set off by the nav bar, see https://github.com/twbs/bootstrap/issues/1768*@
+    <script>
+    var shiftWindow = function() { scrollBy(0, -50) };
+    window.addEventListener("hashchange", shiftWindow);
+    function load() { if (window.location.hash) shiftWindow(); }
+    </script>
+
     @RenderSection("head", required: false)
 
     @Styles.Render("~/Content/css")
@@ -16,7 +23,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
+<body onload="load()">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">

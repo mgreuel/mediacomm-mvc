@@ -90,7 +90,7 @@ namespace MediaCommMvc.Web.Features.Forum
             var topic = this.ravenSession.Load<Topic>(viewModel.Id);
             topic.Title = viewModel.Title;
             topic.PostsInOrder.First().Text = viewModel.Text;
-            topic.ExcludedUserNames = viewModel.ExcludedUserNames;
+            topic.ExcludedUserNames = viewModel.ExcludedUserNames ?? new List<string>();
 
             if(viewModel.Poll.IsEmpty())
             {
