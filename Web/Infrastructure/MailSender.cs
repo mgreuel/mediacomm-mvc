@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
-using System.Web;
 
 namespace MediaCommMvc.Web.Infrastructure
 {
@@ -10,13 +8,18 @@ namespace MediaCommMvc.Web.Infrastructure
     {
         private readonly MailConfig mailConfig;
 
-        public MailSender(MailConfig mailConfig)
+        private readonly ILogger logger;
+
+        public MailSender(MailConfig mailConfig, ILogger logger)
         {
             this.mailConfig = mailConfig;
+            this.logger = logger;
         }
 
         public void SendMail(string subject, string body, IList<string> recipients)
         {
+            this.logger.Info($"Sending notification '{subject}' to '{string.Join(",", recipients)}'");
+            
             var smtp = new SmtpClient
             {
                 Host = this.mailConfig.SmtpHost,

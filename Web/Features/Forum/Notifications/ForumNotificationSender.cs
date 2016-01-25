@@ -17,6 +17,13 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
 {
     public class ForumNotificationSender
     {
+        private readonly ILogger logger;
+
+        public ForumNotificationSender(ILogger logger)
+        {
+            this.logger = logger;
+        }
+
         public void SendNewTopicNotifications(string topicId)
         {
             // without saving now, the loading of the topic in the background thread might be faster than the save at the end of the http request
@@ -30,7 +37,7 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
                         using (IDocumentSession documentSession = DocumentStoreContainer.NewSession)
                         {
                             Config config = documentSession.Load<Config>(Config.ConfigId);
-                            MailSender mailSender = new MailSender(documentSession.Load<MailConfig>(MailConfig.MailConfigId));
+                            MailSender mailSender = new MailSender(documentSession.Load<MailConfig>(MailConfig.MailConfigId), this.logger);
                             UserStorage userStorage = new UserStorage(documentSession);
 
                             Topic topic = documentSession.Load<Topic>(topicId);
@@ -50,6 +57,7 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
                             string body = string.Format(Mail.NewTopicBody, topic.CreatedBy, topic.Title, topic.CreatedAt) + "<br /><br />" +
                                           config.BaseUrl;
 
+
                             mailSender.SendMail(subject, body, usersMailAddressesToNotify);
 
                             userStorage.UpdateLastForumsNotification(usersMailAddressesToNotify, notificationTime);
@@ -60,6 +68,7 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
                     catch (Exception ex)
                     {
                         ErrorLog.GetDefault(null).Log(new Error(ex));
+                        this.logger.Error("SendNewTopicNotifications failed", ex);
                     }
                 });
         }
@@ -77,7 +86,7 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
                         using (IDocumentSession documentSession = DocumentStoreContainer.NewSession)
                         {
                             Config config = documentSession.Load<Config>(Config.ConfigId);
-                            MailSender mailSender = new MailSender(documentSession.Load<MailConfig>(MailConfig.MailConfigId));
+                            MailSender mailSender = new MailSender(documentSession.Load<MailConfig>(MailConfig.MailConfigId), this.logger);
                             UserStorage userStorage = new UserStorage(documentSession);
 
                             Topic topic = documentSession.Load<Topic>(topicId);
@@ -109,6 +118,7 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
                     catch (Exception ex)
                     {
                         ErrorLog.GetDefault(null).Log(new Error(ex));
+                        this.logger.Error("SendNewReplyNotifications failed", ex);
                     }
                 });
         }

@@ -78,6 +78,9 @@ namespace MediaCommMvc.Web.App_Start
             kernel.Bind<IAuthenticationManager>().ToMethod(context => HttpContext.Current.GetOwinContext().Authentication);
 
             kernel.Bind<Func<UserStorage>>().ToMethod(context => () => context.Kernel.Get<UserStorage>());
+
+            // the nlog instance is static anyway
+            kernel.Bind<ILogger>().To<NLogLogger>().InSingletonScope();
         }        
     }
 }

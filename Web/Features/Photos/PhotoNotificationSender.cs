@@ -16,6 +16,13 @@ namespace MediaCommMvc.Web.Features.Photos
 {
     public class PhotoNotificationSender
     {
+        private readonly ILogger logger;
+
+        public PhotoNotificationSender(ILogger logger)
+        {
+            this.logger = logger;
+        }
+
         public void SendNewPhotoAlbumNotifications(string albumTitle)
         {
             HostingEnvironment.QueueBackgroundWorkItem(
@@ -26,7 +33,7 @@ namespace MediaCommMvc.Web.Features.Photos
                         using (IDocumentSession documentSession = DocumentStoreContainer.NewSession)
                         {
                             Config config = documentSession.Load<Config>(Config.ConfigId);
-                            MailSender mailSender = new MailSender(documentSession.Load<MailConfig>(MailConfig.MailConfigId));
+                            MailSender mailSender = new MailSender(documentSession.Load<MailConfig>(MailConfig.MailConfigId), this.logger);
                             UserStorage userStorage = new UserStorage(documentSession);
 
                             IList<string> usersMailAddressesToNotify = userStorage.GetMailAddressesToNotifyAboutNewPhotoAlbum();
@@ -46,6 +53,7 @@ namespace MediaCommMvc.Web.Features.Photos
                     catch (Exception ex)
                     {
                         ErrorLog.GetDefault(null).Log(new Error(ex));
+                        this.logger.Error("SendNewPhotoAlbumNotifications failed", ex);
                     }
                 });
         }
