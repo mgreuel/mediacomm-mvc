@@ -69,7 +69,7 @@ namespace MediaCommMvc.Web.Features.Photos
 
         public string GetAlbumCoverFilename(string albumName)
         {
-            return (this.documentSession.Query<PhotoAlbum>().Single(a => a.Name == albumName).Photos.First(p => p.IsLandscape) ?? this.documentSession.Query<PhotoAlbum>().Single(a => a.Name == albumName).Photos.First()).Filename;
+            return (this.documentSession.Query<PhotoAlbum>().Single(a => a.Name == albumName).Photos.FirstOrDefault(p => p.IsLandscape) ?? this.documentSession.Query<PhotoAlbum>().Single(a => a.Name == albumName).Photos.First()).Filename;
         }
 
         public PhotoAlbumViewModel GetAllbum(string albumName)
