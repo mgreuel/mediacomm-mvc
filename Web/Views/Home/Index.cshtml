@@ -41,7 +41,7 @@
                         </td>
                         <td class="topic-last-post hidden-xs">
                             <div class="text-nowrap"><i class="glyphicon glyphicon-user"></i> @topic.LastPostAuthor</div>
-                            <div>@topic.LastPostTime</div>
+                            <div class="text-nowrap">@topic.LastPostTime</div>
                         </td>
                         <td class="first-new-post-icon">
                             <a href="@Url.Action(MVC.Forum.FirstNewPostInTopic().AddRouteValue("topicId", topic.Id))">

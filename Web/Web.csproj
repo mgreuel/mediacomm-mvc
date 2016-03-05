@@ -445,6 +445,7 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\PublishProfiles\am.pubxml" />
     <None Include="Properties\PublishProfiles\amBeta.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\canvas-to-blob.js" />
