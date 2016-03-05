@@ -277,8 +277,8 @@ input[type="checkbox"].input-validation-error {
 }
 
 .editor-large {
-    min-height: 200px;
-    max-height: 350px;
+    min-height: 300px;
+    max-height: 500px;
 }
 
 
