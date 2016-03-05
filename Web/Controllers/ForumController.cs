@@ -95,7 +95,7 @@ namespace MediaCommMvc.Web.Controllers
                 this.forumNotificationSender.SendNewTopicNotifications(topicId);
             }
 
-            return this.RedirectToAction(MVC.Forum.Topic().AddRouteValues(new { id = topicId, name = viewModel.Title }));
+            return this.RedirectToAction(MVC.Forum.Topic().AddRouteValues(new { id = topicId, name = UrlEncoder.ToFriendlyUrl(viewModel.Title) }));
         }
 
         [Route("EditPost/{topicId}/{postIndex}")]
