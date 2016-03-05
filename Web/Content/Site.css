@@ -202,9 +202,11 @@ input[type="checkbox"].input-validation-error {
 
 /* Start Topic Detail View */
 
+.topic-header {
+    min-height: 75px;
+}
 
 .post-row {
-
 }
 
 #topic-posts {
@@ -224,7 +226,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 .post-header {
-    margin-bottom: 6px;
+    margin-bottom: 12px;
 }
 
 .post-actions {
@@ -266,9 +268,17 @@ input[type="checkbox"].input-validation-error {
 }
 
 .editor {
+    overflow: auto;
+}
+
+.editor-small {
     min-height: 100px;
     max-height: 250px;
-    overflow: auto;
+}
+
+.editor-large {
+    min-height: 200px;
+    max-height: 350px;
 }
 
 

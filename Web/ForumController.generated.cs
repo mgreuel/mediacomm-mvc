@@ -289,11 +289,11 @@ namespace MediaCommMvc.Web.Controllers
         partial void IndexOverride(T4MVC_System_Web_Mvc_ActionResult callInfo, int page);
 
         [NonAction]
-        public override System.Web.Mvc.ActionResult Index(int page)
+        public override System.Web.Mvc.ActionResult Index(int forumPage)
         {
             var callInfo = new T4MVC_System_Web_Mvc_ActionResult(Area, Name, ActionNames.Index);
-            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", page);
-            IndexOverride(callInfo, page);
+            ModelUnbinderHelpers.AddRouteValues(callInfo.RouteValueDictionary, "page", forumPage);
+            IndexOverride(callInfo, forumPage);
             return callInfo;
         }
 

@@ -24,7 +24,7 @@
             <div class="form-group">
                 @Html.LabelFor(m => m.Text)
 
-                @Html.TextAreaFor(m => m.Text, new { contenteditable = "true", @class = "editor form-control full-width" })
+                @Html.TextAreaFor(m => m.Text, new { contenteditable = "true", @class = "editor editor-large form-control full-width" })
 
                 @Html.ValidationMessageFor(m => m.Text)
 

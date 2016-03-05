@@ -55,15 +55,15 @@ namespace MediaCommMvc.Web.Controllers
             return this.RedirectToPost(topicPage);
         }
 
-        [Route("{page=1}")]
-        public virtual ActionResult Index(int page)
+        [Route("{forumPage=1}")]
+        public virtual ActionResult Index(int forumPage)
         {
             this.SaveUserVisit();
-            ForumOverview forumOverview = this.forumStorageReader.GetForumOverview(page, ForumOptions.TopicsPerPage, this.User.Identity.Name);
+            ForumOverview forumOverview = this.forumStorageReader.GetForumOverview(forumPage, ForumOptions.TopicsPerPage, this.User.Identity.Name);
 
             StaticPagedList<TopicOverviewViewModel> topics = new StaticPagedList<TopicOverviewViewModel>(
                 forumOverview.TopicsForCurrentPage,
-                page,
+                forumPage,
                 ForumOptions.TopicsPerPage,
                 forumOverview.TotalNumberOfTopics);
 
@@ -131,7 +131,7 @@ namespace MediaCommMvc.Web.Controllers
 
         private ActionResult RedirectToPost(TopicPageRoutedata topicPage)
         {
-            string url = this.Url.Action(MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = UrlEncoder.ToFriendlyUrl(topicPage.TopicTitle), page = topicPage.PageNumber }));
+            string url = this.Url.Action(MVC.Forum.Topic().AddRouteValues(new { id = topicPage.TopicId, name = UrlEncoder.ToFriendlyUrl(topicPage.TopicTitle), topicPage = topicPage.PageNumber }));
 
             url += $"#{topicPage.PostIndex}";
 
@@ -161,10 +161,10 @@ namespace MediaCommMvc.Web.Controllers
             return this.RedirectToPost(topicPage);
         }
 
-        [Route("{id}/{name}/{page=1}")]
-        public virtual ActionResult Topic(string id, int page)
+        [Route("{id}/{name}/{topicPage=1}")]
+        public virtual ActionResult Topic(string id, int topicPage)
         {
-            TopicDetailsViewModel topicDetailsViewModel = this.forumStorageReader.GetTopicDetailsViewModel(id, page, this.User.Identity.Name);
+            TopicDetailsViewModel topicDetailsViewModel = this.forumStorageReader.GetTopicDetailsViewModel(id, topicPage, this.User.Identity.Name);
 
             return this.View(topicDetailsViewModel);
         }

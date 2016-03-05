@@ -68,7 +68,7 @@
                     </div>
 
                     <div class="topic-additional-info">
-                        @Url.MiniPager(topic, pageNumber => this.Url.Action(MVC.Forum.Topic().AddRouteValues(new { id = topic.Id, page = pageNumber, name = UrlEncoder.ToFriendlyUrl(topic.Title) })))
+                        @Url.MiniPager(topic, pageNumber => this.Url.Action(MVC.Forum.Topic().AddRouteValues(new { id = topic.Id, topicPage = pageNumber, name = UrlEncoder.ToFriendlyUrl(topic.Title) })))
 
                         @if (topic.ExcludedUsernames != null && topic.ExcludedUsernames.Any())
                         {
@@ -100,7 +100,7 @@
 <div class="clearfix">
 
     <div class="pull-right">
-        @Html.PagedListPager(this.Model.Topics, pageNumber => this.Url.Action(MVC.Forum.Index().AddRouteValue("page", pageNumber)), forumPagerRenderOptions)
+        @Html.PagedListPager(this.Model.Topics, pageNumber => this.Url.Action(MVC.Forum.Index().AddRouteValue("forumPage", pageNumber)), forumPagerRenderOptions)
     </div>
 
 </div>

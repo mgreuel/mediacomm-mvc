@@ -29,7 +29,7 @@
     };
 }
 
-<div class="clearfix">
+<div class="clearfix topic-header">
     <div class="pull-left">
         <h3 id="topic-title">@Model.Title</h3>
         @if (Model.ExcludedUsernames != null && Model.ExcludedUsernames.Any())
@@ -38,7 +38,7 @@
         }
     </div>
     <div class="pull-right">
-        @Html.PagedListPager(this.Model.PostsForCurrentpage, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("page", pageNumber)), pagerRenderOptions)
+        @Html.PagedListPager(this.Model.PostsForCurrentpage, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("topicPage", pageNumber)), pagerRenderOptions)
     </div>
 </div>
 
@@ -59,7 +59,7 @@
                 <table class="table table-condensed table-bordered">
                     <thead>
                         <tr>
-                            <th>
+                            <th class="text-primary">
                                 @Resources.Users.UserName
                             </th>
 
@@ -154,7 +154,7 @@
                         <div class="post">
                             <div class="post-header clearfix">
                                 <div class="pull-left">
-                                    <strong>  @post.AuthorName</strong>
+                                    <strong class="text-primary">  @post.AuthorName</strong>
                                 </div>
                                 <div class="pull-right">
                                     @post.CreatedAt
@@ -206,7 +206,7 @@
 </div>
 <div class="clearfix">
     <div class="pull-right">
-        @Html.PagedListPager(Model.PostsForCurrentpage, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("page", pageNumber)), pagerRenderOptions)
+        @Html.PagedListPager(Model.PostsForCurrentpage, pageNumber => Url.Action(MVC.Forum.Topic().AddRouteValue("topicPage", pageNumber)), pagerRenderOptions)
     </div>
 </div>
 
