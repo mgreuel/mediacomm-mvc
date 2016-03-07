@@ -48,7 +48,7 @@ namespace MediaCommMvc.Web.Features.Photos
 
         public PhotoIndexViewModel GetAllbumIndex()
         {
-            IList<PhotoAlbumItemViewModel> albums = this.documentSession.Query<PhotoAlbum>().Select(a => new PhotoAlbumItemViewModel { PhotoCount = a.Photos.Count, Title = a.Title, Date = a.Created, Name = a.Name }).ToList();
+            IList<PhotoAlbumItemViewModel> albums = this.documentSession.Query<PhotoAlbum>().Select(a => new PhotoAlbumItemViewModel { PhotoCount = a.Photos.Count, Title = a.Title, Date = a.Created, Name = a.Name }).Take(1024).ToList();
 
             return new PhotoIndexViewModel { AlbumsByYear = albums.GroupBy(a => a.Date.Year) };
         }
