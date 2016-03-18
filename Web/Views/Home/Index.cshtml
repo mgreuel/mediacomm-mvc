@@ -26,12 +26,14 @@
                             <i title="@Icons.TopicIconTitle(topic)" class="@Icons.TopicIconClass(topic)"></i>
                         </td>
                         <td>
-                            <div class="topic-title @topic.TopicTitleCssClass">
+                            <div>
                                 @Html.ActionLink(@topic.Title, MVC.Forum.Topic().AddRouteValues(new
-                                {
-                                    id = topic.Id,
-                                    name = UrlEncoder.ToFriendlyUrl(topic.Title)
-                                }))
+                                       {
+                                           id = topic.Id,
+                                           name = UrlEncoder.ToFriendlyUrl(topic.Title)
+                                       }),
+                                    new { @class = "topic-title " + topic.TopicTitleCssClass }
+                                    )
 
                                 @if (topic.HasPoll)
                                 {

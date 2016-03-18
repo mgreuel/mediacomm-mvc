@@ -9,16 +9,16 @@ namespace MediaCommMvc.Web.Helpers
         {
             if (topic.DisplayPriority == TopicDisplayPriority.Sticky)
             {
-                return "glyphicon glyphicon-exclamation-sign";
+                return topic.ReadByCurrentUser ? "glyphicon glyphicon-exclamation-sign text-muted" : "glyphicon glyphicon-exclamation-sign text-primary";
             }
 
             if (!topic.ReadByCurrentUser)
             {
-                return "glyphicon glyphicon-eye-open";
+                return "glyphicon glyphicon-eye-open text-primary";
             }
 
 
-            return "glyphicon glyphicon-eye-close";
+            return "glyphicon glyphicon-eye-close text-muted";
         }
 
         public static string TopicIconTitle(TopicOverviewViewModel topic)

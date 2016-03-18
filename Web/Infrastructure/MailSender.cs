@@ -33,6 +33,7 @@ namespace MediaCommMvc.Web.Infrastructure
                 message.IsBodyHtml = true;
                 recipients.ToList().ForEach(r => message.Bcc.Add(r));
                 smtp.Send(message);
+                message.IsBodyHtml = true;
             }
         }
     }

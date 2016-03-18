@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 using MediaCommMvc.Web.Features.Account;
@@ -73,7 +74,7 @@ namespace MediaCommMvc.Web.Controllers
         [Route("CreateTopic")]
         public virtual ActionResult CreateTopic()
         {
-            IList<SelectListItem> allUsers = this.GetSelectListOfAllUsernames();
+            IList<SelectListItem> allUsers = this.GetSelectListOfAllUsernamesExceptCurrent();
 
             return this.View(MVC.Forum.Views.EditTopic, new EditTopicViewModel { AllUserNames = allUsers });
         }
@@ -84,7 +85,7 @@ namespace MediaCommMvc.Web.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                viewModel.AllUserNames = this.GetSelectListOfAllUsernames();
+                viewModel.AllUserNames = this.GetSelectListOfAllUsernamesExceptCurrent();
                 return this.View(MVC.Forum.Views.EditTopic, viewModel);
             }
 
@@ -109,7 +110,7 @@ namespace MediaCommMvc.Web.Controllers
         public virtual ActionResult EditTopic(string id)
         {
             EditTopicViewModel viewModel = this.forumStorageReader.GetEditTopicViewModel(id, this.User.Identity.Name);
-            viewModel.AllUserNames = this.GetSelectListOfAllUsernames();
+            viewModel.AllUserNames = this.GetSelectListOfAllUsernamesExceptCurrent();
             return this.View(viewModel);
         }
 

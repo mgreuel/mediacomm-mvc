@@ -45,7 +45,7 @@ namespace MediaCommMvc.Web.Features.Photos
 
                             string subject = Mail.NewPhotosTitle + config.Sitename;
                             string body = string.Format(Mail.NewPhotosBody, albumTitle) + "<br /><br />" +
-                                          config.BaseUrl;
+                                          $"<a href='{config.BaseUrl}'>{config.BaseUrl}</a>";
 
                             mailSender.SendMail(subject, body, usersMailAddressesToNotify);
                         }

@@ -56,9 +56,9 @@ namespace MediaCommMvc.Web.Controllers
             }
         }
 
-        protected List<SelectListItem> GetSelectListOfAllUsernames()
+        protected List<SelectListItem> GetSelectListOfAllUsernamesExceptCurrent()
         {
-            return this.userStorage.GetAllUsernames().Select(u => new SelectListItem { Text = u, Value = u }).ToList();
+            return this.userStorage.GetAllUsernames().Where(u => !u.Equals(this.User.Identity.Name, StringComparison.OrdinalIgnoreCase)).Select(u => new SelectListItem { Text = u, Value = u }).ToList();
         }
 
         protected void SaveUserVisit()

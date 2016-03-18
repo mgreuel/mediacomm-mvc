@@ -37,6 +37,10 @@ namespace MediaCommMvc.Web.Features.Forum.ViewModels
             {
                 this.TopicTitleCssClass = "unread";
             }
+            else
+            {
+                this.TopicTitleCssClass = "text-muted";
+            }
         }
 
         public TopicOverviewViewModel()

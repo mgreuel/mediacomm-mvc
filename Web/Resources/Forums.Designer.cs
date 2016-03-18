@@ -277,7 +277,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wiki (anywone can edit).
+        ///   Looks up a localized string similar to Wiki (anyone can edit).
         /// </summary>
         public static string MarkAsWiki {
             get {

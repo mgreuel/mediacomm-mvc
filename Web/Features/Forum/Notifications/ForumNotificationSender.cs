@@ -55,7 +55,7 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
 
                             string subject = Mail.NewTopicTitle + config.Sitename;
                             string body = string.Format(Mail.NewTopicBody, topic.CreatedBy, topic.Title, topic.CreatedAt) + "<br /><br />" +
-                                          config.BaseUrl;
+                                          $"<a href='{config.BaseUrl}'>{config.BaseUrl}</a>";
 
 
                             mailSender.SendMail(subject, body, usersMailAddressesToNotify);
@@ -105,7 +105,7 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
 
                             string subject = Mail.NewPostTitle + config.Sitename;
                             string body = string.Format(Mail.NewPostBody, newPost.AuthorName, topic.Title, newPost.CreatedAt) + "<br /><br />" +
-                                          config.BaseUrl;
+                                          $"<a href='{config.BaseUrl}'>{config.BaseUrl}</a>";
 
 
                             mailSender.SendMail(subject, body, usersMailAddressesToNotify);
