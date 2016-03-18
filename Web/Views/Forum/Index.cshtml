@@ -54,18 +54,22 @@
                     <i title="@Icons.TopicIconTitle(topic)" class="@Icons.TopicIconClass(topic)"></i>
                 </td>
                 <td>
-                    <div class="topic-title @topic.TopicTitleCssClass">
+                    <div>
                         @Html.ActionLink(@topic.Title, MVC.Forum.Topic().AddRouteValues(new
-                                                                                            {
-                                                                                                id = topic.Id,
-                                                                                                name = UrlEncoder.ToFriendlyUrl(topic.Title)
-                                                                                            }))
+                           {
+                               id = topic.Id,
+                               name = UrlEncoder.ToFriendlyUrl(topic.Title)
+                           }),
+                                    new { @class = "topic-title " + topic.TopicTitleCssClass }
+                                    )
 
                         @if (topic.HasPoll)
                         {
                             <span title="@Resources.Forums.Poll" class="glyphicon glyphicon-check"></span>
                         }
                     </div>
+
+
 
                     <div class="topic-additional-info">
                         @Url.MiniPager(topic, pageNumber => this.Url.Action(MVC.Forum.Topic().AddRouteValues(new { id = topic.Id, topicPage = pageNumber, name = UrlEncoder.ToFriendlyUrl(topic.Title) })))
