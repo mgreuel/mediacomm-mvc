@@ -16,7 +16,7 @@
     @foreach (PhotoItemViewModel photo in Model.Photos)
     {
         <div class="photo-thumbnail-container">
-            <a class="image-element" href="@Url.Action(MVC.Photos.ViewPhoto().AddRouteValues(new { albumname = Model.Name, filename = photo.Filename, size = "large" }))"
+            <a class="image-element" href="@Url.Action(MVC.Photos.ViewPhoto().AddRouteValues(new { albumname = Model.Name, filename = photo.Filename, size = "full" }))"
                data-large-src="@Url.Action(MVC.Photos.ViewPhoto().AddRouteValues(new { albumname = Model.Name, filename = photo.Filename, size = "large" }))"
                data-large-width="@photo.LargeWidth" data-large-height="@photo.LargeHeight"
                data-medium-src="@Url.Action(MVC.Photos.ViewPhoto().AddRouteValues(new { albumname = Model.Name, filename = photo.Filename, size = "medium" }))"
@@ -65,7 +65,7 @@
 
                 @*<button class="pswp__button pswp__button--download" title="Absolut">A!</button>*@
 
-                @*<button class="pswp__button pswp__button--share" title="!Share!"></button>*@
+                <button class="pswp__button pswp__button--share" title="Download"></button>
 
                 <button class="pswp__button pswp__button--fs" title="@Resources.Photos.ToggleFullscreen"></button>
 
@@ -107,6 +107,8 @@
 
     <script>
 
+        var gallery;
+
         var photoswipeParseHash = function() {
             var hash = window.location.hash.substring(1),
                 params = {};
@@ -142,6 +144,7 @@
 
                 var item = {
                     //title : "something",
+                    fullImageSource : $image.prop("href"),
                     msrc : $image.find("img").data("original"),
                     smallImage: {
                         src: $image.data("small-src"),
@@ -183,15 +186,26 @@
                         rect = thumbnail.getBoundingClientRect();
 
                     return { x: rect.left, y: rect.top + pageYScroll, w: rect.width };
+                },
+                shareButtons: [
+                    //{ id: 'facebook', label: 'Share on Facebook', url: 'https://www.facebook.com/sharer/sharer.php?u={{url}}' },
+                    //{ id: 'twitter', label: 'Tweet', url: 'https://twitter.com/intent/tweet?text={{text}}&url={{url}}' },
+                    //{ id: 'pinterest', label: 'Pin it', url: 'http://www.pinterest.com/pin/create/button/?url={{url}}&media={{image_url}}&description={{text}}' },
+                    { id: 'download', label: 'Download image', url: '{{raw_image_url}}', download: true }
+                ],
+                getImageURLForShare: function (shareButtonData) {
+                    // `pswp` is the PhotoSwipe instance object,
+                    // you should define it by yourself
+                    return gallery.currItem.fullImageSource;
                 }
                 //,
 
                 //addCaptionHTMLFn: function (item, captionEl, isFake) {
-                    //if (!item.title) {
-                    //    captionEl.children[0].innerText = '';
-                    //    return false;
-                    //}
-                    @*captionEl.children[0].innerHTML = '<a class="approval-button btn btn-primary btn-xs" data-topic-id="@Model.Id" data-post-index="@post.IndexInTopic" data-url="@Url.Action(MVC.Forum.AddApproval())">@Resources.Approval.IApprove</a>'; "test 123";// item.title + '<br/><small>Photo: ' + item.author + '</small>';
+                //if (!item.title) {
+                //    captionEl.children[0].innerText = '';
+                //    return false;
+                //}
+                @*captionEl.children[0].innerHTML = '<a class="approval-button btn btn-primary btn-xs" data-topic-id="@Model.Id" data-post-index="@post.IndexInTopic" data-url="@Url.Action(MVC.Forum.AddApproval())">@Resources.Approval.IApprove</a>'; "test 123";// item.title + '<br/><small>Photo: ' + item.author + '</small>';
                     return true;
                 }*@
             };
@@ -205,8 +219,9 @@
                 options.showAnimationDuration = 0;
             }
 
+
             // Pass data to PhotoSwipe and initialize it
-            var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+            gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
 
             // create variable that will store real size of viewport
             var realViewportWidth,

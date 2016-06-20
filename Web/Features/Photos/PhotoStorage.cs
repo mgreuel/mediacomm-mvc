@@ -43,6 +43,11 @@ namespace MediaCommMvc.Web.Features.Photos
 
         public string GetFileNameForImageSize(string originalFileName, string size)
         {
+            if (string.Equals(size, "full", StringComparison.OrdinalIgnoreCase))
+            {
+                return originalFileName;
+            }
+
             string extension = originalFileName.Substring(originalFileName.LastIndexOf("."));
             return $"{originalFileName.Replace(extension, String.Empty)}_{size}{extension}";
         }

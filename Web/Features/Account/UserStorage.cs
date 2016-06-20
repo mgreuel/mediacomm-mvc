@@ -52,7 +52,7 @@ namespace MediaCommMvc.Web.Features.Account
 
         public IList<string> GetMailAddressesToNotifyAboutNewPost(IList<string> excludedUserNames)
         {
-            // in memory, could also be done with an index in fraven db, see http://stackoverflow.com/questions/34848950/multiple-nested-where-clauses-in-ravendb
+            // in memory, could also be done with an index in raven db, see http://stackoverflow.com/questions/34848950/multiple-nested-where-clauses-in-ravendb
             return this.ravenSession.Query<User>().ToList()
                 .Where(u => 
                     u.NotifyOnNewForumPost 

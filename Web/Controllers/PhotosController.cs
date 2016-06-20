@@ -62,6 +62,9 @@ namespace MediaCommMvc.Web.Controllers
         [OutputCache(Location = OutputCacheLocation.Client, Duration = 60 * 60 * 24)]
         public virtual ActionResult ViewPhoto(string albumName, string filename, string size)
         {
+            string completeFileName = this.photoStorage.GetFileNameForImageSize(filename, size);
+            this.Response.AddHeader("Content-Disposition", $"attachment; filename={completeFileName}");
+
             return this.File(this.photoStorage.GetStoragePathForPhoto(albumName, filename, size), "image/jpeg");
         }
 

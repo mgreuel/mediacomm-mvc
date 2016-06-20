@@ -131,5 +131,14 @@ namespace Resources {
                 return ResourceManager.GetString("NewVideoTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notice: You will not get another notification until you visit the site.
+        /// </summary>
+        public static string NoNewNotification {
+            get {
+                return ResourceManager.GetString("NoNewNotification", resourceCulture);
+            }
+        }
     }
 }

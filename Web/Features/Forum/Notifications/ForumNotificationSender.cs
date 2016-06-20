@@ -54,8 +54,13 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
                             }
 
                             string subject = Mail.NewTopicTitle + config.Sitename;
-                            string body = string.Format(Mail.NewTopicBody, topic.CreatedBy, topic.Title, topic.CreatedAt) + "<br /><br />" +
-                                          $"<a href='{config.BaseUrl}'>{config.BaseUrl}</a>";
+                            string body = string.Format(Mail.NewTopicBody, topic.CreatedBy, topic.Title, topic.CreatedAt.ToLocalTime()) 
+                                          + "<br /><br />" 
+                                          + $"<small>{topic.Posts.First().Text}</small>"
+                                          + "<br /><br />"
+                                          + $"<a href='{config.BaseUrl}'>{config.BaseUrl}</a>"
+                                          + "<br /><br />"
+                                          + Mail.NoNewNotification;
 
 
                             mailSender.SendMail(subject, body, usersMailAddressesToNotify);
@@ -104,9 +109,13 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
                             }
 
                             string subject = Mail.NewPostTitle + config.Sitename;
-                            string body = string.Format(Mail.NewPostBody, newPost.AuthorName, topic.Title, newPost.CreatedAt) + "<br /><br />" +
-                                          $"<a href='{config.BaseUrl}'>{config.BaseUrl}</a>";
-
+                            string body = string.Format(Mail.NewPostBody, newPost.AuthorName, topic.Title, newPost.CreatedAt) 
+                                            + "<br /><br />"
+                                            + $"<small>{newPost.Text}</small>"
+                                            + "<br /><br />"
+                                            + $"<a href='{config.BaseUrl}'>{config.BaseUrl}</a>"
+                                            + "<br /><br />"
+                                            + Mail.NoNewNotification;
 
                             mailSender.SendMail(subject, body, usersMailAddressesToNotify);
 

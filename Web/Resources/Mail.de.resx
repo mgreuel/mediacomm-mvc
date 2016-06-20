@@ -141,4 +141,7 @@
   <data name="NewVideoTitle" xml:space="preserve">
     <value>New video on </value>
   </data>
+  <data name="String1" xml:space="preserve">
+    <value>Hinweis: Bis zu deinem nächsten Besuch bekommst du keine weitere Benachrichtigung</value>
+  </data>
 </root>

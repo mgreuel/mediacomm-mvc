@@ -40,6 +40,11 @@ namespace MediaCommMvc.Web.Features.Forum
 
         public string SaveTopic(EditTopicViewModel viewModel, string currentUsername)
         {
+            if (viewModel.ExcludedUserNames != null && viewModel.ExcludedUserNames.Contains(currentUsername))
+            {
+                viewModel.ExcludedUserNames.Remove(currentUsername);
+            }
+
             Topic topic;
 
             if (viewModel.Id != null)
