@@ -174,7 +174,7 @@
 
                                                     @if (post.IsEditable(User))
                                                     {
-                                                        if (firstPost)
+                                                        if (Model.IsFirstPage && firstPost)
                                                         {
                                                             <div class="pull-right">
                                                                 @Html.ActionLink(Resources.Forums.Edit, MVC.Forum.EditTopic().AddRouteValue("id", Model.Id), new { @class = "btn btn-xs btn-default" })

@@ -13,6 +13,8 @@ namespace MediaCommMvc.Web.Features.Forum.ViewModels
 
         public int PageNumber { get; set; }
 
+        public bool IsFirstPage => this.PageNumber == 1;
+
         public bool IsLastPage => this.PageNumber >= this.PageCount;
 
         public string Title { get; set; }

@@ -43,7 +43,9 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
                             Topic topic = documentSession.Load<Topic>(topicId);
 
                             DateTime notificationTime = DateTime.UtcNow;
-                            IList<string> excludedUserNames = topic.ExcludedUserNames;
+
+                            // without copying the list, the author will be added permanently to the exlcuded users and won't be able to see the post
+                            IList<string> excludedUserNames = new List<string>(topic.ExcludedUserNames);
                             excludedUserNames.Add(topic.CreatedBy);
 
                             IList<string> usersMailAddressesToNotify = userStorage.GetMailAddressesToNotifyAboutNewPost(excludedUserNames);
@@ -98,6 +100,8 @@ namespace MediaCommMvc.Web.Features.Forum.Notifications
                             Post newPost = topic.Posts.Single(p => p.IndexInTopic == postIndex);
 
                             DateTime notificationTime = DateTime.UtcNow;
+
+                            // without copying the list, the author will be added permanently to the exlcuded users and won't be able to see the post
                             IList<string> excludedUserNames = new List<string>(topic.ExcludedUserNames);
                             excludedUserNames.Add(newPost.AuthorName);
 
