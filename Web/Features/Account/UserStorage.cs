@@ -56,7 +56,7 @@ namespace MediaCommMvc.Web.Features.Account
             return this.ravenSession.Query<User>().ToList()
                 .Where(u => 
                     u.NotifyOnNewForumPost 
-                    && (u.LastForumsNotification < u.LastVisit || u.LastForumsNotification < DateTime.UtcNow.AddDays(-7)) 
+                    && (u.LastForumsNotification < u.LastVisit || u.LastForumsNotification < DateTime.UtcNow.AddDays(-1)) 
                     && !excludedUserNames.Contains(u.UserName))
                 .Select(u => u.Email)
                 .ToList();
